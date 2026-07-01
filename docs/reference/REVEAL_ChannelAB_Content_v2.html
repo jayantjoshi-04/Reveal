@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>REVEAL · Channel A &amp; B Content · dventurelabs</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap');
+  :root{--orange:#EC6540;--black:#111111;--ink:#1A1A18;--cream:#FAF7F2;--mid:#777770;--rule:#D8D5D0;--light:#F4F4F0;--blue:#1565C0;--green:#2E7D32;--mag:#C0398B;}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--cream);color:var(--black);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.7;}
+  .topbar{background:var(--black);padding:12px 44px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;}
+  .tb-brand{font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#fff;}.tb-brand em{color:var(--orange);font-style:normal;}
+  .tb-doc{font-size:11px;color:#666;letter-spacing:1px;text-transform:uppercase;}
+  .btn-print{padding:7px 16px;background:var(--orange);border:none;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;cursor:pointer;}
+  .cover{background:var(--ink);padding:56px 44px 44px;position:relative;overflow:hidden;}
+  .cover::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange);}
+  .cover .ey{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:22px;}
+  .cover h1{font-family:'DM Serif Display',serif;font-size:clamp(30px,5vw,52px);font-weight:400;color:#fff;line-height:1.04;max-width:18ch;}
+  .cover h1 em{color:var(--orange);font-style:italic;}
+  .cover .sub{font-size:15px;color:#9a9a92;margin-top:14px;max-width:68ch;}
+  .cover .meta{display:flex;gap:34px;flex-wrap:wrap;margin-top:28px;padding-top:22px;border-top:1px solid #2a2a28;}
+  .cover .meta .ml{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#555;margin-bottom:4px;}
+  .cover .meta .mv{font-size:13px;color:#fff;}
+  .doc{max-width:960px;margin:0 auto;padding:0 44px 90px;}
+  .part{padding:48px 0 6px;border-top:2px solid var(--ink);margin-top:30px;}
+  .part:first-of-type{border-top:none;margin-top:0;}
+  .part .pn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;}
+  .part h2{font-family:'DM Serif Display',serif;font-size:clamp(24px,3.4vw,36px);font-weight:400;margin-top:6px;}
+  .part .sf{font-size:14px;color:var(--mid);font-style:italic;margin-top:4px;max-width:74ch;}
+  .mod{padding:24px 0;border-top:1px solid var(--rule);}
+  .mh{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap;}
+  .mc{font-family:'DM Mono',monospace;font-size:13px;color:var(--orange);font-weight:500;}
+  .mh h3{font-size:18px;font-weight:700;}
+  .ch{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:2px;}
+  .ch.a{background:rgba(21,101,192,.1);color:var(--blue);}.ch.b{background:rgba(236,101,64,.12);color:var(--orange);}.ch.built{background:rgba(46,125,50,.12);color:var(--green);}
+  p{font-size:14px;line-height:1.7;color:#3A3A36;margin-bottom:12px;}p strong{color:var(--black);font-weight:600;}em{font-style:italic;}
+  .meta-line{font-family:'DM Mono',monospace;font-size:11px;color:var(--mid);letter-spacing:.02em;margin:8px 0;}.meta-line b{color:var(--black);}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid var(--rule);margin:10px 0 14px;}
+  thead th{background:var(--ink);color:#fff;padding:8px 10px;text-align:left;font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;}
+  tbody td{padding:8px 10px;border-top:1px solid var(--rule);vertical-align:top;line-height:1.4;color:#3A3A36;}
+  tbody tr:nth-child(even){background:var(--light);}
+  .tag{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--orange);font-weight:500;}
+  .opts{list-style:none;} .opts li{padding:3px 0;font-size:12.5px;}
+  .opts .tg{font-family:'DM Mono',monospace;font-size:10px;color:var(--orange);float:right;}
+  ul.b{list-style:none;margin:6px 0 12px;}ul.b li{font-size:13.5px;padding:5px 0 5px 18px;position:relative;border-top:1px solid var(--light);color:#3A3A36;}
+  ul.b li:first-child{border-top:none;}ul.b li::before{content:'';position:absolute;left:2px;top:13px;width:5px;height:5px;background:var(--orange);border-radius:50%;}
+  ul.b li b{color:var(--black);}
+  .scorebox{background:#fff;border:1px solid var(--rule);border-left:3px solid var(--orange);padding:12px 16px;margin:10px 0;font-family:'DM Mono',monospace;font-size:11.5px;color:#3A3A36;line-height:1.6;}.scorebox b{color:var(--black);}
+  pre{background:var(--ink);color:#e6e6e0;font-family:'DM Mono',monospace;font-size:11px;line-height:1.55;padding:14px 16px;overflow-x:auto;border-radius:3px;margin:8px 0 14px;}
+  pre .k{color:#9fd0ff;}pre .s{color:#ffd9a8;}pre .c{color:#7a7a72;}
+  .callout{background:rgba(236,101,64,.05);border-left:3px solid var(--orange);padding:13px 17px;margin:14px 0;font-size:13.5px;color:#444;}.callout b{color:var(--orange);}
+  .tune{background:rgba(21,101,192,.05);border-left:3px solid var(--blue);padding:12px 16px;margin:12px 0;font-size:12.5px;color:#444;}.tune b{color:var(--blue);}
+  .caution{background:rgba(192,57,139,.05);border-left:3px solid var(--mag);padding:12px 16px;margin:12px 0;font-size:12.5px;color:#444;}.caution b{color:var(--mag);}
+  .footer{background:var(--black);padding:24px 44px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .footer .fb{font-size:13px;font-weight:700;letter-spacing:2px;color:#555;text-transform:uppercase;}.footer .fb span{color:var(--orange);}
+  .footer .fn{font-size:11px;color:#444;}
+  .compact td:nth-child(n+4){text-align:center;font-family:'DM Mono',monospace;font-size:11px;}
+  .pair{color:var(--mag);font-weight:600;}
+  @media(max-width:760px){.topbar,.cover,.doc,.footer{padding-left:20px;padding-right:20px;}table{font-size:10.5px;}}
+  @media print{.btn-print{display:none;}body{background:#fff;}.cover,thead th,pre{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.mod,table,.scorebox,pre{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="tb-brand"><em>Reveal</em> · Channel A &amp; B Content</div><div class="tb-doc">v1 · Build-ready · dventurelabs</div><button class="btn-print" onclick="window.print()">⬇ Save / Print</button></div>
+
+<div class="cover">
+  <div class="ey">Reveal · Ingenium · dventurelabs</div>
+  <h1>Channel A &amp; B · <em>Content</em></h1>
+  <p class="sub">The complete content layer for the build — every Channel A item written out in full, all eight Channel B tasks specced to prototype level, the 40-artifact wish-sort set, the B4 zone-tagging scheme, and the B6 coding rubric. Pairs with the Data Schema and Screen-Flow Map as the engineer's package.</p>
+  <div class="meta">
+    <div><div class="ml">Channel A</div><div class="mv">7 stated modules · full items</div></div>
+    <div><div class="ml">Channel B</div><div class="mv">8 tasks · B1 &amp; B5 built ✓</div></div>
+    <div><div class="ml">Assets</div><div class="mv">40 artifacts · 5 scenes · 1 rubric</div></div>
+    <div><div class="ml">For</div><div class="mv">Prepared for Prasad Anaokar</div></div>
+  </div>
+</div>
+
+<div class="doc">
+
+  <div class="callout"><b>Five principles govern every Channel A item:</b> forced choice never self-rating · every option a defensible good · concrete instincts not labels · unfamiliar domains to beat design-school orthodoxy · capacities (innate leanings, A1) kept distinct from capabilities (learnable skills, A7).</div>
+
+  <!-- ===================== PART ONE ===================== -->
+  <div class="part"><div class="pn">Part One</div><h2>Channel A · stated modules</h2><div class="sf">Capacity tags: EM Empathic · AN Analytical · AE Aesthetic · SY Systems-sensing · NA Narrative · CV Conviction. AN = decompose / logic / evidence; SY = wholes / flows / ripple effects. ★ = non-design domain (orthodoxy guard).</div></div>
+
+  <div class="mod"><div class="mh"><span class="mc">A1</span><h3>Capacities</h3><span class="ch a">9 cover-and-normalise items</span></div>
+    <p>Each item carries only the capacities that <em>fit it naturally</em> (4–6 options) — forcing all six everywhere would manufacture nonsense choices (e.g. "chase the beauty" of a community problem). Instead every capacity appears as a real option in ≥3 items.</p>
+    <table><thead><tr><th style="width:38%">Prompt</th><th>Options → capacity</th></tr></thead><tbody>
+      <tr><td>1 · You're handed a project you genuinely care about. Before anything else, you find yourself…</td><td>talking to the people it's for <span class="tag">EM</span> · working out the underlying logic <span class="tag">AN</span> · picturing how it should look &amp; feel <span class="tag">AE</span> · seeing how the whole thing connects <span class="tag">SY</span> · getting the story it must tell right <span class="tag">NA</span> · clarifying what it should stand for <span class="tag">CV</span></td></tr>
+      <tr><td>2 · ★ A neighbour's well-loved old chair has broken; they ask your help. You first…</td><td>ask what the chair means to them <span class="tag">EM</span> · work out exactly how it failed <span class="tag">AN</span> · notice its form &amp; proportion <span class="tag">AE</span> · get curious where it came from <span class="tag">NA</span> · decide if it's worth saving <span class="tag">CV</span></td></tr>
+      <tr><td>3 · ★ A town asks you to improve its weekly market. Your instinct is to…</td><td>talk to stallholders &amp; shoppers <span class="tag">EM</span> · map the flow, find bottlenecks <span class="tag">AN</span> · see the market as one connected system <span class="tag">SY</span> · find its character &amp; play it up <span class="tag">NA</span> · decide what it should mean to the town <span class="tag">CV</span></td></tr>
+      <tr><td>4 · You walk into a museum exhibit that clearly isn't working. You first notice…</td><td>visitors look lost, unhelped <span class="tag">EM</span> · the sequence makes no sense <span class="tag">AN</span> · it's visually clumsy — poor proportion, no beauty <span class="tag">AE</span> · the parts don't add up to a whole journey <span class="tag">SY</span> · it tells no story <span class="tag">NA</span> · it believes in nothing <span class="tag">CV</span></td></tr>
+      <tr><td>5 · ★ A friend asks you to help plan a once-in-a-lifetime event. You're most drawn to…</td><td>what each guest needs to feel <span class="tag">EM</span> · the schedule &amp; logistics <span class="tag">AN</span> · the look &amp; atmosphere of the space <span class="tag">AE</span> · how every part flows into the next <span class="tag">SY</span> · the moment it builds toward <span class="tag">NA</span> · what the day is really about <span class="tag">CV</span></td></tr>
+      <tr><td>6 · You're given an unfamiliar object: "make this better." You start by…</td><td>imagining who it fails <span class="tag">EM</span> · breaking down each part's job <span class="tag">AN</span> · seeing how it fits the wider system it lives in <span class="tag">SY</span> · rethinking what it's for <span class="tag">NA</span> · questioning if it should exist <span class="tag">CV</span></td></tr>
+      <tr><td>7 · ★ A community has a problem nobody's solved. You'd begin by…</td><td>living alongside them <span class="tag">EM</span> · studying why past tries failed <span class="tag">AN</span> · seeing the whole system around it <span class="tag">SY</span> · finding the story the data misses <span class="tag">NA</span> · being honest what you can change <span class="tag">CV</span></td></tr>
+      <tr><td>8 · A free weekend to make something just for you. You'd likely…</td><td>make something for someone you love <span class="tag">EM</span> · solve a nagging puzzle <span class="tag">AN</span> · make something beautiful for its own sake <span class="tag">AE</span> · write/film/tell something <span class="tag">NA</span> · make something that says what you believe <span class="tag">CV</span></td></tr>
+      <tr><td>9 · You're composing a space for a photo. Your first instinct is…</td><td>read the mood people want <span class="tag">EM</span> · work out the lighting logic <span class="tag">AN</span> · chase proportion, colour, beauty <span class="tag">AE</span> · arrange how every element relates <span class="tag">SY</span> · build the story the image tells <span class="tag">NA</span> · decide what feeling it must stand for <span class="tag">CV</span></td></tr>
+    </tbody></table>
+    <div class="scorebox"><b>Scoring ·</b> A-score(capacity) = times chosen ÷ <b>times it appeared</b> (not ÷ item count) — items carry different option sets. Coverage: EM 9 · AN 9 · CV 9 · NA 8 · SY 6 · AE 6 appearances. Feeds the spike chart.</div>
+    <div class="tune"><b>Tuning ·</b> 9 richer items may run long; trim to 7 once the pilot shows which items best carry the new AE / SY capacities. Craft is no longer here — it moved to capabilities (A7).</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">A2</span><h3>Recurring roles</h3><span class="ch a">tag + direct</span></div>
+    <p><b>Per-project tag</b> (asked during interpretive portfolio pass): "In this project, what were you mostly doing? Pick up to three."</p>
+    <table><thead><tr><th>Role</th><th>Gloss shown to student</th></tr></thead><tbody>
+      <tr><td>Researcher</td><td>digging to understand before deciding</td></tr>
+      <tr><td>Empathiser / advocate</td><td>holding the user's side in the room</td></tr>
+      <tr><td>Storyteller</td><td>making it land — narrative, concept, communication</td></tr>
+      <tr><td>Sensemaker</td><td>finding the pattern in the mess</td></tr>
+      <tr><td>Builder / maker</td><td>prototyping, crafting, making it real</td></tr>
+      <tr><td>Facilitator / leader</td><td>moving a group forward</td></tr>
+      <tr><td>Organiser</td><td>holding the structure, plan &amp; pieces together</td></tr>
+    </tbody></table>
+    <p><b>Direct:</b> "Across all your work, which two do you keep coming back to?" (pick 2)</p>
+    <div class="scorebox"><b>Scoring ·</b> project-tag frequency (w 1.0) + direct pick (w 0.5), normalised.</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">A3</span><h3>Values — forced ranking</h3><span class="ch a">rank + 2 captures</span></div>
+    <p>"Drag these into your true order. There are no wrong priorities — only yours." Full set of 12:</p>
+    <p style="font-family:'DM Mono',monospace;font-size:12px;color:#3A3A36;">Empathy · Impact · Justice · Storytelling · Teaching · Craft · Autonomy · Recognition · Money &amp; security · Learning &amp; growth · Beauty · Solving hard problems</p>
+    <ul class="b">
+      <li>The full ranked order (all 12 — the tail matters).</li>
+      <li>"Which one would you <b>never</b> compromise — and why?" (free text)</li>
+      <li>"Which two could you let go of first?" (pick 2 — strengthens the bottom signal B1 later validates)</li>
+    </ul>
+    <div class="scorebox"><b>Scoring ·</b> A-score(value) = (13 − rank) ÷ 12.</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">A4</span><h3>Conditions — affirm / reject</h3><span class="ch a">2 checklists + open</span></div>
+    <p>"Tick the ones that are true for you — be honest, not aspirational."</p>
+    <table><thead><tr><th>You thrive when…</th><th>You wither when…</th></tr></thead><tbody>
+      <tr><td>the work has a clear purpose you believe in</td><td>the work is purely commercial, no visible impact</td></tr>
+      <tr><td>you can see who it helps</td><td>the brief is all specs, no empathy</td></tr>
+      <tr><td>you're in the field with real people</td><td>it exists only to make money</td></tr>
+      <tr><td>you can start before it's fully figured out</td><td>you're tied to people who don't share the vision</td></tr>
+      <tr><td>you have room to make your own calls</td><td>you must make it perfect before you can begin</td></tr>
+      <tr><td>the team shares the cause</td><td>the output is for a portfolio, not a person</td></tr>
+      <tr><td>you're learning something new</td><td>the process is rigid, no room to move</td></tr>
+      <tr><td>the problem is genuinely hard</td><td>you're alone with no one to think with</td></tr>
+      <tr><td>you can go deep without interruption</td><td>the goals keep shifting with no anchor</td></tr>
+      <tr><td>you can see the impact of what you did</td><td>you're constantly switching unrelated things</td></tr>
+      <tr><td>you're trusted to run with it</td><td>decisions are made above you, handed down</td></tr>
+      <tr><td>there's variety in the days</td><td>speed matters more than care</td></tr>
+    </tbody></table>
+    <p><b>Open:</b> "I do my best work when…" / "I lose energy when…"</p>
+    <div class="scorebox"><b>Scoring ·</b> endorsed-conditions vector → thrive/wither lists.</div>
+    <div class="tune"><b>Tuning ·</b> both open fields kept — richest data, but slowest to analyse at scale. Drop to one ("I do my best work when…") if hand-coding the pilot.</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">A5</span><h3>What pulls you — encounters</h3><span class="ch a">existing module</span></div>
+    <p>"Over the next few days, log five things that stopped you — anything, not just design. For each: what it was · why it caught you · how it made you feel."</p>
+    <p class="meta-line">Theme taxonomy (auto-tagged) · <b>history · story/narrative · people/emotion · form/aesthetics · systems/how-it-works · a telling detail · craft · beauty · justice</b></p>
+    <div class="scorebox"><b>Scoring ·</b> theme frequency across the 5 → the salience thread. Same taxonomy as B4, so stated &amp; revealed attention cross-check.</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">A6</span><h3>Obsessions &amp; curiosities</h3><span class="ch a">3 prompts</span></div>
+    <ul class="b">
+      <li>"What topics do you keep coming back to — that nobody assigned you?" (multi-select + free)</li>
+      <li>"What do you read, save, or watch when no one's grading you?" (free)</li>
+      <li>"Whose work do you admire — anyone — and what about them?" (3 × {name, why})</li>
+    </ul>
+    <p class="meta-line">Checklist · cities · public transport · education · children · memory · health · mental health · sustainability · climate · community · culture · history · craft · technology · justice · gender · disability &amp; access · food · rural life · the informal economy</p>
+    <div class="scorebox"><b>Scoring ·</b> interest-theme frequencies + named references (the IDEO / Ken Robinson signal).</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">A7</span><h3>Aspiration — capabilities</h3><span class="ch a">flagged lower-evidence</span></div>
+    <p>The <b>capabilities</b> list (learnable skills — distinct from A1 capacities). This is the <em>desired</em> side of the gap. <b>Craft now lives here</b>, not in capacities — finish/execution is mostly trained.</p>
+    <table><thead><tr><th>Capability (fixed list · 12)</th></tr></thead><tbody>
+      <tr><td>Design research (interviews, synthesis)</td></tr>
+      <tr><td>Field research with communities / low-resource users <span class="tag">Loka-specific, kept on purpose</span></td></tr>
+      <tr><td>Problem framing &amp; strategy</td></tr>
+      <tr><td><b>Ideation</b> (deliberate divergence, breadth) <span class="tag">new</span></td></tr>
+      <tr><td>Prototyping / making</td></tr>
+      <tr><td><b>Craft / execution</b> (finish, polish, precision) <span class="tag">new · reclassified from capacities</span></td></tr>
+      <tr><td>Visual &amp; communication design</td></tr>
+      <tr><td><b>Material &amp; media mastery</b> (skill in a medium) <span class="tag">new</span></td></tr>
+      <tr><td><b>Functional / usability design</b> (ergonomics, use, interaction) <span class="tag">new</span></td></tr>
+      <tr><td>Systems &amp; service design</td></tr>
+      <tr><td>Facilitation &amp; leadership</td></tr>
+      <tr><td>Entrepreneurship / building a venture</td></tr>
+    </tbody></table>
+    <ul class="b">
+      <li>"Where do you want to be strong? Set a target for each." → <b>desired</b> level per capability (the reach graph)</li>
+      <li>"Which 5 do you most want to build next?" (rank) → which gaps the experiments target</li>
+      <li>"What impact do you want your work to have?" (free)</li>
+      <li>"Where do you picture yourself?" → own venture · studio · in-house · NGO · research/academia · freelance · undecided</li>
+      <li>"Describe the designer you're trying to become." (free)</li>
+    </ul>
+    <p style="margin-top:6px"><b>Perceived market</b> (new — locates the passion-vs-pay tension, e.g. product design vs UI/UX):</p>
+    <ul class="b">
+      <li>"Which kinds of design do you think pay best — and which pay least?" (rank: product design · UI/UX · visual/graphic · branding · service design · UX research · industrial · motion · social-impact · strategy) → the market model the student is operating on</li>
+      <li>"The work that most interests me and the work that pays best are…" → the same · a little apart · pulling in opposite directions (single self-location)</li>
+    </ul>
+    <div class="caution"><b>Treat as belief, not fact ·</b> early students' market knowledge is often shaky or inherited. The report <em>examines</em> this perception, it doesn't take it as true — and should eventually be backed by real market data.</div>
+    <div class="scorebox"><b>Scoring ·</b> desired vector = stated side of the gap. Perceived-market rank + stance feed the <b>Direction-vs-Market</b> view. <b>Current capability comes from the portfolio, not here</b> — see the schema fix.</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">A8</span><h3>Portfolio inventory</h3><span class="ch a">structural · split timing</span></div>
+    <p>Factual fields first (warm-up); interpretive fields after Channel B; resume last. Full field shape is in the Data Schema (<span class="tag">portfolio.projects[]</span>). The interpretive role-tag feeds A2; the demonstrated-capability read feeds the <em>current</em> side of the gap.</p>
+  </div>
+
+  <!-- ===================== PART TWO ===================== -->
+  <div class="part"><div class="pn">Part Two</div><h2>Channel B · the 8 revealed tasks</h2><div class="sf">● primary trait · ○ secondary. Two are built &amp; validated as standalone prototypes.</div></div>
+
+  <div class="mod"><div class="mh"><span class="mc">B1</span><h3>Budget allocation + 30% cut</h3><span class="ch built">Built ✓</span></div>
+    <p><b>Materials · 12 pursuit cards</b> (each a defensible good, never good-vs-vice): help the people who need it most · recognition for your work · craft &amp; polish · money &amp; security · creative autonomy · always be learning · a team you love · solve a hard technical problem · make something beautiful · impact that scales · tell stories that move people · fight for fairness.</p>
+    <p><b>Mechanic ·</b> fund 6; then "cut 30% — keep only 4, remove 2." Logs fund order, cut order, speed.</p>
+    <div class="meta-line">Tags · <b>Values ●</b> · <b>Conviction ●</b> · Conditions ○ · Aspiration ○</div>
+    <div class="scorebox"><b>Scoring ·</b> revealed value-rank = survival order under the cut; first-defunded = anti-values; fast = strong prior.</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">B2</span><h3>Dilemma cards</h3><span class="ch b">specced</span></div>
+    <p><b>Mechanic ·</b> 8 cards one at a time, forced A/B between two defensible options, soft 12s nudge timer (records hesitation, doesn't lock). The noble-looking side alternates so social desirability doesn't pull one way.</p>
+    <table class="compact"><thead><tr><th>#</th><th>Scenario</th><th>Option A → pole</th><th>Option B → pole</th><th>noble</th></tr></thead><tbody>
+      <tr><td>1</td><td>Client rejects your bolder concept for the safe one.</td><td style="text-align:left">build the safe one well · accommodate</td><td style="text-align:left">make the bold one anyway · conviction</td><td>B</td></tr>
+      <tr><td>2</td><td>Two offers, same pay.</td><td style="text-align:left">respected commercial studio · commercial</td><td style="text-align:left">scrappy NGO, real-world · impact</td><td>B</td></tr>
+      <tr><td>3</td><td>Deadline tonight; work is good-enough not excellent.</td><td style="text-align:left">ship on time · pragmatic</td><td style="text-align:left">miss it to make it excellent · craft</td><td>A</td></tr>
+      <tr><td>4</td><td>A project you believe in.</td><td style="text-align:left">run it solo, vision intact · autonomy</td><td style="text-align:left">join a team, share it · belonging</td><td>—</td></tr>
+      <tr><td>5</td><td>New brief lands. First instinct.</td><td style="text-align:left">talk to the people · empathy-first</td><td style="text-align:left">map the structure · analysis-first</td><td>A</td></tr>
+      <tr><td>6</td><td>Group project, no one's steering.</td><td style="text-align:left">step up and lead · lead</td><td style="text-align:left">do your part brilliantly · support</td><td>A</td></tr>
+      <tr><td>7</td><td>Vague brief, no direction.</td><td style="text-align:left">start making to find it · start-now</td><td style="text-align:left">plan before touching · plan-first</td><td>B</td></tr>
+      <tr><td>8</td><td>Two briefs to choose.</td><td style="text-align:left">redesign an object · object</td><td style="text-align:left">redesign an experience · people</td><td>B</td></tr>
+    </tbody></table>
+    <div class="meta-line">Tags · <b>Empathic ●</b> · <b>Roles ●</b> · <b>Values ●</b> · <b>Conditions ●</b> · Analytical ○</div>
+    <div class="scorebox"><b>Captured ·</b> {choices:[{scenario_id, chosen_pole, ms}]}. <b>Scoring ·</b> a pole repeating across unrelated scenarios = revealed disposition; fast = strong; flag straight-lining.</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">B3</span><h3>First-three-moves</h3><span class="ch b">specced</span></div>
+    <p><b>Brief (unfamiliar domain) ·</b> "A small coastal town finds fewer young people stay after school age. They've asked for help. You have no further information. What are your first three moves?"</p>
+    <p><b>Palette (8, drag 3 in order) ·</b> talk to the people affected · study how other towns handled it · sketch/make something quickly · tighten what the real problem is · build a small thing to test · look at the data · question whether the brief is right · find everyone with a stake. Then one line: "the first question you'd ask."</p>
+    <p class="meta-line">Archetype map · research-led (talk/study/data) · maker-led (sketch/build) · reframer (tighten/question) · systems-led (stakeholders)</p>
+    <div class="meta-line">Tags · <b>Capacities ●</b> · <b>Roles ●</b></div>
+    <div class="scorebox"><b>Scoring ·</b> position-weighted (1st=3, 2nd=2, 3rd=1) → archetype; first move dominant. Keep a 2nd brief (children's hospital waiting room) to rotate against memory.</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">B4</span><h3>Attention capture</h3><span class="ch b">specced · needs 5 images</span></div>
+    <p><b>Mechanic ·</b> 5 information-rich scenes, one at a time, ~8s each. "Tap the 3 things that jump out." Records which tagged category-zones are hit, and in what order.</p>
+    <p><b>The 5 categories</b> (= A5 taxonomy): PEOPLE/emotion · FORM/aesthetics · SYSTEM/flow · DETAIL (a small telling thing) · TEXT/story.</p>
+    <table><thead><tr><th>Scene</th><th>Must visibly contain — one element per category</th></tr></thead><tbody>
+      <tr><td>1 · Street market</td><td>vendors/shoppers mid-interaction (PEOPLE) · colour/light/composition (FORM) · stall &amp; queue flow (SYSTEM) · a hand-painted sign or odd object (DETAIL) · shop names, price boards (TEXT). Avoid empty/staged.</td></tr>
+      <tr><td>2 · Workshop bench</td><td>hands working or clear human trace (PEOPLE) · material textures (FORM) · tools laid in sequence, WIP stages (SYSTEM) · a worn tool, a taped note (DETAIL) · labels, handwriting (TEXT). Avoid pristine flat-lays.</td></tr>
+      <tr><td>3 · Transit concourse</td><td>travellers rushing/waiting/lost (PEOPLE) · architectural scale &amp; light (FORM) · wayfinding &amp; people-flow (SYSTEM) · dropped ticket, someone's luggage (DETAIL) · signage, departure boards (TEXT). Avoid empty.</td></tr>
+      <tr><td>4 · Community hall, mid-event</td><td>groups engaged, social dynamic (PEOPLE) · room character (FORM) · seating/stations/queue organisation (SYSTEM) · a child's drawing, a tea table (DETAIL) · banners, name tags, agenda (TEXT). Avoid formal empty.</td></tr>
+      <tr><td>5 · Product still-life</td><td>owner's traces, no face needed (PEOPLE) · deliberate composition &amp; materiality (FORM) · grouping logic (SYSTEM) · one characterful out-of-place object (DETAIL) · packaging, labels, a note (TEXT). Avoid minimalist styled shots.</td></tr>
+    </tbody></table>
+    <p><b>Zone-tagging scheme ·</b> overlay each image with invisible category polygons; a tap records the category-zone hit + order.</p>
+    <pre><span class="k">scene_asset</span> = {
+  <span class="k">stimulus_id</span>: <span class="s">"s1_market"</span>,
+  <span class="k">zones</span>: [
+    { <span class="k">category</span>:<span class="s">"PEOPLE"</span>, <span class="k">polygon</span>:[[x,y]…] },
+    { <span class="k">category</span>:<span class="s">"FORM"</span>,   <span class="k">polygon</span>:[[x,y]…] },
+    { <span class="k">category</span>:<span class="s">"SYSTEM"</span>, <span class="k">polygon</span>:[[x,y]…] },
+    { <span class="k">category</span>:<span class="s">"DETAIL"</span>, <span class="k">polygon</span>:[[x,y]…] },
+    { <span class="k">category</span>:<span class="s">"TEXT"</span>,   <span class="k">polygon</span>:[[x,y]…] }
+  ]   <span class="c">// 2–3 zones per category · non-overlapping · area-balanced</span>
+}</pre>
+    <div class="meta-line">Tags · <b>Capacities ●</b> · <b>Salience ●</b> · Storytelling ○</div>
+    <div class="caution"><b>Validity ·</b> zones must be <b>area-balanced</b> across categories — if PEOPLE zones cover twice the screen of TEXT, you manufacture a "people-noticer" that isn't real. Balance area, not just presence. A tap outside all zones = <span style="font-family:'DM Mono',monospace">uncategorised</span> (kept as signal).</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">B5</span><h3>Wish-vs-actual visual sort</h3><span class="ch built">Built ✓ · workhorse</span></div>
+    <p><b>Mechanic ·</b> <b>three</b> passes through the same wall — pass 1: "8 you wish you'd made"; pass 2: "8 closest to what you actually make"; pass 3, <b>last</b>: "8 you think pay best." centroid(wish) − centroid(actual) = direction gap; <b>centroid(wish) − centroid(pays-best) = the passion-vs-market gap</b>.</p>
+    <p><b>The set · 40 artifacts.</b> imp = commercial (−1) ↔ impact (+1) · hum = object (−1) ↔ human (+1) · st = craft/systems/concept. Built around <span class="pair">10 look-alike pairs</span> (same surface, opposite impact) so sorting can't ride on aesthetics.</p>
+    <table class="compact"><thead><tr><th>#</th><th>Artifact</th><th>Domain</th><th>imp</th><th>hum</th><th>st</th><th>pair</th></tr></thead><tbody>
+      <tr><td>1</td><td style="text-align:left">Luxury water bottle</td><td style="text-align:left">product · branding</td><td>−0.8</td><td>−0.5</td><td>craft</td><td class="pair">P1</td></tr>
+      <tr><td>2</td><td style="text-align:left">Low-cost water filter</td><td style="text-align:left">product · community</td><td>0.9</td><td>0.6</td><td>systems</td><td class="pair">P1</td></tr>
+      <tr><td>3</td><td style="text-align:left">Crypto trading onboarding</td><td style="text-align:left">UX · commercial</td><td>−0.8</td><td>−0.1</td><td>systems</td><td class="pair">P2</td></tr>
+      <tr><td>4</td><td style="text-align:left">Govt benefits-access app</td><td style="text-align:left">UX · public service</td><td>0.8</td><td>0.6</td><td>systems</td><td class="pair">P2</td></tr>
+      <tr><td>5</td><td style="text-align:left">Perfume launch campaign</td><td style="text-align:left">brand · luxury</td><td>−0.9</td><td>−0.2</td><td>concept</td><td class="pair">P3</td></tr>
+      <tr><td>6</td><td style="text-align:left">Mental-health campaign</td><td style="text-align:left">brand · social</td><td>0.7</td><td>0.8</td><td>concept</td><td class="pair">P3</td></tr>
+      <tr><td>7</td><td style="text-align:left">Sneaker hype collab</td><td style="text-align:left">product · hype</td><td>−0.7</td><td>−0.3</td><td>craft</td><td class="pair">P4</td></tr>
+      <tr><td>8</td><td style="text-align:left">Prosthetic limb redesign</td><td style="text-align:left">product · health</td><td>0.9</td><td>0.6</td><td>craft</td><td class="pair">P4</td></tr>
+      <tr><td>9</td><td style="text-align:left">Luxury fashion-house ad</td><td style="text-align:left">brand · luxury</td><td>−0.9</td><td>−0.1</td><td>concept</td><td class="pair">P5</td></tr>
+      <tr><td>10</td><td style="text-align:left">Migrant-worker helpline</td><td style="text-align:left">service · social</td><td>0.9</td><td>0.8</td><td>systems</td><td class="pair">P5</td></tr>
+      <tr><td>11</td><td style="text-align:left">Smartwatch face pack</td><td style="text-align:left">product · consumer</td><td>−0.6</td><td>−0.3</td><td>craft</td><td class="pair">P6</td></tr>
+      <tr><td>12</td><td style="text-align:left">Sign-language learning app</td><td style="text-align:left">UX · access</td><td>0.8</td><td>0.7</td><td>systems</td><td class="pair">P6</td></tr>
+      <tr><td>13</td><td style="text-align:left">Concept-car interior</td><td style="text-align:left">mobility · form</td><td>−0.5</td><td>−0.4</td><td>craft</td><td class="pair">P7</td></tr>
+      <tr><td>14</td><td style="text-align:left">Everyday wheelchair redesign</td><td style="text-align:left">product · access</td><td>0.8</td><td>0.6</td><td>craft</td><td class="pair">P7</td></tr>
+      <tr><td>15</td><td style="text-align:left">High-end typeface specimen</td><td style="text-align:left">type · commercial</td><td>−0.4</td><td>−0.5</td><td>craft</td><td class="pair">P8</td></tr>
+      <tr><td>16</td><td style="text-align:left">Dyslexia-friendly typeface</td><td style="text-align:left">type · access</td><td>0.7</td><td>0.5</td><td>craft</td><td class="pair">P8</td></tr>
+      <tr><td>17</td><td style="text-align:left">Boutique hotel identity</td><td style="text-align:left">brand · hospitality</td><td>−0.6</td><td>0.0</td><td>concept</td><td class="pair">P9</td></tr>
+      <tr><td>18</td><td style="text-align:left">Night-shelter wayfinding</td><td style="text-align:left">spatial · social</td><td>0.7</td><td>0.5</td><td>systems</td><td class="pair">P9</td></tr>
+      <tr><td>19</td><td style="text-align:left">NFT art drop</td><td style="text-align:left">digital · speculative</td><td>−0.8</td><td>−0.4</td><td>concept</td><td class="pair">P10</td></tr>
+      <tr><td>20</td><td style="text-align:left">Community oral-history archive</td><td style="text-align:left">digital · culture</td><td>0.5</td><td>0.7</td><td>concept</td><td class="pair">P10</td></tr>
+      <tr><td>21</td><td style="text-align:left">Museum wayfinding system</td><td style="text-align:left">spatial · culture</td><td>0.2</td><td>0.3</td><td>systems</td><td>—</td></tr>
+      <tr><td>22</td><td style="text-align:left">Music-festival identity</td><td style="text-align:left">brand · events</td><td>−0.2</td><td>0.2</td><td>concept</td><td>—</td></tr>
+      <tr><td>23</td><td style="text-align:left">Sculptural lounge chair</td><td style="text-align:left">furniture · form</td><td>−0.4</td><td>−0.6</td><td>craft</td><td>—</td></tr>
+      <tr><td>24</td><td style="text-align:left">Community garden system</td><td style="text-align:left">service · local</td><td>0.7</td><td>0.6</td><td>systems</td><td>—</td></tr>
+      <tr><td>25</td><td style="text-align:left">Disaster-relief logistics</td><td style="text-align:left">service · crisis</td><td>0.9</td><td>0.3</td><td>systems</td><td>—</td></tr>
+      <tr><td>26</td><td style="text-align:left">School-meal program kit</td><td style="text-align:left">service · children</td><td>0.9</td><td>0.7</td><td>systems</td><td>—</td></tr>
+      <tr><td>27</td><td style="text-align:left">Refugee-skills marketplace</td><td style="text-align:left">service · social</td><td>0.9</td><td>0.6</td><td>systems</td><td>—</td></tr>
+      <tr><td>28</td><td style="text-align:left">Car configurator UX</td><td style="text-align:left">UX · automotive</td><td>−0.5</td><td>−0.4</td><td>systems</td><td>—</td></tr>
+      <tr><td>29</td><td style="text-align:left">Premium banking dashboard</td><td style="text-align:left">UX · finance</td><td>−0.6</td><td>−0.2</td><td>systems</td><td>—</td></tr>
+      <tr><td>30</td><td style="text-align:left">Streetwear lookbook</td><td style="text-align:left">brand · fashion</td><td>−0.7</td><td>−0.1</td><td>concept</td><td>—</td></tr>
+      <tr><td>31</td><td style="text-align:left">Artisan ceramics line</td><td style="text-align:left">product · craft</td><td>−0.3</td><td>−0.3</td><td>craft</td><td>—</td></tr>
+      <tr><td>32</td><td style="text-align:left">Public-park redesign</td><td style="text-align:left">spatial · civic</td><td>0.7</td><td>0.6</td><td>systems</td><td>—</td></tr>
+      <tr><td>33</td><td style="text-align:left">Voting-machine interface</td><td style="text-align:left">civic · systems</td><td>0.8</td><td>0.4</td><td>systems</td><td>—</td></tr>
+      <tr><td>34</td><td style="text-align:left">Period-product access kit</td><td style="text-align:left">product · health</td><td>0.8</td><td>0.7</td><td>craft</td><td>—</td></tr>
+      <tr><td>35</td><td style="text-align:left">Smart thermostat</td><td style="text-align:left">product · consumer</td><td>−0.4</td><td>−0.2</td><td>craft</td><td>—</td></tr>
+      <tr><td>36</td><td style="text-align:left">Elder-care companion device</td><td style="text-align:left">product · care</td><td>0.7</td><td>0.8</td><td>craft</td><td>—</td></tr>
+      <tr><td>37</td><td style="text-align:left">Festival main-stage design</td><td style="text-align:left">spatial · events</td><td>−0.3</td><td>0.0</td><td>craft</td><td>—</td></tr>
+      <tr><td>38</td><td style="text-align:left">Local-language literacy game</td><td style="text-align:left">UX · education</td><td>0.8</td><td>0.7</td><td>systems</td><td>—</td></tr>
+      <tr><td>39</td><td style="text-align:left">Luxury-watch film</td><td style="text-align:left">brand · luxury</td><td>−0.9</td><td>−0.3</td><td>concept</td><td>—</td></tr>
+      <tr><td>40</td><td style="text-align:left">Farmer market-price SMS tool</td><td style="text-align:left">service · rural</td><td>0.9</td><td>0.4</td><td>systems</td><td>—</td></tr>
+    </tbody></table>
+    <p class="meta-line">Spread · ~19 commercial / ~21 impact · all 3 styles both halves · hum varies independently of imp (#25 high-impact/low-human vs #36 high-both) so the axes carry separate signal.</p>
+    <div class="meta-line">Tags · <b>Salience ●</b> · <b>Aspiration ●</b> · <b>Gap ●</b> · <b>Market ●</b> · Obsessions ○ · Storytelling/Craft ○</div>
+    <div class="caution"><b>Pass 3 runs last, by design ·</b> asking "what pays" makes money salient — if it came earlier it would prime the wish and actual passes. Wish and actual are locked before the pays-best pass appears. The third centroid is the only place the instrument reads the market belief <em>behaviourally</em>, against the same hidden axes.</div>
+    <div class="caution"><b>Validate before trusting ·</b> run the set against a known profile (Jaanhvi). Correct tagging places her wish-centroid in the impact/human quadrant <em>without</em> her stating it — as the prototype did. If it doesn't, the tagging is off — caught on one case before a cohort.</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">B6</span><h3>Bring three things (upload)</h3><span class="ch b">specced · student uploads</span></div>
+    <p><b>Prompt ·</b> "Bring 3–5 images of things you can't stop looking at. Not your own work — anything: a building, an object, a photo, a scene, a piece of design, something from nature. For each, one line: why it pulls you." <em>("can't stop looking at" not "that inspire you" — inspiration invites performance.)</em></p>
+    <p><b>Coding rubric ·</b> each image scored on hidden axes (vision model, or hand-tagged for the pilot):</p>
+    <table><thead><tr><th>Dimension</th><th>Poles</th><th>Surfaces</th></tr></thead><tbody>
+      <tr><td>subject</td><td>human-present ↔ object/empty</td><td>whether people are the draw</td></tr>
+      <tr><td>era</td><td>historical/aged ↔ contemporary</td><td>heritage vs. now</td></tr>
+      <tr><td>complexity</td><td>ornate/dense ↔ minimal/spare</td><td>visual appetite</td></tr>
+      <tr><td>emotion</td><td>warm/intimate ↔ cool/formal</td><td>affective register</td></tr>
+      <tr><td>origin</td><td>natural ↔ built/made</td><td>where beauty is found</td></tr>
+      <tr><td>narrative</td><td>story-laden ↔ purely formal</td><td>is there an implied story</td></tr>
+      <tr><td>craft</td><td>handmade/imperfect ↔ precise/manufactured</td><td>value on the human hand</td></tr>
+    </tbody></table>
+    <p>Plus a free <b>theme tag</b> from the A5/A6 taxonomy, so it cross-references the instrument. Output = a consistent lean across the set, shown back <b>as a question, never a verdict.</b></p>
+    <pre><span class="k">b6_result</span> = {
+  <span class="k">images</span>: [ { ref, why, tags:{subject:+1, era:−0.6, narrative:+1 …}, theme:[…] } ],
+  <span class="k">detected_thread</span>: [<span class="s">"human-present"</span>,<span class="s">"story-laden"</span>,<span class="s">"historical"</span>],
+  <span class="k">thread_statement</span>: <span class="s">"These seem to share a human story from another time —"</span>,
+  <span class="k">confirm_question</span>: <span class="s">"does that feel true?"</span>, <span class="k">confirmed</span>: <span class="s">null</span>
+}</pre>
+    <div class="meta-line">Tags · <b>Salience ●</b> · <b>Obsessions ●</b> · Storytelling ○ · Craft ○</div>
+    <div class="scorebox"><b>Scoring ·</b> the <b>cross-image pattern</b> is the signal — one image is curatable, a lean across 4–5 is hard to fake. Confidence scales with how many images share the thread (5/5 strong, 3/5 tentative).</div>
+    <div class="callout"><b>Pilot shortcut ·</b> a facilitator hand-tags uploads against the rubric before the thread is shown — fully validates the task &amp; rubric without building the vision pipeline. Automate only once the rubric reliably produces threads students confirm.</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">B7</span><h3>Unconstrained year</h3><span class="ch b">specced</span></div>
+    <p><b>Mechanic ·</b> "One fully-funded year, no obligations. Spend it." Allocate 12 months (tokens summing to 12) across: deepen a craft · learn a new domain · work with a community · build a venture · travel &amp; absorb · teach · personal work · pure study/research. Second pass: "now estimate how your <em>last</em> three months actually split." Ideal-vs-actual distance = soft fantasy-bias check.</p>
+    <div class="meta-line">Tags · <b>Obsessions ●</b> · <b>Aspiration ●</b> · Values ○ · Conviction ○</div>
+    <div class="scorebox"><b>Captured ·</b> {allocation:{pursuit:months}, current_estimate:{pursuit:months}}. <b>Scoring ·</b> where months pile = intrinsic pull; zeros = anti-pull. Treat as <b>softer evidence</b> than forced-choice tasks.</div>
+  </div>
+
+  <div class="mod"><div class="mh"><span class="mc">B8</span><h3>Disruption task</h3><span class="ch b">specced · the 8th</span></div>
+    <p><b>Mechanic ·</b> a 3-minute micro-task — "rough out an approach to [small brief]" in a text/sketch box. At ~60% of the timer, the rug moves via modal: <b>your main approach is now disallowed</b>, or a hard constraint is added ("must work with no screen"). Observe the response, not the output. A second, milder disruption de-noises. One-tap "how did that feel?" after.</p>
+    <div class="meta-line">Tags · <b>Conditions ●</b> · Conviction ○ · Aspiration ○</div>
+    <div class="scorebox"><b>Captured ·</b> {disruptions:[{response:enum[abandon,adapt,reframe], recovery_ms, generated_new:bool}], felt}. <b>Scoring ·</b> abandon/freeze vs adapt vs reframe + recovery + new-options → fixed/growth + imperfection tolerance.</div>
+    <div class="caution"><b>Cautions ·</b> one disruption is noisy (hence two) · a low-stakes lab failure isn't a real one, so it's a <b>weak-but-real</b> signal · keep it light — must not tip into distress.</div>
+  </div>
+
+  <div class="part"><div class="pn">Roadmap</div><h2>Considered, not yet measured</h2><div class="sf">Real design constructs deliberately held out — because no current task can surface them. Naming them makes the omission a decision, not an oversight.</div></div>
+  <table><thead><tr><th>Construct</th><th>Why held</th><th>Probe it needs</th><th>Status</th></tr></thead><tbody>
+    <tr><td><b>Critical / evaluative judgement</b></td><td>Design is as much <em>selecting</em> as generating — the most "designerly" gap. Inferred weakly from B1-cut / B5-select; nothing measures discernment head-on.</td><td>New <b>B9 critique task</b> — rank or fault a set of solutions.</td><td><span class="tag" style="color:var(--green)">committed · next version</span></td></tr>
+    <tr><td><b>Generative / divergent leaning</b></td><td>The <em>wiring</em> behind ideation. Only B8 touches it weakly (generated-new under disruption) — one weak situation.</td><td>A <b>fluency task</b> — 90-sec divergent generation, scored on quantity + originality.</td><td><span class="tag">held</span></td></tr>
+    <tr><td><b>Material / embodied sensing</b></td><td>The <em>feel</em> for media (vs. the trained skill, which the new Material &amp; media capability now covers). Only B6 touches it weakly.</td><td>A <b>material-affinity probe</b> — which media / textures pull you.</td><td><span class="tag">held · lowest priority</span></td></tr>
+    <tr><td>Spatial / visual reasoning</td><td>Fully overlaps Aesthetic + Material once those are in.</td><td>—</td><td><span class="tag">merged away</span></td></tr>
+  </tbody></table>
+
+  <div class="callout"><b>What this completes — and what's left.</b> With this document, the Data Schema, and the Screen-Flow Map, the content and structure are specified. Still to pin before/with the build: the <b>scoring constants</b> (agreement threshold, ●1.0/○0.5 weights, gap-distance bands), and the <b>synthesis-layer prompt brief</b> (what generates the differentiation statement, surprise phrasing, and experiments — with the no-verdict / confirm-question guardrails). Both are tuning, best finalised against pilot data.</div>
+
+</div>
+
+<div class="footer"><div class="fb"><span>Reveal</span> · Ingenium · dventurelabs</div><div class="fn">Channel A &amp; B Content · v1 · Build-ready · Confidential</div></div>
+</body>
+</html>

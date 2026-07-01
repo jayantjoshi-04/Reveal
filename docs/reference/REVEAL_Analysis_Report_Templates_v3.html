@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>REVEAL · Analysis &amp; Report Templates · dventurelabs</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap');
+  :root{--orange:#EC6540;--black:#111111;--ink:#1A1A18;--cream:#FAF7F2;--warm:#F1EDE6;--navy:#193E90;--mid:#777770;--rule:#D8D5D0;--light:#F4F4F0;--green:#2E7D32;--blue:#1565C0;--mag:#C0398B;--steel:#7e8aa0;}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--warm);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14.5px;line-height:1.6;}
+  .doc{max-width:960px;margin:0 auto;background:var(--cream);box-shadow:0 0 50px rgba(0,0,0,.07);}
+  .topbar{background:var(--ink);padding:11px 34px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;}
+  .tb-brand{font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#fff;}.tb-brand em{color:var(--orange);font-style:normal;}
+  .tb-doc{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#777;}
+  .btn{padding:7px 15px;background:var(--orange);border:none;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#fff;cursor:pointer;border-radius:3px;}
+  .cover{background:var(--ink);padding:50px 34px 40px;position:relative;}
+  .cover::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange);}
+  .cover .ey{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:18px;}
+  .cover h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,4.5vw,46px);font-weight:400;color:#fff;line-height:1.02;max-width:20ch;}
+  .cover h1 em{color:var(--orange);font-style:italic;}
+  .cover .sub{font-size:14.5px;color:#9a9a92;margin-top:14px;max-width:70ch;}
+  .doc-body{padding:0 34px 70px;}
+  .arch{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:22px;margin:26px 0;}
+  .arch .at{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:14px;}
+  .part{padding:40px 0 6px;border-top:2px solid var(--ink);margin-top:34px;}
+  .part .pn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+  .part h2{font-family:'DM Serif Display',serif;font-size:clamp(23px,3.4vw,34px);font-weight:400;margin-top:6px;}
+  .part .sf{font-size:13.5px;color:var(--mid);font-style:italic;margin-top:4px;max-width:74ch;}
+  h3{font-family:'DM Serif Display',serif;font-size:19px;font-weight:400;margin:24px 0 8px;}
+  h4{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin:20px 0 8px;}
+  p{font-size:14px;line-height:1.65;color:#3A3A36;margin-bottom:12px;}p strong{color:var(--ink);}em{font-style:italic;}
+  table{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin:10px 0 16px;}
+  thead th{background:var(--ink);color:#fff;text-align:left;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;padding:8px 11px;}
+  tbody td{padding:8px 11px;border-top:1px solid var(--rule);vertical-align:top;line-height:1.42;color:#3A3A36;}
+  tbody td:first-child{font-weight:600;color:var(--ink);}
+  tbody tr:nth-child(even){background:var(--light);}
+  .mono{font-family:'DM Mono',monospace;font-size:11px;}
+  pre{background:var(--ink);color:#e6e6e0;font-family:'DM Mono',monospace;font-size:11px;line-height:1.55;padding:16px 18px;overflow-x:auto;border-radius:6px;margin:10px 0 16px;}
+  pre .k{color:#9fd0ff;}pre .s{color:#ffd9a8;}pre .c{color:#7a7a72;}pre .o{color:#ff9b78;}
+  .callout{background:rgba(236,101,64,.05);border-left:3px solid var(--orange);padding:13px 17px;margin:14px 0;font-size:13.5px;color:#444;}.callout b{color:var(--orange);}
+  .rule-c{background:rgba(21,101,192,.05);border-left:3px solid var(--blue);padding:13px 17px;margin:14px 0;font-size:13px;color:#444;}.rule-c b{color:var(--blue);}
+  .prov{background:rgba(232,168,56,.08);border-left:3px solid #c8911f;padding:12px 16px;margin:12px 0;font-size:12.5px;color:#444;}.prov b{color:#a9750f;}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 16px;}
+  .ex .exc{border-radius:8px;padding:13px 15px;font-size:12.5px;line-height:1.5;}
+  .ex .good{background:rgba(46,125,50,.07);border:1px solid rgba(46,125,50,.3);}
+  .ex .bad{background:rgba(192,57,139,.05);border:1px solid rgba(192,57,139,.3);}
+  .ex .exh{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+  .ex .good .exh{color:var(--green);}.ex .bad .exh{color:var(--mag);}
+  .ex .why{display:block;margin-top:6px;font-size:11px;color:var(--mid);font-style:italic;}
+  .slot{font-family:'DM Mono',monospace;font-size:11px;color:var(--orange);background:rgba(236,101,64,.08);padding:1px 6px;border-radius:3px;}
+  ul.b{list-style:none;margin:6px 0 14px;}ul.b li{font-size:13px;padding:5px 0 5px 18px;position:relative;border-top:1px solid var(--light);color:#3A3A36;}
+  ul.b li:first-child{border-top:none;}ul.b li::before{content:'';position:absolute;left:2px;top:13px;width:5px;height:5px;background:var(--orange);border-radius:50%;}
+  ul.b li b{color:var(--ink);}
+  .foot{background:var(--ink);padding:22px 34px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .foot .fb{font-size:12px;font-weight:700;letter-spacing:2px;color:#555;text-transform:uppercase;}.foot .fb span{color:var(--orange);}
+  .foot .fn{font-family:'DM Mono',monospace;font-size:9px;color:#666;}
+  @media(max-width:720px){.topbar,.cover,.doc-body,.foot{padding-left:18px;padding-right:18px;}.ex{grid-template-columns:1fr;}table{font-size:11px;}}
+  @media print{body{background:#fff;}.doc{box-shadow:none;max-width:100%;}.btn{display:none;}.topbar,.cover,thead th,pre,.foot{-webkit-print-color-adjust:exact;print-color-adjust:exact;}table,pre,.arch,.callout,.ex{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="topbar"><div class="tb-brand"><em>Reveal</em> · Analysis &amp; Report Templates</div><div class="tb-doc">v1 · the engine · dventurelabs</div><button class="btn" onclick="window.print()">⬇ Print</button></div>
+
+  <div class="cover">
+    <div class="ey">Reveal · Ingenium · dventurelabs</div>
+    <h1>How the report stays <em>consistent.</em></h1>
+    <p class="sub">Two templates that together guarantee report integrity: an <b>Analysis template</b> that computes every finding deterministically — keeping the LLM away from any judgment that must be stable — and a <b>Report template</b> that constrains the LLM to phrasing fixed findings within fixed slots. Built against the Data Schema; doubles as the spec for the analysis engine and synthesis layer.</p>
+  </div>
+
+  <div class="doc-body">
+
+    <div class="arch">
+      <div class="at">The pipeline · where the LLM is, and isn't</div>
+      <svg width="100%" viewBox="0 0 880 220" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans,sans-serif">
+        <defs><marker id="a" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#EC6540"/></marker></defs>
+        <!-- 1 capture -->
+        <rect x="20" y="70" width="170" height="62" rx="8" fill="#fff" stroke="#D8D5D0"/>
+        <text x="105" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#1A1A18">1 · Capture</text>
+        <text x="105" y="114" text-anchor="middle" font-size="9.5" fill="#777770" font-family="DM Mono,monospace">raw data · deterministic</text>
+        <line x1="190" y1="101" x2="222" y2="101" stroke="#EC6540" stroke-width="1.5" marker-end="url(#a)"/>
+        <!-- 2 analysis -->
+        <rect x="224" y="70" width="190" height="62" rx="8" fill="#1A1A18"/>
+        <text x="319" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">2 · Analysis engine</text>
+        <text x="319" y="108" text-anchor="middle" font-size="9.5" fill="#9fd0ff" font-family="DM Mono,monospace">DETERMINISTIC · NO LLM</text>
+        <text x="319" y="122" text-anchor="middle" font-size="8.5" fill="#a8a89e" font-family="DM Mono,monospace">scoring constants → findings</text>
+        <!-- handoff -->
+        <line x1="414" y1="101" x2="452" y2="101" stroke="#EC6540" stroke-width="1.5" marker-end="url(#a)"/>
+        <text x="433" y="62" text-anchor="middle" font-size="9" fill="#EC6540" font-family="DM Mono,monospace">findings</text>
+        <text x="433" y="73" text-anchor="middle" font-size="9" fill="#EC6540" font-family="DM Mono,monospace">object</text>
+        <!-- 3 synthesis LLM -->
+        <rect x="454" y="64" width="190" height="74" rx="8" fill="#fff" stroke="#EC6540" stroke-width="2"/>
+        <text x="549" y="88" text-anchor="middle" font-size="13" font-weight="700" fill="#1A1A18">3 · Synthesis</text>
+        <text x="549" y="104" text-anchor="middle" font-size="9.5" fill="#EC6540" font-family="DM Mono,monospace">★ THE ONLY LLM STEP</text>
+        <text x="549" y="118" text-anchor="middle" font-size="8.5" fill="#777770" font-family="DM Mono,monospace">phrases findings into slots</text>
+        <line x1="644" y1="101" x2="676" y2="101" stroke="#EC6540" stroke-width="1.5" marker-end="url(#a)"/>
+        <!-- 4 cache -->
+        <rect x="678" y="70" width="180" height="62" rx="8" fill="#fff" stroke="#D8D5D0"/>
+        <text x="768" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#1A1A18">4 · Cache</text>
+        <text x="768" y="108" text-anchor="middle" font-size="9.5" fill="#777770" font-family="DM Mono,monospace">generate once · store</text>
+        <text x="768" y="122" text-anchor="middle" font-size="8.5" fill="#777770" font-family="DM Mono,monospace">re-serve, never re-gen</text>
+        <!-- integrity bracket -->
+        <line x1="224" y1="160" x2="858" y2="160" stroke="#2E7D32" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="225" y="180" font-size="10" fill="#2E7D32" font-family="DM Mono,monospace">Integrity comes from layers 2 + 4 — not the LLM. The LLM is demoted to "phrase these fixed findings."</text>
+      </svg>
+    </div>
+
+    <div class="callout"><b>The one principle.</b> The LLM never decides what is <em>true</em> about a student — not whether something is a surprise, not which capacity is the spike, not whether a gap is Real. Those are computed. The LLM only decides how to <em>say</em> findings it is handed. Move every integrity-critical judgment out of the model, and "the LLM answers differently each time" stops being a threat, because the LLM is no longer answering the questions that must be stable.</div>
+
+    <!-- ============ PART ONE ============ -->
+    <div class="part"><div class="pn">Part One</div><h2>The Analysis Template</h2><div class="sf">A deterministic rubric. Given the captured data and the frozen constants, it produces exactly one set of findings — every time. This is layer 2; for the manual pilot it makes <em>your</em> hand-analysis reproducible.</div></div>
+
+    <h3>1 · The frozen scoring constants</h3>
+    <div class="prov"><b>Provisional · tune against pilot.</b> These numbers make the engine deterministic today. Their <em>values</em> will move once pilot data shows where they mis-classify; the <em>rules</em> that consume them won't. Pin them here, version them, change them deliberately.</div>
+    <table><thead><tr><th>Constant</th><th>Value</th><th>Used by</th></tr></thead><tbody>
+      <tr><td>Primary-tag weight (●)</td><td>1.0</td><td>B-score</td></tr>
+      <tr><td>Secondary-tag weight (○)</td><td>0.5</td><td>B-score</td></tr>
+      <tr><td>A-score "present" threshold</td><td>≥ 0.50</td><td>agreement, confidence</td></tr>
+      <tr><td>B-task "points-toward" threshold</td><td>≥ 0.50</td><td>agreement counting</td></tr>
+      <tr><td>A-score "absent" threshold</td><td>≤ 0.20</td><td>surprise</td></tr>
+      <tr><td>Contradiction: A high / B low</td><td>A ≥ 0.60 ∧ B ≤ 0.30</td><td>confidence = contradicted</td></tr>
+      <tr><td>Capacity demonstrated (display)</td><td>0.6·B + 0.4·A, ×100</td><td>ring values, spike rank</td></tr>
+      <tr><td>Gap "meaningful" band</td><td>stated_gap ≥ 0.40</td><td>gap classification</td></tr>
+      <tr><td>B5 distance bands (0–2.83)</td><td>small ≤ 0.45 · real 0.45–0.90 · large &gt; 0.90</td><td>gap, market tension</td></tr>
+    </tbody></table>
+
+    <h3>2 · The deterministic finding rules</h3>
+    <p>Each report finding is produced by one rule. No rule calls an LLM; each is arithmetic or a threshold test on the schema's <span class="mono">raw_capture</span>.</p>
+    <table><thead><tr><th>Finding</th><th>Deterministic rule</th></tr></thead><tbody>
+      <tr><td>A-score(capacity)</td><td>times chosen ÷ times appeared (A1, appearance-normalised)</td></tr>
+      <tr><td>B-score(trait)</td><td>Σ(weight × task_points_toward) ÷ Σ(weight), over tagged B-tasks (● 1.0, ○ 0.5)</td></tr>
+      <tr><td>Capacity spike</td><td>rank capacities by demonstrated (0.6·B + 0.4·A); top = spike</td></tr>
+      <tr><td>Agreeing situations</td><td>count unrelated B-tasks where task_points_toward ≥ 0.50 and A-score ≥ 0.50</td></tr>
+      <tr><td>Confidence code</td><td>CC-3 if A≥0.50 ∧ agree≥3 · CC-2 if A≥0.50 ∧ agree 1–2 · contradicted if A≥0.60 ∧ B≤0.30</td></tr>
+      <tr><td><b>Surprise</b></td><td>A-score ≤ 0.20 ∧ B-score ≥ 0.50 ∧ agreeing situations ≥ 2 · rank by # situations</td></tr>
+      <tr><td>Value rank / protected</td><td>A3 rank; "protected" = survived the B1 budget cut (in core, not cut)</td></tr>
+      <tr><td>Gap classification</td><td>Real: stated_gap ≥ 0.40 ∧ revealed pull present (B5/portfolio ≥ 0.50) · Performed: stated ≥ 0.40 ∧ no revealed pull · Latent: stated ≤ 0.20 ∧ revealed large</td></tr>
+      <tr><td><b>Gap kind</b> (capacity / capability)</td><td>for the desired direction, list required capacities + capabilities · a gap on a <b>capability</b> = skill-fixable (route to training) · a gap on a <b>capacity</b> = not course-fixable (route to: cultivate-slowly / design-around / reconsider-direction) · <b>direction-blocked</b> flag if a required <em>capacity</em> is a thin network</td></tr>
+      <tr><td>Coherence adjudication</td><td>if frame(resume) ≠ frame(portfolio): behaviour_frame = sign(B1 survival-values + B2 choices + B5 actual-centroid) → truer artefact = the one behaviour matches</td></tr>
+      <tr><td>Market tension</td><td>market_gap = dist(wish, pays-best) · aligned ≤ 0.45 · else holding_to_pull if actual≈wish · drifting_to_market if actual pulled toward pays-best</td></tr>
+      <tr><td>Experiment selection</td><td>only for <b>capability</b> gaps + surprises + portfolio gap · one per Real gap (→ that capability) · one per surprise (→ claim it) · one per market tension (→ choose) · capacity gaps route to cultivate/design-around/reconsider, never to a course. Wording is LLM; <em>targets &amp; routes</em> are computed.</td></tr>
+    </tbody></table>
+
+    <h3>3 · The handoff — the Findings Object</h3>
+    <p>The Analysis template emits exactly this structure: a fully-classified, LLM-free description of the student. The Report template may read it and phrase it — it may never add to it.</p>
+    <pre><span class="k">findings</span> = {
+  <span class="k">differentiation</span>: { <span class="k">top_capacity</span>:<span class="s">"empathy"</span>, <span class="k">second</span>:<span class="s">"analytical"</span>, <span class="k">direction</span>:<span class="s">"impact"</span>, <span class="k">market_stance</span>:<span class="s">"holding_to_pull"</span> },
+  <span class="k">capacities</span>: [ { <span class="k">name</span>:<span class="s">"empathy"</span>, <span class="k">demonstrated</span>:<span class="o">92</span>, <span class="k">rank</span>:<span class="o">1</span>, <span class="k">is_spike</span>:<span class="o">true</span>, <span class="k">is_surprise</span>:<span class="o">false</span> }, … ],
+  <span class="k">roles</span>: [ { <span class="k">name</span>:<span class="s">"researcher"</span>, <span class="k">frequency</span>:<span class="o">0.9</span>, <span class="k">tier</span>:<span class="s">"demonstrated"</span> }, … ],
+  <span class="k">values</span>: [ { <span class="k">name</span>:<span class="s">"impact"</span>, <span class="k">rank</span>:<span class="o">2</span>, <span class="k">protected</span>:<span class="o">true</span> }, … ],
+  <span class="k">project_pattern</span>: { <span class="k">lead_impact</span>:[<span class="s">"ReVIVE"</span>], <span class="k">outlier</span>:<span class="s">"The Ibex"</span>, <span class="k">gap_note</span>:<span class="s">"no community/children project"</span> },
+  <span class="k">conditions</span>: { <span class="k">thrive</span>:[…], <span class="k">wither</span>:[…] },
+  <span class="k">surprises</span>: [ { <span class="k">trait</span>:<span class="s">"storytelling"</span>, <span class="k">situations</span>:<span class="o">4</span>, <span class="k">confidence</span>:<span class="s">"high"</span> } ],
+  <span class="k">gap</span>: [ { <span class="k">capability</span>:<span class="s">"field_research"</span>, <span class="k">current</span>:<span class="o">0.2</span>, <span class="k">desired</span>:<span class="o">0.9</span>, <span class="k">classification</span>:<span class="s">"real"</span>, <span class="k">kind</span>:<span class="s">"capability"</span> }, … ],
+  <span class="k">direction_check</span>: { <span class="k">requires_capacities</span>:[<span class="s">"empathy"</span>,<span class="s">"conviction"</span>,<span class="s">"systems_sensing"</span>], <span class="k">all_present</span>:<span class="o">true</span>, <span class="k">direction_blocked</span>:<span class="o">false</span>, <span class="k">capacity_gaps</span>:[] },
+  <span class="k">market</span>: { <span class="k">wish_dir</span>:<span class="s">"impact"</span>, <span class="k">actual_dir</span>:<span class="s">"impact"</span>, <span class="k">pays_dir</span>:<span class="s">"commercial_ui"</span>, <span class="k">market_gap</span>:<span class="o">1.46</span>, <span class="k">classification</span>:<span class="s">"holding_to_pull"</span> },
+  <span class="k">experiments</span>: [ { <span class="k">targets</span>:<span class="s">"field_research"</span>, <span class="k">reason</span>:<span class="s">"real_gap"</span> }, { <span class="k">targets</span>:<span class="s">"storytelling"</span>, <span class="k">reason</span>:<span class="s">"claim_surprise"</span> } ]
+}</pre>
+    <div class="rule-c"><b>The hard boundary:</b> if a fact isn't in the Findings Object, it cannot appear in the report. The Report template's prompt is given <em>only</em> this object — never the raw data — so the LLM literally cannot re-judge anything. It can't decide storytelling is a surprise; it's told so.</div>
+
+    <!-- ============ PART TWO ============ -->
+    <div class="part"><div class="pn">Part Two</div><h2>The Report Template</h2><div class="sf">A fixed structure, a fixed set of slots, and a strict contract. The LLM's entire job is to phrase the Findings Object into the slots — warmly, correctly, and within the rails below. This is layer 3.</div></div>
+
+    <h3>1 · Fixed structure (never changes)</h3>
+    <p>The report's sections and order are constant across every student — only the slot contents vary. (Matches the dashboard report.)</p>
+    <ul class="b">
+      <li><b>Hero</b> — differentiation statement + vitals (computed flags, LLM phrases the one-liner)</li>
+      <li><b>Section 1 · Today</b> — capacities · roles · values · project pattern · conditions</li>
+      <li><b>Surprise callout</b> — confirm-question form</li>
+      <li><b>Section 2 · Heading</b> — reach · gap · direction-vs-market · growth experiments</li>
+      <li><b>Appendix · Evidence Room</b> — pure data table, <b>no LLM</b></li>
+    </ul>
+
+    <h3>2 · The slots the LLM fills</h3>
+    <table><thead><tr><th>Slot</th><th>Reads from</th><th>Constraint</th></tr></thead><tbody>
+      <tr><td><span class="slot">differentiation_statement</span></td><td>differentiation</td><td>≤ 24 words · must name top capacity + direction · no comparison to others</td></tr>
+      <tr><td><span class="slot">capacity_line</span></td><td>capacities</td><td>≤ 40 words · intra-individual · plasticity framing ("thick today / can grow")</td></tr>
+      <tr><td><span class="slot">roles_line</span> · <span class="slot">values_line</span> · <span class="slot">conditions</span></td><td>respective finding</td><td>≤ 30 words each · describe, don't prescribe</td></tr>
+      <tr><td><span class="slot">project_line</span></td><td>project_pattern</td><td>state the publish≠do pattern as fact; name the outlier &amp; the gap</td></tr>
+      <tr><td><span class="slot">surprise_phrasing</span></td><td>surprises</td><td><b>must end in a confirm-question</b> · never a verdict</td></tr>
+      <tr><td><span class="slot">gap_line</span> · <span class="slot">market_line</span></td><td>gap · market</td><td>"examine the belief" for market · targets only computed gaps</td></tr>
+      <tr><td><span class="slot">experiment_text</span></td><td>experiments</td><td>real-world action · intra-individual · never a scoreboard</td></tr>
+      <tr><td><span class="slot">gap_kind_line</span></td><td>direction_check · gap.kind</td><td>say whether gaps are capability (learnable) or capacity (slow) · if direction_blocked, give cultivate / design-around / reconsider — never "take a course"</td></tr>
+      <tr><td><span class="slot">action_menu</span></td><td>capability gaps × direction × market</td><td>action <b>types</b> only: skills · internship types · job directions (incl. the both/and bridge) · projects · people · portfolio re-framing</td></tr>
+    </tbody></table>
+
+    <h3>3 · The tone &amp; rules contract</h3>
+    <p>Stated verbatim in the system prompt. Violations are integrity failures, not style notes.</p>
+    <ul class="b">
+      <li><b>Never invent.</b> Use only facts in the Findings Object. If a slot's finding is absent or low-confidence, say less — never fabricate to fill space.</li>
+      <li><b>No verdicts.</b> Surprises and tensions are mirrors to confirm, not conclusions. Surprises end in a confirm-question.</li>
+      <li><b>Intra-individual only.</b> Never compare the student to other students; no percentiles, no "above average."</li>
+      <li><b>As-of-today framing.</b> Capacities are "thick today, built by your past, able to grow." Never "fixed," never "a scan shows."</li>
+      <li><b>Tier discipline.</b> Neuroscience claims stay at the tier the finding carries (evidenced / well-motivated / plausible). Never upgrade a tier.</li>
+      <li><b>No invented market specifics.</b> Recommendations give action <em>types</em> only — never specific certifications, salary figures, or named employers as if verified. Those are live market facts the instrument doesn't hold (and "what pays" is the student's belief to examine). Present specifics as "to research / verify," or defer to a real labour-market data source.</li>
+      <li><b>Classify before recommending.</b> Never route a capacity gap to a course. Capability gaps → training; capacity gaps → cultivate-slowly / design-around / reconsider-direction.</li>
+      <li><b>Voice.</b> Second person, warm, serious — not clinical, not bubbly. No emoji except the designated surprise ⚡.</li>
+      <li><b>Length.</b> Respect each slot's word ceiling — the report is ~65% visual; prose is captions, not essays.</li>
+    </ul>
+
+    <h3>4 · Worked examples</h3>
+    <h4>differentiation_statement</h4>
+    <div class="ex">
+      <div class="exc good"><div class="exh">✓ Good</div>"An empathy-led, analytical designer whose work reaches for impact — even when she frames herself for the market."<span class="why">Names top capacity + direction, ≤24 words, no comparison, true to the object.</span></div>
+      <div class="exc bad"><div class="exh">✗ Bad</div>"One of the most empathetic designers in her cohort, with rare talent for impact work."<span class="why">Compares to others ("in her cohort"), "rare talent" is a verdict and not in the object.</span></div>
+    </div>
+    <h4>surprise_phrasing</h4>
+    <div class="ex">
+      <div class="exc good"><div class="exh">✓ Good</div>"In four situations your choices leaned on narrative — yet you never claimed storytelling. Strong in what you do, absent in what you say. Does that feel true?"<span class="why">States the computed finding, ends in a confirm-question.</span></div>
+      <div class="exc bad"><div class="exh">✗ Bad</div>"You are secretly a natural storyteller — this is clearly your hidden superpower."<span class="why">Verdict, not a question; "clearly" overclaims a tentative, to-confirm finding.</span></div>
+    </div>
+    <h4>experiment_text</h4>
+    <div class="ex">
+      <div class="exc good"><div class="exh">✓ Good</div>"Run one project with a real community or children — the gap your portfolio is missing."<span class="why">Real-world action, targets the computed gap, no scoreboard.</span></div>
+      <div class="exc bad"><div class="exh">✗ Bad</div>"Boost your field-research score to level 9 to outperform your peers."<span class="why">Scoreboard framing, comparison to peers, invents a numeric target.</span></div>
+    </div>
+
+    <h3>5 · The repeatability guarantee</h3>
+    <table><thead><tr><th>Layer</th><th>Guarantees</th></tr></thead><tbody>
+      <tr><td>Analysis engine (det.)</td><td><b>Substantive consistency</b> — same data → identical findings, classifications, numbers, every run.</td></tr>
+      <tr><td>Report template (contract)</td><td><b>Equivalent meaning</b> — the language may vary in wording but not in what it asserts; low temperature (≈0.3) tightens this further.</td></tr>
+      <tr><td>Cache</td><td><b>Byte-identical on re-view</b> — generate once per <span class="mono">report_instance</span>, store the text, re-serve it. The LLM runs once, not per view.</td></tr>
+    </tbody></table>
+    <div class="callout"><b>The honest scope.</b> Two <em>fresh</em> generations of the same student will phrase a finding differently ("reaches for impact" vs "drawn to impact work") — and that's fine: a report must be true and stable in <em>substance</em>, not byte-identical. Where byte-identity is needed (a student re-opening their report), the cache delivers it. Determinism on language comes from caching, not from fighting the model.</div>
+
+    <div class="callout"><b>For the manual pilot.</b> Today, you are the Analysis engine and Claude is the Synthesis layer with a loose contract — which is exactly why outputs vary. Use Part 1 as your hand-analysis rubric (so your findings are reproducible) and Part 2 as the prompt you give Claude (so it fills slots, not freelances). Then variation between runs stops being noise and becomes your signal for which scoring constants are still under-specified — the very numbers you'd otherwise be guessing at for the build.</div>
+
+  </div>
+
+  <div class="foot"><div class="fb"><span>Reveal</span> · Ingenium · dventurelabs</div><div class="fn">Analysis &amp; Report Templates · v1 · Confidential</div></div>
+</div>
+</body>
+</html>

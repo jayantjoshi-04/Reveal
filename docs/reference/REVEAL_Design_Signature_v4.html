@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>REVEAL · Design Signature · Jaanhvi Hiremath</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap');
+  :root{
+    --orange:#EC6540; --orange-dim:#f4a98e; --navy:#193E90; --navy-deep:#142F6E; --navy-card:#1f478f;
+    --ink:#1A1A18; --black:#111; --cream:#FAF7F2; --warm:#F1EDE6; --paper:#FFFFFF;
+    --cyan:#46C2D6; --steel:#8a96aa; --mag:#D6418F; --gold:#E8A838; --green:#3E9D6B;
+    --rule:#E4E0D8; --mid:#7d7d74; --dim:#a7a79e;
+    --ui:'DM Sans',sans-serif; --serif:'DM Serif Display',serif; --mono:'DM Mono',monospace;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--warm);color:var(--ink);font-family:var(--ui);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .doc{max-width:1080px;margin:0 auto;background:var(--cream);box-shadow:0 0 60px rgba(0,0,0,.07);}
+
+  /* ---------- top bar ---------- */
+  .topbar{background:var(--ink);padding:11px 34px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:30;}
+  .tb-brand{font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#fff;}
+  .tb-brand em{color:var(--orange);font-style:normal;}
+  .tb-r{display:flex;gap:16px;align-items:center;}
+  .tb-meta{font-family:var(--mono);font-size:10px;color:#8a8a82;letter-spacing:.5px;}
+  .btn-print{padding:7px 15px;background:var(--orange);border:none;font-family:var(--ui);font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#fff;cursor:pointer;border-radius:3px;}
+
+  /* ---------- hero / vitals ---------- */
+  .hero{padding:40px 34px 30px;background:linear-gradient(170deg,#fff 0%,var(--cream) 100%);border-bottom:1px solid var(--rule);}
+  .hero .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+  .hero h1{font-family:var(--serif);font-size:clamp(30px,5vw,50px);font-weight:400;line-height:1.0;letter-spacing:-.01em;}
+  .hero .who{font-family:var(--mono);font-size:12px;color:var(--mid);margin-top:8px;letter-spacing:.4px;}
+  .hero .stmt{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.4vw,22px);line-height:1.35;color:#3a3a34;margin:18px 0 6px;max-width:34ch;}
+  .hero .stmt b{font-style:normal;color:var(--orange);}
+  .asof{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--mid);background:#fff;border:1px solid var(--rule);padding:7px 13px;border-radius:20px;margin-top:10px;}
+  .asof .pulse{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(62,157,107,.18);}
+
+  /* vitals strip */
+  .vitals{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px;}
+  .vital{background:#fff;border:1px solid var(--rule);border-radius:12px;padding:16px 16px 14px;position:relative;overflow:hidden;}
+  .vital .vr{position:absolute;top:14px;right:14px;}
+  .vital .vk{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}
+  .vital .vv{font-family:var(--serif);font-size:21px;line-height:1.05;}
+  .vital .vs{font-size:11px;color:var(--mid);margin-top:4px;}
+  .vital.flag{border-color:var(--mag);} .vital.flag .vk{color:var(--mag);}
+  .vital.flag .vv{color:var(--mag);}
+
+  /* how to read key */
+  .key{margin-top:18px;background:#fff;border:1px dashed var(--rule);border-radius:10px;padding:14px 18px;display:flex;flex-wrap:wrap;gap:20px 28px;align-items:center;}
+  .key .kh{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);}
+  .key .ki{font-size:11.5px;color:#444;display:flex;align-items:center;gap:7px;}
+  .tdot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0;}
+  .tdot.ev{background:var(--green);} .tdot.wm{background:var(--gold);} .tdot.pl{background:var(--steel);}
+
+  /* ---------- section shells ---------- */
+  .section{padding:34px;}
+  .s-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:22px;}
+  .s-tab{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px;border-radius:4px;white-space:nowrap;margin-top:6px;}
+  .s-head h2{font-family:var(--serif);font-size:clamp(24px,3.6vw,36px);font-weight:400;line-height:1.02;}
+  .s-head .s-sub{font-size:13.5px;color:var(--mid);margin-top:5px;max-width:60ch;}
+
+  .s1{background:var(--cream);}
+  .s1 .s-tab{background:var(--orange);color:#fff;}
+  .s2{background:var(--navy);color:#eef1f8;}
+  .s2 .s-tab{background:var(--cyan);color:var(--navy-deep);}
+  .s2 .s-head h2{color:#fff;} .s2 .s-sub{color:#b8c4e0;}
+
+  /* card grid */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .span2{grid-column:span 2;}
+  .card{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:18px 18px 16px;display:flex;flex-direction:column;}
+  .s2 .card{background:var(--navy-card);border-color:#2c539c;color:#eef1f8;}
+  .card-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;gap:10px;}
+  .card-h .ct{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);}
+  .s2 .card-h .ct{color:#9fb0d8;}
+  .card-h .cn{font-family:var(--mono);font-size:9px;color:var(--dim);}
+  .card h3{font-family:var(--serif);font-size:19px;font-weight:400;line-height:1.1;margin-bottom:12px;}
+  .s2 .card h3{color:#fff;}
+  .card .lead{font-size:13px;color:#444;line-height:1.5;}
+  .s2 .card .lead{color:#c8d2ea;}
+  .card .lead b{color:var(--ink);} .s2 .card .lead b{color:#fff;}
+
+  /* science chip */
+  .sci{margin-top:13px;padding:10px 12px;background:var(--warm);border-radius:8px;font-size:11.5px;line-height:1.45;color:#4a4a44;display:flex;gap:9px;align-items:flex-start;}
+  .s2 .sci{background:rgba(255,255,255,.07);color:#c8d2ea;}
+  .sci .tdot{margin-top:3px;}
+  .sci b{color:var(--ink);} .s2 .sci b{color:#fff;}
+  .sci .tn{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);display:block;margin-top:3px;}
+  .s2 .sci .tn{color:#8fa0c8;}
+
+  /* evidence tag inline */
+  .etag{margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:10px;}
+  .s2 .etag{border-top-color:#2c539c;}
+  .etag .src{font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:.04em;}
+  .pill{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
+  .pill.today{background:rgba(236,101,64,.12);color:var(--orange);}
+  .pill.conf{background:rgba(62,157,107,.14);color:var(--green);}
+  .pill.tent{background:rgba(232,168,56,.16);color:#a9750f;}
+  .pill.comp{background:rgba(138,150,170,.16);color:#5f6b7e;}
+  .s2 .pill.comp{background:rgba(255,255,255,.1);color:#b8c4e0;}
+
+  /* gauges row */
+  .gauges{display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;}
+  .gau{text-align:center;flex:1;min-width:74px;}
+  .gau svg{width:84px;height:84px;}
+  .gau .gl{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.04em;color:var(--mid);margin-top:2px;line-height:1.2;}
+  .gau .gl b{display:block;color:var(--ink);font-size:9.5px;}
+
+  /* bars */
+  .bars{display:flex;flex-direction:column;gap:9px;}
+  .bar{display:grid;grid-template-columns:96px 1fr 30px;gap:10px;align-items:center;font-size:12px;}
+  .bar .bn{color:#3a3a34;} .s2 .bar .bn{color:#d4dcf0;}
+  .bar .bt{height:9px;background:var(--rule);border-radius:6px;overflow:hidden;}
+  .s2 .bar .bt{background:rgba(255,255,255,.12);}
+  .bar .bt i{display:block;height:100%;border-radius:6px;}
+  .bar .bv{font-family:var(--mono);font-size:10px;color:var(--mid);text-align:right;}
+  .s2 .bar .bv{color:#9fb0d8;}
+
+  .legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;}
+  .legend span{font-family:var(--mono);font-size:9.5px;color:var(--mid);display:flex;align-items:center;gap:5px;}
+  .s2 .legend span{color:#9fb0d8;}
+  .legend i{width:9px;height:9px;border-radius:2px;}
+
+  /* read-out: numbers + how-derived */
+  .readout{margin-top:11px;padding:9px 12px;background:var(--warm);border-radius:8px;}
+  .readout .nums{font-family:var(--mono);font-size:10.5px;letter-spacing:.01em;color:var(--ink);line-height:1.55;display:block;margin-bottom:4px;}
+  .readout .how{font-size:11px;color:var(--mid);line-height:1.46;}
+  .readout .how b{color:#444;}
+  .readout .rl{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:5px;}
+  .s2 .readout{background:rgba(255,255,255,.06);}
+  .s2 .readout .nums{color:#eaf0fb;} .s2 .readout .how{color:#9fb0d8;} .s2 .readout .how b{color:#cdd8f0;} .s2 .readout .rl{color:var(--cyan);}
+
+  /* combined reach+gap bullet chart */
+  .blt{display:grid;grid-template-columns:104px 1fr 46px 54px;gap:11px;align-items:center;margin-bottom:12px;}
+  .blt .bn{font-size:12px;color:#d4dcf0;}
+  .blt .track{position:relative;height:11px;background:rgba(255,255,255,.12);border-radius:6px;}
+  .blt .track .now{position:absolute;left:0;top:0;height:100%;background:var(--steel);border-radius:6px;}
+  .blt .track .tgt{position:absolute;top:-3px;width:3px;height:17px;background:var(--cyan);border-radius:2px;}
+  .blt .track .tgt::before{content:'';position:absolute;top:-7px;left:-3.5px;width:10px;height:10px;border-radius:50%;background:var(--cyan);}
+  .blt .flag{font-family:var(--mono);font-size:8px;letter-spacing:.04em;text-transform:uppercase;padding:3px 0;border-radius:20px;text-align:center;}
+  .blt .flag.real{background:rgba(214,65,143,.2);color:#f386bd;}
+  .blt .flag.wish{background:rgba(255,255,255,.1);color:#9fb0d8;}
+  .blt .bv{font-family:var(--mono);font-size:9.5px;color:#9fb0d8;text-align:right;}
+  /* gap triage */
+  .triage{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .triage .tp{border-radius:10px;padding:13px 15px;}
+  .triage .cap{background:rgba(62,157,107,.1);border:1px solid rgba(62,157,107,.32);}
+  .triage .cab{background:rgba(70,194,214,.08);border:1px solid rgba(70,194,214,.32);}
+  .triage .th{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px;}
+  .triage .cap .th{color:#5fc98a;} .triage .cab .th{color:var(--cyan);}
+  .triage ul{list-style:none;} .triage li{font-size:12px;padding:4px 0 4px 19px;position:relative;color:#d4dcf0;line-height:1.4;}
+  .triage li::before{position:absolute;left:0;top:4px;font-size:11px;font-family:var(--mono);}
+  .triage .cap li::before{content:'✓';color:#5fc98a;} .triage .cab li::before{content:'→';color:var(--cyan);}
+  .verdict{margin-top:13px;background:rgba(62,157,107,.1);border-left:3px solid #3E9D6B;border-radius:7px;padding:12px 15px;font-size:13px;color:#dbe6da;line-height:1.5;}.verdict b{color:#fff;}
+  .aside{margin-top:10px;font-size:11.5px;color:#9fb0d8;line-height:1.5;padding:10px 13px;background:rgba(255,255,255,.05);border-radius:7px;}.aside b{color:#cdd8f0;}
+  /* action menu */
+  .acts{display:flex;flex-direction:column;gap:0;margin-top:4px;}
+  .act{display:grid;grid-template-columns:128px 1fr;gap:13px;padding:11px 0;border-top:1px solid #2c539c;}
+  .act:first-child{border-top:none;}
+  .act .al{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--cyan);padding-top:2px;}
+  .act .ac{font-size:12.5px;color:#d4dcf0;line-height:1.5;}.act .ac b{color:#fff;}
+  .act.bridge{background:rgba(70,194,214,.1);border:1px solid rgba(70,194,214,.35);border-radius:10px;padding:13px 15px;margin:7px 0;}
+  .act.verify .al{color:#8a96aa;}.act.verify .ac{color:#9fb0d8;}
+
+  /* reach+gap: effort (distance) + pull (worded tag) as two cues */
+  .bltx{display:grid;grid-template-columns:96px 1fr 86px 96px;gap:12px;align-items:center;margin-bottom:14px;}
+  .bltx .bn{font-size:12px;color:#d4dcf0;}
+  .bltx .track{position:relative;height:11px;background:rgba(255,255,255,.12);border-radius:6px;}
+  .bltx .track .now{position:absolute;left:0;top:0;height:100%;background:var(--steel);border-radius:6px;}
+  .bltx .track .span{position:absolute;top:5px;height:0;border-top:1.5px dotted rgba(255,255,255,.45);}
+  .bltx .track .tgt{position:absolute;top:-3px;width:3px;height:17px;background:var(--cyan);border-radius:2px;}
+  .bltx .track .tgt::before{content:'';position:absolute;top:-7px;left:-3.5px;width:10px;height:10px;border-radius:50%;background:var(--cyan);}
+  .bltx .effort{display:flex;flex-direction:column;gap:3px;}
+  .bltx .effort .em{display:flex;gap:2px;}
+  .bltx .effort .em i{width:11px;height:5px;border-radius:1px;background:rgba(255,255,255,.18);}
+  .bltx .effort .em i.on{background:#cdd8f0;}
+  .bltx .effort .el{font-family:var(--mono);font-size:8px;letter-spacing:.04em;text-transform:uppercase;color:#9fb0d8;}
+  .bltx .tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.02em;text-transform:uppercase;padding:5px 0;border-radius:6px;text-align:center;font-weight:500;}
+  .bltx .tag.start{background:rgba(232,168,56,.22);color:#f0bd6a;}
+  .bltx .tag.build{background:rgba(70,194,214,.2);color:#7fd6e6;}
+  .bltx .tag.test{background:rgba(138,150,170,.2);color:#aab6cc;}
+  .cuekey{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;margin-top:14px;padding:12px 14px;background:rgba(255,255,255,.05);border-radius:9px;}
+  .cuekey .ck{font-size:11px;color:#9fb0d8;line-height:1.4;}
+  .cuekey .ck b{color:#dbe6f5;font-family:var(--mono);font-size:9px;letter-spacing:.04em;text-transform:uppercase;}
+  .cuekey .ck.hd{grid-column:1 / -1;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);}
+
+  /* thrive/wither */
+  .tw{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .tw .twc{border-radius:10px;padding:12px 13px;}
+  .tw .thrive{background:rgba(62,157,107,.08);border:1px solid rgba(62,157,107,.25);}
+  .tw .wither{background:rgba(138,150,170,.08);border:1px solid rgba(138,150,170,.25);}
+  .tw .twh{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+  .tw .thrive .twh{color:var(--green);} .tw .wither .twh{color:#5f6b7e;}
+  .tw ul{list-style:none;} .tw li{font-size:11.5px;padding:3px 0 3px 15px;position:relative;color:#3a3a34;line-height:1.35;}
+  .tw li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;}
+  .tw .thrive li::before{background:var(--green);} .tw .wither li::before{background:var(--steel);}
+
+  /* surprise callout */
+  .surprise{margin:24px 0;background:linear-gradient(135deg,#fff 0%,#fdeef6 100%);border:1.5px solid var(--mag);border-radius:16px;padding:24px 26px;display:flex;gap:22px;align-items:center;}
+  .surprise .sx-mark{font-family:var(--serif);font-size:46px;color:var(--mag);line-height:1;flex-shrink:0;}
+  .surprise .sx-k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mag);margin-bottom:6px;}
+  .surprise h3{font-family:var(--serif);font-size:23px;font-weight:400;line-height:1.12;margin-bottom:6px;}
+  .surprise p{font-size:13px;color:#5a4450;max-width:62ch;}
+  .surprise .ask{font-style:italic;color:var(--mag);}
+
+  /* mode divider */
+  .divider{background:var(--ink);color:#fff;padding:24px 34px;display:flex;align-items:center;gap:18px;}
+  .divider .dl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);}
+  .divider h2{font-family:var(--serif);font-size:clamp(18px,2.6vw,26px);font-weight:400;font-style:italic;color:#fff;}
+  .divider .arr{margin-left:auto;font-size:24px;color:var(--cyan);}
+
+  .scatter svg, .dumb svg, .loop svg, .axis svg{width:100%;display:block;}
+
+  /* appendix */
+  .appendix{background:var(--warm);padding:32px 34px 14px;border-top:2px solid var(--ink);}
+  .appendix .ah{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);}
+  .appendix h2{font-family:var(--serif);font-size:26px;font-weight:400;margin:4px 0 4px;}
+  .appendix .asub{font-size:13px;color:var(--mid);margin-bottom:16px;max-width:68ch;}
+  table.ev{width:100%;border-collapse:collapse;font-size:12px;background:#fff;border:1px solid var(--rule);border-radius:8px;overflow:hidden;}
+  table.ev th{background:var(--ink);color:#fff;text-align:left;font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:9px 12px;}
+  table.ev td{padding:9px 12px;border-top:1px solid var(--rule);color:#3a3a34;vertical-align:top;}
+  table.ev tr:nth-child(even){background:var(--cream);}
+  table.ev td:first-child{font-weight:600;}
+  .chan{font-family:var(--mono);font-size:8.5px;padding:2px 7px;border-radius:20px;}
+  .chan.a{background:rgba(21,101,192,.1);color:#1565C0;} .chan.b{background:rgba(236,101,64,.12);color:var(--orange);} .chan.c{background:rgba(138,150,170,.16);color:#5f6b7e;}
+
+  .foot{background:var(--ink);padding:22px 34px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .foot .fb{font-size:12px;font-weight:700;letter-spacing:2px;color:#555;text-transform:uppercase;}.foot .fb span{color:var(--orange);}
+  .foot .fn{font-family:var(--mono);font-size:10px;color:#666;}
+
+  @media(max-width:820px){.vitals{grid-template-columns:1fr 1fr;}.grid{grid-template-columns:1fr;}.span2{grid-column:span 1;}.tw{grid-template-columns:1fr;}}
+  @media print{body{background:#fff;}.doc{box-shadow:none;max-width:100%;}.btn-print{display:none;}
+    .topbar,.s2,.divider,.appendix th,.vital,.surprise,.foot,.s-tab,.pill,.sci,.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .card,.surprise,.vital,table.ev{page-break-inside:avoid;}.section{padding:24px 34px;}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="topbar">
+    <div class="tb-brand"><em>Reveal</em> · Design Signature</div>
+    <div class="tb-r"><span class="tb-meta">v2 · dventurelabs</span><button class="btn-print" onclick="window.print()">⬇ Save / Print</button></div>
+  </div>
+
+  <!-- ================= HERO / VITALS ================= -->
+  <div class="hero">
+    <div class="ey">Reveal · your design signature</div>
+    <h1>Jaanhvi, here's<br>what your work says.</h1>
+    <div class="who">Jaanhvi Hiremath · B.Des · cohort 7 · first reading</div>
+    <p class="stmt">An <b>empathy-led, analytical</b> designer whose work reaches for <b>impact</b> — even when she frames herself for the market.</p>
+    <div class="asof"><span class="pulse"></span>As of today · 17 Jun 2026 — a snapshot, not a verdict. Re-run later to watch it move.</div>
+
+    <div class="vitals">
+      <div class="vital">
+        <svg class="vr" width="26" height="26" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="#eee" stroke-width="5"/><circle cx="18" cy="18" r="15" fill="none" stroke="#EC6540" stroke-width="5" stroke-linecap="round" stroke-dasharray="86.7 999" transform="rotate(-90 18 18)"/></svg>
+        <div class="vk">Leads with</div><div class="vv">Empathy</div><div class="vs">your thickest network</div>
+      </div>
+      <div class="vital">
+        <svg class="vr" width="26" height="26" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="#eee" stroke-width="5"/><circle cx="18" cy="18" r="15" fill="none" stroke="#193E90" stroke-width="5" stroke-linecap="round" stroke-dasharray="82.9 999" transform="rotate(-90 18 18)"/></svg>
+        <div class="vk">Reaches for</div><div class="vv">Impact</div><div class="vs">in what she chooses</div>
+      </div>
+      <div class="vital flag">
+        <div class="vk">Surprise</div><div class="vv">Storyteller ⚡</div><div class="vs">strong, never claimed</div>
+      </div>
+      <div class="vital">
+        <svg class="vr" width="26" height="26" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="#eee" stroke-width="5"/><circle cx="18" cy="18" r="15" fill="none" stroke="#8a96aa" stroke-width="5" stroke-linecap="round" stroke-dasharray="42 999" transform="rotate(-90 18 18)"/></svg>
+        <div class="vk">Right now</div><div class="vv">Holds her pull</div><div class="vs">over the better-paid path</div>
+      </div>
+    </div>
+
+    <div class="key">
+      <span class="kh">How to read this</span>
+      <span class="ki"><b style="color:var(--ink)">You compared to you</b> — never ranked against other students.</span>
+      <span class="ki"><span class="tdot ev"></span>Evidenced</span>
+      <span class="ki"><span class="tdot wm"></span>Well-motivated</span>
+      <span class="ki"><span class="tdot pl"></span>Plausible</span>
+      <span class="ki" style="color:var(--mid)">— each chart shows its numbers and how they're derived, plus the science behind it, tiered honestly.</span>
+    </div>
+  </div>
+
+  <!-- ================= SECTION 1 — TODAY ================= -->
+  <div class="section s1">
+    <div class="s-head">
+      <span class="s-tab">Today</span>
+      <div><h2>The designer you are today</h2>
+        <p class="s-sub">Read from what you've actually done and chosen — not from what you'd say about yourself.</p></div>
+    </div>
+
+    <div class="grid">
+
+      <!-- CAPACITIES -->
+      <div class="card span2">
+        <div class="card-h"><span class="ct">Capacities · where your wiring is thick today</span><span class="cn">ranked vs. your own profile</span></div>
+        <h3>Six capacities, built by everything you've done.</h3>
+        <div class="gauges">
+          <div class="gau"><svg viewBox="0 0 90 90"><circle cx="45" cy="45" r="34" fill="none" stroke="#eee" stroke-width="9"/><circle cx="45" cy="45" r="34" fill="none" stroke="#EC6540" stroke-width="9" stroke-linecap="round" stroke-dasharray="196.5 9999" transform="rotate(-90 45 45)"/><text x="45" y="51" text-anchor="middle" font-family="DM Mono,monospace" font-size="17" font-weight="500" fill="#1A1A18">92</text></svg><div class="gl"><b>Empathy</b>interpersonal</div></div>
+          <div class="gau"><svg viewBox="0 0 90 90"><circle cx="45" cy="45" r="34" fill="none" stroke="#eee" stroke-width="9"/><circle cx="45" cy="45" r="34" fill="none" stroke="#193E90" stroke-width="9" stroke-linecap="round" stroke-dasharray="188 9999" transform="rotate(-90 45 45)"/><text x="45" y="51" text-anchor="middle" font-family="DM Mono,monospace" font-size="17" font-weight="500" fill="#1A1A18">88</text></svg><div class="gl"><b>Analytical</b>logical</div></div>
+          <div class="gau"><svg viewBox="0 0 90 90"><circle cx="45" cy="45" r="34" fill="none" stroke="#eee" stroke-width="9"/><circle cx="45" cy="45" r="34" fill="none" stroke="#D6418F" stroke-width="9" stroke-linecap="round" stroke-dasharray="166.6 9999" transform="rotate(-90 45 45)"/><text x="45" y="51" text-anchor="middle" font-family="DM Mono,monospace" font-size="17" font-weight="500" fill="#1A1A18">78</text></svg><div class="gl"><b>Storytelling ⚡</b>narrative</div></div>
+          <div class="gau"><svg viewBox="0 0 90 90"><circle cx="45" cy="45" r="34" fill="none" stroke="#eee" stroke-width="9"/><circle cx="45" cy="45" r="34" fill="none" stroke="#E8A838" stroke-width="9" stroke-linecap="round" stroke-dasharray="153.8 9999" transform="rotate(-90 45 45)"/><text x="45" y="51" text-anchor="middle" font-family="DM Mono,monospace" font-size="17" font-weight="500" fill="#1A1A18">72</text></svg><div class="gl"><b>Conviction</b>intrapersonal</div></div>
+          <div class="gau"><svg viewBox="0 0 90 90"><circle cx="45" cy="45" r="34" fill="none" stroke="#eee" stroke-width="9"/><circle cx="45" cy="45" r="34" fill="none" stroke="#46C2D6" stroke-width="9" stroke-linecap="round" stroke-dasharray="149.5 9999" transform="rotate(-90 45 45)"/><text x="45" y="51" text-anchor="middle" font-family="DM Mono,monospace" font-size="17" font-weight="500" fill="#1A1A18">70</text></svg><div class="gl"><b>Systems-sensing</b>wholes &amp; flows</div></div>
+          <div class="gau"><svg viewBox="0 0 90 90"><circle cx="45" cy="45" r="34" fill="none" stroke="#eee" stroke-width="9"/><circle cx="45" cy="45" r="34" fill="none" stroke="#8a96aa" stroke-width="9" stroke-linecap="round" stroke-dasharray="123.9 9999" transform="rotate(-90 45 45)"/><text x="45" y="51" text-anchor="middle" font-family="DM Mono,monospace" font-size="17" font-weight="500" fill="#1A1A18">58</text></svg><div class="gl"><b>Aesthetic</b>form &amp; taste</div></div>
+        </div>
+        <div class="readout"><span class="rl">The numbers · how they're built</span><span class="nums">Empathy 92 · Analytical 88 · Storytelling 78 · Conviction 72 · Systems-sensing 70 · Aesthetic 58</span><span class="how">We mostly look at what you <b>did</b>, and a little at what you <b>said</b> (0.6 × did + 0.4 × said), then turn it into a score out of 100. These compare you <b>to yourself</b>, never to other students. A full ring is a strength you've built up; a small one is just room to grow.</span></div>
+        <p class="lead" style="margin-top:11px">Empathy is what you reach for first — it's your strongest. You tend to think a problem through <b>logically before you feel your way into it</b>; both happen, in that order. And none of this is locked in: it's just where you're strong <b>today</b>. A small ring is something you can build up.</p>
+        <div class="sci"><span class="tdot ev"></span><span><b>The science.</b> Repeated practice physically thickens the brain pathways behind a skill — the rings show where yours are well-developed so far. They're useful groupings for reflection, not six fixed modules in the brain.<span class="tn">● Evidenced · experience-dependent plasticity · read from behaviour, not a scan</span></span></div>
+        <div class="etag"><span class="src">Source · work-patterns + demonstrated strengths [capacity module illustrative]</span><span class="pill tent">Tentative · confirm</span></div>
+      </div>
+
+      <!-- RECURRING ROLES -->
+      <div class="card">
+        <div class="card-h"><span class="ct">Recurring roles</span></div>
+        <h3>What you keep becoming.</h3>
+        <div class="bars">
+          <div class="bar"><span class="bn">Researcher</span><span class="bt"><i style="width:90%;background:var(--orange)"></i></span><span class="bv">often</span></div>
+          <div class="bar"><span class="bn">Sensemaker</span><span class="bt"><i style="width:78%;background:var(--orange)"></i></span><span class="bv"></span></div>
+          <div class="bar"><span class="bn">Empathiser</span><span class="bt"><i style="width:70%;background:var(--orange)"></i></span><span class="bv"></span></div>
+          <div class="bar"><span class="bn">Storyteller</span><span class="bt"><i style="width:48%;background:var(--mag)"></i></span><span class="bv">⚡</span></div>
+          <div class="bar"><span class="bn">Builder</span><span class="bt"><i style="width:30%;background:var(--orange-dim)"></i></span><span class="bv">rarely</span></div>
+        </div>
+        <div class="readout"><span class="rl">The numbers</span><span class="nums">Researcher 0.90 · Sensemaker 0.78 · Empathiser 0.70 · Storyteller 0.48 · Builder 0.30</span><span class="how">This is <b>how often you played each role</b> across your projects (1.0 = every single project). You show up as a storyteller rarely here — but your actual choices lean on it a lot. <b>That mismatch is your surprise.</b></span></div>
+        <p class="lead" style="margin-top:11px">On project after project, you slip into the same two roles: <b>figuring people out</b> and <b>making sense of the mess</b>. You're drawn to understanding more than to building.</p>
+        <div class="sci"><span class="tdot pl"></span><span><b>The science.</b> A recurring role is a behavioural pattern that's stabilised — real and consistent, though this is a pattern read, not a brain-scan claim.<span class="tn">○ Plausible · behavioural consistency</span></span></div>
+        <div class="etag"><span class="src">Source · per-project role tags</span><span class="pill conf">3+ projects</span></div>
+      </div>
+
+      <!-- VALUES -->
+      <div class="card">
+        <div class="card-h"><span class="ct">Values · what survived the cut</span></div>
+        <h3>What you protect under pressure.</h3>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <svg width="118" height="118" viewBox="0 0 118 118" style="flex-shrink:0">
+            <circle cx="59" cy="59" r="40" fill="none" stroke="#EC6540" stroke-width="18" stroke-dasharray="60.3 251.3" stroke-dashoffset="0" transform="rotate(-90 59 59)"/>
+            <circle cx="59" cy="59" r="40" fill="none" stroke="#193E90" stroke-width="18" stroke-dasharray="55.3 251.3" stroke-dashoffset="-60.3" transform="rotate(-90 59 59)"/>
+            <circle cx="59" cy="59" r="40" fill="none" stroke="#E8A838" stroke-width="18" stroke-dasharray="37.7 251.3" stroke-dashoffset="-115.6" transform="rotate(-90 59 59)"/>
+            <circle cx="59" cy="59" r="40" fill="none" stroke="#D6418F" stroke-width="18" stroke-dasharray="35.2 251.3" stroke-dashoffset="-153.3" transform="rotate(-90 59 59)"/>
+            <circle cx="59" cy="59" r="40" fill="none" stroke="#46C2D6" stroke-width="18" stroke-dasharray="32.7 251.3" stroke-dashoffset="-188.5" transform="rotate(-90 59 59)"/>
+            <circle cx="59" cy="59" r="40" fill="none" stroke="#cfcabf" stroke-width="18" stroke-dasharray="30.1 251.3" stroke-dashoffset="-221.2" transform="rotate(-90 59 59)"/>
+          </svg>
+          <div class="legend" style="flex-direction:column;gap:6px;margin-top:0">
+            <span><i style="background:var(--orange)"></i>Empathy</span>
+            <span><i style="background:var(--navy)"></i>Impact</span>
+            <span><i style="background:var(--gold)"></i>Justice</span>
+            <span><i style="background:var(--mag)"></i>Storytelling</span>
+            <span><i style="background:var(--cyan)"></i>Teaching</span>
+            <span><i style="background:#cfcabf"></i>Craft</span>
+          </div>
+        </div>
+        <div class="readout"><span class="rl">The numbers · share of weight</span><span class="nums">Empathy 24% · Impact 22% · Justice 15% · Storytelling 14% · Teaching 13% · Craft 12%</span><span class="how">Each slice is <b>how much weight you gave that value</b> when you ranked them — bigger slice, more it matters to you. When we made you cut some under a tight budget, <b>impact and learning stayed</b>; money and recognition were the first you let go.</span></div>
+        <p class="lead" style="margin-top:11px">What you keep when you <b>can't keep everything</b> is the truest sign of what you value — and you held onto impact and learning.</p>
+        <div class="sci"><span class="tdot wm"></span><span><b>The science.</b> What you protect when you can't keep everything reveals priorities more honestly than ranking them on a calm day.<span class="tn">◐ Well-motivated · revealed preference under constraint</span></span></div>
+        <div class="etag"><span class="src">Source · values ranking + budget-cut task</span><span class="pill today">Today</span></div>
+      </div>
+
+      <!-- PROJECT PATTERN -->
+      <div class="card span2 scatter">
+        <div class="card-h"><span class="ct">Project pattern · what you publish vs. what you do</span></div>
+        <h3>Your work leans impact — your resume doesn't.</h3>
+        <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+          <line x1="60" y1="155" x2="680" y2="155" stroke="#E4E0D8" stroke-width="1.5"/>
+          <line x1="370" y1="36" x2="370" y2="268" stroke="#E4E0D8" stroke-width="1.5"/>
+          <text x="64" y="285" fill="#a7a79e" font-family="DM Mono,monospace" font-size="10">← COMMERCIAL</text>
+          <text x="676" y="285" fill="#a7a79e" font-family="DM Mono,monospace" font-size="10" text-anchor="end">IMPACT →</text>
+          <text x="378" y="46" fill="#a7a79e" font-family="DM Mono,monospace" font-size="10">↑ YOU LEAD</text>
+          <text x="378" y="262" fill="#a7a79e" font-family="DM Mono,monospace" font-size="10">↓ SUPPORTING</text>
+          <circle cx="600" cy="82" r="13" fill="#EC6540"/><text x="600" y="66" fill="#1A1A18" font-family="DM Sans" font-size="11" text-anchor="middle" font-weight="600">ReVIVE</text>
+          <circle cx="540" cy="185" r="9" fill="#193E90"/><text x="540" y="207" fill="#3a3a34" font-family="DM Sans" font-size="10" text-anchor="middle">Godh</text>
+          <circle cx="470" cy="205" r="9" fill="#193E90"/><text x="470" y="227" fill="#3a3a34" font-family="DM Sans" font-size="10" text-anchor="middle">Fauna Sense</text>
+          <circle cx="432" cy="120" r="8" fill="#193E90"/><text x="432" y="106" fill="#3a3a34" font-family="DM Sans" font-size="10" text-anchor="middle">UniPlay</text>
+          <circle cx="250" cy="125" r="8" fill="#8a96aa"/><text x="250" y="111" fill="#3a3a34" font-family="DM Sans" font-size="10" text-anchor="middle">The Ibex</text>
+          <circle cx="640" cy="215" r="15" fill="none" stroke="#D6418F" stroke-width="1.5" stroke-dasharray="4 4"/><text x="640" y="219" fill="#D6418F" font-family="DM Mono,monospace" font-size="9" text-anchor="middle">gap</text>
+          <text x="640" y="245" fill="#D6418F" font-family="DM Sans" font-size="9.5" text-anchor="middle">no community /</text><text x="640" y="257" fill="#D6418F" font-family="DM Sans" font-size="9.5" text-anchor="middle">children project yet</text>
+        </svg>
+        <div class="legend"><span><i style="border-radius:50%;background:var(--orange)"></i>You led it</span><span><i style="border-radius:50%;background:var(--navy)"></i>Supporting role</span><span><i style="border-radius:50%;background:var(--steel)"></i>No real user</span><span><i style="border-radius:50%;background:var(--mag)"></i>The gap</span></div>
+        <div class="readout"><span class="rl">How to read the grid</span><span class="nums">left → right: commercial ↔ impact · bottom → top: you supported ↔ you led · bigger dot = bigger role for you</span><span class="how">We placed each of your projects on this grid from your <b>portfolio</b>. Top-right is impact work you led — that's <b>ReVIVE</b>. <b>The Ibex</b> sits over on the left: it was commercial with no real user, which makes it the odd one out. The dashed circle is a kind of project you <b>haven't done yet</b>.</span></div>
+        <p class="lead" style="margin-top:10px">The projects you led and cared most about all sit on the <b>impact</b> side. The Ibex is the exception — and the one you'd quietly drop. Here's the catch: <b>your CV sells the commercial designer, but your work shows the impact one.</b> They don't match.</p>
+        <div class="sci"><span class="tdot ev"></span><span><b>The science.</b> What you <i>do</i> is a more reliable signal than what you <i>say</i> — the brain's self-narrator tends to reconstruct a tidy story after the fact.<span class="tn">● Evidenced · limits of introspection</span></span></div>
+        <div class="etag"><span class="src">Source · portfolio inventory vs. resume framing · adjudicated by behaviour</span><span class="pill conf">Resume is the outlier</span></div>
+      </div>
+
+      <!-- ENVIRONMENT FIT -->
+      <div class="card span2">
+        <div class="card-h"><span class="ct">Where you work best</span></div>
+        <h3>Your conditions.</h3>
+        <div class="tw">
+          <div class="twc thrive"><div class="twh">You thrive when</div><ul>
+            <li>the work has a purpose you believe in</li>
+            <li>there's a real person it helps</li>
+            <li>you're in the field, not behind glass</li>
+            <li>you can start before it's fully figured out</li>
+            <li>the team shares the cause</li>
+          </ul></div>
+          <div class="twc wither"><div class="twh">You lose energy when</div><ul>
+            <li>it's purely commercial, no visible impact</li>
+            <li>it has to be perfect before you can begin</li>
+            <li>the output is for a portfolio, not a person</li>
+            <li>you're working alone with no one to think with</li>
+            <li>money is the only point</li>
+          </ul></div>
+        </div>
+        <div class="readout"><span class="rl">Where this comes from</span><span class="how">From the conditions you ticked, plus how you reacted when we <b>suddenly changed your brief</b> halfway through a task. No scores here — just the situations where you work easily, and the ones that wear you down.</span></div>
+        <div class="sci"><span class="tdot wm"></span><span><b>The science.</b> You run best where the work matches the model you've built — a good-fit setting means less friction between what you expect and what you meet.<span class="tn">◐ Well-motivated · consistent with predictive-processing</span></span></div>
+        <div class="etag"><span class="src">Source · conditions checklist + disruption task</span><span class="pill today">Today</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============= SURPRISE ============= -->
+  <div class="section s1" style="padding-top:0">
+    <div class="surprise">
+      <div class="sx-mark">⚡</div>
+      <div>
+        <div class="sx-k">A surprise — to confirm, not a verdict</div>
+        <h3>You read as a Storyteller. You never said so.</h3>
+        <p>In four separate situations your choices leaned on narrative and framing — yet you didn't list storytelling among your strengths. Strong in what you do, absent in what you claim. <span class="ask">Does that feel true?</span></p>
+        <div class="readout" style="margin-top:13px;background:rgba(214,65,143,.07)"><span class="rl" style="color:var(--mag)">Why we call this a surprise</span><span class="how">It shows up strongly in what you <b>do</b> — here, in all 4 situations — but barely in what you <b>say</b> about yourself. That gap is the surprise. We show it as a <b>question</b>, not a fact, for you to confirm.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============= MODE DIVIDER ============= -->
+  <div class="divider">
+    <span class="dl">Switching view</span>
+    <h2>From here on — not where you are, but where you're heading.</h2>
+    <span class="arr">↓</span>
+  </div>
+
+  <!-- ================= SECTION 2 — HEADING ================= -->
+  <div class="section s2">
+    <div class="s-head">
+      <span class="s-tab">Heading</span>
+      <div><h2>The designer you want to be</h2>
+        <p class="s-sub">What you reach for, how far away it is, whether each gap is a <em>skill</em> or a <em>way of thinking</em> — and the concrete steps that close it.</p></div>
+    </div>
+
+    <div class="grid">
+
+      <!-- REACH + GAP combined -->
+      <div class="card span2">
+        <div class="card-h"><span class="ct">Your reach &amp; the gap · two cues per skill</span><span class="cn">effort + where to start</span></div>
+        <h3>How far each gap is, and which ones to act on first.</h3>
+        <div style="margin-top:8px">
+          <div class="bltx"><span class="bn">Field research</span><span class="track"><i class="now" style="width:20%"></i><span class="span" style="left:20%;right:10%"></span><span class="tgt" style="left:90%"></span></span><span class="effort"><span class="em"><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="el">Heavy</span></span><span class="tag start">Start here</span></div>
+          <div class="bltx"><span class="bn">Venture-building</span><span class="track"><i class="now" style="width:40%"></i><span class="span" style="left:40%;right:15%"></span><span class="tgt" style="left:85%"></span></span><span class="effort"><span class="em"><i class="on"></i><i class="on"></i><i></i></span><span class="el">Moderate</span></span><span class="tag build">Build steadily</span></div>
+          <div class="bltx"><span class="bn">Facilitation</span><span class="track"><i class="now" style="width:30%"></i><span class="span" style="left:30%;right:20%"></span><span class="tgt" style="left:80%"></span></span><span class="effort"><span class="em"><i class="on"></i><i class="on"></i><i></i></span><span class="el">Moderate</span></span><span class="tag test">Test first</span></div>
+          <div class="bltx"><span class="bn">Systems thinking</span><span class="track"><i class="now" style="width:50%"></i><span class="span" style="left:50%;right:30%"></span><span class="tgt" style="left:70%"></span></span><span class="effort"><span class="em"><i class="on"></i><i></i><i></i></span><span class="el">Light</span></span><span class="tag test">Test first</span></div>
+        </div>
+        <div class="legend" style="margin-top:13px"><span><i style="border-radius:6px;background:var(--steel)"></i>Now (your work shows)</span><span><i style="border-radius:50%;background:var(--cyan)"></i>Target (you set)</span><span>▦ Effort = the distance between them</span></div>
+        <div class="cuekey">
+          <span class="ck hd">Two separate things to read</span>
+          <span class="ck"><b>Effort</b> — how far you have to go (the gap). Light, moderate, or heavy. The dotted line shows the distance.</span>
+          <span class="ck"><b>Where to start</b> — based on whether your work already leans this way, not on the size of the gap.</span>
+          <span class="ck"><b style="color:#f0bd6a">Start here</b> — your work already pulls here and there's real ground to cover. Biggest payoff.</span>
+          <span class="ck"><b style="color:#7fd6e6">Build steadily</b> — you're pulled here and already partway. Keep going.</span>
+          <span class="ck"><b style="color:#aab6cc">Test first</b> — you said you want this, but your work doesn't show it yet. Try a small project before you commit.</span>
+        </div>
+        <div class="readout"><span class="rl">The numbers · gap = target − now</span><span class="nums">Field research 20→90 (70) · Venture 40→85 (45) · Facilitation 30→80 (50) · Systems 50→70 (20)</span><span class="how">Notice the two cues can <b>disagree</b>: Facilitation has a bigger gap (50) than Venture (45), yet Venture says "build steadily" and Facilitation says "test first." That's the point — <b>where to start isn't about the size of the gap</b>, it's about whether your behaviour already leans that way.</span></div>
+        <div class="sci"><span class="tdot ev"></span><span><b>The science.</b> Effort comes from the distance to your target; where-to-start comes from whether your behaviour already reaches toward it. Two different signals — closing a gap you're already pulled toward has the most traction.<span class="tn">● Evidenced · stated gap × revealed pull</span></span></div>
+        <div class="etag"><span class="src">Source · desired levels × demonstrated × wish-sort pull</span><span class="pill comp">Computed</span></div>
+      </div>
+
+      <!-- DIRECTION VS MARKET -->
+      <div class="card span2 axis">
+        <div class="card-h"><span class="ct">The other gap · which way are you leaning?</span><span class="cn">now · wish · pays</span></div>
+        <h3>Right now, are you leaning toward what you love — or what you think pays?</h3>
+        <svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg">
+          <defs><radialGradient id="halo"><stop offset="0%" stop-color="#E8A838" stop-opacity="0.5"/><stop offset="100%" stop-color="#E8A838" stop-opacity="0"/></radialGradient></defs>
+          <line x1="90" y1="95" x2="640" y2="95" stroke="#3a5391" stroke-width="1.5"/>
+          <text x="90" y="70" fill="#9fb0d8" font-family="DM Mono,monospace" font-size="10">← WHAT YOU THINK PAYS</text>
+          <text x="640" y="70" fill="#9fb0d8" font-family="DM Mono,monospace" font-size="10" text-anchor="end">THE WORK YOU LOVE →</text>
+          <circle cx="200" cy="95" r="8" fill="#8a96aa"/><text x="200" y="120" fill="#8a96aa" font-family="DM Mono,monospace" font-size="9" text-anchor="middle">pays</text>
+          <line x1="200" y1="48" x2="600" y2="48" stroke="#5a6b91" stroke-width="1" stroke-dasharray="4 4"/><text x="400" y="40" fill="#8a96aa" font-family="DM Mono,monospace" font-size="9" text-anchor="middle">far apart</text>
+          <circle cx="600" cy="95" r="11" fill="none" stroke="#46C2D6" stroke-width="2.5"/><text x="600" y="120" fill="#46C2D6" font-family="DM Mono,monospace" font-size="9" text-anchor="middle">wish</text>
+          <circle cx="556" cy="95" r="24" fill="url(#halo)"/>
+          <circle cx="556" cy="95" r="13" fill="#E8A838"/>
+          <text x="556" y="35" fill="#E8A838" font-family="DM Sans" font-size="14" font-weight="700" text-anchor="middle">NOW</text>
+          <text x="556" y="51" fill="#f0c88a" font-family="DM Sans" font-size="10" text-anchor="middle">your work today</text>
+          <text x="556" y="150" fill="#7fd6e6" font-family="DM Sans" font-size="13" font-weight="700" text-anchor="middle">↑ you're leaning this way</text>
+          <text x="380" y="178" fill="#cdd8f0" font-family="DM Sans" font-size="12.5" text-anchor="middle">toward the work you love — not the money</text>
+        </svg>
+        <div class="legend"><span><i style="border-radius:50%;background:var(--gold);width:13px;height:13px"></i><b style="color:#f0c88a">NOW</b> · the work you make today</span><span><i style="border-radius:50%;background:transparent;border:2px solid var(--cyan)"></i>WISH · the work you wish you made</span><span><i style="border-radius:50%;background:var(--steel)"></i>PAYS · what you think pays best</span></div>
+        <div class="readout"><span class="rl">What this line is saying</span><span class="how">Three things sit on this line: the work you do <b>now</b> (the big yellow dot), the work you <b>wish</b> you did (circle), and the work you think <b>pays</b> best (grey, far left). Your wish and what-pays are <b>far apart</b>. The big dot is the one that matters: your <b>now sits right next to your wish</b>, so right now <b>you're following the work you love, not the money</b>. That's a real choice — worth making on purpose. (One thing to check: "what pays" is just your guess; it may not be true.)</span></div>
+        <div class="sci"><span class="tdot pl"></span><span><b>The science.</b> The tug between what you love and what pays is a real motivational conflict — worth making conscious. Treat your read of "what pays" as a belief to test, not a fact.<span class="tn">○ Plausible · intrinsic vs. extrinsic motivation · examine the belief</span></span></div>
+        <div class="etag"><span class="src">Source · wish-sort (wish · actual · pays-best passes) + perceived-market item</span><span class="pill comp">Examine the belief</span></div>
+      </div>
+
+      <!-- GAP TRIAGE: capacity vs capability -->
+      <div class="card span2">
+        <div class="card-h"><span class="ct">Before the steps · what kind of gap?</span><span class="cn">skill vs. way-of-thinking</span></div>
+        <h3>Are your gaps skills you can build, or wiring you'd have to grow?</h3>
+        <p class="lead" style="margin-top:2px;margin-bottom:13px">Where you want to go — <b>social-impact, human-centred design</b> — needs two kinds of things: certain <b>ways of thinking</b> (capacities) and certain <b>skills</b> (capabilities). Before we suggest anything, here's the key question: do you already have the ways of thinking it needs?</p>
+        <div class="triage">
+          <div class="tp cap"><div class="th">Capacities your direction needs — and you have</div><ul>
+            <li><b>Empathy</b> — your <b>thickest</b> network (92). Your whole direction rests on it.</li>
+            <li><b>Conviction</b> (72) — you know what your work should stand for.</li>
+            <li><b>Systems-sensing</b> (70) — enough for service &amp; community work.</li>
+          </ul></div>
+          <div class="tp cab"><div class="th">Gaps — all capabilities (learnable)</div><ul>
+            <li><b>Field research</b> · 20→90 · Real</li>
+            <li><b>Venture-building</b> · 40→85 · Real</li>
+            <li><b>Facilitation</b> · 30→80 · Wish</li>
+            <li><b>Systems &amp; service design</b> · 50→70 · Wish</li>
+          </ul></div>
+        </div>
+        <div class="verdict"><b>Good news:</b> nothing about <b>how you think</b> is in your way — your mind is already suited to where you want to go. Every gap you have is a <b>skill</b>, and skills can be learned. The next part is how.</div>
+        <div class="aside"><b>If a gap had been a way of thinking</b> instead of a skill, a course wouldn't fix it. You'd have three honest choices: <b>grow it slowly</b> over months with practice and a mentor; <b>team up</b> with someone who has it; or <b>rethink the direction</b> if you don't want to spend years building it. Good to know — but that's not your situation.</div>
+        <div class="sci"><span class="tdot wm"></span><span><b>The science.</b> Skills (capabilities) are trainable on a timescale of weeks-to-months; cognitive leanings (capacities) shift slowly through sustained practice. Naming which kind a gap is determines whether a course can close it.<span class="tn">◐ Well-motivated · plasticity timescales differ by construct</span></span></div>
+        <div class="etag"><span class="src">Source · desired direction → required capacities/capabilities → your demonstrated levels</span><span class="pill comp">Computed · gap classification</span></div>
+      </div>
+
+      <!-- GROWTH EXPERIMENTS -->
+      <div class="card span2 loop">
+        <div class="card-h"><span class="ct">Growth experiments · how the picture moves</span><span class="cn">each targets one computed finding</span></div>
+        <h3>Three experiments — and where each one comes from.</h3>
+        <div style="display:flex;gap:26px;align-items:center;flex-wrap:wrap;">
+          <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" style="width:236px;flex-shrink:0">
+            <circle cx="130" cy="130" r="75" fill="none" stroke="#46C2D6" stroke-width="1" stroke-dasharray="3 4" opacity="0.5"/>
+            <!-- nodes on the circle -->
+            <circle cx="130" cy="55" r="34" fill="#1f478f" stroke="#46C2D6" stroke-width="1.5"/><text x="130" y="52" fill="#fff" font-family="DM Sans" font-size="10" text-anchor="middle">Run an</text><text x="130" y="64" fill="#fff" font-family="DM Sans" font-size="10" text-anchor="middle">experiment</text>
+            <circle cx="205" cy="130" r="34" fill="#1f478f" stroke="#46C2D6" stroke-width="1.5"/><text x="205" y="127" fill="#fff" font-family="DM Sans" font-size="10" text-anchor="middle">Generate</text><text x="205" y="139" fill="#fff" font-family="DM Sans" font-size="10" text-anchor="middle">evidence</text>
+            <circle cx="130" cy="205" r="34" fill="#1f478f" stroke="#46C2D6" stroke-width="1.5"/><text x="130" y="202" fill="#fff" font-family="DM Sans" font-size="9.5" text-anchor="middle">Thicker</text><text x="130" y="214" fill="#fff" font-family="DM Sans" font-size="9.5" text-anchor="middle">network</text>
+            <circle cx="55" cy="130" r="34" fill="#1f478f" stroke="#46C2D6" stroke-width="1.5"/><text x="55" y="127" fill="#fff" font-family="DM Sans" font-size="9.5" text-anchor="middle">Re-run</text><text x="55" y="139" fill="#fff" font-family="DM Sans" font-size="9.5" text-anchor="middle">REVEAL</text>
+            <!-- clockwise arrowheads at 45/135/225/315 -->
+            <path d="M-6,-5 L6,0 L-6,5 Z" fill="#46C2D6" transform="translate(183,77) rotate(45)"/>
+            <path d="M-6,-5 L6,0 L-6,5 Z" fill="#46C2D6" transform="translate(183,183) rotate(135)"/>
+            <path d="M-6,-5 L6,0 L-6,5 Z" fill="#46C2D6" transform="translate(77,183) rotate(225)"/>
+            <path d="M-6,-5 L6,0 L-6,5 Z" fill="#46C2D6" transform="translate(77,77) rotate(315)"/>
+            <text x="130" y="128" fill="#9fb0d8" font-family="DM Mono,monospace" font-size="8" text-anchor="middle">THE</text><text x="130" y="138" fill="#9fb0d8" font-family="DM Mono,monospace" font-size="8" text-anchor="middle">LOOP</text>
+          </svg>
+          <div style="flex:1;min-width:248px">
+            <div style="display:flex;flex-direction:column;gap:13px">
+              <div style="display:flex;gap:11px;align-items:flex-start"><span style="color:var(--cyan);font-family:var(--mono);font-size:12px;padding-top:1px">01</span><span style="font-size:12.5px;color:#d4dcf0;line-height:1.5">Run one project with a <b style="color:#fff">real community or children</b>.<br><span style="font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;color:#8a96aa;text-transform:uppercase">from · the missing project type (portfolio gap)</span></span></div>
+              <div style="display:flex;gap:11px;align-items:flex-start"><span style="color:var(--cyan);font-family:var(--mono);font-size:12px;padding-top:1px">02</span><span style="font-size:12.5px;color:#d4dcf0;line-height:1.5"><b style="color:#fff">Lead the storytelling</b> on a team project — claim it.<br><span style="font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;color:#8a96aa;text-transform:uppercase">from · the storytelling surprise</span></span></div>
+              <div style="display:flex;gap:11px;align-items:flex-start"><span style="color:var(--cyan);font-family:var(--mono);font-size:12px;padding-top:1px">03</span><span style="font-size:12.5px;color:#d4dcf0;line-height:1.5"><b style="color:#fff">Get into the field</b> on a research project.<br><span style="font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;color:#8a96aa;text-transform:uppercase">from · field research — your biggest Real gap</span></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="readout"><span class="rl">Why these three — not generic tips</span><span class="how">Each one points at something <b>real we found</b>: the kind of project you're missing, the strength you don't claim, and your biggest skill gap. All three are <b>skills you can build</b>. Do them, then <b>run REVEAL again</b> — and watch the rings move.</span></div>
+        <div class="sci"><span class="tdot ev"></span><span><b>The science.</b> Doing literally rewires — an experiment is how a thin network becomes a thicker one. That's why the report is built to be re-run: the shape will move.<span class="tn">● Evidenced · experience-dependent plasticity</span></span></div>
+        <div class="etag"><span class="src">Source · Real gaps + surprises + portfolio gap → targeted experiments</span><span class="pill comp">Re-runnable</span></div>
+      </div>
+
+      <!-- ACTION MENU -->
+      <div class="card span2">
+        <div class="card-h"><span class="ct">Your next moves · closing capability gaps</span><span class="cn">all learnable · sequenced</span></div>
+        <h3>Concrete ways to build the skills — in your direction.</h3>
+        <div class="acts">
+          <div class="act"><span class="al">Skills to build</span><span class="ac"><b>Field research first</b> — it's your biggest real gap and the one you'll improve quickest. Then venture-building. Look for short courses, workshops, and lots of practice. Treat facilitation &amp; systems as <b>Wish</b> — try one small project before you commit.</span></div>
+          <div class="act"><span class="al">Internships to seek</span><span class="ac">Placements that build the gap <em>and</em> fit your direction: <b>social-impact studios</b>, <b>NGO / development design teams</b>, and <b>design-research consultancies</b> — environments where field research is the daily work.</span></div>
+          <div class="act bridge"><span class="al" style="color:var(--cyan)">The both/and bridge</span><span class="ac"><b>You may not have to choose between impact and pay.</b> Roles in <b>UX research, design research, and service design</b> tend to pay better than generic product work, <em>and</em> use your empathy + research strengths, <em>and</em> stay in your impact direction. That reframes your passion-vs-pay gap from either/or into a bridge worth exploring.</span></div>
+          <div class="act"><span class="al">Projects to take on</span><span class="ac">One <b>real community or children's project</b> — it fills the portfolio gap, builds field research, and sits squarely in your direction. The highest-leverage single move on this list.</span></div>
+          <div class="act"><span class="al">People to find</span><span class="ac">A <b>field-research mentor</b> to shadow; a <b>community to embed with</b>. Capabilities grow fastest next to someone already fluent.</span></div>
+          <div class="act"><span class="al">Re-frame your work</span><span class="ac">Your resume sells the commercial you; your work shows the impact you. <b>Lead your portfolio with the impact projects</b> — it's the cheapest, fastest way to align how you're seen with who you are.</span></div>
+          <div class="act verify"><span class="al">To research &amp; verify</span><span class="ac">Specific <b>certifications, salary figures, and named employers</b> aren't shown here on purpose — they're live market facts REVEAL doesn't verify, and "what pays" is your belief to check, not a fact. Research these yourself, or a future version will plug in real labour-market data.</span></div>
+        </div>
+        <div class="sci"><span class="tdot pl"></span><span><b>The honest scope.</b> These are action <em>types</em>, computed from your gaps and direction. Specific courses, salaries, and postings need real-world verification — the report points you to them rather than inventing them.<span class="tn">○ Plausible · directions are computed; specifics need market data</span></span></div>
+        <div class="etag"><span class="src">Source · capability gaps × direction × market tension</span><span class="pill comp">Computed types · verify specifics</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= APPENDIX ================= -->
+  <div class="appendix">
+    <div class="ah">Appendix</div>
+    <h2>The Evidence Room</h2>
+    <p class="asub">Every finding above, traced to where it came from. Channel A = what you said · Channel B = what you did · Computed = derived from both.</p>
+    <table class="ev">
+      <thead><tr><th>Finding</th><th>Where it came from</th><th>Channel</th><th>Confidence</th></tr></thead>
+      <tbody>
+        <tr><td>Empathy-led capacity</td><td>Capacity scenarios + dilemma choices + first-moves</td><td><span class="chan b">B + A</span></td><td>3 situations agree</td></tr>
+        <tr><td>Analytical capacity</td><td>First-three-moves + attention capture</td><td><span class="chan b">B</span></td><td>3 situations agree</td></tr>
+        <tr><td>Storytelling ⚡ surprise</td><td>Strong across 4 behavioural situations · absent in self-report</td><td><span class="chan b">B</span></td><td>Surprise · confirm</td></tr>
+        <tr><td>Impact &gt; commercial values</td><td>Values ranking + budget-cut survival + wish-sort</td><td><span class="chan b">B + A</span></td><td>4 situations agree</td></tr>
+        <tr><td>Researcher / sensemaker roles</td><td>Per-project role tags</td><td><span class="chan a">A</span></td><td>3+ projects</td></tr>
+        <tr><td>Publish ≠ do (resume outlier)</td><td>Portfolio inventory vs. resume · adjudicated by B1 + B2 + B5</td><td><span class="chan c">Computed</span></td><td>Behaviour adjudicates</td></tr>
+        <tr><td>Thrive / wither conditions</td><td>Conditions checklist + disruption task</td><td><span class="chan b">B + A</span></td><td>Consistent</td></tr>
+        <tr><td>Today → desired gap</td><td>Demonstrated capability vs. desired levels × wish-sort</td><td><span class="chan c">Computed</span></td><td>Field research = Real</td></tr>
+        <tr><td>Direction vs. market</td><td>Wish-sort pays-best pass + perceived-market item</td><td><span class="chan c">Computed</span></td><td>Holding to pull · examine belief</td></tr>
+        <tr><td>The missing project (gap)</td><td>Portfolio inventory · no community/children work yet</td><td><span class="chan a">A</span></td><td>Noted</td></tr>
+      </tbody>
+    </table>
+    <p class="asub" style="margin-top:14px;font-style:italic">Nothing here is a score against other students. It's a snapshot of you, today — built to be re-run as your work changes.</p>
+  </div>
+
+  <div class="foot"><div class="fb"><span>Reveal</span> · Ingenium · dventurelabs</div><div class="fn">Design Signature · v2 · As of 17 Jun 2026</div></div>
+</div>
+</body>
+</html>

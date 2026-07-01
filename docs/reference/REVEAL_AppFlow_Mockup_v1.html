@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>REVEAL · Application Flow · Mockup</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap');
+  :root{
+    --orange:#EC6540; --ink:#1A1A18; --black:#111; --cream:#FAF7F2;
+    --canvas:#E4E0D8; --frame:#FFFFFF; --rule:#D8D5D0; --line2:#E6E3DD;
+    --mid:#86867d; --dim:#a8a89f; --blue:#1565C0; --blue-bg:#EAF1FA;
+    --orange-bg:#FBEDE8; --green:#2E7D32; --mag:#C0398B; --steel:#7e8aa0; --steel-bg:#eef1f5;
+    --ui:'DM Sans',sans-serif; --serif:'DM Serif Display',serif; --mono:'DM Mono',monospace;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--canvas);color:var(--ink);font-family:var(--ui);font-size:15px;line-height:1.6;}
+
+  /* ---- doc chrome ---- */
+  .masthead{background:var(--ink);padding:30px 40px;position:relative;}
+  .masthead::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange);}
+  .masthead .ey{font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+  .masthead h1{font-family:var(--serif);font-size:clamp(26px,4vw,42px);color:#fff;font-weight:400;line-height:1.04;}
+  .masthead h1 em{color:var(--orange);font-style:italic;}
+  .masthead p{color:#9a9a92;font-size:14px;margin-top:12px;max-width:74ch;}
+  .legend{display:flex;gap:26px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid #2c2c2a;}
+  .legend .li{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:#bdbdb5;}
+  .legend .sw{width:13px;height:13px;border-radius:3px;}
+  .canvas{padding:30px 40px 80px;}
+
+  /* ---- annotation cards ---- */
+  .note{background:#fff;border:1px solid var(--rule);border-left:3px solid var(--orange);padding:14px 18px;margin:14px 0 26px;max-width:880px;font-size:13.5px;color:#444;}
+  .note b{color:var(--orange);} .note .nh{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+  .note.blue{border-left-color:var(--blue);} .note.blue .nh{color:var(--blue);} .note.blue b{color:var(--blue);}
+  .note.mag{border-left-color:var(--mag);} .note.mag .nh{color:var(--mag);} .note.mag b{color:var(--mag);}
+
+  /* ---- section / frame-group (Figma-like) ---- */
+  .phase{margin:40px 0 8px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+  .phase .pn{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+  .phase h2{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:400;}
+  .phase .pmeta{font-family:var(--mono);font-size:11px;color:var(--mid);}
+  .group{border:1px dashed #bdb9b0;border-radius:6px;padding:30px 22px 22px;margin:14px 0 8px;position:relative;background:rgba(255,255,255,.18);}
+  .group .gtab{position:absolute;top:-11px;left:18px;background:var(--ink);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:3px;}
+  .group .gtab b{color:var(--orange);font-weight:500;}
+  .flow{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;}
+  .arrow{align-self:center;color:var(--dim);font-size:20px;padding:0 2px;}
+
+  /* ---- device frames ---- */
+  .frame{display:flex;flex-direction:column;gap:7px;}
+  .frame .fname{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--mid);display:flex;align-items:center;gap:7px;}
+  .frame .fname .step{background:var(--ink);color:#fff;width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;}
+
+  /* phone */
+  .phone{width:268px;background:var(--frame);border:1px solid var(--rule);border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;flex-direction:column;min-height:540px;}
+  .stat{height:26px;background:var(--cream);display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-family:var(--mono);font-size:8.5px;color:var(--dim);border-bottom:1px solid var(--line2);}
+  .stat .wm{font-family:var(--ui);font-weight:700;letter-spacing:2px;color:var(--ink);font-size:9px;}
+  .prog{height:3px;background:var(--line2);} .prog i{display:block;height:100%;background:var(--orange);}
+  .sbody{padding:16px 15px;flex:1;display:flex;flex-direction:column;}
+  .chip{align-self:flex-start;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px;margin-bottom:11px;}
+  .chip.a{background:var(--blue-bg);color:var(--blue);} .chip.b{background:var(--orange-bg);color:var(--orange);}
+  .chip.n{background:#efece6;color:var(--mid);} .chip.sealed{background:#eee;color:var(--mid);}
+  .sq{font-size:14.5px;font-weight:600;line-height:1.3;margin-bottom:5px;color:var(--ink);}
+  .sserif{font-family:var(--serif);font-size:18px;line-height:1.2;margin-bottom:6px;}
+  .ssub{font-size:11px;color:var(--mid);line-height:1.45;margin-bottom:12px;}
+  .opt{border:1px solid var(--rule);border-radius:7px;padding:9px 11px;font-size:11.5px;margin-bottom:7px;display:flex;align-items:center;gap:8px;color:#3a3a36;}
+  .opt .rd{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--dim);flex-shrink:0;}
+  .opt.sel{border-color:var(--orange);background:var(--orange-bg);} .opt.sel .rd{border-color:var(--orange);background:var(--orange);}
+  .opt .tg{margin-left:auto;font-family:var(--mono);font-size:8px;color:var(--dim);}
+  .imgph{border:1px dashed var(--dim);border-radius:7px;background:repeating-linear-gradient(45deg,#f4f1ea,#f4f1ea 6px,#efece6 6px,#efece6 12px);padding:14px 12px;font-family:var(--mono);font-size:9.5px;color:var(--mid);line-height:1.5;margin-bottom:9px;text-align:center;}
+  .imgph b{color:var(--ink);display:block;margin-bottom:3px;letter-spacing:.06em;}
+  .minigrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;}
+  .mtile{border:1px solid var(--rule);border-radius:6px;padding:8px 7px;font-size:9.5px;color:#3a3a36;line-height:1.3;background:#fff;}
+  .mtile.on{border-color:var(--orange);background:var(--orange-bg);}
+  .mtile .mt{font-weight:600;display:block;}
+  .mtile .md{font-family:var(--mono);font-size:7.5px;color:var(--dim);}
+  .sbtn{margin-top:auto;background:var(--orange);color:#fff;text-align:center;font-weight:600;font-size:12.5px;padding:11px;border-radius:8px;}
+  .sbtn.ghost{background:none;border:1px solid var(--rule);color:var(--mid);}
+  .meterline{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--mid);margin-bottom:10px;}
+  .pill-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+  .vpill{font-size:9.5px;padding:4px 8px;border-radius:20px;border:1px solid var(--rule);color:#3a3a36;}
+  .vpill.core{border-color:var(--orange);color:var(--orange);} .vpill.cut{border-color:var(--mag);color:var(--mag);}
+  .upload{border:1.5px dashed var(--orange);border-radius:9px;background:var(--orange-bg);padding:18px 12px;text-align:center;font-size:11px;color:#7a3a28;margin-bottom:10px;}
+  .upload .ic{font-size:20px;}
+  .seal{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex:1;gap:8px;}
+  .seal .lock{font-size:26px;} .seal .st2{font-size:14px;font-weight:600;} .seal .sx{font-size:11px;color:var(--mid);line-height:1.45;}
+
+  /* desktop frame */
+  .desk{width:452px;background:var(--frame);border:1px solid var(--rule);border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+  .dtop{height:34px;background:var(--ink);display:flex;align-items:center;gap:7px;padding:0 13px;}
+  .dtop .dot{width:9px;height:9px;border-radius:50%;background:#444;} .dtop .dot.o{background:var(--orange);}
+  .dtop .dwm{margin-left:8px;font-weight:700;letter-spacing:2px;font-size:10px;color:#fff;}
+  .dtop .dnav{margin-left:auto;font-family:var(--mono);font-size:9px;color:#9a9a92;}
+  .dmain{display:flex;min-height:300px;}
+  .dnav-l{width:130px;background:var(--cream);border-right:1px solid var(--line2);padding:12px 0;}
+  .dnav-l .ni{padding:7px 14px;font-size:11px;color:#3a3a36;display:flex;align-items:center;gap:7px;}
+  .dnav-l .ni.on{background:#fff;color:var(--orange);font-weight:600;box-shadow:inset 2px 0 0 var(--orange);}
+  .dcontent{flex:1;padding:16px 16px;}
+  .dh{font-family:var(--serif);font-size:17px;margin-bottom:3px;}
+  .dsub{font-size:10.5px;color:var(--mid);margin-bottom:13px;}
+  .field{border:1px solid var(--rule);border-radius:6px;padding:8px 10px;font-size:11px;color:#3a3a36;margin-bottom:8px;background:#fff;}
+  .field .fl{font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:3px;}
+  .tagchips{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;}
+  .tagchips .tc{font-family:var(--mono);font-size:8.5px;padding:2px 7px;border-radius:20px;background:var(--orange-bg);color:var(--orange);}
+  .tagchips .tc.blue{background:var(--blue-bg);color:var(--blue);}
+  .drow{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border:1px solid var(--rule);border-radius:6px;margin-bottom:6px;font-size:11px;background:#fff;}
+  .drow .badge{font-family:var(--mono);font-size:8px;padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.06em;}
+  .badge.surprise{background:#fbe6f1;color:var(--mag);} .badge.review{background:var(--orange-bg);color:var(--orange);} .badge.done{background:#e6f2e7;color:var(--green);} .badge.wait{background:#efece6;color:var(--mid);}
+  .dbtn{display:inline-block;background:var(--orange);color:#fff;font-weight:600;font-size:11px;padding:8px 16px;border-radius:7px;margin-top:6px;}
+  .dbtn.ghost{background:none;border:1px solid var(--rule);color:var(--mid);}
+  .dtable{width:100%;border-collapse:collapse;font-size:10px;}
+  .dtable th{text-align:left;font-family:var(--mono);font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);padding:5px 7px;border-bottom:1px solid var(--rule);}
+  .dtable td{padding:5px 7px;border-bottom:1px solid var(--line2);color:#3a3a36;}
+  .stat-row{display:flex;gap:10px;margin-bottom:13px;}
+  .stat-box{flex:1;border:1px solid var(--rule);border-radius:7px;padding:10px;background:#fff;}
+  .stat-box .sn{font-family:var(--serif);font-size:22px;color:var(--orange);} .stat-box .sl{font-size:9px;color:var(--mid);text-transform:uppercase;letter-spacing:.06em;}
+
+  .footer{background:var(--ink);padding:22px 40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:30px;}
+  .footer .fb{font-size:13px;font-weight:700;letter-spacing:2px;color:#555;text-transform:uppercase;}.footer .fb span{color:var(--orange);}
+  .footer .fn{font-family:var(--mono);font-size:10px;color:#666;}
+  @media(max-width:680px){.masthead,.canvas,.footer{padding-left:18px;padding-right:18px;}}
+  @media print{body{background:#fff;}.masthead,.dtop,.stat-box .sn,.legend,.gtab,.chip,.sbtn,.dbtn{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.group,.phone,.desk,.note{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="ey">Reveal · Ingenium · dventurelabs</div>
+  <h1>Application Flow — <em>Mockup</em></h1>
+  <p>The whole product as connected screens: an interleaved Channel A &amp; B journey split across three resumable sessions, a facilitator review gate before any report is generated, the points where students upload their portfolio and resume, and the admin console for questions, tasks, images, tags, and rubrics.</p>
+  <div class="legend">
+    <div class="li"><span class="sw" style="background:var(--blue)"></span>Channel A · stated</div>
+    <div class="li"><span class="sw" style="background:var(--orange)"></span>Channel B · behavioural</div>
+    <div class="li"><span class="sw" style="background:#86867d"></span>Portfolio / resume / system</div>
+    <div class="li"><span class="sw" style="background:var(--steel)"></span>Market · what you think pays</div>
+    <div class="li"><span class="sw" style="background:var(--mag)"></span>Surprise / review flag</div>
+  </div>
+</div>
+
+<div class="canvas">
+
+  <div class="note blue">
+    <div class="nh">Change 1 · Interleave</div>
+    Stated (A) and behavioural (B) modules <b>alternate</b> instead of A-then-B. For the most game-prone traits — values, aspiration — the <b>behavioural task runs first</b> (B1 budget before A3 values; B5 wish-sort before A7 aspiration), so the stated answer can't retrofit itself to the behaviour. Watch the blue/orange chips alternate through the flow.
+  </div>
+  <div class="note">
+    <div class="nh">Change 2 · Split, sealed sessions</div>
+    Capture is broken into <b>three resumable sessions</b> of ~15–18 minutes. Each session <b>seals on completion</b>: once submitted, its answers — especially behavioural ones — are locked and can't be reopened or edited. A returning student resumes at the <b>next</b> item and never sees prior behavioural responses, so one session can't contaminate another.
+  </div>
+
+  <div class="note" style="border-left-color:var(--steel)">
+    <div class="nh" style="color:var(--steel)">Also captured · Direction vs. Market</div>
+    The wish-sort runs a <b style="color:var(--steel)">third pass — "what pays best" — sealed last</b> so money can't prime the wish and actual passes, and A7 asks what the student <b>believes</b> the market rewards. Together these surface the passion-vs-pay tension (e.g. product design vs better-paid UI/UX) that the report names in its new <b>Direction vs. Market</b> view.
+  </div>
+
+  <!-- ============ SESSION 1 ============ -->
+  <div class="phase"><span class="pn">Student · Phase 1</span><h2>Foundations</h2><span class="pmeta">Session 1 · ~15 min</span></div>
+  <div class="group"><span class="gtab">Session 1 · <b>sealed on completion</b></span>
+    <div class="flow">
+
+      <!-- 01 consent -->
+      <div class="frame"><div class="fname"><span class="step">1</span> Welcome &amp; consent</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>9:41</span></div><div class="prog"><i style="width:4%"></i></div>
+          <div class="sbody">
+            <span class="chip n">Getting started</span>
+            <div class="sserif">See the designer your work already shows.</div>
+            <div class="ssub">REVEAL builds a picture of how you design — from what you do, not just what you say. It takes three short sittings. You can stop and come back anytime.</div>
+            <div class="opt sel"><span class="rd"></span>I agree to how my data is used &amp; kept</div>
+            <div class="sbtn">Begin</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 02 portfolio inventory + upload -->
+      <div class="frame"><div class="fname"><span class="step">2</span> Portfolio · facts + upload</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S1</span></div><div class="prog"><i style="width:12%"></i></div>
+          <div class="sbody">
+            <span class="chip n">Portfolio · upload point 1</span>
+            <div class="sq">Add your projects.</div>
+            <div class="ssub">Just the facts for now — we'll ask what you think later.</div>
+            <div class="upload"><div class="ic">⬆</div>Upload portfolio (PDF / link)</div>
+            <div class="field"><div class="fl">Project 1</div>ReVIVE · organ transport · self-initiated</div>
+            <div class="field"><div class="fl">Project 2</div>Godh · postpartum care · group</div>
+            <div class="sbtn">Continue</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 03 A1 capacities -->
+      <div class="frame"><div class="fname"><span class="step">3</span> A1 · Capacities</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S1</span></div><div class="prog"><i style="width:22%"></i></div>
+          <div class="sbody">
+            <span class="chip a">A · stated</span>
+            <div class="sq">A project you care about lands. First, you find yourself…</div>
+            <div class="opt sel"><span class="rd"></span>talking to the people it's for<span class="tg">IN</span></div>
+            <div class="opt"><span class="rd"></span>mapping the parts<span class="tg">LO</span></div>
+            <div class="opt"><span class="rd"></span>making a rough version<span class="tg">CR</span></div>
+            <div class="opt"><span class="rd"></span>working out the story<span class="tg">LI</span></div>
+            <div class="sbtn">Next</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 04 B3 moves -->
+      <div class="frame"><div class="fname"><span class="step">4</span> B3 · First three moves</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S1</span></div><div class="prog"><i style="width:30%"></i></div>
+          <div class="sbody">
+            <span class="chip b">B · behavioural</span>
+            <div class="sq">A coastal town is losing its young people. Your first three moves — drag in order.</div>
+            <div class="opt sel"><span class="rd" style="background:var(--orange);border-color:var(--orange)"></span>1 · talk to the people affected</div>
+            <div class="opt sel"><span class="rd" style="background:var(--orange);border-color:var(--orange)"></span>2 · tighten the real problem</div>
+            <div class="opt"><span class="rd"></span>study other towns</div>
+            <div class="opt"><span class="rd"></span>sketch something quickly</div>
+            <div class="sbtn">Next</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 05 B4 attention (image description) -->
+      <div class="frame"><div class="fname"><span class="step">5</span> B4 · Attention capture</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S1</span></div><div class="prog"><i style="width:38%"></i></div>
+          <div class="sbody">
+            <span class="chip b">B · behavioural</span>
+            <div class="sq">Tap the 3 things that jump out. <span style="color:var(--mid);font-weight:400">8s</span></div>
+            <div class="imgph"><b>▦ SCENE 1 of 5</b>Busy street market — vendors mid-sale, colour &amp; light, stall-flow &amp; queues, a hand-painted sign, price boards</div>
+            <div class="ssub" style="margin-top:-2px">Zones (hidden): people · form · system · detail · text</div>
+            <div class="sbtn">Next scene</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- session seal -->
+  <div class="group" style="max-width:300px;border-color:#cfcabf"><span class="gtab" style="background:#86867d">Boundary</span>
+    <div class="flow">
+      <div class="frame"><div class="fname"><span class="step">✓</span> Session 1 sealed</div>
+        <div class="phone" style="min-height:320px">
+          <div class="stat"><span class="wm">REVEAL</span><span>S1</span></div><div class="prog"><i style="width:40%;background:var(--green)"></i></div>
+          <div class="sbody"><span class="chip sealed">Sealed · locked</span>
+            <div class="seal"><div class="lock">🔒</div><div class="st2">Session 1 saved.</div><div class="sx">Your answers are locked in. Come back when you're ready — you'll pick up exactly where you left off, with nothing to redo.</div></div>
+            <div class="sbtn ghost">Close · resume later</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SESSION 2 ============ -->
+  <div class="phase"><span class="pn">Student · Phase 2</span><h2>Values &amp; direction</h2><span class="pmeta">Session 2 · ~18 min · behaviour-before-stated</span></div>
+  <div class="group"><span class="gtab">Session 2 · <b>B before A on game-prone traits</b></span>
+    <div class="flow">
+
+      <!-- 06 welcome back -->
+      <div class="frame"><div class="fname"><span class="step">6</span> Welcome back</div>
+        <div class="phone" style="min-height:420px">
+          <div class="stat"><span class="wm">REVEAL</span><span>S2</span></div><div class="prog"><i style="width:42%"></i></div>
+          <div class="sbody"><span class="chip n">Resume</span>
+            <div class="sserif">Welcome back.</div>
+            <div class="ssub">Session 1 is done and locked. This sitting is about what you value and where you're headed. ~18 minutes.</div>
+            <div class="field"><div class="fl">Up next</div>Session 2 of 3 · 5 steps</div>
+            <div class="sbtn">Resume</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 07 B1 budget -->
+      <div class="frame"><div class="fname"><span class="step">7</span> B1 · Budget + cut</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S2</span></div><div class="prog"><i style="width:50%"></i></div>
+          <div class="sbody"><span class="chip b">B · behavioural · runs first</span>
+            <div class="sq">Funding's been cut. Keep only 4 — remove two.</div>
+            <div class="meterline"><span>4 kept</span><span>2 to remove</span></div>
+            <div class="pill-row"><span class="vpill core">Help those in need</span><span class="vpill core">Impact that scales</span><span class="vpill core">Learning</span><span class="vpill core">A team you love</span><span class="vpill cut">Money</span><span class="vpill cut">Recognition</span></div>
+            <div class="sbtn">See what it shows</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 08 A3 values -->
+      <div class="frame"><div class="fname"><span class="step">8</span> A3 · Values</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S2</span></div><div class="prog"><i style="width:58%"></i></div>
+          <div class="sbody"><span class="chip a">A · stated · after behaviour</span>
+            <div class="sq">Now drag these into your true order.</div>
+            <div class="ssub">You've already shown us under pressure — this can't be walked back.</div>
+            <div class="opt">≡ Empathy<span class="tg">1</span></div>
+            <div class="opt">≡ Impact<span class="tg">2</span></div>
+            <div class="opt">≡ Justice<span class="tg">3</span></div>
+            <div class="opt">≡ Storytelling<span class="tg">4</span></div>
+            <div class="sbtn">Next</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 09 B2 dilemmas -->
+      <div class="frame"><div class="fname"><span class="step">9</span> B2 · Dilemma cards</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S2</span></div><div class="prog"><i style="width:66%"></i></div>
+          <div class="sbody"><span class="chip b">B · behavioural</span>
+            <div class="ssub">Card 2 of 8 · quick — go with your gut</div>
+            <div class="sq">Two offers, same pay.</div>
+            <div class="opt"><span class="rd"></span>A respected commercial studio</div>
+            <div class="opt sel"><span class="rd" style="background:var(--orange);border-color:var(--orange)"></span>A scrappy NGO doing real-world work</div>
+            <div class="sbtn">Next card</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 10 A4 conditions -->
+      <div class="frame"><div class="fname"><span class="step">10</span> A4 · Conditions</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S2</span></div><div class="prog"><i style="width:72%"></i></div>
+          <div class="sbody"><span class="chip a">A · stated</span>
+            <div class="sq">Tick what's true for you. Be honest, not aspirational.</div>
+            <div class="ssub">You thrive when…</div>
+            <div class="opt sel"><span class="rd" style="background:var(--blue);border-color:var(--blue)"></span>you can see who it helps</div>
+            <div class="opt sel"><span class="rd" style="background:var(--blue);border-color:var(--blue)"></span>you're in the field with people</div>
+            <div class="opt"><span class="rd"></span>the problem is genuinely hard</div>
+            <div class="sbtn">Next</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 11 B8 disruption -->
+      <div class="frame"><div class="fname"><span class="step">11</span> B8 · Disruption</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S2</span></div><div class="prog"><i style="width:80%"></i></div>
+          <div class="sbody"><span class="chip b">B · behavioural</span>
+            <div class="imgph" style="border-color:var(--mag);color:var(--mag)"><b style="color:var(--mag)">⚡ THE BRIEF JUST CHANGED</b>Your main approach is no longer allowed. Keep going.</div>
+            <div class="sq">What do you do now?</div>
+            <div class="opt"><span class="rd"></span>Adapt the idea</div>
+            <div class="opt sel"><span class="rd" style="background:var(--orange);border-color:var(--orange)"></span>Reframe the problem</div>
+            <div class="sbtn">Continue</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ SESSION 3 ============ -->
+  <div class="phase"><span class="pn">Student · Phase 3</span><h2>Pulls, aspiration &amp; reflection</h2><span class="pmeta">Session 3 · ~18 min · resume upload last</span></div>
+  <div class="group"><span class="gtab">Session 3 · <b>resume uploaded last — clean comparison</b></span>
+    <div class="flow">
+
+      <!-- 13 B5 wish-sort (now 3 passes) -->
+      <div class="frame"><div class="fname"><span class="step">12</span> B5 · Wish / actual / pays</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S3</span></div><div class="prog"><i style="width:84%"></i></div>
+          <div class="sbody"><span class="chip b">B · behavioural · runs first</span>
+            <div class="ssub" style="margin-top:-4px;margin-bottom:9px">Pass 3 of 3 · wish ✓&nbsp; actual ✓&nbsp; <b style="color:var(--steel)">pays best</b> — sealed last so money can't prime the rest</div>
+            <div class="sq">Last pass — the 8 you think <span style="color:var(--steel)">pay best</span>.</div>
+            <div class="minigrid">
+              <div class="mtile" style="border-color:var(--steel);background:var(--steel-bg)"><span class="mt">Premium banking UI</span><span class="md">UX · finance</span></div>
+              <div class="mtile"><span class="mt">Low-cost water filter</span><span class="md">product · community</span></div>
+              <div class="mtile" style="border-color:var(--steel);background:var(--steel-bg)"><span class="mt">Crypto onboarding</span><span class="md">UX · commercial</span></div>
+              <div class="mtile"><span class="mt">Migrant helpline</span><span class="md">service · social</span></div>
+            </div>
+            <div class="ssub" style="margin-top:-4px">Descriptions stand in for images in this mock</div>
+            <div class="sbtn">See what it shows</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 14 A7 aspiration -->
+      <div class="frame"><div class="fname"><span class="step">13</span> A7 · Aspiration</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S3</span></div><div class="prog"><i style="width:88%"></i></div>
+          <div class="sbody"><span class="chip a">A · stated · after wish-sort</span>
+            <div class="sq">Where do you want to be strong, and what do you think pays?</div>
+            <div class="field"><div class="fl">Field research with communities</div>now ▢▢▢▢▢ · want ▣▣▣▣▣</div>
+            <div class="field"><div class="fl">What interests me vs. what pays best</div>◯ the same · ◯ a little apart · ◉ opposite directions</div>
+            <div class="sbtn">Next</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 15 B6 bring three -->
+      <div class="frame"><div class="fname"><span class="step">14</span> B6 · Bring three things</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S3</span></div><div class="prog"><i style="width:91%"></i></div>
+          <div class="sbody"><span class="chip b">B · behavioural · upload</span>
+            <div class="sq">Bring 3 things you can't stop looking at.</div>
+            <div class="ssub">Not your own work. One line on why, each.</div>
+            <div class="upload"><div class="ic">⬆</div>Upload an image</div>
+            <div class="field"><div class="fl">Image 1 · why</div>"the light, and that it felt old"</div>
+            <div class="sbtn">Next</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 16 interpretive -->
+      <div class="frame"><div class="fname"><span class="step">15</span> Portfolio · reflection</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S3</span></div><div class="prog"><i style="width:94%"></i></div>
+          <div class="sbody"><span class="chip n">Portfolio · interpretive</span>
+            <div class="sq">On ReVIVE, what were you mostly doing?</div>
+            <div class="ssub">Asked now — after the tasks — so it can't anchor everything else.</div>
+            <div class="opt sel"><span class="rd" style="background:var(--mid);border-color:var(--mid)"></span>Researcher</div>
+            <div class="opt sel"><span class="rd" style="background:var(--mid);border-color:var(--mid)"></span>Sensemaker</div>
+            <div class="opt"><span class="rd"></span>Builder / maker</div>
+            <div class="sbtn">Next</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 17 resume upload -->
+      <div class="frame"><div class="fname"><span class="step">16</span> Resume · upload (last)</div>
+        <div class="phone">
+          <div class="stat"><span class="wm">REVEAL</span><span>S3</span></div><div class="prog"><i style="width:97%"></i></div>
+          <div class="sbody"><span class="chip n">Resume · upload point 2 · last</span>
+            <div class="sq">Last thing — your resume.</div>
+            <div class="ssub">We keep this for the end on purpose: how you package yourself, compared against everything you just showed us.</div>
+            <div class="upload"><div class="ic">⬆</div>Upload resume (PDF)</div>
+            <div class="sbtn">Submit for review</div>
+          </div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 18 submitted -->
+      <div class="frame"><div class="fname"><span class="step">17</span> Submitted</div>
+        <div class="phone" style="min-height:420px">
+          <div class="stat"><span class="wm">REVEAL</span><span>✓</span></div><div class="prog"><i style="width:100%;background:var(--green)"></i></div>
+          <div class="sbody"><span class="chip sealed">Complete</span>
+            <div class="seal"><div class="lock">📨</div><div class="st2">All done — nicely done.</div><div class="sx">Your responses are with a facilitator for a quick quality check. You'll get a note when your Design Signature is ready.</div></div>
+            <div class="sbtn ghost">Close</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ FACILITATOR ============ -->
+  <div class="note mag"><div class="nh">Change 3 · Facilitator review gate</div>No report is generated automatically. A facilitator checks each submission — especially the <b>surprises</b> and the <b>coherence adjudication</b>, the highest-stakes claims — then approves, lightly edits, or flags before the engine generates and releases. During the pilot this keeps a human between raw data and a student's identity report.</div>
+
+  <div class="phase"><span class="pn">Facilitator</span><h2>Review &amp; generate</h2><span class="pmeta">Desktop · staff</span></div>
+  <div class="group"><span class="gtab" style="background:#86867d">Facilitator console</span>
+    <div class="flow">
+
+      <!-- 19 queue -->
+      <div class="frame"><div class="fname"><span class="step">18</span> Submissions queue</div>
+        <div class="desk">
+          <div class="dtop"><span class="dot o"></span><span class="dot"></span><span class="dot"></span><span class="dwm">REVEAL · FACILITATOR</span><span class="dnav">Atlas SkillTech · cohort 7</span></div>
+          <div class="dmain"><div class="dnav-l">
+            <div class="ni on">▣ To review</div><div class="ni">✓ Approved</div><div class="ni">◷ In progress</div><div class="ni">⚙ Settings</div>
+          </div><div class="dcontent">
+            <div class="dh">To review · 4</div><div class="dsub">Capture complete — awaiting a quality check.</div>
+            <div class="drow">Jaanhvi Hiremath <span class="badge surprise">2 surprises</span></div>
+            <div class="drow">Aarav Mehta <span class="badge review">coherence flag</span></div>
+            <div class="drow">Diya Rao <span class="badge wait">clean</span></div>
+            <div class="drow">Kabir Shah <span class="badge wait">clean</span></div>
+          </div></div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 20 review & generate -->
+      <div class="frame"><div class="fname"><span class="step">19</span> Review &amp; approve</div>
+        <div class="desk">
+          <div class="dtop"><span class="dot o"></span><span class="dot"></span><span class="dot"></span><span class="dwm">REVEAL · FACILITATOR</span><span class="dnav">Jaanhvi Hiremath</span></div>
+          <div class="dmain"><div class="dcontent" style="width:100%">
+            <div class="dh">Before you generate</div><div class="dsub">Check the high-stakes calls. Edit wording or confirm.</div>
+            <div class="drow"><span><b>Surprise ·</b> Storyteller — 4 of 4 situations</span><span class="badge surprise">confirm</span></div>
+            <div class="drow"><span><b>Coherence ·</b> resume = commercial, work = impact</span><span class="badge review">adjudicated: work</span></div>
+            <div class="drow"><span><b>Gap ·</b> field research — classified <b>Real</b></span><span class="badge done">ok</span></div>
+            <div class="drow"><span><b>Market ·</b> pulls impact, believes UI pays — holding to pull</span><span class="badge" style="background:var(--steel-bg);color:var(--steel)">examine belief</span></div>
+            <div class="field" style="margin-top:8px"><div class="fl">Facilitator note (optional)</div>Surprise lands — phrasing reads well.</div>
+            <span class="dbtn">Approve &amp; generate</span> <span class="dbtn ghost">Edit</span>
+          </div></div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 21 report delivered -->
+      <div class="frame"><div class="fname"><span class="step">20</span> Student · report ready</div>
+        <div class="phone" style="min-height:420px">
+          <div class="stat"><span class="wm">REVEAL</span><span>✦</span></div><div class="prog"><i style="width:100%"></i></div>
+          <div class="sbody"><span class="chip n">Delivered</span>
+            <div class="sserif">Your Design Signature is ready.</div>
+            <div class="ssub">Two designers inside it — the one your evidence shows, and the one you're becoming. Including one thing you didn't expect.</div>
+            <div class="imgph" style="border-color:var(--orange)"><b style="color:var(--orange)">▣ REPORT PREVIEW</b>Current Designer · Future Designer · 2 surprises · gap · direction vs market · experiments</div>
+            <div class="sbtn">Open my report</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ ADMIN ============ -->
+  <div class="note"><div class="nh">Admin console</div>Everything that defines the instrument is editable without a developer: <b>Channel A questions</b> and their options/tags, <b>Channel B tasks</b> and parameters, the <b>image &amp; artifact library</b> with descriptions and the imp/hum/style tags, the <b>B6 rubric</b> and scoring constants, and the <b>report engine</b> run controls.</div>
+
+  <div class="phase"><span class="pn">Admin</span><h2>Build &amp; tune the instrument</h2><span class="pmeta">Desktop · staff</span></div>
+  <div class="group"><span class="gtab" style="background:#86867d">Admin console</span>
+    <div class="flow">
+
+      <!-- 22 dashboard -->
+      <div class="frame"><div class="fname"><span class="step">21</span> Admin dashboard</div>
+        <div class="desk">
+          <div class="dtop"><span class="dot o"></span><span class="dot"></span><span class="dot"></span><span class="dwm">REVEAL · ADMIN</span></div>
+          <div class="dmain"><div class="dnav-l">
+            <div class="ni on">▦ Overview</div><div class="ni">A · Questions</div><div class="ni">B · Tasks</div><div class="ni">Image library</div><div class="ni">Rubrics</div><div class="ni">Reports</div>
+          </div><div class="dcontent">
+            <div class="dh">Instrument</div><div class="dsub">Version 1.0 · live</div>
+            <div class="stat-row"><div class="stat-box"><div class="sn">7</div><div class="sl">A modules</div></div><div class="stat-box"><div class="sn">8</div><div class="sl">B tasks</div></div><div class="stat-box"><div class="sn">40</div><div class="sl">artifacts</div></div></div>
+            <div class="drow">Scoring constants <span class="badge review">draft</span></div>
+            <div class="drow">B6 rubric <span class="badge done">v1</span></div>
+          </div></div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 23 question editor -->
+      <div class="frame"><div class="fname"><span class="step">22</span> A · Question editor</div>
+        <div class="desk">
+          <div class="dtop"><span class="dot o"></span><span class="dot"></span><span class="dot"></span><span class="dwm">REVEAL · ADMIN</span><span class="dnav">A1 · Capacities · item 1</span></div>
+          <div class="dmain"><div class="dnav-l">
+            <div class="ni">▦ Overview</div><div class="ni on">A · Questions</div><div class="ni">B · Tasks</div><div class="ni">Image library</div><div class="ni">Rubrics</div><div class="ni">Reports</div>
+          </div><div class="dcontent">
+            <div class="dh">Edit item</div>
+            <div class="field"><div class="fl">Prompt</div>A project you care about lands. First, you find yourself…</div>
+            <div class="field"><div class="fl">Option · tag</div>talking to the people it's for
+              <div class="tagchips"><span class="tc blue">IN · interpersonal</span></div></div>
+            <div class="field"><div class="fl">Option · tag</div>mapping the parts
+              <div class="tagchips"><span class="tc blue">LO · logical</span></div></div>
+            <span class="dbtn">Save item</span> <span class="dbtn ghost">+ Add option</span>
+          </div></div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 24 task editor -->
+      <div class="frame"><div class="fname"><span class="step">23</span> B · Task editor</div>
+        <div class="desk">
+          <div class="dtop"><span class="dot o"></span><span class="dot"></span><span class="dot"></span><span class="dwm">REVEAL · ADMIN</span><span class="dnav">B1 · Budget + cut</span></div>
+          <div class="dmain"><div class="dnav-l">
+            <div class="ni">▦ Overview</div><div class="ni">A · Questions</div><div class="ni on">B · Tasks</div><div class="ni">Image library</div><div class="ni">Rubrics</div><div class="ni">Reports</div>
+          </div><div class="dcontent">
+            <div class="dh">B1 · Budget + cut</div><div class="dsub">Parameters &amp; trait tags</div>
+            <div class="field"><div class="fl">Fund / keep / cut</div>fund 6 · keep 4 · remove 2</div>
+            <div class="field"><div class="fl">Trait tags</div><div class="tagchips"><span class="tc">Values ●</span><span class="tc">Conviction ●</span><span class="tc">Conditions ○</span></div></div>
+            <div class="field"><div class="fl">Cards · 12</div>impact · recognition · craft · money · autonomy · learning…</div>
+            <span class="dbtn">Save task</span>
+          </div></div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 25 image library -->
+      <div class="frame"><div class="fname"><span class="step">24</span> Image &amp; artifact library</div>
+        <div class="desk">
+          <div class="dtop"><span class="dot o"></span><span class="dot"></span><span class="dot"></span><span class="dwm">REVEAL · ADMIN</span><span class="dnav">B5 set · 40 artifacts</span></div>
+          <div class="dmain"><div class="dnav-l">
+            <div class="ni">▦ Overview</div><div class="ni">A · Questions</div><div class="ni">B · Tasks</div><div class="ni on">Image library</div><div class="ni">Rubrics</div><div class="ni">Reports</div>
+          </div><div class="dcontent">
+            <div class="dh">Artifacts &amp; scenes</div><div class="dsub">Description + tags · image optional · B5 = 3 passes (wish · actual · pays-best)</div>
+            <table class="dtable"><thead><tr><th>Description</th><th>imp</th><th>hum</th><th>st</th><th>pair</th></tr></thead><tbody>
+              <tr><td>Low-cost water filter</td><td>0.9</td><td>0.6</td><td>sys</td><td style="color:var(--mag)">P1</td></tr>
+              <tr><td>Luxury water bottle</td><td>−0.8</td><td>−0.5</td><td>craft</td><td style="color:var(--mag)">P1</td></tr>
+              <tr><td>Migrant-worker helpline</td><td>0.9</td><td>0.8</td><td>sys</td><td>—</td></tr>
+            </tbody></table>
+            <span class="dbtn">+ Add artifact</span> <span class="dbtn ghost">Edit tags</span>
+          </div></div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 26 rubric editor -->
+      <div class="frame"><div class="fname"><span class="step">25</span> Rubrics &amp; scoring</div>
+        <div class="desk">
+          <div class="dtop"><span class="dot o"></span><span class="dot"></span><span class="dot"></span><span class="dwm">REVEAL · ADMIN</span><span class="dnav">B6 rubric · constants</span></div>
+          <div class="dmain"><div class="dnav-l">
+            <div class="ni">▦ Overview</div><div class="ni">A · Questions</div><div class="ni">B · Tasks</div><div class="ni">Image library</div><div class="ni on">Rubrics</div><div class="ni">Reports</div>
+          </div><div class="dcontent">
+            <div class="dh">B6 rubric &amp; scoring</div><div class="dsub">Dimensions and the numbers the engine uses</div>
+            <div class="field"><div class="fl">Rubric dimension</div>subject · human-present ↔ object</div>
+            <div class="field"><div class="fl">Rubric dimension</div>era · historical ↔ contemporary</div>
+            <div class="field"><div class="fl">Constants</div>● weight 1.0 · ○ weight 0.5 · CC-3 ≥ 3 agree · gap "large" ≥ 0.9</div>
+            <span class="dbtn">Save rubric</span>
+          </div></div>
+        </div>
+      </div>
+      <span class="arrow">→</span>
+
+      <!-- 27 reports -->
+      <div class="frame"><div class="fname"><span class="step">26</span> Reports &amp; generation</div>
+        <div class="desk">
+          <div class="dtop"><span class="dot o"></span><span class="dot"></span><span class="dot"></span><span class="dwm">REVEAL · ADMIN</span><span class="dnav">Engine</span></div>
+          <div class="dmain"><div class="dnav-l">
+            <div class="ni">▦ Overview</div><div class="ni">A · Questions</div><div class="ni">B · Tasks</div><div class="ni">Image library</div><div class="ni">Rubrics</div><div class="ni on">Reports</div>
+          </div><div class="dcontent">
+            <div class="dh">Report engine</div><div class="dsub">Run scoring + synthesis on reviewed captures</div>
+            <div class="field"><div class="fl">Generation mode</div>Facilitator review → generate <span style="color:var(--mid)">(pilot)</span></div>
+            <div class="drow">Jaanhvi Hiremath <span class="badge done">approved</span></div>
+            <div class="drow">Aarav Mehta <span class="badge review">in review</span></div>
+            <span class="dbtn">Generate approved · 1</span> <span class="dbtn ghost">Re-run scoring</span>
+          </div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="footer"><div class="fb"><span>Reveal</span> · Ingenium · dventurelabs</div><div class="fn">Application Flow · Mockup v1 · Confidential</div></div>
+</body>
+</html>

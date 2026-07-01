@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>REVEAL · Data Schema · dventurelabs</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap');
+  :root{--orange:#EC6540;--black:#111111;--ink:#1A1A18;--cream:#FAF7F2;--mid:#777770;--rule:#D8D5D0;--light:#F4F4F0;--blue:#1565C0;--green:#2E7D32;--mag:#C0398B;}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--cream);color:var(--black);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.7;}
+  .topbar{background:var(--black);padding:12px 44px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;}
+  .tb-brand{font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#fff;}.tb-brand em{color:var(--orange);font-style:normal;}
+  .tb-doc{font-size:11px;color:#666;letter-spacing:1px;text-transform:uppercase;}
+  .btn-print{padding:7px 16px;background:var(--orange);border:none;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;cursor:pointer;}
+  .cover{background:var(--ink);padding:56px 44px 44px;position:relative;overflow:hidden;}
+  .cover::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange);}
+  .cover .ey{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-bottom:22px;}
+  .cover h1{font-family:'DM Serif Display',serif;font-size:clamp(30px,5vw,52px);font-weight:400;color:#fff;line-height:1.04;max-width:20ch;}
+  .cover h1 em{color:var(--orange);font-style:italic;}
+  .cover .sub{font-size:15px;color:#9a9a92;margin-top:14px;max-width:66ch;}
+  .doc{max-width:940px;margin:0 auto;padding:0 44px 90px;}
+  .part{padding:46px 0 6px;}
+  .part .pn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;}
+  .part h2{font-family:'DM Serif Display',serif;font-size:clamp(23px,3.2vw,32px);font-weight:400;margin-top:6px;}
+  .part .sf{font-size:14px;color:var(--mid);font-style:italic;margin-top:4px;max-width:72ch;}
+  p{font-size:14px;line-height:1.7;color:#3A3A36;margin-bottom:12px;}p strong{color:var(--black);font-weight:600;}em{font-style:italic;}
+  h3{font-size:17px;font-weight:700;margin:22px 0 6px;}
+  .ent{font-family:'DM Mono',monospace;font-size:13px;color:var(--orange);font-weight:500;}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid var(--rule);margin:10px 0 16px;}
+  thead th{background:var(--ink);color:#fff;padding:8px 11px;text-align:left;font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;}
+  tbody td{padding:8px 11px;border-top:1px solid var(--rule);vertical-align:top;line-height:1.45;color:#3A3A36;}
+  tbody td:first-child{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--black);font-weight:500;white-space:nowrap;}
+  tbody tr:nth-child(even){background:var(--light);}
+  .ty{font-family:'DM Mono',monospace;font-size:11px;color:var(--blue);}
+  pre{background:var(--ink);color:#e6e6e0;font-family:'DM Mono',monospace;font-size:11.5px;line-height:1.6;padding:18px 20px;overflow-x:auto;border-radius:3px;margin:10px 0 16px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  pre .k{color:#9fd0ff;} pre .s{color:#ffd9a8;} pre .c{color:#7a7a72;} pre .o{color:#ff9b78;}
+  .callout{background:rgba(236,101,64,.05);border-left:3px solid var(--orange);padding:14px 18px;margin:16px 0;font-size:13.5px;color:#444;}.callout b{color:var(--orange);}
+  .erd{background:#fff;border:1px solid var(--rule);padding:20px;margin:14px 0;}
+  .footer{background:var(--black);padding:24px 44px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  .footer .fb{font-size:13px;font-weight:700;letter-spacing:2px;color:#555;text-transform:uppercase;}.footer .fb span{color:var(--orange);}
+  .footer .fn{font-size:11px;color:#444;}
+  @media(max-width:760px){.topbar,.cover,.doc,.footer{padding-left:22px;padding-right:22px;}table{font-size:11px;}}
+  @media print{.btn-print{display:none;}body{background:#fff;}.cover,thead th,pre{-webkit-print-color-adjust:exact;print-color-adjust:exact;}table,pre,.erd{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="tb-brand"><em>Reveal</em> · Data Schema</div><div class="tb-doc">v1 · Build-ready · dventurelabs</div><button class="btn-print" onclick="window.print()">⬇ Save / Print</button></div>
+
+<div class="cover">
+  <div class="ey">Reveal · Ingenium · dventurelabs</div>
+  <h1>Data <em>Schema</em></h1>
+  <p class="sub">The unified record the whole application reads and writes — every field captured per student, per report instance, per module and task, plus the derived layer the report is generated from. This is the spine an engineer builds against.</p>
+</div>
+
+<div class="doc">
+
+  <div class="part"><div class="pn">Orientation</div><h2>Three principles before the fields</h2></div>
+  <p><strong>1 · A student has many report instances over time.</strong> REVEAL is re-run; each run is a dated snapshot, and comparing snapshots is how the "model has moved" story works. So the top object isn't a report — it's a <span class="ent">student</span> who owns an array of <span class="ent">report_instances</span>.</p>
+  <p><strong>2 · Raw capture is stored separately from derived results.</strong> Everything the student does lands in <span class="ent">raw_capture</span> untouched. The scoring engine reads raw and writes <span class="ent">derived</span>. Keeping them apart means you can re-run the engine on old raw data when the scoring changes — without re-collecting anything.</p>
+  <p><strong>3 · The trait is the central unit.</strong> Both channels write per-trait signals into a common structure; the engine scores per trait; the report renders per trait. Get the trait list right and everything else hangs off it.</p>
+
+  <div class="erd">
+    <pre style="margin:0;"><span class="c">// shape, top level</span>
+student
+ └─ report_instances[]            <span class="c">// many, dated — enables drift</span>
+     ├─ raw_capture
+     │   ├─ channel_a            <span class="c">// A1–A7 stated modules</span>
+     │   ├─ channel_b            <span class="c">// B1–B8 task exports</span>
+     │   └─ portfolio            <span class="c">// inventory + resume</span>
+     ├─ derived                  <span class="c">// engine output, re-computable</span>
+     │   ├─ trait_scores[]
+     │   ├─ gap[] · coherence
+     │   ├─ surprises[] · recurring_roles[]
+     │   └─ differentiation_statement
+     └─ report_payload           <span class="c">// optional: per-section render data</span></pre>
+  </div>
+
+  <div class="part"><div class="pn">Entity 1</div><h2>student</h2></div>
+  <table><thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead><tbody>
+    <tr><td>student_id</td><td class="ty">uuid</td><td>Primary key</td></tr>
+    <tr><td>name · email</td><td class="ty">string</td><td>Email is the natural login key (matches existing app)</td></tr>
+    <tr><td>program · institution · cohort</td><td class="ty">string</td><td>For cohort grouping &amp; the pilot</td></tr>
+    <tr><td>created_at</td><td class="ty">iso8601</td><td></td></tr>
+    <tr><td>consent</td><td class="ty">object</td><td>{ data_use:bool, retention_ack:bool, granted_at:iso }</td></tr>
+  </tbody></table>
+
+  <div class="part"><div class="pn">Entity 2</div><h2>report_instance</h2></div>
+  <table><thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead><tbody>
+    <tr><td>instance_id</td><td class="ty">uuid</td><td></td></tr>
+    <tr><td>student_id</td><td class="ty">uuid</td><td>FK → student</td></tr>
+    <tr><td>schema_version</td><td class="ty">string</td><td>e.g. "1.0" — so re-runs know which scoring applied</td></tr>
+    <tr><td>status</td><td class="ty">enum</td><td>in_progress · capture_complete · generated · reviewed</td></tr>
+    <tr><td>started_at · completed_at · generated_at</td><td class="ty">iso8601</td><td>completed_at = capture done; generated_at = report built</td></tr>
+    <tr><td>raw_capture · derived · report_payload</td><td class="ty">object</td><td>Below</td></tr>
+  </tbody></table>
+
+  <div class="part"><div class="pn">Entity 3</div><h2>raw_capture.channel_a</h2><div class="sf">One key per stated module. Each stores the student's answers AND the normalised per-trait score the engine derived from them.</div></div>
+  <table><thead><tr><th>Key</th><th>Shape</th></tr></thead><tbody>
+    <tr><td>a1_capacities</td><td>{ items:[{prompt_id, chosen_capacity, ms}], score:{empathy, analytical, aesthetic, systems_sensing, narrative, conviction} } <span class="ty">// each 0–1 · normalised by appearances, not item count</span></td></tr>
+    <tr><td>a2_roles</td><td>{ project_tags:{project_id:[role]}, direct_pick:[role,role], score:{role:0–1} }</td></tr>
+    <tr><td>a3_values</td><td>{ ranked:[value×12], never_compromise:{value, why}, score:{value:0–1} }</td></tr>
+    <tr><td>a4_conditions</td><td>{ thrive:[condition], drain:[condition], best_when, stuck_when }</td></tr>
+    <tr><td>a5_encounters</td><td>{ logs:[{what, why, feeling, themes:[theme]}], score:{theme:freq} }</td></tr>
+    <tr><td>a6_obsessions</td><td>{ topics:[topic], saves_reads_watches:text, admired:[{name, why}] }</td></tr>
+    <tr><td>a7_aspiration</td><td>{ desired_skills_ranked:[skill], desired_levels:{capability:0–1}, desired_impact, desired_environment, future_self_text, admired_refs:[], perceived_market_rank:[{field, rank}], direction_market_stance:enum[aligned, slightly_apart, opposed] }</td></tr>
+  </tbody></table>
+  <div class="callout"><b>Enums to freeze:</b> <em>capacity</em> (6 · empathy, analytical, aesthetic, systems_sensing, narrative, conviction), <em>capability</em> (12 · design_research, field_research, framing, ideation, prototyping, craft_execution, visual_comm, material_media, functional_usability, systems_service, facilitation, venture), <em>role</em> (7), <em>value</em> (12), <em>theme</em> (~7), <em>condition</em> (~20). Defined once as constants so the whole app stays consistent. <em>Craft moved from capacity → capability.</em></div>
+
+  <div class="part"><div class="pn">Entity 4</div><h2>raw_capture.channel_b</h2><div class="sf">One key per task. Each stores exactly the JSON the task already exports — the two built prototypes define their shapes; the rest follow the same pattern.</div></div>
+  <table><thead><tr><th>Key</th><th>Captured (raw)</th></tr></thead><tbody>
+    <tr><td>b1_budget</td><td>{ revealed_rank:[{value, tier, fund_rank, fund_ms}], cut_order:[{value, cut_rank, cut_ms}], total_ms } <span class="ty">// built ✓</span></td></tr>
+    <tr><td>b2_dilemmas</td><td>{ choices:[{scenario_id, chosen_option, disposition, ms}] }</td></tr>
+    <tr><td>b3_moves</td><td>{ ordered_moves:[action×3], first_question:text }</td></tr>
+    <tr><td>b4_attention</td><td>{ stimuli:[{stimulus_id, marked:[{category, order}]}] }</td></tr>
+    <tr><td>b5_wishsort</td><td>{ wish:[{id, imp, hum, pick_rank, ms}], actual:[…], pays_best:[…], centroid_wish, centroid_actual, centroid_lucrative, revealed_gap, market_gap } <span class="ty">// built ✓ · pays_best pass runs last</span></td></tr>
+    <tr><td>b6_upload</td><td>{ images:[{ref, why}], detected_thread:[dimension], confirmed:bool|null }</td></tr>
+    <tr><td>b7_year</td><td>{ allocation:{pursuit:months}, total:12 }</td></tr>
+    <tr><td>b8_disruption</td><td>{ response:enum[abandon,adapt,reframe], recovery_ms, generated_new:bool }</td></tr>
+  </tbody></table>
+
+  <div class="part"><div class="pn">Entity 5</div><h2>raw_capture.portfolio</h2></div>
+  <table><thead><tr><th>Field</th><th>Shape</th></tr></thead><tbody>
+    <tr><td>projects[]</td><td>{ project_id, title, domain, initiated:enum[self,assigned], group:enum[solo,group], artefacts:{research:bool, process:bool, final:bool}, individual_contribution:text, roles:[role], commercial_impact_self_tag:-1..1, noticed_unasked:text }</td></tr>
+    <tr><td>resume</td><td>{ uploaded:bool, file_ref, parsed_frame:enum[commercial, impact, mixed, unknown] }</td></tr>
+  </tbody></table>
+  <p style="font-size:12.5px;color:var(--mid);">Factual fields (title, domain, initiated, group, artefacts) are captured first as warm-up; interpretive fields (contribution, roles, self-tag, noticed_unasked) are captured after Channel B; resume is uploaded last.</p>
+
+  <div class="part"><div class="pn">Entity 6</div><h2>derived</h2><div class="sf">Written by the scoring engine. Fully re-computable from raw_capture — never hand-edited.</div></div>
+  <h3>derived.trait_scores[]</h3>
+  <table><thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead><tbody>
+    <tr><td>trait</td><td class="ty">enum</td><td>capacity (6) / capability (12) / role / value / condition / salience / obsession / aspiration item</td></tr>
+    <tr><td>a_score · b_score</td><td class="ty">0–1</td><td>From channel_a module · weighted mean of tagged B-tasks (●1.0 / ○0.5)</td></tr>
+    <tr><td>b_situations_agree</td><td class="ty">int</td><td>Count of B-situations pointing the same way as A</td></tr>
+    <tr><td>confidence</td><td class="ty">enum</td><td>CC3 · CC2 · contradicted · surprise</td></tr>
+    <tr><td>evidence[]</td><td class="ty">array</td><td>{ source_module, channel:A|B, detail } — feeds the report's inline tags</td></tr>
+  </tbody></table>
+  <h3>derived.gap[] · coherence · surprises[] · recurring_roles[]</h3>
+  <table><thead><tr><th>Field</th><th>Shape</th></tr></thead><tbody>
+    <tr><td>gap[]</td><td>{ capability, current_demonstrated:0–1, desired:0–1, stated_gap:0–1, revealed_gap:0–1, classification:enum[real, performed, latent] }</td></tr>
+    <tr><td>coherence</td><td>{ contradiction:bool, resume_frame, work_frame, adjudicated_truth:enum[work, resume], basis:[task] }</td></tr>
+    <tr><td>surprises[]</td><td>{ trait, b_score, situations:int, confirm_question:text, confirmed:bool|null }</td></tr>
+    <tr><td>recurring_roles[]</td><td>{ role, frequency:0–1, tier:enum[demonstrated, emerging] }</td></tr>
+    <tr><td>market_tension</td><td>{ intrinsic_dir, market_dir, perceived_stance, market_gap:0–1, classification:enum[aligned, drifting_to_market, holding_to_pull] } <span class="ty">// from B5 pays-best + A7 perceived-market</span></td></tr>
+    <tr><td>differentiation_statement</td><td><span class="ty">text</span> — generated by the synthesis layer</td></tr>
+  </tbody></table>
+
+  <div class="callout"><b>Gap-source rule (important):</b> the gap is measured on <em>capabilities</em> (learnable skills, A7), not <em>capacities</em> (innate leanings, A1) — they're different lists. So the <b>current</b> side comes from <span class="ent">portfolio</span>-demonstrated capability (which projects evidence which skills) plus Channel B, never from a self-rating; the <b>desired</b> side comes from A7. <span class="ty">current_demonstrated</span> is therefore derived from <span class="ty">portfolio.projects[]</span>, not from <span class="ty">channel_a.a1</span>. Honest by construction: current = what you've shown, not what you claim.</div>
+
+  <div class="part"><div class="pn">Example</div><h2>One report_instance, abbreviated</h2></div>
+  <pre><span class="k">{</span>
+  <span class="k">"instance_id"</span>: <span class="s">"…"</span>, <span class="k">"student_id"</span>: <span class="s">"…"</span>, <span class="k">"schema_version"</span>: <span class="s">"1.0"</span>,
+  <span class="k">"status"</span>: <span class="s">"generated"</span>,
+  <span class="k">"raw_capture"</span>: <span class="k">{</span>
+    <span class="k">"channel_a"</span>: <span class="k">{</span>
+      <span class="k">"a3_values"</span>: <span class="k">{</span> <span class="k">"ranked"</span>: [<span class="s">"empathy"</span>,<span class="s">"impact"</span>,<span class="s">"justice"</span>,<span class="s">"storytelling"</span>, …],
+                     <span class="k">"score"</span>: <span class="k">{</span> <span class="k">"empathy"</span>:<span class="o">1.0</span>, <span class="k">"impact"</span>:<span class="o">0.92</span>, <span class="k">"storytelling"</span>:<span class="o">0.75</span> <span class="k">}</span> <span class="k">}</span>
+    <span class="k">}</span>,
+    <span class="k">"channel_b"</span>: <span class="k">{</span>
+      <span class="k">"b1_budget"</span>:   <span class="k">{</span> <span class="k">"revealed_rank"</span>: [{<span class="k">"value"</span>:<span class="s">"impact"</span>,<span class="k">"tier"</span>:<span class="s">"core"</span>}, …] <span class="k">}</span>,
+      <span class="k">"b5_wishsort"</span>: <span class="k">{</span> <span class="k">"centroid_wish"</span>:{<span class="k">"imp"</span>:<span class="o">0.88</span>}, <span class="k">"centroid_actual"</span>:{<span class="k">"imp"</span>:<span class="o">0.71</span>}, <span class="k">"centroid_lucrative"</span>:{<span class="k">"imp"</span>:<span class="o">-0.52</span>}, <span class="k">"revealed_gap"</span>:<span class="o">0.19</span>, <span class="k">"market_gap"</span>:<span class="o">1.46</span> <span class="k">}</span>
+    <span class="k">}</span>,
+    <span class="k">"portfolio"</span>: <span class="k">{</span> <span class="k">"projects"</span>:[…], <span class="k">"resume"</span>:{<span class="k">"parsed_frame"</span>:<span class="s">"commercial"</span>} <span class="k">}</span>
+  <span class="k">}</span>,
+  <span class="k">"derived"</span>: <span class="k">{</span>
+    <span class="k">"trait_scores"</span>: [
+      <span class="k">{</span> <span class="k">"trait"</span>:<span class="s">"storytelling"</span>, <span class="k">"a_score"</span>:<span class="o">0.05</span>, <span class="k">"b_score"</span>:<span class="o">0.78</span>,
+        <span class="k">"b_situations_agree"</span>:<span class="o">4</span>, <span class="k">"confidence"</span>:<span class="s">"surprise"</span> <span class="k">}</span>
+    ],
+    <span class="k">"gap"</span>: [<span class="k">{</span> <span class="k">"capability"</span>:<span class="s">"field-research"</span>, <span class="k">"current_demonstrated"</span>:<span class="o">0.2</span>, <span class="k">"desired"</span>:<span class="o">0.9</span>, <span class="k">"stated_gap"</span>:<span class="o">0.7</span>, <span class="k">"revealed_gap"</span>:<span class="o">0.79</span>, <span class="k">"classification"</span>:<span class="s">"real"</span> <span class="k">}</span>],
+    <span class="k">"coherence"</span>: <span class="k">{</span> <span class="k">"contradiction"</span>:<span class="o">true</span>, <span class="k">"resume_frame"</span>:<span class="s">"commercial"</span>, <span class="k">"work_frame"</span>:<span class="s">"impact"</span>,
+                   <span class="k">"adjudicated_truth"</span>:<span class="s">"work"</span>, <span class="k">"basis"</span>:[<span class="s">"b1"</span>,<span class="s">"b2"</span>,<span class="s">"b5"</span>] <span class="k">}</span>,
+    <span class="k">"surprises"</span>: [<span class="k">{</span> <span class="k">"trait"</span>:<span class="s">"storytelling"</span>, <span class="k">"situations"</span>:<span class="o">4</span>, <span class="k">"confirmed"</span>:<span class="o">null</span> <span class="k">}</span>],
+    <span class="k">"market_tension"</span>: <span class="k">{</span> <span class="k">"intrinsic_dir"</span>:<span class="s">"impact/human"</span>, <span class="k">"market_dir"</span>:<span class="s">"commercial UI"</span>, <span class="k">"perceived_stance"</span>:<span class="s">"opposed"</span>, <span class="k">"market_gap"</span>:<span class="o">1.46</span>, <span class="k">"classification"</span>:<span class="s">"holding_to_pull"</span> <span class="k">}</span>,
+    <span class="k">"differentiation_statement"</span>: <span class="s">"…generated…"</span>
+  <span class="k">}</span>
+<span class="k">}</span></pre>
+
+  <div class="callout"><b>The one rule that keeps it sane:</b> nothing writes to <span class="ent">derived</span> except the scoring engine, and the engine only reads <span class="ent">raw_capture</span>. That single boundary is what makes the whole system re-runnable, debuggable, and honest — if a finding looks wrong, you can trace it straight back to the raw choices that produced it.</div>
+
+</div>
+
+<div class="footer"><div class="fb"><span>Reveal</span> · Ingenium · dventurelabs</div><div class="fn">Data Schema · v1 · Build-ready · Confidential</div></div>
+</body>
+</html>
