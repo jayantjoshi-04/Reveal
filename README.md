@@ -27,6 +27,43 @@ student's report.
 **Stack:** React + Tailwind (web) · Node.js + Fastify (api) · PostgreSQL · deployed on free tiers
 (Vercel / Render / Supabase or Neon).
 
+## Monorepo layout
+
+```
+packages/shared   frozen enums, scoring constants, zod capture/findings contracts, report slots
+apps/api          Fastify · the 4-layer pipeline (capture · engine · synthesis · cache)
+apps/web          React + Tailwind · capture flow, facilitator gate, admin, Design Signature
+```
+
+## Running locally
+
+Requires Node ≥ 20, pnpm, and a PostgreSQL database.
+
+```bash
+pnpm install
+cp .env.example .env            # set DATABASE_URL (+ ANTHROPIC_API_KEY for live synthesis)
+
+pnpm --filter @reveal/shared build
+pnpm --filter @reveal/api db:migrate    # apply schema
+pnpm --filter @reveal/api db:seed       # load instrument v1.0 + demo staff
+
+pnpm dev:api                    # API on :4000
+pnpm dev:web                    # web on :5173
+```
+
+Set `SYNTHESIS_MODE=manual` (or leave `ANTHROPIC_API_KEY` empty) to run the report
+generator with the deterministic fallback phraser — the whole pipeline works offline,
+no LLM calls. Set `SYNTHESIS_MODE=auto` with a key for the single low-temperature Claude
+call on facilitator approval.
+
+Demo accounts (seeded): `facilitator@reveal.test`, `admin@reveal.test`.
+
+## Tests
+
+```bash
+pnpm --filter @reveal/api test  # engine golden tests (the Jaanhvi profile)
+```
+
 ## Docs
 
 - [`docs/DEVELOPMENT_BLUEPRINT.md`](./docs/DEVELOPMENT_BLUEPRINT.md) — folder structure, database

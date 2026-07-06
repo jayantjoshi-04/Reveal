@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+
+@layer components {
+  /* Orange top-rule used on dark headers throughout the spec. */
+  .toprule::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-[3px] bg-orange;
+  }
+  .eyebrow {
+    @apply font-mono text-[10px] tracking-[0.2em] uppercase text-orange;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg bg-orange px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-40;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-lg border border-rule px-4 py-2.5 text-sm font-medium text-mid transition hover:border-mid;
+  }
+  .card {
+    @apply rounded-2xl border border-rule bg-white p-5;
+  }
+  .chip {
+    @apply inline-block rounded px-2 py-1 font-mono text-[10px] uppercase tracking-wide;
+  }
+}
