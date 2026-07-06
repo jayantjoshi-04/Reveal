@@ -61,7 +61,7 @@ export function fallbackSlots(f: Findings): ReportSlots {
     values_line: protectedValues.length
       ? `Under a tight budget, what you protected was ${protectedValues.join(' and ')} — the truest sign of what you value.`
       : `What you protect under pressure is the truest read on your values.`,
-    conditions_line: `You work best where the work has a purpose you believe in and a real person it helps; you lose energy when it's purely commercial or has to be perfect before you can begin.`,
+    conditions_line: `You work best with a clear purpose and a real person it helps; you lose energy when it's purely commercial or must be perfect before you begin.`,
     project_line: f.project_pattern.gap_note
       ? `The projects you led lean ${dir}${f.project_pattern.outlier ? `; ${f.project_pattern.outlier} is the outlier` : ''}. The gap: ${f.project_pattern.gap_note}.`
       : `Your project pattern is consistent across what you've led.`,
