@@ -4,6 +4,12 @@ import { env } from './env.js';
 
 const { Pool } = pg;
 
+// Postgres returns NUMERIC/DECIMAL columns as strings by default. Parse them to
+// JS numbers so values like artifact imp/hum reach the client as numbers, not
+// "0.9" — otherwise the B5 payload fails its number contract (400) and centroid
+// math concatenates strings. Precision is ample for our -1..1 scores.
+pg.types.setTypeParser(pg.types.builtins.NUMERIC, (v) => (v === null ? null : Number(v)));
+
 let pool: pg.Pool | null = null;
 
 export function db(): pg.Pool {

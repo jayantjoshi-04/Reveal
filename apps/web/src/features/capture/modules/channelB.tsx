@@ -176,7 +176,8 @@ export function B5Module({ onSubmit, busy }: ModuleProps): JSX.Element {
     setPicked(picked.includes(seq) ? picked.filter((x) => x !== seq) : picked.length < 8 ? [...picked, seq] : picked);
 
   const nextPass = (): void => {
-    const chosen = artifacts.filter((a) => picked.includes(a.seq)).map((a) => ({ imp: a.imp, hum: a.hum }));
+    // Coerce defensively — NUMERIC can arrive as a string from some drivers.
+    const chosen = artifacts.filter((a) => picked.includes(a.seq)).map((a) => ({ imp: Number(a.imp), hum: Number(a.hum) }));
     const key = passIdx === 0 ? 'wish' : passIdx === 1 ? 'actual' : 'pays_best';
     const nextResults = { ...results, [key]: chosen };
     if (passIdx + 1 < passes.length) {
