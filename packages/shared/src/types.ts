@@ -68,6 +68,7 @@ export interface Review {
   decision: ReviewDecision;
   high_stakes: HighStakesSummary;
   facilitator_note: string | null;
+  slot_edits: Partial<ReportSlots> | null;
 }
 
 /** What the facilitator sees on the review screen — computed, no LLM. */

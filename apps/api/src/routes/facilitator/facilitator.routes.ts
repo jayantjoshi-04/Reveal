@@ -7,10 +7,12 @@ import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { requireFacilitator } from '../../middleware/auth.js';
 import * as reviewRepo from '../../repositories/review.repo.js';
-import { getDerived } from '../../repositories/derived.repo.js';
+import { getDerived, getReportPayload } from '../../repositories/derived.repo.js';
 import { getInstance } from '../../repositories/instance.repo.js';
 import { generateReport } from '../../services/generation.service.js';
-import { NotFound } from '../../services/session.service.js';
+import { NotFound, HttpError } from '../../services/session.service.js';
+import { validatePartialSlots } from '../../synthesis/validate.js';
+import { SLOT_IDS } from '@reveal/shared';
 
 export async function facilitatorRoutes(app: FastifyInstance): Promise<void> {
   app.addHook('preHandler', requireFacilitator);
@@ -23,13 +25,15 @@ export async function facilitatorRoutes(app: FastifyInstance): Promise<void> {
     return reviewRepo.getQueue(status, cohort);
   });
 
-  // The review screen — computed findings + high-stakes summary. No report text.
+  // The review screen — computed findings + high-stakes summary, plus the
+  // generated report wording (once generated) and any facilitator edits.
   app.get('/facilitator/reviews/:id', async (req) => {
     const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
-    const [instance, derived, review] = await Promise.all([
+    const [instance, derived, review, payload] = await Promise.all([
       getInstance(id),
       getDerived(id),
       reviewRepo.getReview(id),
+      getReportPayload(id),
     ]);
     if (!instance || !derived) throw new NotFound('review');
     return {
@@ -39,6 +43,8 @@ export async function facilitatorRoutes(app: FastifyInstance): Promise<void> {
       high_stakes: review?.high_stakes ?? null,
       facilitator_note: review?.facilitator_note ?? null,
       decision: review?.decision ?? 'pending',
+      slots: payload?.slots ?? null,
+      slot_edits: review?.slot_edits ?? null,
     };
   });
 
@@ -48,6 +54,24 @@ export async function facilitatorRoutes(app: FastifyInstance): Promise<void> {
     const { note } = z.object({ note: z.string() }).parse(req.body);
     await reviewRepo.updateReview(id, { facilitator_note: note });
     return reply.send({ ok: true });
+  });
+
+  // Facilitator "lightly edits" the generated wording before release. Edits are
+  // held to the SAME contract as the LLM output — a human can't break it either.
+  app.post('/facilitator/reviews/:id/slots', async (req, reply) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+    const { slots } = z
+      .object({ slots: z.record(z.enum(SLOT_IDS), z.string()) })
+      .parse(req.body);
+
+    const payload = await getReportPayload(id);
+    if (!payload) throw new HttpError(409, 'report not generated yet — approve first');
+
+    const check = validatePartialSlots(slots);
+    if (!check.ok) return reply.code(400).send({ error: 'contract_violation', issues: check.errors });
+
+    await reviewRepo.updateReview(id, { decision: 'edited', reviewer_id: req.user!.sub, slot_edits: slots });
+    return reply.send({ ok: true, edited: Object.keys(slots) });
   });
 
   // ★ THE ONLY LLM TRIGGER. Idempotent — re-approve returns the cached report.

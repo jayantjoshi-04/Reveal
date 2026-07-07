@@ -27,27 +27,52 @@ function wordCount(s: string): number {
   return s.trim().split(/\s+/).filter(Boolean).length;
 }
 
+/** Validate one slot value against its contract. Returns the errors found. */
+function validateOne(id: string, value: string): string[] {
+  const def = REPORT_SLOTS.find((s) => s.id === id);
+  if (!def) return [`unknown slot "${id}"`];
+  const errors: string[] = [];
+  if (wordCount(value) > def.maxWords) {
+    errors.push(`slot "${id}" exceeds ${def.maxWords} words (${wordCount(value)})`);
+  }
+  if (def.mustEndWithQuestion && !value.trim().endsWith('?')) {
+    errors.push(`slot "${id}" must end in a confirm-question`);
+  }
+  if (def.noComparison) {
+    for (const pat of COMPARISON_PATTERNS) {
+      if (pat.test(value)) errors.push(`slot "${id}" compares to others (matched ${pat})`);
+    }
+  }
+  return errors;
+}
+
+/** Full report validation: every slot must be present and contract-compliant. */
 export function validateSlots(slots: Partial<ReportSlots>): ValidationResult {
   const errors: string[] = [];
-
   for (const def of REPORT_SLOTS) {
     const value = slots[def.id];
     if (value === undefined || value === null || value.trim() === '') {
       errors.push(`slot "${def.id}" is missing`);
       continue;
     }
-    if (wordCount(value) > def.maxWords) {
-      errors.push(`slot "${def.id}" exceeds ${def.maxWords} words (${wordCount(value)})`);
-    }
-    if (def.mustEndWithQuestion && !value.trim().endsWith('?')) {
-      errors.push(`slot "${def.id}" must end in a confirm-question`);
-    }
-    if (def.noComparison) {
-      for (const pat of COMPARISON_PATTERNS) {
-        if (pat.test(value)) errors.push(`slot "${def.id}" compares to others (matched ${pat})`);
-      }
-    }
+    errors.push(...validateOne(def.id, value));
   }
+  return { ok: errors.length === 0, errors };
+}
 
+/**
+ * Partial validation for facilitator edits: only the provided slots are checked,
+ * against the same ceilings/rules — so a human edit can't violate the contract
+ * either. Missing slots are allowed (they keep the generated wording).
+ */
+export function validatePartialSlots(slots: Partial<ReportSlots>): ValidationResult {
+  const errors: string[] = [];
+  for (const [id, value] of Object.entries(slots)) {
+    if (typeof value !== 'string' || value.trim() === '') {
+      errors.push(`slot "${id}" cannot be empty`);
+      continue;
+    }
+    errors.push(...validateOne(id, value));
+  }
   return { ok: errors.length === 0, errors };
 }

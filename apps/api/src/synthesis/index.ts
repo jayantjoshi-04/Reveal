@@ -9,7 +9,7 @@
  */
 import { reportSlotsSchema, type Findings, type ReportSlots } from '@reveal/shared';
 import { env } from '../config/env.js';
-import { buildSystemPrompt, buildUserPrompt } from './prompt.js';
+import { buildSystemPrompt, buildUserPrompt, buildRepairPrompt } from './prompt.js';
 import { validateSlots } from './validate.js';
 import { callClaude, extractJson } from './client.js';
 import { fallbackSlots } from './fallback.js';
@@ -17,6 +17,40 @@ import { fallbackSlots } from './fallback.js';
 export interface SynthesisResult {
   slots: ReportSlots;
   model: string;
+}
+
+/** A model caller: (system, user) → raw text. Injectable so it can be mocked. */
+export type Caller = (system: string, user: string) => Promise<string>;
+
+/**
+ * Ask the model for contract-valid slots, with ONE repair retry. If the first
+ * output fails to parse or violates the contract, the errors are fed back and
+ * we try once more before giving up (caller returns null → deterministic fallback).
+ * Pure and injectable — no env, no network — so it is unit-testable.
+ */
+export async function attemptSlots(findings: Findings, call: Caller, modelLabel: string): Promise<SynthesisResult | null> {
+  const system = buildSystemPrompt();
+  let user = buildUserPrompt(findings);
+
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const raw = await call(system, user);
+    let parsedData: ReportSlots | null = null;
+    try {
+      const parsed = reportSlotsSchema.safeParse(extractJson(raw));
+      if (parsed.success) parsedData = parsed.data;
+    } catch {
+      /* extractJson threw — treat as a parse failure */
+    }
+
+    if (!parsedData) {
+      user = buildRepairPrompt(findings, raw, ['Return a JSON object with exactly the slot keys, values as strings.']);
+      continue;
+    }
+    const check = validateSlots(parsedData);
+    if (check.ok) return { slots: parsedData, model: modelLabel };
+    user = buildRepairPrompt(findings, parsedData, check.errors);
+  }
+  return null;
 }
 
 export async function synthesize(findings: Findings): Promise<SynthesisResult> {
@@ -31,29 +65,20 @@ export async function synthesize(findings: Findings): Promise<SynthesisResult> {
     return deterministic();
   }
 
-  try {
-    const raw = await callClaude({
-      apiKey: cfg.ANTHROPIC_API_KEY,
+  const call: Caller = (system, user) =>
+    callClaude({
+      apiKey: cfg.ANTHROPIC_API_KEY!,
       model: cfg.SYNTHESIS_MODEL,
       temperature: cfg.SYNTHESIS_TEMPERATURE,
-      system: buildSystemPrompt(),
-      user: buildUserPrompt(findings),
+      system,
+      user,
     });
 
-    const parsed = reportSlotsSchema.safeParse(extractJson(raw));
-    if (!parsed.success) {
-      console.warn('[synthesis] model output failed shape check — using deterministic fallback');
-      return deterministic();
-    }
-
-    const check = validateSlots(parsed.data);
-    if (!check.ok) {
-      // Contract violation is an integrity failure — do not ship it.
-      console.warn(`[synthesis] contract violations, using deterministic fallback: ${check.errors.join('; ')}`);
-      return deterministic();
-    }
-
-    return { slots: parsed.data, model: `${cfg.SYNTHESIS_MODEL}@${cfg.SYNTHESIS_TEMPERATURE}` };
+  try {
+    const result = await attemptSlots(findings, call, `${cfg.SYNTHESIS_MODEL}@${cfg.SYNTHESIS_TEMPERATURE}`);
+    if (result) return result;
+    console.warn('[synthesis] model output failed the contract after a repair retry — using deterministic fallback');
+    return deterministic();
   } catch (err) {
     console.warn(`[synthesis] API call failed, using deterministic fallback: ${(err as Error).message}`);
     return deterministic();

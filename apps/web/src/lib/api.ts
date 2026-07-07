@@ -24,13 +24,15 @@ async function request<T>(path: string, opts: RequestInit = {}): Promise<T> {
   });
   if (!res.ok) {
     let detail = res.statusText;
+    let issues: string[] | undefined;
     try {
       const body = await res.json();
       detail = body.error ?? body.message ?? detail;
+      if (Array.isArray(body.issues)) issues = body.issues.map((i: unknown) => (typeof i === 'string' ? i : JSON.stringify(i)));
     } catch {
       /* ignore */
     }
-    throw new ApiError(res.status, detail);
+    throw new ApiError(res.status, detail, issues);
   }
   if (res.status === 204) return undefined as T;
   return res.json() as Promise<T>;
@@ -40,6 +42,7 @@ export class ApiError extends Error {
   constructor(
     public status: number,
     message: string,
+    public issues?: string[],
   ) {
     super(message);
   }
@@ -80,6 +83,11 @@ export const api = {
     }),
   saveNote: (id: string, note: string) =>
     request(`/facilitator/reviews/${id}/note`, { method: 'POST', body: JSON.stringify({ note }) }),
+  saveSlots: (id: string, slots: Record<string, string>) =>
+    request<{ ok: boolean; edited: string[] }>(`/facilitator/reviews/${id}/slots`, {
+      method: 'POST',
+      body: JSON.stringify({ slots }),
+    }),
 
   // report
   report: (id: string) => request<ReportView>(`/report/${id}`),
@@ -92,6 +100,8 @@ export interface ReviewDetail {
   high_stakes: import('@reveal/shared').HighStakesSummary | null;
   facilitator_note: string | null;
   decision: string;
+  slots: import('@reveal/shared').ReportSlots | null;
+  slot_edits: Partial<import('@reveal/shared').ReportSlots> | null;
 }
 
 export interface ReportView {

@@ -31,3 +31,19 @@ export function buildSystemPrompt(): string {
 export function buildUserPrompt(findings: Findings): string {
   return `Findings Object:\n${JSON.stringify(findings, null, 2)}`;
 }
+
+/**
+ * A second-attempt prompt: hands back the previous output and the specific
+ * contract violations, asking for a corrected JSON that fixes ONLY those issues.
+ */
+export function buildRepairPrompt(findings: Findings, previous: unknown, errors: string[]): string {
+  return [
+    buildUserPrompt(findings),
+    '',
+    'Your previous response violated the contract. Previous output:',
+    JSON.stringify(previous, null, 2),
+    '',
+    'Fix exactly these problems and return the full corrected JSON object (all slot keys, strings only):',
+    ...errors.map((e) => `  - ${e}`),
+  ].join('\n');
+}

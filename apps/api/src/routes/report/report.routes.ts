@@ -7,7 +7,9 @@ import { z } from 'zod';
 import { requireRole } from '../../middleware/auth.js';
 import { getInstance } from '../../repositories/instance.repo.js';
 import { getDerived, getReportPayload } from '../../repositories/derived.repo.js';
+import { getReview } from '../../repositories/review.repo.js';
 import { HttpError, NotFound } from '../../services/session.service.js';
+import type { ReportSlots } from '@reveal/shared';
 
 export async function reportRoutes(app: FastifyInstance): Promise<void> {
   // Students and staff may read a released report.
@@ -26,13 +28,17 @@ export async function reportRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(403).send({ error: 'not_ready', message: 'This report is still in review.' });
     }
 
-    const [payload, derived] = await Promise.all([getReportPayload(id), getDerived(id)]);
+    const [payload, derived, review] = await Promise.all([getReportPayload(id), getDerived(id), getReview(id)]);
     if (!payload || !derived) throw new NotFound('report');
+
+    // Facilitator "light edits" override the generated wording for the reader.
+    const edits = (review?.slot_edits ?? {}) as Partial<ReportSlots>;
+    const slots = { ...payload.slots, ...edits };
 
     return reply.send({
       instance_id: id,
       generated_at: payload.generated_at,
-      slots: payload.slots,
+      slots,
       findings: derived.findings,
       trait_scores: derived.trait_scores,
     });
