@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { CAPTURE_SEQUENCE } from '@reveal/shared';
-import { api } from '../../lib/api.js';
+import { api, ApiError } from '../../lib/api.js';
 import { useAuth } from '../../store/auth.js';
 import { TopBar } from '../../components/TopBar.js';
 import { SessionShell } from './SessionShell.js';
@@ -12,6 +12,7 @@ import { SESSION_TITLES } from './types.js';
 export function CaptureFlow(): JSX.Element {
   const instanceId = useAuth((s) => s.instanceId);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { data: state, refetch, isLoading } = useQuery({
     queryKey: ['state', instanceId],
     queryFn: () => api.getState(instanceId!),
@@ -23,9 +24,13 @@ export function CaptureFlow(): JSX.Element {
   async function submit(payload: unknown, ms?: number): Promise<void> {
     if (!state?.cursor) return;
     setBusy(true);
+    setError(null);
     try {
       await api.submitModule(instanceId!, state.cursor, payload, ms);
       await refetch();
+    } catch (e) {
+      // Never fail silently — a swallowed error looks like a frozen page.
+      setError(e instanceof ApiError ? e.message : "Couldn't save your answer. Please try again.");
     } finally {
       setBusy(false);
     }
@@ -33,9 +38,12 @@ export function CaptureFlow(): JSX.Element {
 
   async function seal(no: number): Promise<void> {
     setBusy(true);
+    setError(null);
     try {
       await api.sealSession(instanceId!, no);
       await refetch();
+    } catch (e) {
+      setError(e instanceof ApiError ? e.message : "Couldn't seal this session. Please try again.");
     } finally {
       setBusy(false);
     }
@@ -45,6 +53,13 @@ export function CaptureFlow(): JSX.Element {
     <div className="min-h-screen bg-canvas">
       <TopBar doc="Capture" />
       <div className="flex flex-col items-center px-4 py-10">
+        {error ? (
+          <div className="mb-4 w-full max-w-[360px] rounded-lg border border-mag bg-[#fbe6f1] px-4 py-3 text-[12px] text-mag">
+            <b>Couldn’t save.</b> {error}
+            <div className="mt-1 text-[11px] text-[#8a4a68]">Your selections are still here — just tap the button again.</div>
+          </div>
+        ) : null}
+        {busy ? <div className="mb-3 font-mono text-[10px] uppercase tracking-wide text-mid">Saving…</div> : null}
         {isLoading || !state ? (
           <p className="text-sm text-mid">Loading…</p>
         ) : state.status === 'capture_complete' || state.status === 'generated' || state.status === 'released' ? (

@@ -14,14 +14,20 @@ export function getToken(): string | null {
 }
 
 async function request<T>(path: string, opts: RequestInit = {}): Promise<T> {
-  const res = await fetch(`${BASE}/api${path}`, {
-    ...opts,
-    headers: {
-      'content-type': 'application/json',
-      ...(token ? { authorization: `Bearer ${token}` } : {}),
-      ...(opts.headers ?? {}),
-    },
-  });
+  let res: Response;
+  try {
+    res = await fetch(`${BASE}/api${path}`, {
+      ...opts,
+      headers: {
+        'content-type': 'application/json',
+        ...(token ? { authorization: `Bearer ${token}` } : {}),
+        ...(opts.headers ?? {}),
+      },
+    });
+  } catch {
+    // fetch rejects on network failure / CORS / server down — before any HTTP status
+    throw new ApiError(0, `Can't reach the server at ${BASE}. Is the API running?`);
+  }
   if (!res.ok) {
     let detail = res.statusText;
     let issues: string[] | undefined;
