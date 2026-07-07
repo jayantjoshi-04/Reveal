@@ -9,7 +9,8 @@ import * as captureRepo from '../repositories/capture.repo.js';
 import * as derivedRepo from '../repositories/derived.repo.js';
 import * as reviewRepo from '../repositories/review.repo.js';
 import * as instanceRepo from '../repositories/instance.repo.js';
-import { getLiveVersionId, getScoringConstants } from '../repositories/instrument.repo.js';
+import { getLiveVersionId, getScoringConstants, getA1Appearances } from '../repositories/instrument.repo.js';
+import { HttpError } from './errors.js';
 
 /** Layer 2 · compute derived findings + open a facilitator review row. No LLM. */
 export async function runEngineFor(instanceId: string): Promise<void> {
@@ -18,8 +19,10 @@ export async function runEngineFor(instanceId: string): Promise<void> {
 
   const versionId = await getLiveVersionId();
   const constants = versionId ? await getScoringConstants(versionId) : undefined;
+  // A-scores are recomputed from raw items using these — never trusted from the client.
+  const appearances = versionId ? await getA1Appearances(versionId) : undefined;
 
-  const out = runEngine(raw, constants);
+  const out = runEngine(raw, constants, appearances);
   await derivedRepo.upsertDerived(instanceId, {
     engine_version: out.engine_version,
     findings: out.findings,
@@ -37,7 +40,16 @@ export interface GenerateResult {
  * Layer 3 · the ONLY LLM trigger. Idempotent: if a report already exists it is
  * a no-op. The unique PK on report_payload makes a second synthesis impossible.
  */
+const GENERATABLE = new Set(['capture_complete', 'generated', 'reviewed', 'released']);
+
 export async function generateReport(instanceId: string, reviewerId?: string): Promise<GenerateResult> {
+  // Never synthesise from half-finished capture.
+  const instance = await instanceRepo.getInstance(instanceId);
+  if (!instance) throw new Error(`instance ${instanceId} not found`);
+  if (!GENERATABLE.has(instance.status)) {
+    throw new HttpError(409, 'capture is not complete — cannot generate a report yet');
+  }
+
   const existing = await derivedRepo.getReportPayload(instanceId);
   if (existing) return { generated: false, model: existing.model };
 

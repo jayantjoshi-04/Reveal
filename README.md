@@ -56,12 +56,18 @@ generator with the deterministic fallback phraser — the whole pipeline works o
 no LLM calls. Set `SYNTHESIS_MODE=auto` with a key for the single low-temperature Claude
 call on facilitator approval.
 
-Demo accounts (seeded): `facilitator@reveal.test`, `admin@reveal.test`.
+Demo accounts (seeded): `facilitator@reveal.test`, `admin@reveal.test`. Staff sign-in
+requires the shared `STAFF_PASSCODE` (default `reveal-staff` in dev).
 
 ## Tests
 
 ```bash
-pnpm --filter @reveal/api test  # engine golden tests (the Jaanhvi profile)
+pnpm --filter @reveal/api test        # unit tests: engine, synthesis, A-score integrity
+
+# Full end-to-end walk against a real database (skipped without the env var).
+# Boots the app and drives capture → engine → approve → report using the real
+# /content endpoints, so serialization bugs can't slip past:
+E2E_DATABASE_URL=postgres://…/reveal_test pnpm --filter @reveal/api test
 ```
 
 ## Docs

@@ -115,8 +115,37 @@ export interface CapacityScore {
   is_surprise: boolean;
 }
 
-export function scoreCapacities(raw: RawCapture, k: ScoringConstants): CapacityScore[] {
-  const aScoreMap = (raw.channel_a.a1_capacities?.score ?? {}) as Partial<Record<Capacity, number>>;
+/**
+ * Compute A-scores strictly from the raw item choices: chosen ÷ appearances,
+ * per the spec. This is the trustworthy path — it never reads a client-supplied
+ * score. Capacities that never appeared score 0.
+ */
+function aScoreFromItems(
+  raw: RawCapture,
+  appearances: Partial<Record<Capacity, number>>,
+): Partial<Record<Capacity, number>> {
+  const items = raw.channel_a.a1_capacities?.items ?? [];
+  const chosen: Partial<Record<Capacity, number>> = {};
+  for (const it of items) chosen[it.chosen_capacity] = (chosen[it.chosen_capacity] ?? 0) + 1;
+  const out: Partial<Record<Capacity, number>> = {};
+  for (const c of CAPACITIES) {
+    const appeared = appearances[c] ?? 0;
+    out[c] = appeared > 0 ? (chosen[c] ?? 0) / appeared : 0;
+  }
+  return out;
+}
+
+export function scoreCapacities(
+  raw: RawCapture,
+  k: ScoringConstants,
+  appearances?: Partial<Record<Capacity, number>>,
+): CapacityScore[] {
+  // Production: recompute A-scores from raw items using instrument appearance
+  // counts — the client's `score` is ignored, closing the tampering hole.
+  // Tests/back-compat: with no appearances, fall back to the provided score.
+  const aScoreMap = appearances
+    ? aScoreFromItems(raw, appearances)
+    : ((raw.channel_a.a1_capacities?.score ?? {}) as Partial<Record<Capacity, number>>);
   const situations = capacitySituations(raw);
 
   const scores: CapacityScore[] = CAPACITIES.map((name) => {

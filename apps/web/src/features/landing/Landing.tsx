@@ -9,6 +9,7 @@ export function Landing(): JSX.Element {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [cohort, setCohort] = useState('7');
+  const [passcode, setPasscode] = useState('reveal-staff');
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -33,7 +34,7 @@ export function Landing(): JSX.Element {
     setBusy(true);
     try {
       const email2 = kind === 'facilitator' ? 'facilitator@reveal.test' : 'admin@reveal.test';
-      const { token, staff } = await api.signInStaff(email2);
+      const { token, staff } = await api.signInStaff(email2, passcode);
       signIn(staff.role as 'facilitator' | 'admin', staff.name, token);
       nav(kind === 'facilitator' ? '/facilitator' : '/admin');
     } catch (e) {
@@ -80,6 +81,8 @@ export function Landing(): JSX.Element {
           <p className="mb-4 text-sm text-mid">
             Sign in with the seeded demo accounts to reach the facilitator review gate or the admin console.
           </p>
+          <label className="mb-1 block font-mono text-[10px] uppercase tracking-wide text-dim">Staff passcode</label>
+          <input className="mb-4 w-full rounded-lg border border-rule px-3 py-2 text-sm" value={passcode} onChange={(e) => setPasscode(e.target.value)} placeholder="staff passcode" />
           <button className="btn mb-3 w-full" disabled={busy} onClick={() => staff('facilitator')}>
             Enter as Facilitator
           </button>

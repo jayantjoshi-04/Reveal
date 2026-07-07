@@ -49,6 +49,16 @@ export async function getActiveInstanceForStudent(studentId: string): Promise<Re
   return rows[0] ?? null;
 }
 
+/** Persist a student's consent record, resolved via their instance. */
+export async function setConsent(instanceId: string, consent: unknown, c?: Q): Promise<void> {
+  await conn(c).query(
+    `UPDATE student SET consent = $2::jsonb
+       FROM report_instance ri
+      WHERE ri.instance_id = $1 AND student.student_id = ri.student_id`,
+    [instanceId, JSON.stringify(consent)],
+  );
+}
+
 export async function setInstanceStatus(
   instanceId: string,
   status: InstanceStatus,

@@ -1,6 +1,6 @@
 /** Instrument (admin-editable, versioned) data access. */
 import { db } from '../config/db.js';
-import { SCORING, type ScoringConstants } from '@reveal/shared';
+import { SCORING, CAPACITY_BY_TAG, type Capacity, type ScoringConstants } from '@reveal/shared';
 
 export async function getLiveVersionId(): Promise<string | null> {
   const { rows } = await db().query<{ version_id: string }>(
@@ -37,6 +37,26 @@ export async function getAItems(versionId: string, moduleCode?: string): Promise
     byItem.set(o.item_id, list);
   }
   return items.map((i) => ({ ...i, options: byItem.get(i.item_id) ?? [] }));
+}
+
+/**
+ * How many times each capacity appears as an option across the A1 items. The
+ * engine divides chosen-counts by these to normalise A-scores by appearances —
+ * computed server-side from the instrument, never trusted from the client.
+ */
+export async function getA1Appearances(versionId: string): Promise<Partial<Record<Capacity, number>>> {
+  const { rows } = await db().query<{ tag: string }>(
+    `SELECT o.tag FROM a_option o
+       JOIN a_item i ON i.item_id = o.item_id
+      WHERE i.version_id = $1 AND i.module_code = 'a1'`,
+    [versionId],
+  );
+  const counts: Partial<Record<Capacity, number>> = {};
+  for (const r of rows) {
+    const cap = CAPACITY_BY_TAG[r.tag];
+    if (cap) counts[cap] = (counts[cap] ?? 0) + 1;
+  }
+  return counts;
 }
 
 export async function getBTasks(versionId: string): Promise<unknown[]> {

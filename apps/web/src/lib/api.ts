@@ -58,10 +58,10 @@ export const api = {
   // auth
   signInStudent: (body: { name: string; email: string; cohort?: string }) =>
     request<{ token: string; student: unknown }>('/auth/student', { method: 'POST', body: JSON.stringify(body) }),
-  signInStaff: (email: string) =>
+  signInStaff: (email: string, passcode: string) =>
     request<{ token: string; staff: { role: string; name: string } }>('/auth/staff', {
       method: 'POST',
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, passcode }),
     }),
 
   // capture

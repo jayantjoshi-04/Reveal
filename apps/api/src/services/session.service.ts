@@ -8,6 +8,7 @@ import * as instanceRepo from '../repositories/instance.repo.js';
 import * as capture from '../repositories/capture.repo.js';
 import { moduleTarget } from './moduleTarget.js';
 import { runEngineFor } from './generation.service.js';
+import { NotFound, BadRequest, Conflict } from './errors.js';
 
 const FIRST_MODULE = CAPTURE_SEQUENCE[0]!;
 
@@ -70,10 +71,15 @@ export async function submitModule(input: {
   if (!sessionNo) throw new BadRequest(`unknown module ${input.moduleCode}`);
 
   return withTransaction(async (c) => {
-    const session = await capture.getSession(input.instanceId, sessionNo, c);
-    if (!session) throw new NotFound('session');
-    if (session.status === 'sealed') throw new Conflict(`session ${sessionNo} is sealed`);
-    if (session.status === 'not_started') await capture.updateSession(input.instanceId, sessionNo, { status: 'in_progress' }, c);
+    // Enforce session order: you may only answer the active (first non-sealed)
+    // session — no answering a later session's tasks out of order (R2).
+    const sessions = await capture.getSessions(input.instanceId, c);
+    const active = sessions.find((s) => s.status !== 'sealed');
+    if (!active) throw new Conflict('all sessions are sealed');
+    if (active.session_no !== sessionNo) {
+      throw new Conflict(`out of order — finish session ${active.session_no} first`);
+    }
+    if (active.status === 'not_started') await capture.updateSession(input.instanceId, sessionNo, { status: 'in_progress' }, c);
 
     // Land the payload in the right place in raw_capture.
     const target = moduleTarget(input.moduleCode);
@@ -83,7 +89,9 @@ export async function submitModule(input: {
       const raw = await capture.getRawCapture(input.instanceId, c);
       const merged = { ...(raw?.portfolio ?? {}), ...(input.payload as object) };
       await capture.setChannel(input.instanceId, 'portfolio', merged, c);
-    } // consent: recorded only as a module_response below
+    } else if (target.kind === 'consent') {
+      await instanceRepo.setConsent(input.instanceId, input.payload, c);
+    }
 
     await capture.upsertModuleResponse(
       { instanceId: input.instanceId, sessionNo, moduleCode: input.moduleCode, payload: input.payload, responseMs: input.responseMs },
@@ -123,24 +131,5 @@ export async function sealSession(instanceId: string, sessionNo: number): Promis
   return { sealed: true, instanceComplete: complete };
 }
 
-// ── Typed HTTP errors (mapped to status codes by the Fastify error handler) ──
-export class HttpError extends Error {
-  constructor(public statusCode: number, message: string) {
-    super(message);
-  }
-}
-export class NotFound extends HttpError {
-  constructor(what: string) {
-    super(404, `${what} not found`);
-  }
-}
-export class BadRequest extends HttpError {
-  constructor(msg: string) {
-    super(400, msg);
-  }
-}
-export class Conflict extends HttpError {
-  constructor(msg: string) {
-    super(409, msg);
-  }
-}
+// Re-exported for compatibility — the classes live in ./errors.js.
+export { HttpError, NotFound, BadRequest, Conflict } from './errors.js';

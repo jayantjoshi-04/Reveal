@@ -6,6 +6,7 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { db } from '../../config/db.js';
+import { env } from '../../config/env.js';
 import { getOrCreateStudent } from '../../repositories/instance.repo.js';
 import type { Staff } from '@reveal/shared';
 
@@ -17,22 +18,28 @@ const studentBody = z.object({
   cohort: z.string().optional(),
 });
 
-const staffBody = z.object({ email: z.string().email() });
+const staffBody = z.object({ email: z.string().email(), passcode: z.string() });
 
 export async function authRoutes(app: FastifyInstance): Promise<void> {
+  const signOpts = { expiresIn: env().JWT_EXPIRES_IN };
+
   app.post('/auth/student', async (req, reply) => {
     const body = studentBody.parse(req.body);
+    // NOTE: pilot-simple identity — production must verify ownership of the email
+    // via a magic link (MAGIC_LINK_TTL_MIN is reserved) before issuing a token.
     const student = await getOrCreateStudent(body);
-    const token = app.jwt.sign({ sub: student.student_id, role: 'student', name: student.name });
+    const token = app.jwt.sign({ sub: student.student_id, role: 'student', name: student.name }, signOpts);
     return reply.send({ token, student });
   });
 
   app.post('/auth/staff', async (req, reply) => {
-    const { email } = staffBody.parse(req.body);
+    const { email, passcode } = staffBody.parse(req.body);
+    // Gate staff behind a shared passcode so email alone can't grant admin.
+    if (passcode !== env().STAFF_PASSCODE) return reply.code(401).send({ error: 'invalid passcode' });
     const { rows } = await db().query<Staff>('SELECT * FROM staff WHERE email = $1', [email]);
     const staff = rows[0];
     if (!staff) return reply.code(404).send({ error: 'staff not found' });
-    const token = app.jwt.sign({ sub: staff.staff_id, role: staff.role, name: staff.name });
+    const token = app.jwt.sign({ sub: staff.staff_id, role: staff.role, name: staff.name }, signOpts);
     return reply.send({ token, staff });
   });
 }

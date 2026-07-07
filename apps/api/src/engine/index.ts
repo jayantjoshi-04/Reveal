@@ -7,6 +7,9 @@
  */
 import { SCORING, type Capacity, type Findings, type RawCapture, type ScoringConstants, type TraitScore } from '@reveal/shared';
 import { scoreCapacities, capacityConfidence, type CapacityScore } from './capacities.js';
+
+/** A1 capacity appearance counts, needed to normalise A-scores server-side. */
+export type Appearances = Partial<Record<Capacity, number>>;
 import { scoreValues, scoreRoles, scoreGaps, scoreMarket, directionCheck, projectPattern, wishImp } from './traits.js';
 import { round } from './util.js';
 
@@ -18,9 +21,11 @@ export interface EngineOutput {
   trait_scores: TraitScore[];
 }
 
-export function run(raw: RawCapture, k: ScoringConstants = SCORING): EngineOutput {
-  // 1 · Capacities → spike, surprises, demonstrated map
-  const capScores = scoreCapacities(raw, k);
+export function run(raw: RawCapture, k: ScoringConstants = SCORING, appearances?: Appearances): EngineOutput {
+  // 1 · Capacities → spike, surprises, demonstrated map. When appearances are
+  //     supplied (production), A-scores are recomputed from raw items and the
+  //     client-supplied score is ignored.
+  const capScores = scoreCapacities(raw, k, appearances);
   const demonstratedMap = new Map<Capacity, number>(capScores.map((c) => [c.name, c.demonstrated]));
 
   const capacities: Findings['capacities'] = capScores.map((c, i) => ({
