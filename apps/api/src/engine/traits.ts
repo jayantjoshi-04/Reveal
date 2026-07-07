@@ -140,6 +140,57 @@ export function directionCheck(
   };
 }
 
+// ── Coherence (resume framing vs. behaviour, adjudicated by behaviour) ──────
+const IMPACT_VALUES = new Set(['impact', 'justice', 'empathy', 'teaching', 'learning_growth']);
+const COMMERCIAL_VALUES = new Set(['money_security', 'recognition']);
+
+/**
+ * The spec's coherence rule: if the resume's frame differs from what the work
+ * shows, behaviour adjudicates. work_frame = sign(B1 survival-values + B2
+ * dispositions + B5 actual-centroid). "What you do is the more reliable signal."
+ */
+export function scoreCoherence(raw: RawCapture): Findings['coherence'] {
+  const resume_frame = raw.portfolio.resume?.parsed_frame ?? 'unknown';
+  const basis: string[] = [];
+  let score = 0;
+
+  // B1 · which values survived the budget cut
+  const core = (raw.channel_b.b1_budget?.revealed_rank ?? []).filter((r) => r.tier === 'core');
+  if (core.length) {
+    for (const r of core) {
+      if (IMPACT_VALUES.has(r.value)) score += 1;
+      else if (COMMERCIAL_VALUES.has(r.value)) score -= 1;
+    }
+    basis.push('b1');
+  }
+
+  // B2 · dilemma dispositions
+  const choices = raw.channel_b.b2_dilemmas?.choices ?? [];
+  if (choices.length) {
+    for (const ch of choices) {
+      const d = (ch.disposition ?? ch.chosen_pole).toLowerCase();
+      if (d.includes('impact')) score += 1;
+      else if (d.includes('commercial')) score -= 1;
+    }
+    basis.push('b2');
+  }
+
+  // B5 · the actual-work centroid on the commercial↔impact axis
+  const actual = raw.channel_b.b5_wishsort?.centroid_actual;
+  if (actual) {
+    score += actual.imp > 0.15 ? 1 : actual.imp < -0.15 ? -1 : 0;
+    basis.push('b5');
+  }
+
+  const work_frame = score > 0 ? 'impact' : score < 0 ? 'commercial' : 'mixed';
+  const bothConcrete =
+    (resume_frame === 'impact' || resume_frame === 'commercial') &&
+    (work_frame === 'impact' || work_frame === 'commercial');
+  const contradiction = bothConcrete && resume_frame !== work_frame;
+
+  return { contradiction, resume_frame, work_frame, adjudicated_truth: 'work', basis };
+}
+
 // ── Project pattern (publish ≠ do) ──────────────────────────────────────────
 export function projectPattern(raw: RawCapture): Findings['project_pattern'] {
   const projects = raw.portfolio.projects ?? [];

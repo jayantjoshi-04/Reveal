@@ -26,7 +26,7 @@ export async function upsertDerived(
       input.engine_version,
       JSON.stringify(input.findings),
       JSON.stringify(input.trait_scores),
-      JSON.stringify(input.findings.project_pattern),
+      JSON.stringify(input.findings.coherence),
       JSON.stringify(input.findings.market),
     ],
   );

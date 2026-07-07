@@ -75,13 +75,12 @@ export async function generateReport(instanceId: string, reviewerId?: string): P
 export function buildHighStakes(findings: Findings): HighStakesSummary {
   return {
     surprises: findings.surprises.map((s) => ({ trait: s.trait, situations: s.situations })),
-    coherence: findings.project_pattern.outlier
-      ? {
-          contradiction: true,
-          work_frame: findings.differentiation.direction,
-          adjudicated: 'work',
-        }
-      : { contradiction: false },
+    coherence: {
+      contradiction: findings.coherence.contradiction,
+      resume_frame: findings.coherence.resume_frame,
+      work_frame: findings.coherence.work_frame,
+      adjudicated: findings.coherence.adjudicated_truth,
+    },
     gaps: findings.gap
       .filter((g) => g.classification === 'real')
       .map((g) => ({ capability: g.capability, classification: g.classification })),

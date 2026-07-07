@@ -55,6 +55,14 @@ describe('analysis engine · Jaanhvi golden profile', () => {
     expect(findings.project_pattern.outlier).toBe('The Ibex');
   });
 
+  it('adjudicates coherence: resume reads commercial, behaviour shows impact', () => {
+    expect(findings.coherence.resume_frame).toBe('commercial');
+    expect(findings.coherence.work_frame).toBe('impact');
+    expect(findings.coherence.contradiction).toBe(true);
+    expect(findings.coherence.adjudicated_truth).toBe('work'); // behaviour wins
+    expect(findings.coherence.basis).toEqual(expect.arrayContaining(['b1', 'b2', 'b5']));
+  });
+
   it('generates experiments only from computed findings', () => {
     const reasons = findings.experiments.map((e) => e.reason);
     expect(reasons).toContain('real_gap');

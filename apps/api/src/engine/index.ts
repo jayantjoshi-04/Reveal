@@ -10,7 +10,7 @@ import { scoreCapacities, capacityConfidence, type CapacityScore } from './capac
 
 /** A1 capacity appearance counts, needed to normalise A-scores server-side. */
 export type Appearances = Partial<Record<Capacity, number>>;
-import { scoreValues, scoreRoles, scoreGaps, scoreMarket, directionCheck, projectPattern, wishImp } from './traits.js';
+import { scoreValues, scoreRoles, scoreGaps, scoreMarket, directionCheck, projectPattern, wishImp, scoreCoherence } from './traits.js';
 import { round } from './util.js';
 
 export const ENGINE_VERSION = '1.0.0';
@@ -42,9 +42,10 @@ export function run(raw: RawCapture, k: ScoringConstants = SCORING, appearances?
   const gap = scoreGaps(raw, k, wishImp(raw));
   const project_pattern = projectPattern(raw);
 
-  // 3 · Market tension + direction check
+  // 3 · Market tension + direction check + coherence adjudication
   const market = scoreMarket(raw, k);
   const direction_check = directionCheck(market.wish_dir, demonstratedMap);
+  const coherence = scoreCoherence(raw);
 
   // 4 · Surprises — from capacity surprises, ranked by agreeing situations
   const surprises: Findings['surprises'] = capScores
@@ -88,6 +89,7 @@ export function run(raw: RawCapture, k: ScoringConstants = SCORING, appearances?
     gap,
     direction_check,
     market,
+    coherence,
     experiments,
   };
 

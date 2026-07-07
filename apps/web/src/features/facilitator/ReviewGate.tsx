@@ -48,9 +48,9 @@ export function ReviewGate(): JSX.Element {
               {cap(s.trait)} — strong in behaviour, never claimed
             </Row>
           ))}
-          {f.project_pattern.outlier ? (
-            <Row label="Coherence" badge="adjudicated: work" tone="orange">
-              resume vs. work diverge — outlier {f.project_pattern.outlier}
+          {f.coherence.contradiction ? (
+            <Row label="Coherence" badge={`adjudicated: ${f.coherence.adjudicated_truth}`} tone="orange">
+              resume reads {f.coherence.resume_frame}, work shows {f.coherence.work_frame} — behaviour wins
             </Row>
           ) : null}
           {f.gap.filter((g) => g.classification === 'real').map((g) => (

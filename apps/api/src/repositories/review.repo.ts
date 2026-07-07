@@ -51,7 +51,7 @@ export async function getQueue(status: 'to_review' | 'approved', cohort?: string
     student_name: string;
     cohort: string | null;
     completed_at: string | null;
-    findings: { surprises?: unknown[]; project_pattern?: { outlier?: unknown } } | null;
+    findings: { surprises?: unknown[]; coherence?: { contradiction?: boolean } } | null;
   }>(
     `SELECT ri.instance_id, s.name AS student_name, s.cohort, ri.completed_at, d.findings
        FROM report_instance ri
@@ -64,7 +64,7 @@ export async function getQueue(status: 'to_review' | 'approved', cohort?: string
 
   return rows.map((r) => {
     const surprises = Array.isArray(r.findings?.surprises) ? r.findings!.surprises! : [];
-    const coherenceFlag = Boolean(r.findings?.project_pattern?.outlier);
+    const coherenceFlag = Boolean(r.findings?.coherence?.contradiction);
     return {
       instance_id: r.instance_id,
       student_name: r.student_name,

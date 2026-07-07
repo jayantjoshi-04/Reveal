@@ -89,6 +89,15 @@ export const findingsSchema = z.object({
     classification: z.enum(MARKET_CLASSES),
   }),
 
+  // Resume framing vs. what the behaviour shows, adjudicated by behaviour.
+  coherence: z.object({
+    contradiction: z.boolean(),
+    resume_frame: z.string(), // commercial | impact | mixed | unknown
+    work_frame: z.string(), // commercial | impact | mixed
+    adjudicated_truth: z.enum(['work', 'resume']),
+    basis: z.array(z.string()), // which behavioural tasks informed it
+  }),
+
   experiments: z.array(
     z.object({
       targets: z.string(),
