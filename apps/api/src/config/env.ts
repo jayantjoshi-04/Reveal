@@ -1,5 +1,16 @@
 /** Environment parsing — fail fast on missing critical config. */
 import { z } from 'zod';
+import dotenv from 'dotenv';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+// Load a .env file so `cp .env.example .env` actually takes effect. We look at
+// the repo root (cwd is apps/api when run via `pnpm dev:api`) and the cwd
+// (when run from the repo root in production). First match wins; real
+// environment variables always take precedence over the file.
+for (const candidate of [resolve(process.cwd(), '../../.env'), resolve(process.cwd(), '.env')]) {
+  if (existsSync(candidate)) dotenv.config({ path: candidate });
+}
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
@@ -25,7 +36,15 @@ export function env(): Env {
   if (cached) return cached;
   const parsed = envSchema.safeParse(process.env);
   if (!parsed.success) {
-    console.error('❌ Invalid environment:', parsed.error.flatten().fieldErrors);
+    const fieldErrors = parsed.error.flatten().fieldErrors;
+    console.error('❌ Invalid environment:', fieldErrors);
+    if (fieldErrors.DATABASE_URL) {
+      console.error(
+        '\n  DATABASE_URL is missing. Set it in a .env file at the repo root, e.g.:\n' +
+          '    DATABASE_URL=postgresql://user:password@localhost:5432/reveal\n' +
+          '  (copy .env.example to .env and fill it in). See README → "Running locally".\n',
+      );
+    }
     throw new Error('Invalid environment configuration');
   }
   // Never boot production on the public dev defaults for secrets.
