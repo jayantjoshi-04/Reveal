@@ -34,9 +34,13 @@ export async function buildApp(): Promise<FastifyInstance> {
   });
 
   // Unified error handling: Zod → 400, typed HttpError → its code, else 500.
-  app.setErrorHandler((error, _req, reply) => {
+  app.setErrorHandler((error, req, reply) => {
     if (error instanceof ZodError) {
-      return reply.code(400).send({ error: 'validation_error', issues: error.issues });
+      // Human-readable "field: message" strings, and log which route failed so
+      // a 400 is diagnosable from a single line.
+      const issues = error.issues.map((i) => `${i.path.join('.') || 'body'}: ${i.message}`);
+      req.log.warn({ url: req.url, issues }, 'validation_error (400)');
+      return reply.code(400).send({ error: 'validation_error', issues });
     }
     if (error instanceof HttpError) {
       return reply.code(error.statusCode).send({ error: error.message });

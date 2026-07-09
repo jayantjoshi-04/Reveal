@@ -21,6 +21,14 @@ export function CaptureFlow(): JSX.Element {
 
   if (!instanceId) return <Navigate to="/" replace />;
 
+  function errMessage(e: unknown, fallback: string): string {
+    if (e instanceof ApiError) {
+      if (e.issues?.length) return e.issues.join(' · ');
+      return e.message;
+    }
+    return fallback;
+  }
+
   async function submit(payload: unknown, ms?: number): Promise<void> {
     if (!state?.cursor) return;
     setBusy(true);
@@ -29,8 +37,9 @@ export function CaptureFlow(): JSX.Element {
       await api.submitModule(instanceId!, state.cursor, payload, ms);
       await refetch();
     } catch (e) {
-      // Never fail silently — a swallowed error looks like a frozen page.
-      setError(e instanceof ApiError ? e.message : "Couldn't save your answer. Please try again.");
+      // Never fail silently — a swallowed error looks like a frozen page. Show
+      // the specific validation issues when the server sends them.
+      setError(errMessage(e, "Couldn't save your answer. Please try again."));
     } finally {
       setBusy(false);
     }
@@ -43,7 +52,7 @@ export function CaptureFlow(): JSX.Element {
       await api.sealSession(instanceId!, no);
       await refetch();
     } catch (e) {
-      setError(e instanceof ApiError ? e.message : "Couldn't seal this session. Please try again.");
+      setError(errMessage(e, "Couldn't seal this session. Please try again."));
     } finally {
       setBusy(false);
     }
