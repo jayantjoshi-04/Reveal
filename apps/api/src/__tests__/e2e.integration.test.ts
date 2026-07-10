@@ -45,8 +45,13 @@ suite('e2e · full capture → engine → approve → report (real DB)', () => {
   it('walks the whole flow and releases a report', async () => {
     const VALUES = ['empathy','impact','justice','storytelling','teaching','craft','autonomy','recognition','money_security','learning_growth','beauty','solving_hard_problems'];
 
-    // sign in + start
-    const auth = await api('POST', '/auth/student', undefined, { name: 'E2E', email: `e2e+${Date.now()}@test.dev`, cohort: '7' });
+    // sign up → verify email → sign in
+    const email = `e2e+${Date.now()}@test.dev`;
+    // include profile fields (empty dob exercised the DATE-coercion fix)
+    const su = await api('POST', '/auth/signup', undefined, { name: 'E2E', email, username: `e2e_${Date.now()}`, password: 'password123', cohort: '7', gender: 'Female', dob: '2001-05-14', institution: 'NID', domain_of_interest: 'Product design' });
+    expect(su.status).toBe(200);
+    await api('POST', '/auth/verify', undefined, { email, code: su.body.devVerificationCode });
+    const auth = await api('POST', '/auth/signin', undefined, { identifier: email, password: 'password123' });
     expect(auth.status).toBe(200);
     const token = auth.body.token as string;
     const start = await api('POST', '/instances', token);
@@ -107,15 +112,15 @@ suite('e2e · full capture → engine → approve → report (real DB)', () => {
     }
     expect(state.status).toBe('capture_complete');
 
-    // facilitator approves → single synthesis, cached once
-    const fac = await api('POST', '/auth/staff', undefined, { email: 'facilitator@reveal.test', passcode: process.env.STAFF_PASSCODE });
-    expect(fac.status).toBe(200);
-    const ftok = fac.body.token as string;
-    const approve = await api('POST', `/facilitator/reviews/${id}/approve`, ftok);
+    // admin approves → single synthesis, cached once
+    const adminAuth = await api('POST', '/auth/admin/signin', undefined, { username: 'jahaanvi', password: 'reveal@2026' });
+    expect(adminAuth.status).toBe(200);
+    const atok = adminAuth.body.token as string;
+    const approve = await api('POST', `/admin/reports/${id}/approve`, atok);
     expect(approve.status).toBe(200);
     expect(approve.body.generated).toBe(true);
     // idempotent
-    expect((await api('POST', `/facilitator/reviews/${id}/approve`, ftok)).body.generated).toBe(false);
+    expect((await api('POST', `/admin/reports/${id}/approve`, atok)).body.generated).toBe(false);
 
     // student reads the released report
     const report = await api('GET', `/report/${id}`, token);
@@ -124,8 +129,8 @@ suite('e2e · full capture → engine → approve → report (real DB)', () => {
     expect(report.body.findings.capacities[0].name).toBe('empathy'); // recomputed server-side
   }, 30_000);
 
-  it('rejects staff sign-in with a wrong passcode', async () => {
-    const bad = await api('POST', '/auth/staff', undefined, { email: 'admin@reveal.test', passcode: 'wrong' });
+  it('rejects admin sign-in with a wrong password', async () => {
+    const bad = await api('POST', '/auth/admin/signin', undefined, { username: 'jahaanvi', password: 'wrong' });
     expect(bad.status).toBe(401);
   });
 });

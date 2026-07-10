@@ -1,45 +1,50 @@
 /**
- * Auth. Students sign in with their details (email is the login key); staff sign
- * in by email against the seeded staff table. Pilot-simple — a production build
- * would add magic-link email verification (MAGIC_LINK_TTL_MIN is reserved).
+ * Auth routes. Students: signup → verify email → signin. Admins: admin/signin.
+ * Passwords are bcrypt-hashed; JWTs carry {sub, role} and expire.
  */
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
-import { db } from '../../config/db.js';
 import { env } from '../../config/env.js';
-import { getOrCreateStudent } from '../../repositories/instance.repo.js';
-import type { Staff } from '@reveal/shared';
+import * as auth from '../../services/auth.service.js';
 
-const studentBody = z.object({
+const signupBody = z.object({
   name: z.string().min(1),
   email: z.string().email(),
-  program: z.string().optional(),
+  username: z.string().min(3).max(32).regex(/^[a-zA-Z0-9_.]+$/, 'letters, numbers, _ or . only'),
+  password: z.string().min(8, 'at least 8 characters'),
+  gender: z.string().optional(),
+  dob: z.string().optional(),
   institution: z.string().optional(),
+  domain_of_interest: z.string().optional(),
   cohort: z.string().optional(),
 });
-
-const staffBody = z.object({ email: z.string().email(), passcode: z.string() });
 
 export async function authRoutes(app: FastifyInstance): Promise<void> {
   const signOpts = { expiresIn: env().JWT_EXPIRES_IN };
 
-  app.post('/auth/student', async (req, reply) => {
-    const body = studentBody.parse(req.body);
-    // NOTE: pilot-simple identity — production must verify ownership of the email
-    // via a magic link (MAGIC_LINK_TTL_MIN is reserved) before issuing a token.
-    const student = await getOrCreateStudent(body);
-    const token = app.jwt.sign({ sub: student.student_id, role: 'student', name: student.name }, signOpts);
-    return reply.send({ token, student });
+  app.post('/auth/signup', async (req, reply) => {
+    const body = signupBody.parse(req.body);
+    const { student, devVerificationCode } = await auth.signup(body);
+    return reply.send({ student, devVerificationCode });
   });
 
-  app.post('/auth/staff', async (req, reply) => {
-    const { email, passcode } = staffBody.parse(req.body);
-    // Gate staff behind a shared passcode so email alone can't grant admin.
-    if (passcode !== env().STAFF_PASSCODE) return reply.code(401).send({ error: 'invalid passcode' });
-    const { rows } = await db().query<Staff>('SELECT * FROM staff WHERE email = $1', [email]);
-    const staff = rows[0];
-    if (!staff) return reply.code(404).send({ error: 'staff not found' });
-    const token = app.jwt.sign({ sub: staff.staff_id, role: staff.role, name: staff.name }, signOpts);
-    return reply.send({ token, staff });
+  app.post('/auth/verify', async (req, reply) => {
+    const { email, code } = z.object({ email: z.string().email(), code: z.string() }).parse(req.body);
+    await auth.verifyEmail(email, code);
+    return reply.send({ ok: true, verified: true });
+  });
+
+  app.post('/auth/signin', async (req, reply) => {
+    const { identifier, password } = z.object({ identifier: z.string().min(1), password: z.string() }).parse(req.body);
+    const student = await auth.signinStudent(identifier, password);
+    const token = app.jwt.sign({ sub: student.student_id, role: 'student', name: student.name }, signOpts);
+    return reply.send({ token, student: { student_id: student.student_id, name: student.name, email: student.email } });
+  });
+
+  app.post('/auth/admin/signin', async (req, reply) => {
+    const { username, password } = z.object({ username: z.string().min(1), password: z.string() }).parse(req.body);
+    const admin = await auth.signinAdmin(username, password);
+    const token = app.jwt.sign({ sub: admin.staff_id, role: 'admin', name: admin.name }, signOpts);
+    return reply.send({ token, admin: { staff_id: admin.staff_id, name: admin.name, email: admin.email } });
   });
 }

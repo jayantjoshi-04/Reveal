@@ -43,6 +43,55 @@ export async function updateReview(
   );
 }
 
+export interface AdminReportRow {
+  instance_id: string;
+  student_id: string;
+  student_name: string;
+  cohort: string | null;
+  status: string;
+  completed_at: string | null;
+  decision: string | null;
+  surprise_count: number;
+  coherence_flag: boolean;
+}
+
+/** Every instance that has reached capture, for the admin Reports dashboard. */
+export async function listAllReports(): Promise<AdminReportRow[]> {
+  const { rows } = await db().query<{
+    instance_id: string;
+    student_id: string;
+    student_name: string;
+    cohort: string | null;
+    status: string;
+    completed_at: string | null;
+    decision: string | null;
+    findings: { surprises?: unknown[]; coherence?: { contradiction?: boolean } } | null;
+  }>(
+    `SELECT ri.instance_id, ri.student_id, s.name AS student_name, s.cohort, ri.status, ri.completed_at,
+            rv.decision, d.findings
+       FROM report_instance ri
+       JOIN student s ON s.student_id = ri.student_id
+       LEFT JOIN derived d ON d.instance_id = ri.instance_id
+       LEFT JOIN review rv ON rv.instance_id = ri.instance_id
+      WHERE ri.status <> 'in_progress'
+      ORDER BY ri.completed_at DESC NULLS LAST`,
+  );
+  return rows.map((r) => {
+    const surprises = Array.isArray(r.findings?.surprises) ? r.findings!.surprises! : [];
+    return {
+      instance_id: r.instance_id,
+      student_id: r.student_id,
+      student_name: r.student_name,
+      cohort: r.cohort,
+      status: r.status,
+      completed_at: r.completed_at,
+      decision: r.decision,
+      surprise_count: surprises.length,
+      coherence_flag: Boolean(r.findings?.coherence?.contradiction),
+    };
+  });
+}
+
 /** The queue: capture-complete instances awaiting review, annotated from derived. */
 export async function getQueue(status: 'to_review' | 'approved', cohort?: string): Promise<QueueItem[]> {
   const wantStatus = status === 'to_review' ? 'capture_complete' : 'released';

@@ -32,5 +32,6 @@ export function requireRole(...roles: AuthUser['role'][]) {
 }
 
 export const requireStudent = requireRole('student');
-export const requireFacilitator = requireRole('facilitator', 'admin');
+// Facilitator is retired — its functionality lives in the admin portal now.
+export const requireFacilitator = requireRole('admin');
 export const requireAdmin = requireRole('admin');

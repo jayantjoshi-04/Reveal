@@ -56,8 +56,14 @@ generator with the deterministic fallback phraser — the whole pipeline works o
 no LLM calls. Set `SYNTHESIS_MODE=auto` with a key for the single low-temperature Claude
 call on facilitator approval.
 
-Demo accounts (seeded): `facilitator@reveal.test`, `admin@reveal.test`. Staff sign-in
-requires the shared `STAFF_PASSCODE` (default `reveal-staff` in dev).
+**Students** sign up (multi-step) → verify email → sign in. In dev, the verification code
+is returned by the signup call and auto-filled in the UI (no email provider needed).
+
+**Admins** (seeded, temp password `reveal@2026`): `jahaanvi`, `prashant`, `reva`, `jayant`.
+Sign in at `/admin/signin`. The admin portal is the GUI over the database — questionnaire
+CRUD, report approval/rejection, and the student directory. The facilitator role is retired.
+
+All passwords are bcrypt-hashed; admin endpoints enforce role-based access control.
 
 ## Tests
 

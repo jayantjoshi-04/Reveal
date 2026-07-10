@@ -1,5 +1,5 @@
 /** Typed fetch client. Attaches the JWT and unwraps errors. */
-import type { InstanceState, QueueItem } from '@reveal/shared';
+import type { InstanceState } from '@reveal/shared';
 
 const BASE = (import.meta.env.VITE_API_URL as string | undefined) ?? 'http://localhost:4000';
 
@@ -54,60 +54,66 @@ export class ApiError extends Error {
   }
 }
 
-export const api = {
-  // auth
-  signInStudent: (body: { name: string; email: string; cohort?: string }) =>
-    request<{ token: string; student: unknown }>('/auth/student', { method: 'POST', body: JSON.stringify(body) }),
-  signInStaff: (email: string, passcode: string) =>
-    request<{ token: string; staff: { role: string; name: string } }>('/auth/staff', {
-      method: 'POST',
-      body: JSON.stringify({ email, passcode }),
-    }),
+const post = (path: string, body?: unknown) =>
+  request(path, { method: 'POST', body: body !== undefined ? JSON.stringify(body) : undefined });
 
-  // capture
+export const api = {
+  // ── auth ──
+  signup: (body: SignupBody) => request<{ student: { student_id: string; name: string; email: string }; devVerificationCode?: string }>('/auth/signup', { method: 'POST', body: JSON.stringify(body) }),
+  verify: (email: string, code: string) => post('/auth/verify', { email, code }),
+  signin: (identifier: string, password: string) => request<{ token: string; student: { student_id: string; name: string; email: string } }>('/auth/signin', { method: 'POST', body: JSON.stringify({ identifier, password }) }),
+  adminSignin: (username: string, password: string) => request<{ token: string; admin: { staff_id: string; name: string; email: string } }>('/auth/admin/signin', { method: 'POST', body: JSON.stringify({ username, password }) }),
+
+  // ── student ──
+  meDashboard: () => request<Dashboard>('/me/dashboard'),
   startInstance: () => request<InstanceState>('/instances', { method: 'POST' }),
   getState: (id: string) => request<InstanceState>(`/instances/${id}/state`),
   submitModule: (id: string, code: string, payload: unknown, responseMs?: number) =>
-    request<{ cursor: string | null }>(`/instances/${id}/modules/${code}`, {
-      method: 'POST',
-      body: JSON.stringify({ payload, response_ms: responseMs }),
-    }),
+    request<{ cursor: string | null }>(`/instances/${id}/modules/${code}`, { method: 'POST', body: JSON.stringify({ payload, response_ms: responseMs }) }),
   sealSession: (id: string, no: number) =>
-    request<{ sealed: boolean; instanceComplete: boolean }>(`/instances/${id}/sessions/${no}/seal`, {
-      method: 'POST',
-    }),
-
-  // content
+    request<{ sealed: boolean; instanceComplete: boolean }>(`/instances/${id}/sessions/${no}/seal`, { method: 'POST' }),
   content: <T = unknown>(kind: 'a-items' | 'b-tasks' | 'artifacts' | 'scenes') => request<T>(`/content/${kind}`),
-
-  // facilitator
-  queue: (status: 'to_review' | 'approved') => request<QueueItem[]>(`/facilitator/queue?status=${status}`),
-  review: (id: string) => request<ReviewDetail>(`/facilitator/reviews/${id}`),
-  approve: (id: string) =>
-    request<{ generated: boolean; model: string; released: boolean }>(`/facilitator/reviews/${id}/approve`, {
-      method: 'POST',
-    }),
-  saveNote: (id: string, note: string) =>
-    request(`/facilitator/reviews/${id}/note`, { method: 'POST', body: JSON.stringify({ note }) }),
-  saveSlots: (id: string, slots: Record<string, string>) =>
-    request<{ ok: boolean; edited: string[] }>(`/facilitator/reviews/${id}/slots`, {
-      method: 'POST',
-      body: JSON.stringify({ slots }),
-    }),
-
-  // report
   report: (id: string) => request<ReportView>(`/report/${id}`),
+
+  // ── admin ──
+  adminOverview: () => request<AdminOverview>('/admin/overview'),
+  adminQuestions: () => request<AItem[]>('/admin/questions'),
+  createQuestion: (b: { module_code: string; prompt: string; seq: number; is_non_design?: boolean }) => post('/admin/questions', b),
+  updateQuestion: (itemId: string, b: { prompt?: string; seq?: number; is_non_design?: boolean }) => request(`/admin/questions/${itemId}`, { method: 'PATCH', body: JSON.stringify(b) }),
+  deleteQuestion: (itemId: string) => request(`/admin/questions/${itemId}`, { method: 'DELETE' }),
+  addOption: (itemId: string, label: string, tag: string) => post(`/admin/questions/${itemId}/options`, { label, tag }),
+  updateOption: (optionId: string, b: { label?: string; tag?: string }) => request(`/admin/options/${optionId}`, { method: 'PATCH', body: JSON.stringify(b) }),
+  deleteOption: (optionId: string) => request(`/admin/options/${optionId}`, { method: 'DELETE' }),
+  adminReports: () => request<AdminReport[]>('/admin/reports'),
+  adminReport: (id: string) => request<ReviewDetail>(`/admin/reports/${id}`),
+  approveReport: (id: string) => post(`/admin/reports/${id}/approve`) as Promise<{ generated: boolean; model: string }>,
+  rejectReport: (id: string, reason?: string) => post(`/admin/reports/${id}/reject`, { reason }),
+  adminStudents: () => request<StudentRow[]>('/admin/students'),
+  setStudentStatus: (id: string, status: 'active' | 'suspended') => request(`/admin/students/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) }),
 };
+
+export interface SignupBody {
+  name: string; email: string; username: string; password: string;
+  gender?: string; dob?: string; institution?: string; domain_of_interest?: string; cohort?: string;
+}
+export interface Dashboard {
+  profile: { name: string; email: string; username: string | null; domain_of_interest: string | null; institution: string | null };
+  instance: { instance_id: string; status: string; started_at: string; completed_at: string | null; generated_at: string | null } | null;
+  report_ready: boolean;
+}
+export interface AdminOverview { version_id: string; a_items: number; b_tasks: number; artifacts: number; students: number; to_review: number; released: number; }
+export interface AItem { item_id: string; module_code: string; seq: number; prompt: string; is_non_design: boolean; options: { option_id: string; label: string; tag: string }[]; }
+export interface AdminReport { instance_id: string; student_id: string; student_name: string; cohort: string | null; status: string; completed_at: string | null; decision: string | null; surprise_count: number; coherence_flag: boolean; }
+export interface StudentRow { student_id: string; name: string; email: string; username: string | null; cohort: string | null; institution: string | null; domain_of_interest: string | null; account_status: string; email_verified: boolean; created_at: string; latest_status: string | null; }
 
 export interface ReviewDetail {
   instance_id: string;
   status: string;
-  findings: import('@reveal/shared').Findings;
+  findings: import('@reveal/shared').Findings | null;
   high_stakes: import('@reveal/shared').HighStakesSummary | null;
   facilitator_note: string | null;
   decision: string;
   slots: import('@reveal/shared').ReportSlots | null;
-  slot_edits: Partial<import('@reveal/shared').ReportSlots> | null;
 }
 
 export interface ReportView {

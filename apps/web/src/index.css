@@ -13,6 +13,22 @@
   }
 }
 
+@layer utilities {
+  /* Skeleton shimmer for loading states. */
+  .skeleton {
+    @apply relative overflow-hidden rounded-md bg-slate-200/70;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+  .press {
+    @apply transition-transform duration-150 active:scale-[0.98];
+  }
+}
+
 @layer components {
   /* Orange top-rule used on dark headers throughout the spec. */
   .toprule::before {

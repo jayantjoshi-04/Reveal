@@ -20,8 +20,6 @@ const envSchema = z.object({
   JWT_SECRET: z.string().min(1).default('dev-insecure-secret-change-me'),
   JWT_EXPIRES_IN: z.string().default('12h'),
   MAGIC_LINK_TTL_MIN: z.coerce.number().default(30),
-  // Shared passcode gating staff (facilitator/admin) sign-in for the pilot.
-  STAFF_PASSCODE: z.string().default('reveal-staff'),
   ANTHROPIC_API_KEY: z.string().optional(),
   SYNTHESIS_MODEL: z.string().default('claude-sonnet-5'),
   SYNTHESIS_TEMPERATURE: z.coerce.number().default(0.3),
@@ -51,8 +49,6 @@ export function env(): Env {
   if (parsed.data.NODE_ENV === 'production') {
     if (parsed.data.JWT_SECRET === 'dev-insecure-secret-change-me')
       throw new Error('JWT_SECRET must be set in production');
-    if (parsed.data.STAFF_PASSCODE === 'reveal-staff')
-      throw new Error('STAFF_PASSCODE must be set in production');
   }
   cached = parsed.data;
   return cached;

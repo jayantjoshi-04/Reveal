@@ -31,11 +31,28 @@ export default {
         rule: '#E4E0D8',
         mid: '#7d7d74',
         dim: '#a7a79e',
+        // Premium neutral accent for the new auth/admin surfaces.
+        accent: '#4F46E5',
+        'accent-dark': '#4338CA',
+        'accent-soft': '#EEF2FF',
       },
       fontFamily: {
         serif: ['"DM Serif Display"', 'serif'],
         sans: ['"DM Sans"', 'sans-serif'],
         mono: ['"DM Mono"', 'monospace'],
+      },
+      boxShadow: {
+        card: '0 1px 2px rgba(15,23,42,.04), 0 8px 24px -12px rgba(15,23,42,.12)',
+        lift: '0 4px 12px rgba(15,23,42,.06), 0 20px 40px -16px rgba(15,23,42,.18)',
+      },
+      keyframes: {
+        'fade-in': { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+        'slide-up': { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        shimmer: { '100%': { transform: 'translateX(100%)' } },
+      },
+      animation: {
+        'fade-in': 'fade-in .4s ease both',
+        'slide-up': 'slide-up .5s cubic-bezier(.16,1,.3,1) both',
       },
     },
   },

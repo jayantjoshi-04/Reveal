@@ -72,13 +72,13 @@ export function CaptureFlow(): JSX.Element {
         {isLoading || !state ? (
           <p className="text-sm text-mid">Loading…</p>
         ) : state.status === 'capture_complete' || state.status === 'generated' || state.status === 'released' ? (
-          <Complete />
+          <Navigate to="/dashboard" replace />
         ) : state.cursor ? (
           <ModuleView cursor={state.cursor} busy={busy} onSubmit={submit} />
         ) : state.active_session ? (
           <SealScreen sessionNo={state.active_session} busy={busy} onSeal={() => seal(state.active_session!)} />
         ) : (
-          <Complete />
+          <Navigate to="/dashboard" replace />
         )}
       </div>
     </div>
@@ -131,17 +131,3 @@ function SealScreen({ sessionNo, busy, onSeal }: { sessionNo: number; busy: bool
   );
 }
 
-function Complete(): JSX.Element {
-  return (
-    <SessionShell progress={1} chip="Complete" chipTone="sealed">
-      <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center">
-        <div className="text-3xl">📨</div>
-        <div className="font-serif text-lg">You’re all set.</div>
-        <div className="text-[11px] leading-relaxed text-mid">
-          Your capture is complete and with a facilitator for review. Your Design Signature will be released once
-          approved.
-        </div>
-      </div>
-    </SessionShell>
-  );
-}

@@ -59,6 +59,56 @@ export async function getA1Appearances(versionId: string): Promise<Partial<Recor
   return counts;
 }
 
+// ── Questionnaire CRUD (admin) ──────────────────────────────────────────────
+export async function createAItem(
+  versionId: string,
+  input: { module_code: string; prompt: string; seq: number; is_non_design?: boolean },
+): Promise<{ item_id: string }> {
+  const { rows } = await db().query<{ item_id: string }>(
+    'INSERT INTO a_item (version_id, module_code, seq, prompt, is_non_design) VALUES ($1,$2,$3,$4,$5) RETURNING item_id',
+    [versionId, input.module_code, input.seq, input.prompt, input.is_non_design ?? false],
+  );
+  return rows[0]!;
+}
+
+export async function updateAItem(
+  itemId: string,
+  patch: { prompt?: string; seq?: number; is_non_design?: boolean },
+): Promise<void> {
+  await db().query(
+    `UPDATE a_item SET
+       prompt = COALESCE($2, prompt),
+       seq = COALESCE($3, seq),
+       is_non_design = COALESCE($4, is_non_design)
+     WHERE item_id = $1`,
+    [itemId, patch.prompt ?? null, patch.seq ?? null, patch.is_non_design ?? null],
+  );
+}
+
+export async function deleteAItem(itemId: string): Promise<void> {
+  await db().query('DELETE FROM a_item WHERE item_id = $1', [itemId]); // options cascade
+}
+
+export async function addOption(itemId: string, label: string, tag: string): Promise<{ option_id: string }> {
+  const { rows } = await db().query<{ option_id: string }>(
+    'INSERT INTO a_option (item_id, label, tag) VALUES ($1,$2,$3) RETURNING option_id',
+    [itemId, label, tag],
+  );
+  return rows[0]!;
+}
+
+export async function updateOption(optionId: string, patch: { label?: string; tag?: string }): Promise<void> {
+  await db().query('UPDATE a_option SET label = COALESCE($2,label), tag = COALESCE($3,tag) WHERE option_id = $1', [
+    optionId,
+    patch.label ?? null,
+    patch.tag ?? null,
+  ]);
+}
+
+export async function deleteOption(optionId: string): Promise<void> {
+  await db().query('DELETE FROM a_option WHERE option_id = $1', [optionId]);
+}
+
 export async function getBTasks(versionId: string): Promise<unknown[]> {
   const { rows } = await db().query('SELECT task_code, params, trait_tags FROM b_task WHERE version_id = $1 ORDER BY task_code', [
     versionId,

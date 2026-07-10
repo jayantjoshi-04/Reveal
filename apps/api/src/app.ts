@@ -8,7 +8,7 @@ import { HttpError } from './services/session.service.js';
 import { authRoutes } from './routes/auth/auth.routes.js';
 import { captureRoutes } from './routes/student/capture.routes.js';
 import { uploadRoutes } from './routes/student/uploads.routes.js';
-import { facilitatorRoutes } from './routes/facilitator/facilitator.routes.js';
+import { meRoutes } from './routes/student/me.routes.js';
 import { reportRoutes } from './routes/report/report.routes.js';
 import { contentRoutes } from './routes/content/content.routes.js';
 import { adminRoutes } from './routes/admin/admin.routes.js';
@@ -60,7 +60,7 @@ export async function buildApp(): Promise<FastifyInstance> {
       await api.register(authRoutes);
       await api.register(captureRoutes);
       await api.register(uploadRoutes);
-      await api.register(facilitatorRoutes);
+      await api.register(meRoutes);
       await api.register(reportRoutes);
       await api.register(contentRoutes);
       await api.register(adminRoutes);

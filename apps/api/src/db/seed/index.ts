@@ -3,9 +3,17 @@
  * facilitator + admin. Idempotent: skips if a live version already exists.
  */
 import { db, withTransaction, closeDb } from '../../config/db.js';
+import { hashPassword } from '../../services/auth.service.js';
 import { A1_ITEMS } from './data/a-items.js';
 import { ARTIFACTS } from './data/artifacts.js';
 import { B_TASKS, RUBRIC_DIMENSIONS, SCENES, SCORING_CONSTANTS } from './data/instrument.js';
+
+const ADMINS = [
+  { name: 'Jahaanvi', username: 'jahaanvi', email: 'jahaanvi@reveal.app' },
+  { name: 'Prashant', username: 'prashant', email: 'prashant@reveal.app' },
+  { name: 'Reva', username: 'reva', email: 'reva@reveal.app' },
+  { name: 'Jayant', username: 'jayant', email: 'jayant@reveal.app' },
+];
 
 async function seed(): Promise<void> {
   const existing = await db().query("SELECT version_id FROM instrument_version WHERE is_live = true LIMIT 1");
@@ -75,14 +83,17 @@ async function seed(): Promise<void> {
     });
   }
 
-  // Demo staff (idempotent by unique email)
-  await db().query(
-    `INSERT INTO staff (email, name, role) VALUES
-       ('facilitator@reveal.test', 'Demo Facilitator', 'facilitator'),
-       ('admin@reveal.test', 'Demo Admin', 'admin')
-     ON CONFLICT (email) DO NOTHING`,
-  );
-  console.log('✓ Demo staff ready (facilitator@reveal.test, admin@reveal.test).');
+  // Seed the 4 named admins with a bcrypt-hashed temporary password.
+  const hash = await hashPassword('reveal@2026');
+  for (const a of ADMINS) {
+    await db().query(
+      `INSERT INTO staff (email, name, role, username, password_hash)
+       VALUES ($1,$2,'admin',$3,$4)
+       ON CONFLICT (email) DO UPDATE SET name = EXCLUDED.name, username = EXCLUDED.username, password_hash = EXCLUDED.password_hash, role = 'admin'`,
+      [a.email, a.name, a.username, hash],
+    );
+  }
+  console.log(`✓ Seeded ${ADMINS.length} admins (${ADMINS.map((a) => a.username).join(', ')}) · temp password: reveal@2026`);
 }
 
 seed()

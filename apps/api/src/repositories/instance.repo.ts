@@ -59,6 +59,53 @@ export async function setConsent(instanceId: string, consent: unknown, c?: Q): P
   );
 }
 
+export interface StudentDirectoryRow {
+  student_id: string;
+  name: string;
+  email: string;
+  username: string | null;
+  cohort: string | null;
+  institution: string | null;
+  domain_of_interest: string | null;
+  account_status: string;
+  email_verified: boolean;
+  created_at: string;
+  latest_status: string | null;
+}
+
+/** All students with their latest instance status, for the admin directory. */
+export async function listStudents(): Promise<StudentDirectoryRow[]> {
+  const { rows } = await db().query<StudentDirectoryRow>(
+    `SELECT s.student_id, s.name, s.email, s.username, s.cohort, s.institution, s.domain_of_interest,
+            s.account_status, s.email_verified, s.created_at,
+            (SELECT status FROM report_instance ri WHERE ri.student_id = s.student_id
+              ORDER BY started_at DESC LIMIT 1) AS latest_status
+       FROM student s
+      ORDER BY s.created_at DESC`,
+  );
+  return rows;
+}
+
+export async function setAccountStatus(studentId: string, status: string): Promise<void> {
+  await db().query('UPDATE student SET account_status = $2 WHERE student_id = $1', [studentId, status]);
+}
+
+/** The student's own dashboard: profile snapshot + latest instance. */
+export async function getStudentDashboard(studentId: string): Promise<{
+  profile: { name: string; email: string; username: string | null; domain_of_interest: string | null; institution: string | null };
+  instance: ReportInstance | null;
+}> {
+  const p = await db().query<{ name: string; email: string; username: string | null; domain_of_interest: string | null; institution: string | null }>(
+    'SELECT name, email, username, domain_of_interest, institution FROM student WHERE student_id = $1',
+    [studentId],
+  );
+  const i = await db().query<ReportInstance>(
+    'SELECT * FROM report_instance WHERE student_id = $1 ORDER BY started_at DESC LIMIT 1',
+    [studentId],
+  );
+  return { profile: p.rows[0]!, instance: i.rows[0] ?? null };
+}
+
 export async function setInstanceStatus(
   instanceId: string,
   status: InstanceStatus,

@@ -1,0 +1,63 @@
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../store/auth.js';
+
+const NAV = [
+  { to: '/admin', label: 'Overview', icon: '▦', end: true },
+  { to: '/admin/questions', label: 'Questionnaire', icon: '❔' },
+  { to: '/admin/reports', label: 'Reports', icon: '▤' },
+  { to: '/admin/students', label: 'Students', icon: '☺' },
+];
+
+export function AdminLayout(): JSX.Element {
+  const { name, signOut } = useAuth();
+  const nav = useNavigate();
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <div className="mx-auto flex max-w-7xl">
+        {/* sidebar */}
+        <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-slate-200 bg-white px-4 py-6 md:flex">
+          <div className="px-2">
+            <span className="text-[13px] font-bold uppercase tracking-[0.28em] text-slate-900">Re<span className="text-accent">veal</span></span>
+            <div className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-slate-400">Admin console</div>
+          </div>
+          <nav className="mt-8 flex-1 space-y-1">
+            {NAV.map((n) => (
+              <NavLink
+                key={n.to}
+                to={n.to}
+                end={n.end}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${isActive ? 'bg-accent-soft text-accent-dark' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}`
+                }
+              >
+                <span className="w-4 text-center opacity-70">{n.icon}</span>
+                {n.label}
+              </NavLink>
+            ))}
+          </nav>
+          <div className="border-t border-slate-100 pt-4">
+            <div className="px-3 text-[13px] font-medium text-slate-700">{name}</div>
+            <button className="mt-2 px-3 text-[13px] text-slate-400 hover:text-slate-700" onClick={() => { signOut(); nav('/'); }}>Sign out</button>
+          </div>
+        </aside>
+
+        {/* content */}
+        <main className="min-w-0 flex-1 px-6 py-8 md:px-10">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+}
+
+export function AdminPageHeader({ title, sub, action }: { title: string; sub?: string; action?: React.ReactNode }): JSX.Element {
+  return (
+    <div className="mb-6 flex items-end justify-between gap-4">
+      <div>
+        <h1 className="font-serif text-3xl text-slate-900">{title}</h1>
+        {sub ? <p className="mt-1 text-sm text-slate-500">{sub}</p> : null}
+      </div>
+      {action}
+    </div>
+  );
+}

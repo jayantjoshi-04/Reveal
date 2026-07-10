@@ -1,12 +1,18 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { useAuth } from './store/auth.js';
-import { Landing } from './features/landing/Landing.js';
+import { useAuth, type Role } from './store/auth.js';
+import { Welcome } from './features/welcome/Welcome.js';
+import { SignUp } from './features/auth/SignUp.js';
+import { SignIn } from './features/auth/SignIn.js';
+import { AdminSignIn } from './features/auth/AdminSignIn.js';
+import { Onboarding } from './features/onboarding/Onboarding.js';
 import { CaptureFlow } from './features/capture/CaptureFlow.js';
-import { Queue } from './features/facilitator/Queue.js';
-import { ReviewGate } from './features/facilitator/ReviewGate.js';
+import { StudentDashboard } from './features/dashboard/StudentDashboard.js';
 import { ReportPage } from './features/report/ReportPage.js';
-import { AdminDashboard } from './features/admin/AdminDashboard.js';
-import type { Role } from './store/auth.js';
+import { AdminLayout } from './features/admin/AdminLayout.js';
+import { AdminOverview } from './features/admin/AdminOverview.js';
+import { QuestionManager } from './features/admin/QuestionManager.js';
+import { ReportManager } from './features/admin/ReportManager.js';
+import { StudentDirectory } from './features/admin/StudentDirectory.js';
 
 function Protected({ allow, children }: { allow: Role[]; children: JSX.Element }): JSX.Element {
   const role = useAuth((s) => s.role);
@@ -17,40 +23,23 @@ function Protected({ allow, children }: { allow: Role[]; children: JSX.Element }
 export default function App(): JSX.Element {
   return (
     <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route
-        path="/capture"
-        element={
-          <Protected allow={['student']}>
-            <CaptureFlow />
-          </Protected>
-        }
-      />
-      <Route
-        path="/facilitator"
-        element={
-          <Protected allow={['facilitator', 'admin']}>
-            <Queue />
-          </Protected>
-        }
-      />
-      <Route
-        path="/facilitator/:id"
-        element={
-          <Protected allow={['facilitator', 'admin']}>
-            <ReviewGate />
-          </Protected>
-        }
-      />
-      <Route
-        path="/admin"
-        element={
-          <Protected allow={['admin']}>
-            <AdminDashboard />
-          </Protected>
-        }
-      />
-      <Route path="/report/:id" element={<ReportPage />} />
+      <Route path="/" element={<Welcome />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/admin/signin" element={<AdminSignIn />} />
+
+      <Route path="/onboarding" element={<Protected allow={['student']}><Onboarding /></Protected>} />
+      <Route path="/survey" element={<Protected allow={['student']}><CaptureFlow /></Protected>} />
+      <Route path="/dashboard" element={<Protected allow={['student']}><StudentDashboard /></Protected>} />
+      <Route path="/report/:id" element={<Protected allow={['student', 'admin']}><ReportPage /></Protected>} />
+
+      <Route path="/admin" element={<Protected allow={['admin']}><AdminLayout /></Protected>}>
+        <Route index element={<AdminOverview />} />
+        <Route path="questions" element={<QuestionManager />} />
+        <Route path="reports" element={<ReportManager />} />
+        <Route path="students" element={<StudentDirectory />} />
+      </Route>
+
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
