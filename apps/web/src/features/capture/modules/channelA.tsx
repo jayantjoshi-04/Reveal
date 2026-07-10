@@ -54,7 +54,7 @@ export function A1Module({ onSubmit, busy }: ModuleProps): JSX.Element {
 
   return (
     <>
-      <div className="mb-1 font-mono text-[10px] text-slate-500">Item {idx + 1} of {items.length}</div>
+      <div className="mb-2 font-mono text-xs uppercase tracking-wide text-slate-400">Item {idx + 1} of {items.length}</div>
       <Prompt>{item.prompt}</Prompt>
       <div className="mt-1">
         {item.options.map((o) => (
@@ -80,14 +80,14 @@ export function A3Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Drag these into your true order.</Prompt>
-      <p className="mb-3 text-[11px] text-slate-500">You've already shown us under pressure — this can't be walked back.</p>
-      <div className="mb-3 max-h-64 space-y-1 overflow-auto">
+      <p className="mb-4 text-sm text-slate-500">You've already shown us under pressure — this can't be walked back.</p>
+      <div className="mb-4 max-h-[46vh] space-y-1.5 overflow-auto pr-1">
         {order.map((v, i) => (
-          <div key={v} className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-1.5 text-xs">
-            <span>{i + 1}. {label(v)}</span>
+          <div key={v} className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 shadow-sm">
+            <span><span className="mr-1 font-mono text-xs text-slate-400">{i + 1}</span> {label(v)}</span>
             <span className="flex gap-1">
-              <button className="text-slate-500 hover:text-accent" onClick={() => move(i, -1)}>↑</button>
-              <button className="text-slate-500 hover:text-accent" onClick={() => move(i, 1)}>↓</button>
+              <button className="press rounded-lg px-2 py-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-accent" onClick={() => move(i, -1)}>↑</button>
+              <button className="press rounded-lg px-2 py-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-accent" onClick={() => move(i, 1)}>↓</button>
             </span>
           </div>
         ))}
@@ -117,16 +117,16 @@ export function A4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Tick what's true — be honest, not aspirational.</Prompt>
-      <div className="mb-2 font-mono text-[10px] uppercase text-emerald-600">You thrive when…</div>
-      <div className="mb-3 flex flex-wrap gap-1.5">
+      <div className="mb-2.5 font-mono text-[11px] uppercase tracking-wide text-emerald-600">You thrive when…</div>
+      <div className="mb-4 flex flex-wrap gap-2">
         {THRIVE_CONDITIONS.map((c) => (
           <Toggle key={c} on={thrive.includes(c)} onClick={() => toggle(thrive, setThrive, c)}>
             {human(c)}
           </Toggle>
         ))}
       </div>
-      <div className="mb-2 font-mono text-[10px] uppercase text-slate-500">You wither when…</div>
-      <div className="mb-4 flex flex-wrap gap-1.5">
+      <div className="mb-2.5 font-mono text-[11px] uppercase tracking-wide text-slate-400">You wither when…</div>
+      <div className="mb-5 flex flex-wrap gap-2">
         {WITHER_CONDITIONS.map((c) => (
           <Toggle key={c} on={wither.includes(c)} onClick={() => toggle(wither, setWither, c)}>
             {human(c)}
@@ -147,7 +147,7 @@ export function A6Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>What do you keep coming back to — that nobody assigned you?</Prompt>
-      <div className="mb-4 flex flex-wrap gap-1.5">
+      <div className="mb-5 flex flex-wrap gap-2">
         {topics.map((t) => (
           <Toggle key={t} on={picked.includes(t)} onClick={() => setPicked(picked.includes(t) ? picked.filter((x) => x !== t) : [...picked, t])}>
             {t}
@@ -170,12 +170,12 @@ export function A7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Where do you want to be strong?</Prompt>
-      <div className="mb-3 max-h-52 space-y-2 overflow-auto pr-1">
+      <div className="mb-4 max-h-[42vh] space-y-3 overflow-auto pr-1">
         {CAPABILITIES.map((c) => (
           <div key={c}>
-            <div className="mb-0.5 flex justify-between text-[10px] text-slate-500">
+            <div className="mb-1 flex justify-between text-[13px] text-slate-600">
               <span>{label(c)}</span>
-              <span className="font-mono">{Math.round(levels[c]! * 100)}</span>
+              <span className="font-mono text-xs text-slate-400">{Math.round(levels[c]! * 100)}</span>
             </div>
             <input
               type="range"
@@ -183,13 +183,13 @@ export function A7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
               max={100}
               value={Math.round(levels[c]! * 100)}
               onChange={(e) => setLevels({ ...levels, [c]: Number(e.target.value) / 100 })}
-              className="w-full accent-accent"
+              className="h-1.5 w-full accent-accent"
             />
           </div>
         ))}
       </div>
-      <div className="mb-3 text-[11px] text-slate-500">What interests you vs. what pays best:</div>
-      <div className="mb-4 flex flex-col gap-1">
+      <div className="mb-3 text-sm text-slate-500">What interests you vs. what pays best:</div>
+      <div className="mb-5 flex flex-col gap-1.5">
         {(['aligned', 'slightly_apart', 'opposed'] as const).map((s) => (
           <Option key={s} selected={stance === s} onClick={() => setStance(s)}>
             {s === 'aligned' ? 'the same' : s === 'slightly_apart' ? 'a little apart' : 'opposite directions'}
@@ -221,7 +221,7 @@ function Toggle({ on, onClick, children }: { on: boolean; onClick: () => void; c
   return (
     <button
       onClick={onClick}
-      className={`rounded-full border px-2.5 py-1 text-[10px] ${on ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-600'}`}
+      className={`press rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${on ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-500 hover:border-slate-300'}`}
     >
       {children}
     </button>
