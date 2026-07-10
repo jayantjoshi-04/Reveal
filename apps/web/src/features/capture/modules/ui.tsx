@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 export function Prompt({ children }: { children: ReactNode }): JSX.Element {
-  return <div className="mb-2 text-[15px] font-semibold leading-tight text-ink">{children}</div>;
+  return <div className="mb-3 font-serif text-xl leading-snug text-slate-900">{children}</div>;
 }
 
 export function Option({
@@ -16,13 +16,19 @@ export function Option({
   return (
     <button
       onClick={onClick}
-      className={`mb-1.5 flex w-full items-center gap-2 rounded-lg border px-3 py-2 text-left text-xs transition ${
-        selected ? 'border-orange bg-orange-bg text-orange' : 'border-rule text-[#3a3a36] hover:border-orange'
+      className={`press mb-2.5 flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition-all duration-200 ${
+        selected
+          ? 'border-accent bg-accent-soft text-accent-dark shadow-sm'
+          : 'border-slate-200 text-slate-700 hover:border-accent/50 hover:bg-slate-50'
       }`}
     >
       <span
-        className={`h-3 w-3 flex-shrink-0 rounded-full border ${selected ? 'border-orange bg-orange' : 'border-dim'}`}
-      />
+        className={`flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full border transition-colors ${
+          selected ? 'border-accent bg-accent text-white' : 'border-slate-300'
+        }`}
+      >
+        {selected ? <span className="text-[9px] leading-none">✓</span> : null}
+      </span>
       {children}
     </button>
   );
@@ -41,7 +47,7 @@ export function PrimaryBtn({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="mt-auto rounded-lg bg-orange py-2.5 text-center text-[13px] font-semibold text-white transition hover:opacity-90 disabled:opacity-40"
+      className="press mt-auto rounded-2xl bg-accent py-3 text-center text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-accent-dark disabled:opacity-40"
     >
       {children}
     </button>

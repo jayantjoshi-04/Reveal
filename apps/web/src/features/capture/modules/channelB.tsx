@@ -15,7 +15,7 @@ export function B1Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Funding's been cut. Keep only 4 — remove two.</Prompt>
-      <div className="mb-1 flex justify-between font-mono text-[9px] text-mid">
+      <div className="mb-1 flex justify-between font-mono text-[9px] text-slate-500">
         <span>{4 - (2 - cut.length) > 4 ? 4 : cards.length - cut.length} kept</span>
         <span>{cut.length}/2 to remove</span>
       </div>
@@ -24,7 +24,7 @@ export function B1Module({ onSubmit, busy }: ModuleProps): JSX.Element {
           <button
             key={v}
             onClick={() => toggle(v)}
-            className={`rounded-full border px-2.5 py-1 text-[10px] ${cut.includes(v) ? 'border-mag text-mag line-through' : 'border-orange text-orange'}`}
+            className={`rounded-full border px-2.5 py-1 text-[10px] ${cut.includes(v) ? 'border-rose-300 text-rose-500 line-through' : 'border-accent text-accent'}`}
           >
             {label(v)}
           </button>
@@ -69,7 +69,7 @@ export function B2Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   };
   return (
     <>
-      <div className="mb-1 text-[11px] text-mid">Card {i + 1} of {scenarios.length} · go with your gut</div>
+      <div className="mb-1 text-[11px] text-slate-500">Card {i + 1} of {scenarios.length} · go with your gut</div>
       <Prompt>{s.q}</Prompt>
       <Option onClick={() => pick(s.a, s.a.split('·')[1]?.trim() ?? '')}>{s.a}</Option>
       <Option onClick={() => pick(s.b, s.b.split('·')[1]?.trim() ?? '')}>{s.b}</Option>
@@ -119,7 +119,7 @@ export function B4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   const [sceneIdx, setSceneIdx] = useState(0);
   const [taps, setTaps] = useState<string[]>([]);
   const [all, setAll] = useState<{ stimulus_id: string; marked: { category: string; order: number }[] }[]>([]);
-  if (!scenes || scenes.length === 0) return <p className="text-sm text-mid">Loading scenes…</p>;
+  if (!scenes || scenes.length === 0) return <p className="text-sm text-slate-500">Loading scenes…</p>;
   const scene = scenes[sceneIdx]!;
   const tap = (cat: string): void => {
     if (taps.length >= 3) return;
@@ -138,8 +138,8 @@ export function B4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   };
   return (
     <>
-      <Prompt>Tap the 3 things that jump out. <span className="font-normal text-mid">8s</span></Prompt>
-      <div className="mb-2 rounded-lg border border-dashed border-dim bg-[repeating-linear-gradient(45deg,#f4f1ea,#f4f1ea_6px,#efece6_6px,#efece6_12px)] p-4 text-center font-mono text-[9px] text-mid">
+      <Prompt>Tap the 3 things that jump out. <span className="font-normal text-slate-500">8s</span></Prompt>
+      <div className="mb-3 flex h-24 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 text-center font-mono text-[10px] uppercase tracking-wide text-slate-400">
         ▦ SCENE {sceneIdx + 1} of {scenes.length} · {scene.stimulus_id}
       </div>
       <div className="mb-4 grid grid-cols-2 gap-1.5">
@@ -147,7 +147,7 @@ export function B4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
           <button
             key={cat}
             onClick={() => tap(cat)}
-            className={`rounded-lg border px-2 py-2 text-[10px] ${taps.includes(cat) ? 'border-orange bg-orange-bg text-orange' : 'border-rule'}`}
+            className={`rounded-lg border px-2 py-2 text-[10px] ${taps.includes(cat) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200'}`}
           >
             {cat} {taps.filter((t) => t === cat).length > 0 ? `· ${taps.indexOf(cat) + 1}` : ''}
           </button>
@@ -170,7 +170,7 @@ export function B5Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   const [passIdx, setPassIdx] = useState(0);
   const [picked, setPicked] = useState<number[]>([]);
   const [results, setResults] = useState<Record<string, { imp: number; hum: number }[]>>({});
-  if (!artifacts) return <p className="text-sm text-mid">Loading the wall…</p>;
+  if (!artifacts) return <p className="text-sm text-slate-500">Loading the wall…</p>;
 
   const toggle = (seq: number): void =>
     setPicked(picked.includes(seq) ? picked.filter((x) => x !== seq) : picked.length < 8 ? [...picked, seq] : picked);
@@ -201,20 +201,20 @@ export function B5Module({ onSubmit, busy }: ModuleProps): JSX.Element {
 
   return (
     <>
-      <div className="mb-1 font-mono text-[10px] text-steel">Pass {passIdx + 1} of 3</div>
+      <div className="mb-1 font-mono text-[10px] text-slate-500">Pass {passIdx + 1} of 3</div>
       <Prompt>Pick the {passes[passIdx]}.</Prompt>
       <div className="mb-3 grid max-h-56 grid-cols-2 gap-1.5 overflow-auto pr-1">
         {artifacts.map((a) => (
           <button
             key={a.seq}
             onClick={() => toggle(a.seq)}
-            className={`rounded-lg border px-2 py-1.5 text-left text-[9.5px] leading-tight ${picked.includes(a.seq) ? 'border-orange bg-orange-bg text-orange' : 'border-rule text-[#3a3a36]'}`}
+            className={`rounded-lg border px-2 py-1.5 text-left text-[9.5px] leading-tight ${picked.includes(a.seq) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-600'}`}
           >
             {a.title}
           </button>
         ))}
       </div>
-      <div className="mb-2 font-mono text-[9px] text-mid">{picked.length}/8 chosen</div>
+      <div className="mb-2 font-mono text-[9px] text-slate-500">{picked.length}/8 chosen</div>
       <PrimaryBtn disabled={busy || picked.length === 0} onClick={nextPass}>
         {passIdx + 1 < passes.length ? 'Next pass' : 'See what it shows'}
       </PrimaryBtn>
@@ -228,14 +228,14 @@ export function B6Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Bring 3 things you can't stop looking at.</Prompt>
-      <p className="mb-3 text-[11px] text-mid">Not your own work. One line on why, each.</p>
+      <p className="mb-3 text-[11px] text-slate-500">Not your own work. One line on why, each.</p>
       {whys.map((w, i) => (
         <input
           key={i}
           value={w}
           onChange={(e) => setWhys(whys.map((x, j) => (j === i ? e.target.value : x)))}
           placeholder={`Image ${i + 1} · why`}
-          className="mb-2 w-full rounded-lg border border-rule px-3 py-2 text-xs"
+          className="mb-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs"
         />
       ))}
       <PrimaryBtn
@@ -255,7 +255,7 @@ export function B8Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   const [t] = useState(Date.now());
   return (
     <>
-      <div className="mb-2 rounded-lg border border-mag p-3 text-center font-mono text-[10px] text-mag">
+      <div className="mb-2 rounded-lg border border-amber-300 bg-amber-50 p-3 text-center font-mono text-[10px] uppercase tracking-wide text-amber-700">
         ⚡ THE BRIEF JUST CHANGED · your main approach is no longer allowed.
       </div>
       <Prompt>What do you do now?</Prompt>

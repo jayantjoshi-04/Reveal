@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
-/** The phone-frame chrome from the AppFlow mockup: status bar, progress, chip. */
+/** Premium centered card for a survey step: progress, a subtle channel chip,
+ *  and the question content. Replaces the old phone-frame mockup. */
 export function SessionShell({
   progress,
   chip,
@@ -14,25 +15,26 @@ export function SessionShell({
 }): JSX.Element {
   const chipClass =
     chipTone === 'a'
-      ? 'bg-blue-bg text-blue'
+      ? 'bg-slate-100 text-slate-600'
       : chipTone === 'b'
-        ? 'bg-orange-bg text-orange'
+        ? 'bg-accent-soft text-accent-dark'
         : chipTone === 'sealed'
-          ? 'bg-[#eee] text-mid'
-          : 'bg-[#efece6] text-mid';
+          ? 'bg-emerald-50 text-emerald-700'
+          : 'bg-slate-100 text-slate-500';
 
   return (
-    <div className="flex min-h-[560px] w-full max-w-[360px] flex-col overflow-hidden rounded-[20px] border border-rule bg-white shadow-sm">
-      <div className="flex h-7 items-center justify-between border-b border-[#E6E3DD] bg-cream px-4 font-mono text-[9px] text-dim">
-        <span className="font-sans text-[9px] font-bold tracking-[2px] text-ink">REVEAL</span>
-        <span>9:41</span>
+    <div className="w-full max-w-xl animate-fade-in">
+      <div className="mb-4 flex items-center justify-between">
+        <span className={`inline-flex items-center rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-wider ${chipClass}`}>
+          {chip}
+        </span>
+        <span className="font-mono text-[11px] text-slate-400">{Math.round(progress * 100)}%</span>
       </div>
-      <div className="h-[3px] bg-[#E6E3DD]">
-        <div className="h-full bg-orange transition-all" style={{ width: `${Math.round(progress * 100)}%` }} />
+      <div className="mb-6 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+        <div className="h-full rounded-full bg-accent transition-all duration-500 ease-out" style={{ width: `${Math.round(progress * 100)}%` }} />
       </div>
-      <div className="flex flex-1 flex-col p-5">
-        <span className={`chip mb-3 self-start ${chipClass}`}>{chip}</span>
-        {children}
+      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-card sm:p-9">
+        <div className="flex min-h-[360px] flex-col">{children}</div>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ export function ConsentModule({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <div className="mb-1.5 font-serif text-lg">See the designer your work already shows.</div>
-      <p className="mb-3 text-[11px] leading-relaxed text-mid">
+      <p className="mb-3 text-[11px] leading-relaxed text-slate-500">
         REVEAL builds a picture of how you design — from what you do, not just what you say. Three short sittings; stop
         and come back anytime.
       </p>
@@ -50,35 +50,35 @@ export function PortfolioFactsModule({ onSubmit, busy }: ModuleProps): JSX.Eleme
   return (
     <>
       <Prompt>Add your projects.</Prompt>
-      <p className="mb-3 text-[11px] text-mid">Title, what it was, your role, and whether it leaned commercial or impact.</p>
+      <p className="mb-3 text-[11px] text-slate-500">Title, what it was, your role, and whether it leaned commercial or impact.</p>
       <div className="mb-3 max-h-64 space-y-3 overflow-auto pr-1">
         {projects.map((p, i) => (
-          <div key={i} className="rounded-lg border border-rule p-2">
-            <input className="mb-1 w-full rounded border border-rule px-2 py-1 text-[11px]" placeholder="Project title" value={p.title} onChange={(e) => update(i, { title: e.target.value })} />
-            <input className="mb-1 w-full rounded border border-rule px-2 py-1 text-[11px]" placeholder="Domain (e.g. health · community)" value={p.domain} onChange={(e) => update(i, { domain: e.target.value })} />
+          <div key={i} className="rounded-lg border border-slate-200 p-2">
+            <input className="mb-1 w-full rounded border border-slate-200 px-2 py-1 text-[11px]" placeholder="Project title" value={p.title} onChange={(e) => update(i, { title: e.target.value })} />
+            <input className="mb-1 w-full rounded border border-slate-200 px-2 py-1 text-[11px]" placeholder="Domain (e.g. health · community)" value={p.domain} onChange={(e) => update(i, { domain: e.target.value })} />
             <div className="mb-1 flex flex-wrap gap-1">
               {ROLES.map((r) => (
-                <button key={r} onClick={() => toggleRole(i, r)} className={`rounded-full border px-1.5 py-0.5 text-[8.5px] ${p.roles.includes(r) ? 'border-orange bg-orange-bg text-orange' : 'border-rule text-mid'}`}>
+                <button key={r} onClick={() => toggleRole(i, r)} className={`rounded-full border px-1.5 py-0.5 text-[8.5px] ${p.roles.includes(r) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-500 hover:border-slate-300'}`}>
                   {r.replace(/_/g, '/')}
                 </button>
               ))}
             </div>
             <div className="mb-1 flex flex-wrap gap-1">
               {CAPABILITIES.slice(0, 6).map((c) => (
-                <button key={c} onClick={() => toggleCap(i, c)} className={`rounded-full border px-1.5 py-0.5 text-[8.5px] ${p.caps.includes(c) ? 'border-blue bg-blue-bg text-blue' : 'border-rule text-mid'}`}>
+                <button key={c} onClick={() => toggleCap(i, c)} className={`rounded-full border px-1.5 py-0.5 text-[8.5px] ${p.caps.includes(c) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-500 hover:border-slate-300'}`}>
                   {c.replace(/_/g, ' ')}
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-2 text-[9px] text-mid">
+            <div className="flex items-center gap-2 text-[9px] text-slate-500">
               <span>commercial</span>
-              <input type="range" min={-100} max={100} value={p.impact * 100} onChange={(e) => update(i, { impact: Number(e.target.value) / 100 })} className="flex-1 accent-orange" />
+              <input type="range" min={-100} max={100} value={p.impact * 100} onChange={(e) => update(i, { impact: Number(e.target.value) / 100 })} className="flex-1 accent-accent" />
               <span>impact</span>
             </div>
           </div>
         ))}
       </div>
-      <button className="btn-ghost mb-2 text-[11px]" onClick={() => setProjects([...projects, { title: '', domain: '', initiated: 'self', roles: [], caps: [], impact: 0.5 }])}>
+      <button className="mb-2 rounded-xl border border-slate-200 px-3 py-1.5 text-[11px] font-medium text-slate-600 transition-colors hover:border-slate-300" onClick={() => setProjects([...projects, { title: '', domain: '', initiated: 'self', roles: [], caps: [], impact: 0.5 }])}>
         + Add project
       </button>
       <PrimaryBtn
@@ -112,8 +112,8 @@ export function PortfolioInterpretiveModule({ onSubmit, busy }: ModuleProps): JS
   return (
     <>
       <Prompt>Looking back — what were you mostly doing across these projects?</Prompt>
-      <p className="mb-3 text-[11px] text-mid">Asked now, after the tasks, so it can't anchor everything else.</p>
-      <textarea className="mb-4 h-24 w-full rounded-lg border border-rule px-3 py-2 text-xs" value={text} onChange={(e) => setText(e.target.value)} placeholder="Mostly researching and making sense of the mess…" />
+      <p className="mb-3 text-[11px] text-slate-500">Asked now, after the tasks, so it can't anchor everything else.</p>
+      <textarea className="mb-4 h-24 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs" value={text} onChange={(e) => setText(e.target.value)} placeholder="Mostly researching and making sense of the mess…" />
       <PrimaryBtn disabled={busy} onClick={() => onSubmit({ reflection: text })}>
         Next
       </PrimaryBtn>
@@ -127,14 +127,14 @@ export function ResumeModule({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Last thing — your resume.</Prompt>
-      <p className="mb-3 text-[11px] text-mid">How you package yourself, compared against everything you just showed us.</p>
-      <div className="mb-3 rounded-lg border border-dashed border-orange bg-orange-bg p-4 text-center text-[11px] text-[#7a3a28]">
+      <p className="mb-3 text-[11px] text-slate-500">How you package yourself, compared against everything you just showed us.</p>
+      <div className="mb-3 rounded-lg border border-dashed border-accent/40 bg-accent-soft p-4 text-center text-[11px] font-medium text-accent-dark">
         ⬆ Upload resume (PDF) — registered as a storage ref
       </div>
-      <div className="mb-1 font-mono text-[10px] uppercase text-dim">How does it read?</div>
+      <div className="mb-1 font-mono text-[10px] uppercase text-slate-400">How does it read?</div>
       <div className="mb-4 flex flex-wrap gap-1.5">
         {(['commercial', 'impact', 'mixed', 'unknown'] as const).map((f) => (
-          <button key={f} onClick={() => setFrame(f)} className={`rounded-full border px-2.5 py-1 text-[10px] ${frame === f ? 'border-orange bg-orange-bg text-orange' : 'border-rule text-mid'}`}>
+          <button key={f} onClick={() => setFrame(f)} className={`rounded-full border px-2.5 py-1 text-[10px] ${frame === f ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-500 hover:border-slate-300'}`}>
             {f}
           </button>
         ))}

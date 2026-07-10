@@ -27,7 +27,7 @@ export function A1Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   const [picks, setPicks] = useState<{ prompt_id: string; chosen_capacity: Capacity; ms: number }[]>([]);
   const [startedAt] = useState(Date.now());
 
-  if (!items || items.length === 0) return <p className="text-sm text-mid">Loading items…</p>;
+  if (!items || items.length === 0) return <p className="text-sm text-slate-500">Loading items…</p>;
   const item = items[idx]!;
 
   function choose(tag: string): void {
@@ -54,7 +54,7 @@ export function A1Module({ onSubmit, busy }: ModuleProps): JSX.Element {
 
   return (
     <>
-      <div className="mb-1 font-mono text-[10px] text-mid">Item {idx + 1} of {items.length}</div>
+      <div className="mb-1 font-mono text-[10px] text-slate-500">Item {idx + 1} of {items.length}</div>
       <Prompt>{item.prompt}</Prompt>
       <div className="mt-1">
         {item.options.map((o) => (
@@ -80,14 +80,14 @@ export function A3Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Drag these into your true order.</Prompt>
-      <p className="mb-3 text-[11px] text-mid">You've already shown us under pressure — this can't be walked back.</p>
+      <p className="mb-3 text-[11px] text-slate-500">You've already shown us under pressure — this can't be walked back.</p>
       <div className="mb-3 max-h-64 space-y-1 overflow-auto">
         {order.map((v, i) => (
-          <div key={v} className="flex items-center justify-between rounded-lg border border-rule px-3 py-1.5 text-xs">
+          <div key={v} className="flex items-center justify-between rounded-lg border border-slate-200 px-3 py-1.5 text-xs">
             <span>{i + 1}. {label(v)}</span>
             <span className="flex gap-1">
-              <button className="text-mid hover:text-orange" onClick={() => move(i, -1)}>↑</button>
-              <button className="text-mid hover:text-orange" onClick={() => move(i, 1)}>↓</button>
+              <button className="text-slate-500 hover:text-accent" onClick={() => move(i, -1)}>↑</button>
+              <button className="text-slate-500 hover:text-accent" onClick={() => move(i, 1)}>↓</button>
             </span>
           </div>
         ))}
@@ -117,7 +117,7 @@ export function A4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Tick what's true — be honest, not aspirational.</Prompt>
-      <div className="mb-2 font-mono text-[10px] uppercase text-green">You thrive when…</div>
+      <div className="mb-2 font-mono text-[10px] uppercase text-emerald-600">You thrive when…</div>
       <div className="mb-3 flex flex-wrap gap-1.5">
         {THRIVE_CONDITIONS.map((c) => (
           <Toggle key={c} on={thrive.includes(c)} onClick={() => toggle(thrive, setThrive, c)}>
@@ -125,7 +125,7 @@ export function A4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
           </Toggle>
         ))}
       </div>
-      <div className="mb-2 font-mono text-[10px] uppercase text-steel">You wither when…</div>
+      <div className="mb-2 font-mono text-[10px] uppercase text-slate-500">You wither when…</div>
       <div className="mb-4 flex flex-wrap gap-1.5">
         {WITHER_CONDITIONS.map((c) => (
           <Toggle key={c} on={wither.includes(c)} onClick={() => toggle(wither, setWither, c)}>
@@ -173,7 +173,7 @@ export function A7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
       <div className="mb-3 max-h-52 space-y-2 overflow-auto pr-1">
         {CAPABILITIES.map((c) => (
           <div key={c}>
-            <div className="mb-0.5 flex justify-between text-[10px] text-mid">
+            <div className="mb-0.5 flex justify-between text-[10px] text-slate-500">
               <span>{label(c)}</span>
               <span className="font-mono">{Math.round(levels[c]! * 100)}</span>
             </div>
@@ -183,12 +183,12 @@ export function A7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
               max={100}
               value={Math.round(levels[c]! * 100)}
               onChange={(e) => setLevels({ ...levels, [c]: Number(e.target.value) / 100 })}
-              className="w-full accent-orange"
+              className="w-full accent-accent"
             />
           </div>
         ))}
       </div>
-      <div className="mb-3 text-[11px] text-mid">What interests you vs. what pays best:</div>
+      <div className="mb-3 text-[11px] text-slate-500">What interests you vs. what pays best:</div>
       <div className="mb-4 flex flex-col gap-1">
         {(['aligned', 'slightly_apart', 'opposed'] as const).map((s) => (
           <Option key={s} selected={stance === s} onClick={() => setStance(s)}>
@@ -221,7 +221,7 @@ function Toggle({ on, onClick, children }: { on: boolean; onClick: () => void; c
   return (
     <button
       onClick={onClick}
-      className={`rounded-full border px-2.5 py-1 text-[10px] ${on ? 'border-orange bg-orange-bg text-orange' : 'border-rule text-[#3a3a36]'}`}
+      className={`rounded-full border px-2.5 py-1 text-[10px] ${on ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-600'}`}
     >
       {children}
     </button>
