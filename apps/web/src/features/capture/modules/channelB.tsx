@@ -3,7 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { B4_CATEGORIES, DISRUPTION_RESPONSES, type Value } from '@reveal/shared';
 import { api } from '../../../lib/api.js';
 import type { ModuleProps } from '../types.js';
-import { Prompt, PrimaryBtn, Option } from './ui.js';
+import { Prompt, PrimaryBtn, Option, Options } from './ui.js';
+import { UploadField, type UploadedFile } from '../../../components/ui.js';
 
 /** B1 · Budget + 30% cut — keep 4, remove 2. */
 export function B1Module({ onSubmit, busy }: ModuleProps): JSX.Element {
@@ -71,8 +72,10 @@ export function B2Module({ onSubmit, busy }: ModuleProps): JSX.Element {
     <>
       <div className="mb-2 font-mono text-xs uppercase tracking-wide text-slate-400">Card {i + 1} of {scenarios.length} · go with your gut</div>
       <Prompt>{s.q}</Prompt>
-      <Option onClick={() => pick(s.a, s.a.split('·')[1]?.trim() ?? '')}>{s.a}</Option>
-      <Option onClick={() => pick(s.b, s.b.split('·')[1]?.trim() ?? '')}>{s.b}</Option>
+      <Options cols={2}>
+        <Option onClick={() => pick(s.a, s.a.split('·')[1]?.trim() ?? '')}>{s.a}</Option>
+        <Option onClick={() => pick(s.b, s.b.split('·')[1]?.trim() ?? '')}>{s.b}</Option>
+      </Options>
     </>
   );
 }
@@ -95,7 +98,7 @@ export function B3Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>A coastal town is losing its young people. Your first three moves — in order.</Prompt>
-      <div className="mb-4">
+      <Options cols={2} className="mb-5">
         {palette.map((m) => {
           const pos = order.indexOf(m);
           return (
@@ -105,7 +108,7 @@ export function B3Module({ onSubmit, busy }: ModuleProps): JSX.Element {
             </Option>
           );
         })}
-      </div>
+      </Options>
       <PrimaryBtn disabled={busy || order.length !== 3} onClick={() => onSubmit({ ordered_moves: order })}>
         Next
       </PrimaryBtn>
@@ -203,12 +206,12 @@ export function B5Module({ onSubmit, busy }: ModuleProps): JSX.Element {
     <>
       <div className="mb-2 font-mono text-xs uppercase tracking-wide text-slate-400">Pass {passIdx + 1} of 3</div>
       <Prompt>Pick the {passes[passIdx]}.</Prompt>
-      <div className="mb-3 grid max-h-[44vh] grid-cols-2 gap-2 overflow-auto pr-1">
+      <div className="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
         {artifacts.map((a) => (
           <button
             key={a.seq}
             onClick={() => toggle(a.seq)}
-            className={`press rounded-xl border px-3 py-2.5 text-left text-xs leading-snug transition-colors ${picked.includes(a.seq) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-600 hover:border-slate-300'}`}
+            className={`press rounded-xl border px-2.5 py-2 text-left text-[11px] leading-snug transition-colors ${picked.includes(a.seq) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-600 hover:border-slate-300'}`}
           >
             {a.title}
           </button>
@@ -222,29 +225,47 @@ export function B5Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   );
 }
 
-/** B6 · Bring three things. */
+/** B6 · Bring three things — upload each image (blocks until all 3 upload). */
 export function B6Module({ onSubmit, busy }: ModuleProps): JSX.Element {
+  const [files, setFiles] = useState<(UploadedFile | null)[]>([null, null, null]);
   const [whys, setWhys] = useState(['', '', '']);
+  const setFile = (i: number, f: UploadedFile | null): void => setFiles(files.map((x, j) => (j === i ? f : x)));
+  const uploaded = files.filter(Boolean).length;
   return (
     <>
       <Prompt>Bring 3 things you can't stop looking at.</Prompt>
-      <p className="mb-4 text-sm text-slate-500">Not your own work. One line on why, each.</p>
-      {whys.map((w, i) => (
-        <input
-          key={i}
-          value={w}
-          onChange={(e) => setWhys(whys.map((x, j) => (j === i ? e.target.value : x)))}
-          placeholder={`Image ${i + 1} · why`}
-          className="mb-2.5 w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
-        />
-      ))}
+      <p className="mb-4 text-sm text-slate-500">Not your own work. Upload each image, and add one line on why.</p>
+      <div className="mb-4 space-y-3">
+        {files.map((f, i) => (
+          <div key={i} className="rounded-2xl border border-slate-200 bg-slate-50/50 p-3">
+            <UploadField
+              label={`Image ${i + 1}`}
+              hint="Required — tap to choose an image"
+              accept="image/*"
+              compact
+              value={f}
+              onChange={(v) => setFile(i, v)}
+            />
+            <input
+              value={whys[i]}
+              onChange={(e) => setWhys(whys.map((x, j) => (j === i ? e.target.value : x)))}
+              placeholder="One line on why…"
+              className="mt-2.5 w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
+            />
+          </div>
+        ))}
+      </div>
       <PrimaryBtn
-        disabled={busy || whys.filter(Boolean).length < 3}
+        disabled={busy || uploaded < 3}
         onClick={() =>
-          onSubmit({ images: whys.map((why, i) => ({ ref: `img${i + 1}`, why })), detected_thread: [], confirmed: null })
+          onSubmit({
+            images: files.map((f, i) => ({ ref: f?.name ?? `img${i + 1}`, why: whys[i] })),
+            detected_thread: [],
+            confirmed: null,
+          })
         }
       >
-        Next
+        {uploaded < 3 ? `Upload all 3 images (${uploaded}/3)` : 'Next'}
       </PrimaryBtn>
     </>
   );
@@ -259,16 +280,18 @@ export function B8Module({ onSubmit, busy }: ModuleProps): JSX.Element {
         ⚡ THE BRIEF JUST CHANGED · your main approach is no longer allowed.
       </div>
       <Prompt>What do you do now?</Prompt>
-      {DISRUPTION_RESPONSES.map((r) => (
-        <Option
-          key={r}
-          onClick={() =>
-            onSubmit({ disruptions: [{ response: r, recovery_ms: Date.now() - t, generated_new: r === 'reframe' }] })
-          }
-        >
-          {r === 'abandon' ? 'Abandon it' : r === 'adapt' ? 'Adapt the idea' : 'Reframe the problem'}
-        </Option>
-      ))}
+      <Options>
+        {DISRUPTION_RESPONSES.map((r) => (
+          <Option
+            key={r}
+            onClick={() =>
+              onSubmit({ disruptions: [{ response: r, recovery_ms: Date.now() - t, generated_new: r === 'reframe' }] })
+            }
+          >
+            {r === 'abandon' ? 'Abandon it' : r === 'adapt' ? 'Adapt the idea' : 'Reframe the problem'}
+          </Option>
+        ))}
+      </Options>
     </>
   );
 }

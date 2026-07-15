@@ -5,25 +5,27 @@ export function TopBar({ doc }: { doc?: string }): JSX.Element {
   const { name, role, signOut } = useAuth();
   const nav = useNavigate();
   return (
-    <div className="sticky top-0 z-30 flex items-center justify-between bg-ink px-6 py-3 md:px-9">
-      <div className="text-xs font-bold uppercase tracking-[0.25em] text-white">
-        <span className="text-orange">Reveal</span>
-        {doc ? <span className="text-[#666]"> · {doc}</span> : null}
+    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/80 backdrop-blur">
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5">
+        <span className="text-[13px] font-bold uppercase tracking-[0.28em] text-slate-900">
+          Re<span className="text-accent">veal</span>
+          {doc ? <span className="ml-2 font-normal normal-case tracking-normal text-slate-400">· {doc}</span> : null}
+        </span>
+        <div className="flex items-center gap-4">
+          {name ? <span className="text-[13px] text-slate-500">{name}</span> : null}
+          {role ? (
+            <button
+              className="text-[13px] font-medium text-slate-400 transition-colors hover:text-slate-700"
+              onClick={() => {
+                signOut();
+                nav('/');
+              }}
+            >
+              Sign out
+            </button>
+          ) : null}
+        </div>
       </div>
-      <div className="flex items-center gap-4">
-        {name ? <span className="font-mono text-[10px] text-[#8a8a82]">{name} · {role}</span> : null}
-        {role ? (
-          <button
-            className="font-mono text-[10px] uppercase tracking-wide text-[#8a8a82] hover:text-white"
-            onClick={() => {
-              signOut();
-              nav('/');
-            }}
-          >
-            Sign out
-          </button>
-        ) : null}
-      </div>
-    </div>
+    </header>
   );
 }

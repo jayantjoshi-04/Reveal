@@ -13,18 +13,18 @@ export function ReportPage(): JSX.Element {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, error } = useQuery({ queryKey: ['report', id], queryFn: () => api.report(id!), enabled: !!id });
 
-  if (isLoading) return <Frame><p className="p-10 text-sm text-mid">Loading your Design Signature…</p></Frame>;
+  if (isLoading) return <Frame><p className="p-12 text-sm text-slate-500">Loading your Design Signature…</p></Frame>;
   if (error)
     return (
       <Frame>
-        <div className="p-10 text-sm text-mid">
+        <div className="p-12 text-sm text-slate-500">
           {error instanceof ApiError && error.status === 403
             ? 'This report is still in review. You’ll get a note when it’s ready.'
             : 'Could not load the report.'}
         </div>
       </Frame>
     );
-  if (!data) return <Frame><p className="p-10">—</p></Frame>;
+  if (!data) return <Frame><p className="p-12 text-slate-500">—</p></Frame>;
 
   const { slots, findings, trait_scores } = data;
   return (
@@ -41,9 +41,11 @@ export function ReportPage(): JSX.Element {
 
 function Frame({ children }: { children: React.ReactNode }): JSX.Element {
   return (
-    <div className="min-h-screen bg-warm">
+    <div className="min-h-screen bg-slate-50">
       <TopBar doc="Design Signature" />
-      <div className="mx-auto max-w-5xl bg-cream shadow-xl">{children}</div>
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:py-12">
+        <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-card">{children}</div>
+      </div>
     </div>
   );
 }
@@ -53,15 +55,15 @@ function Hero({ slots, findings }: { slots: ReportSlots; findings: Findings }): 
   const spike = findings.capacities[0];
   const surprise = findings.capacities.find((c) => c.is_surprise);
   return (
-    <div className="border-b border-rule px-8 py-10" style={{ background: 'linear-gradient(170deg,#ffffff,#FAF7F2)' }}>
-      <div className="eyebrow mb-3">Reveal · your design signature</div>
-      <h1 className="font-serif text-4xl leading-none md:text-5xl">Here’s what your work says.</h1>
-      <p className="mt-4 max-w-[34ch] font-serif text-xl italic leading-snug text-[#3a3a34]">{slots.differentiation_statement}</p>
-      <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-rule bg-white px-3 py-1.5 font-mono text-[11px] text-mid">
-        <span className="h-2 w-2 rounded-full bg-green" /> As of today — a snapshot, not a verdict.
+    <div className="border-b border-slate-200 bg-gradient-to-b from-white to-slate-50 px-6 py-10 sm:px-10 sm:py-14">
+      <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent">Reveal · your design signature</div>
+      <h1 className="mt-3 font-serif text-4xl leading-tight text-slate-900 sm:text-5xl">Here’s what your work says.</h1>
+      <p className="mt-4 max-w-[42ch] font-serif text-xl italic leading-snug text-slate-500">{slots.differentiation_statement}</p>
+      <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 font-mono text-[11px] text-slate-500">
+        <span className="h-2 w-2 rounded-full bg-emerald-500" /> As of today — a snapshot, not a verdict.
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-3.5 md:grid-cols-4">
+      <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
         <Vital k="Leads with" v={label(spike?.name ?? '')} s="your thickest network" />
         <Vital k="Reaches for" v={label(findings.differentiation.direction)} s="in what you choose" />
         {surprise ? <Vital k="Surprise" v={`${label(surprise.name)} ⚡`} s="strong, never claimed" flag /> : <Vital k="Coherence" v="Consistent" s="stated ≈ revealed" />}
@@ -73,10 +75,10 @@ function Hero({ slots, findings }: { slots: ReportSlots; findings: Findings }): 
 
 function Vital({ k, v, s, flag }: { k: string; v: string; s: string; flag?: boolean }): JSX.Element {
   return (
-    <div className={`relative overflow-hidden rounded-xl border bg-white p-4 ${flag ? 'border-mag' : 'border-rule'}`}>
-      <div className={`font-mono text-[9px] uppercase tracking-wide ${flag ? 'text-mag' : 'text-dim'}`}>{k}</div>
-      <div className={`mt-2 font-serif text-xl ${flag ? 'text-mag' : ''}`}>{v}</div>
-      <div className="mt-1 text-[11px] text-mid">{s}</div>
+    <div className={`rounded-2xl border p-4 ${flag ? 'border-accent/30 bg-accent-soft' : 'border-slate-200 bg-white'}`}>
+      <div className={`font-mono text-[10px] uppercase tracking-wide ${flag ? 'text-accent' : 'text-slate-400'}`}>{k}</div>
+      <div className={`mt-2 font-serif text-xl ${flag ? 'text-accent-dark' : 'text-slate-900'}`}>{v}</div>
+      <div className="mt-1 text-[11px] text-slate-500">{s}</div>
     </div>
   );
 }
@@ -84,8 +86,8 @@ function Vital({ k, v, s, flag }: { k: string; v: string; s: string; flag?: bool
 // ── Section 1 · Today ────────────────────────────────────────────────────────
 function SectionToday({ slots, findings }: { slots: ReportSlots; findings: Findings }): JSX.Element {
   return (
-    <div className="bg-cream px-8 py-9">
-      <SectionHead tab="Today" tabClass="bg-orange text-white" title="The designer you are today" sub="Read from what you’ve actually done and chosen — not from what you’d say about yourself." />
+    <div className="bg-white px-6 py-10 sm:px-10 sm:py-12">
+      <SectionHead tab="Today" tabClass="bg-slate-900 text-white" title="The designer you are today" sub="Read from what you’ve actually done and chosen — not from what you’d say about yourself." />
       <div className="grid gap-4 md:grid-cols-2">
         <Card span2>
           <CardTitle>Capacities · where your wiring is thick today</CardTitle>
@@ -111,9 +113,11 @@ function SectionToday({ slots, findings }: { slots: ReportSlots; findings: Findi
           <CardTitle>Values · what survived the cut</CardTitle>
           <div className="flex flex-col gap-1.5">
             {findings.values.slice(0, 6).map((v) => (
-              <div key={v.name} className="flex items-center justify-between text-xs">
+              <div key={v.name} className="flex items-center justify-between text-xs text-slate-700">
                 <span>{v.rank}. {label(v.name)}</span>
-                {v.protected ? <span className="chip bg-orange-bg text-orange">protected</span> : <span className="chip bg-[#efece6] text-mid">cut early</span>}
+                {v.protected
+                  ? <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-[11px] font-medium text-accent-dark">protected</span>
+                  : <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-500">cut early</span>}
               </div>
             ))}
           </div>
@@ -129,13 +133,13 @@ function SectionToday({ slots, findings }: { slots: ReportSlots; findings: Findi
         <Card span2>
           <CardTitle>Where you work best</CardTitle>
           <div className="grid gap-3.5 md:grid-cols-2">
-            <div className="rounded-lg border border-[#3E9D6B]/25 bg-[#3E9D6B]/[.08] p-3">
-              <div className="mb-2 font-mono text-[9.5px] uppercase text-green">You thrive when</div>
-              <ul className="space-y-1 text-[11.5px] text-[#3a3a34]">{findings.conditions.thrive.slice(0, 5).map((c) => <li key={c}>· {c.replace(/_/g, ' ')}</li>)}</ul>
+            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+              <div className="mb-2 font-mono text-[9.5px] uppercase tracking-wide text-emerald-600">You thrive when</div>
+              <ul className="space-y-1 text-[12px] text-slate-700">{findings.conditions.thrive.slice(0, 5).map((c) => <li key={c}>· {c.replace(/_/g, ' ')}</li>)}</ul>
             </div>
-            <div className="rounded-lg border border-steel/25 bg-steel/[.08] p-3">
-              <div className="mb-2 font-mono text-[9.5px] uppercase text-steel">You lose energy when</div>
-              <ul className="space-y-1 text-[11.5px] text-[#3a3a34]">{findings.conditions.wither.slice(0, 5).map((c) => <li key={c}>· {c.replace(/_/g, ' ')}</li>)}</ul>
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <div className="mb-2 font-mono text-[9.5px] uppercase tracking-wide text-slate-500">You lose energy when</div>
+              <ul className="space-y-1 text-[12px] text-slate-700">{findings.conditions.wither.slice(0, 5).map((c) => <li key={c}>· {c.replace(/_/g, ' ')}</li>)}</ul>
             </div>
           </div>
           <Prose>{slots.conditions_line}</Prose>
@@ -146,14 +150,14 @@ function SectionToday({ slots, findings }: { slots: ReportSlots; findings: Findi
 }
 
 function Surprise({ slots, findings }: { slots: ReportSlots; findings: Findings }): JSX.Element {
-  if (findings.surprises.length === 0) return <div className="bg-cream" />;
+  if (findings.surprises.length === 0) return <div className="bg-white" />;
   return (
-    <div className="bg-cream px-8 pb-9">
-      <div className="flex items-center gap-6 rounded-2xl border-[1.5px] border-mag p-6" style={{ background: 'linear-gradient(135deg,#fff,#fdeef6)' }}>
-        <div className="font-serif text-5xl text-mag">⚡</div>
+    <div className="bg-white px-6 pb-10 sm:px-10 sm:pb-12">
+      <div className="flex items-center gap-5 rounded-2xl border border-accent/30 bg-accent-soft p-6">
+        <div className="font-serif text-5xl text-accent">⚡</div>
         <div>
-          <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wide text-mag">A surprise — to confirm, not a verdict</div>
-          <p className="text-sm text-[#5a4450]">{slots.surprise_phrasing}</p>
+          <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wide text-accent">A surprise — to confirm, not a verdict</div>
+          <p className="text-sm leading-relaxed text-slate-600">{slots.surprise_phrasing}</p>
         </div>
       </div>
     </div>
@@ -162,9 +166,9 @@ function Surprise({ slots, findings }: { slots: ReportSlots; findings: Findings 
 
 function Divider(): JSX.Element {
   return (
-    <div className="flex items-center gap-4 bg-ink px-8 py-6 text-white">
-      <span className="font-mono text-[10px] uppercase tracking-wide text-cyan">Switching view</span>
-      <h2 className="font-serif text-xl italic md:text-2xl">From here on — not where you are, but where you’re heading.</h2>
+    <div className="flex flex-col gap-1.5 bg-slate-900 px-6 py-7 sm:px-10">
+      <span className="font-mono text-[10px] uppercase tracking-wide text-indigo-300">Switching view</span>
+      <h2 className="font-serif text-xl italic text-white sm:text-2xl">From here on — not where you are, but where you’re heading.</h2>
     </div>
   );
 }
@@ -172,8 +176,8 @@ function Divider(): JSX.Element {
 // ── Section 2 · Heading ──────────────────────────────────────────────────────
 function SectionHeading({ slots, findings }: { slots: ReportSlots; findings: Findings }): JSX.Element {
   return (
-    <div className="bg-navy px-8 py-9 text-[#eef1f8]">
-      <SectionHead tab="Heading" tabClass="bg-cyan text-navy-deep" title="The designer you want to be" sub="What you reach for, how far away it is, and the steps that close it." dark />
+    <div className="bg-slate-900 px-6 py-10 text-slate-200 sm:px-10 sm:py-12">
+      <SectionHead tab="Heading" tabClass="bg-indigo-500 text-white" title="The designer you want to be" sub="What you reach for, how far away it is, and the steps that close it." dark />
       <div className="grid gap-4 md:grid-cols-2">
         <DarkCard span2>
           <CardTitle dark>Your reach &amp; the gap</CardTitle>
@@ -194,15 +198,15 @@ function SectionHeading({ slots, findings }: { slots: ReportSlots; findings: Fin
         <DarkCard span2>
           <CardTitle dark>What kind of gap?</CardTitle>
           <div className="grid gap-3.5 md:grid-cols-2">
-            <div className="rounded-lg border border-[#3E9D6B]/32 bg-[#3E9D6B]/10 p-3">
-              <div className="mb-2 font-mono text-[9.5px] uppercase text-[#5fc98a]">Capacities your direction needs</div>
-              <ul className="space-y-1 text-xs text-[#d4dcf0]">
+            <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+              <div className="mb-2 font-mono text-[9.5px] uppercase tracking-wide text-emerald-300">Capacities your direction needs</div>
+              <ul className="space-y-1 text-xs text-slate-300">
                 {findings.direction_check.requires_capacities.map((c) => <li key={c}>✓ {label(c)}</li>)}
               </ul>
             </div>
-            <div className="rounded-lg border border-cyan/32 bg-cyan/[.08] p-3">
-              <div className="mb-2 font-mono text-[9.5px] uppercase text-cyan">Gaps — all learnable</div>
-              <ul className="space-y-1 text-xs text-[#d4dcf0]">
+            <div className="rounded-xl border border-indigo-500/30 bg-indigo-500/10 p-4">
+              <div className="mb-2 font-mono text-[9.5px] uppercase tracking-wide text-indigo-300">Gaps — all learnable</div>
+              <ul className="space-y-1 text-xs text-slate-300">
                 {findings.gap.slice(0, 4).map((g) => <li key={g.capability}>→ {label(g.capability)} · {g.classification}</li>)}
               </ul>
             </div>
@@ -214,11 +218,11 @@ function SectionHeading({ slots, findings }: { slots: ReportSlots; findings: Fin
           <CardTitle dark>Growth experiments</CardTitle>
           <div className="flex flex-col gap-2">
             {findings.experiments.map((e, i) => (
-              <div key={i} className="flex gap-3 text-xs text-[#d4dcf0]">
-                <span className="font-mono text-cyan">{String(i + 1).padStart(2, '0')}</span>
+              <div key={i} className="flex gap-3 text-xs text-slate-300">
+                <span className="font-mono text-indigo-400">{String(i + 1).padStart(2, '0')}</span>
                 <span>
                   <b className="text-white">{label(e.targets)}</b>
-                  <span className="ml-2 font-mono text-[8.5px] uppercase text-[#8a96aa]">from · {e.reason.replace(/_/g, ' ')}</span>
+                  <span className="ml-2 font-mono text-[8.5px] uppercase text-slate-500">from · {e.reason.replace(/_/g, ' ')}</span>
                 </span>
               </div>
             ))}
@@ -228,7 +232,7 @@ function SectionHeading({ slots, findings }: { slots: ReportSlots; findings: Fin
 
         <DarkCard span2>
           <CardTitle dark>Your next moves</CardTitle>
-          <p className="text-[13px] leading-relaxed text-[#d4dcf0]">{slots.action_menu}</p>
+          <p className="text-[13px] leading-relaxed text-slate-300">{slots.action_menu}</p>
         </DarkCard>
       </div>
     </div>
@@ -236,37 +240,37 @@ function SectionHeading({ slots, findings }: { slots: ReportSlots; findings: Fin
 }
 
 // ── Evidence room ────────────────────────────────────────────────────────────
-function EvidenceRoom({ findings, traits }: { findings: Findings; traits: TraitScore[] }): JSX.Element {
+function EvidenceRoom({ findings: _findings, traits }: { findings: Findings; traits: TraitScore[] }): JSX.Element {
   return (
-    <div className="border-t-2 border-ink bg-warm px-8 py-8">
-      <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-mid">Appendix</div>
-      <h2 className="mb-1 mt-1 font-serif text-2xl">The Evidence Room</h2>
-      <p className="mb-4 text-[13px] text-mid">Every finding, traced to where it came from. A = what you said · B = what you did.</p>
+    <div className="border-t border-slate-200 bg-slate-50 px-6 py-9 sm:px-10">
+      <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-400">Appendix</div>
+      <h2 className="mb-1 mt-1 font-serif text-2xl text-slate-900">The Evidence Room</h2>
+      <p className="mb-4 text-[13px] text-slate-500">Every finding, traced to where it came from. A = what you said · B = what you did.</p>
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse overflow-hidden rounded-lg border border-rule bg-white text-xs">
+        <table className="w-full border-collapse overflow-hidden rounded-xl border border-slate-200 bg-white text-xs">
           <thead>
             <tr>
               {['Trait', 'A-score', 'B-score', 'Situations', 'Confidence'].map((h) => (
-                <th key={h} className="bg-ink px-3 py-2 text-left font-mono text-[9px] uppercase tracking-wide text-white">{h}</th>
+                <th key={h} className="bg-slate-900 px-3 py-2.5 text-left font-mono text-[9px] uppercase tracking-wide text-white">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {traits.map((t) => (
-              <tr key={t.trait} className="odd:bg-cream">
-                <td className="px-3 py-2 font-semibold">{label(t.trait)}</td>
-                <td className="px-3 py-2 font-mono">{t.a_score.toFixed(2)}</td>
-                <td className="px-3 py-2 font-mono">{t.b_score.toFixed(2)}</td>
-                <td className="px-3 py-2 font-mono">{t.b_situations_agree}</td>
+              <tr key={t.trait} className="border-t border-slate-100 even:bg-slate-50/60">
+                <td className="px-3 py-2 font-semibold text-slate-800">{label(t.trait)}</td>
+                <td className="px-3 py-2 font-mono text-slate-600">{t.a_score.toFixed(2)}</td>
+                <td className="px-3 py-2 font-mono text-slate-600">{t.b_score.toFixed(2)}</td>
+                <td className="px-3 py-2 font-mono text-slate-600">{t.b_situations_agree}</td>
                 <td className="px-3 py-2">
-                  <span className="chip bg-[#eef1f5] text-steel">{t.confidence ?? '—'}</span>
+                  <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-600">{t.confidence ?? '—'}</span>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <p className="mt-3 text-[12px] italic text-mid">Nothing here is a score against other students. It’s a snapshot of you, today — built to be re-run.</p>
+      <p className="mt-3 text-[12px] italic text-slate-400">Nothing here is a score against other students. It’s a snapshot of you, today — built to be re-run.</p>
     </div>
   );
 }
@@ -274,24 +278,24 @@ function EvidenceRoom({ findings, traits }: { findings: Findings; traits: TraitS
 // ── small shared bits ────────────────────────────────────────────────────────
 function SectionHead({ tab, tabClass, title, sub, dark }: { tab: string; tabClass: string; title: string; sub: string; dark?: boolean }): JSX.Element {
   return (
-    <div className="mb-6 flex items-start gap-4">
-      <span className={`mt-1 whitespace-nowrap rounded px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider ${tabClass}`}>{tab}</span>
+    <div className="mb-7 flex items-start gap-4">
+      <span className={`mt-1 whitespace-nowrap rounded-lg px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider ${tabClass}`}>{tab}</span>
       <div>
-        <h2 className={`font-serif text-3xl leading-none ${dark ? 'text-white' : ''}`}>{title}</h2>
-        <p className={`mt-1.5 max-w-[60ch] text-[13.5px] ${dark ? 'text-[#b8c4e0]' : 'text-mid'}`}>{sub}</p>
+        <h2 className={`font-serif text-3xl leading-tight ${dark ? 'text-white' : 'text-slate-900'}`}>{title}</h2>
+        <p className={`mt-2 max-w-[60ch] text-sm ${dark ? 'text-slate-400' : 'text-slate-500'}`}>{sub}</p>
       </div>
     </div>
   );
 }
 function Card({ children, span2 }: { children: React.ReactNode; span2?: boolean }): JSX.Element {
-  return <div className={`flex flex-col rounded-2xl border border-rule bg-white p-5 ${span2 ? 'md:col-span-2' : ''}`}>{children}</div>;
+  return <div className={`flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-card ${span2 ? 'md:col-span-2' : ''}`}>{children}</div>;
 }
 function DarkCard({ children, span2 }: { children: React.ReactNode; span2?: boolean }): JSX.Element {
-  return <div className={`flex flex-col rounded-2xl border border-[#2c539c] bg-navy-card p-5 ${span2 ? 'md:col-span-2' : ''}`}>{children}</div>;
+  return <div className={`flex flex-col rounded-2xl border border-slate-700 bg-slate-800/60 p-5 ${span2 ? 'md:col-span-2' : ''}`}>{children}</div>;
 }
 function CardTitle({ children, dark }: { children: React.ReactNode; dark?: boolean }): JSX.Element {
-  return <div className={`mb-3 font-mono text-[10px] uppercase tracking-wide ${dark ? 'text-[#9fb0d8]' : 'text-mid'}`}>{children}</div>;
+  return <div className={`mb-3 font-mono text-[10px] uppercase tracking-wide ${dark ? 'text-slate-400' : 'text-slate-400'}`}>{children}</div>;
 }
 function Prose({ children, dark }: { children: React.ReactNode; dark?: boolean }): JSX.Element {
-  return <p className={`mt-3 text-[13px] leading-relaxed ${dark ? 'text-[#c8d2ea]' : 'text-[#444]'}`}>{children}</p>;
+  return <p className={`mt-3 text-[13px] leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>{children}</p>;
 }

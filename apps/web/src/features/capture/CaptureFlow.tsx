@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { CAPTURE_SEQUENCE, SESSIONS } from '@reveal/shared';
 import { api, ApiError } from '../../lib/api.js';
 import { useAuth } from '../../store/auth.js';
+import { SavingOverlay } from '../../components/ui.js';
 import { SessionShell } from './SessionShell.js';
 import { MODULE_REGISTRY } from './modules/registry.js';
 import { SESSION_TITLES } from './types.js';
@@ -56,6 +57,7 @@ export function CaptureFlow(): JSX.Element {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <SavingOverlay show={busy} />
       <CaptureHeader session={activeSession} busy={busy} />
       <div className="flex flex-col items-center px-4 py-8 sm:py-12">
         <div className="w-full max-w-xl">

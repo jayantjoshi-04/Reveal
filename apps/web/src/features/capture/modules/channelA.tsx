@@ -11,7 +11,7 @@ import {
 } from '@reveal/shared';
 import { api } from '../../../lib/api.js';
 import type { ModuleProps } from '../types.js';
-import { Prompt, PrimaryBtn, Option } from './ui.js';
+import { Prompt, PrimaryBtn, Option, Options } from './ui.js';
 
 interface AItem {
   item_id: string;
@@ -56,13 +56,13 @@ export function A1Module({ onSubmit, busy }: ModuleProps): JSX.Element {
     <>
       <div className="mb-2 font-mono text-xs uppercase tracking-wide text-slate-400">Item {idx + 1} of {items.length}</div>
       <Prompt>{item.prompt}</Prompt>
-      <div className="mt-1">
+      <Options cols={2} className="mt-1">
         {item.options.map((o) => (
           <Option key={o.option_id} onClick={() => choose(o.tag)}>
             {o.label}
           </Option>
         ))}
-      </div>
+      </Options>
     </>
   );
 }
@@ -81,7 +81,7 @@ export function A3Module({ onSubmit, busy }: ModuleProps): JSX.Element {
     <>
       <Prompt>Drag these into your true order.</Prompt>
       <p className="mb-4 text-sm text-slate-500">You've already shown us under pressure — this can't be walked back.</p>
-      <div className="mb-4 max-h-[46vh] space-y-1.5 overflow-auto pr-1">
+      <div className="mb-4 space-y-1.5">
         {order.map((v, i) => (
           <div key={v} className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 shadow-sm">
             <span><span className="mr-1 font-mono text-xs text-slate-400">{i + 1}</span> {label(v)}</span>
@@ -170,7 +170,7 @@ export function A7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Where do you want to be strong?</Prompt>
-      <div className="mb-4 max-h-[42vh] space-y-3 overflow-auto pr-1">
+      <div className="mb-5 grid grid-cols-1 gap-x-5 gap-y-3 sm:grid-cols-2">
         {CAPABILITIES.map((c) => (
           <div key={c}>
             <div className="mb-1 flex justify-between text-[13px] text-slate-600">
@@ -189,13 +189,13 @@ export function A7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
         ))}
       </div>
       <div className="mb-3 text-sm text-slate-500">What interests you vs. what pays best:</div>
-      <div className="mb-5 flex flex-col gap-1.5">
+      <Options className="mb-5">
         {(['aligned', 'slightly_apart', 'opposed'] as const).map((s) => (
           <Option key={s} selected={stance === s} onClick={() => setStance(s)}>
             {s === 'aligned' ? 'the same' : s === 'slightly_apart' ? 'a little apart' : 'opposite directions'}
           </Option>
         ))}
-      </div>
+      </Options>
       <PrimaryBtn
         disabled={busy}
         onClick={() =>

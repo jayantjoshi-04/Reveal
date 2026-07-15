@@ -4,6 +4,12 @@ export function Prompt({ children }: { children: ReactNode }): JSX.Element {
   return <div className="mb-3 font-serif text-xl leading-snug text-slate-900">{children}</div>;
 }
 
+/** Layout wrapper for a set of options. `cols={2}` lays them out as a
+ *  responsive grid so all choices stay visible without scrolling. */
+export function Options({ children, cols = 1, className = '' }: { children: ReactNode; cols?: 1 | 2; className?: string }): JSX.Element {
+  return <div className={`grid gap-2.5 ${cols === 2 ? 'sm:grid-cols-2' : 'grid-cols-1'} ${className}`}>{children}</div>;
+}
+
 export function Option({
   children,
   selected,
@@ -16,7 +22,7 @@ export function Option({
   return (
     <button
       onClick={onClick}
-      className={`press mb-2.5 flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition-all duration-200 ${
+      className={`press flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition-all duration-200 ${
         selected
           ? 'border-accent bg-accent-soft text-accent-dark shadow-sm'
           : 'border-slate-200 text-slate-700 hover:border-accent/50 hover:bg-slate-50'
