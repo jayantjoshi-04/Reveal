@@ -142,7 +142,7 @@ export function A4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
 
 /** A6 · Obsessions — pick recurring topics. */
 export function A6Module({ onSubmit, busy }: ModuleProps): JSX.Element {
-  const topics = ['cities', 'education', 'children', 'health', 'mental health', 'sustainability', 'community', 'culture', 'history', 'craft', 'justice', 'disability & access', 'rural life', 'the informal economy'];
+  const topics = ['cities', 'public transport', 'education', 'children', 'memory', 'health', 'mental health', 'sustainability', 'climate', 'community', 'culture', 'history', 'craft', 'technology', 'justice', 'gender', 'disability & access', 'food', 'rural life', 'the informal economy'];
   const [picked, setPicked] = useState<string[]>([]);
   return (
     <>

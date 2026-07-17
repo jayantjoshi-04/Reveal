@@ -52,10 +52,17 @@ export function B1Module({ onSubmit, busy }: ModuleProps): JSX.Element {
 
 /** B2 · Dilemma cards — quick A/B. */
 export function B2Module({ onSubmit, busy }: ModuleProps): JSX.Element {
+  // All 8 dilemma cards (ChannelAB_Content_v4 · B2). The noble-looking side
+  // alternates so social desirability doesn't pull one way.
   const scenarios = [
-    { id: '1', q: 'Client rejects your bolder concept.', a: 'build the safe one · accommodate', b: 'make the bold one · conviction' },
+    { id: '1', q: 'Client rejects your bolder concept for the safe one.', a: 'build the safe one well · accommodate', b: 'make the bold one anyway · conviction' },
     { id: '2', q: 'Two offers, same pay.', a: 'respected commercial studio · commercial', b: 'scrappy NGO, real-world · impact' },
+    { id: '3', q: 'Deadline tonight; the work is good-enough, not excellent.', a: 'ship on time · pragmatic', b: 'miss it to make it excellent · craft' },
+    { id: '4', q: 'A project you believe in.', a: 'run it solo, vision intact · autonomy', b: 'join a team, share it · belonging' },
     { id: '5', q: 'New brief lands. First instinct.', a: 'talk to the people · empathy', b: 'map the structure · analytical' },
+    { id: '6', q: 'Group project, no one’s steering.', a: 'step up and lead · lead', b: 'do your part brilliantly · support' },
+    { id: '7', q: 'Vague brief, no direction.', a: 'start making to find it · start-now', b: 'plan before touching · plan-first' },
+    { id: '8', q: 'Two briefs to choose.', a: 'redesign an object · object', b: 'redesign an experience · people' },
   ];
   const [i, setI] = useState(0);
   const [choices, setChoices] = useState<{ scenario_id: string; chosen_pole: string; disposition: string; ms: number }[]>([]);
