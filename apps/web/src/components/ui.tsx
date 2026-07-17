@@ -184,6 +184,41 @@ export function UploadField({
   );
 }
 
+/** A dark card with a glowing gradient border + soft colored outer glow.
+ *  The signature surface of the noir theme. `from`/`to` are the gradient hues;
+ *  the outer glow intensifies on hover. */
+export function GlowCard({
+  from = '#6366f1',
+  to = '#a855f7',
+  className = '',
+  innerClassName = '',
+  glow = 0.55,
+  children,
+}: {
+  from?: string;
+  to?: string;
+  className?: string;
+  innerClassName?: string;
+  glow?: number;
+  children: ReactNode;
+}): JSX.Element {
+  const grad = `linear-gradient(135deg, ${from}, ${to})`;
+  return (
+    <div className={`group relative rounded-[26px] ${className}`}>
+      {/* soft outer glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -inset-2 rounded-[32px] blur-2xl transition-opacity duration-500 group-hover:opacity-100"
+        style={{ background: grad, opacity: glow * 0.6 }}
+      />
+      {/* gradient border ring */}
+      <div className="relative rounded-[26px] p-px" style={{ background: grad }}>
+        <div className={`h-full rounded-[25px] bg-[#0b0b0f] ${innerClassName}`}>{children}</div>
+      </div>
+    </div>
+  );
+}
+
 /** Full-screen saving overlay. Blocks interaction (so double-clicks and
  *  accidental navigation can't fire) while a background save is in flight. */
 export function SavingOverlay({ show, label = 'Saving your progress…' }: { show: boolean; label?: string }): JSX.Element | null {
