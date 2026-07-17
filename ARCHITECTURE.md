@@ -316,10 +316,11 @@ reveal/
 │   ├── src/repositories/ the code that reads/writes the database
 │   └── src/db/           schema migrations + seed data
 │
-├── apps/web/           The React + Vite + Tailwind website the student uses.
-│   └── src/features/     landing, auth, survey capture, dashboard, report, admin
-│
-└── infra/              Ready-made deploy configs (see the deployment plan)
+└── apps/web/           The React + Vite + Tailwind website the student uses.
+    └── src/features/     landing, auth, survey capture, dashboard, report, admin
+
+Ready-made deploy configs sit at the repo root — `vercel.json` (website) and
+`render.yaml` (API + database). See the deployment plan.
 ```
 
 The four-layer pipeline described above lives inside `apps/api/src`. The engine

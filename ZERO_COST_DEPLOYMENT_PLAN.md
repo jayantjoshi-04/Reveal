@@ -41,7 +41,7 @@ REVEAL is three deployable pieces. Each maps to a different kind of free host:
 | **Database** | Managed PostgreSQL | A hosted Postgres provider |
 
 The good news: **the repo already ships deploy configs for the recommended
-path** — `infra/vercel.json` (website) and `infra/render.yaml` (API + database).
+path** — `vercel.json` (website) and `render.yaml` (API + database).
 You are wiring up something that was designed to be deployed, not inventing it.
 
 ---
@@ -52,23 +52,23 @@ You are wiring up something that was designed to be deployed, not inventing it.
 
 | Provider | Free tier headline | Verdict for REVEAL |
 |---|---|---|
-| **Vercel** ✅ | Generous static hosting, global CDN, automatic SPA rewrites, Git-push deploys | **Recommended.** `infra/vercel.json` is already written for it. |
+| **Vercel** ✅ | Generous static hosting, global CDN, automatic SPA rewrites, Git-push deploys | **Recommended.** `vercel.json` is already written for it. |
 | **Netlify** | Very similar; 100 GB bandwidth/mo, 300 build min/mo | Excellent fallback; same shape of config |
 | **Cloudflare Pages** | Unlimited bandwidth, generous builds | Great if bandwidth ever becomes the concern |
 
 All three serve our built files (`apps/web/dist`) essentially for free. We pick
 **Vercel** because the config already exists and its single-page-app routing
-("send every path to `index.html`") is pre-configured in `infra/vercel.json`.
+("send every path to `index.html`") is pre-configured in `vercel.json`.
 
 ### 3b. Hosting the API server (always-on Node)
 
 | Provider | Free tier headline | The catch |
 |---|---|---|
-| **Render** ✅ | Free web service, `infra/render.yaml` already written, health checks | Free service **sleeps after ~15 min idle**; first request then takes ~30–60s to wake |
+| **Render** ✅ | Free web service, `render.yaml` already written, health checks | Free service **sleeps after ~15 min idle**; first request then takes ~30–60s to wake |
 | **Railway** | Smooth DX | Free plan is trial credit, not a standing free tier — not truly $0 long-term |
 | **Fly.io** | Real always-on small VMs | More setup (Docker); overkill for a pilot |
 
-We pick **Render** because `infra/render.yaml` already defines the API service
+We pick **Render** because `render.yaml` already defines the API service
 (build command, start command, health check, env vars) *and* a free Postgres
 database in one file. The one thing to know and plan around is the **cold start**
 (see §6).
@@ -79,11 +79,11 @@ database in one file. The one thing to know and plan around is the **cold start*
 |---|---|---|
 | **Neon** ✅ | Serverless Postgres, ~0.5 GB storage, generous compute, branching | Compute **auto-suspends when idle**, then wakes in ~1s on first query |
 | **Supabase** | ~0.5 GB DB + storage + auth extras | Projects **pause after ~1 week of inactivity** on free tier; needs a manual/scheduled ping to stay warm |
-| **Render Postgres** | Bundled in `infra/render.yaml`, free plan | Free DB instances **expire after ~90 days** — fine for a pilot, plan a migration after |
+| **Render Postgres** | Bundled in `render.yaml`, free plan | Free DB instances **expire after ~90 days** — fine for a pilot, plan a migration after |
 
 **Two clean, fully-free routes:**
 
-- **Route A — All-Render (simplest):** use `infra/render.yaml` as-is. API +
+- **Route A — All-Render (simplest):** use `render.yaml` as-is. API +
   Postgres come up together. Best for "I want it live tonight." Watch the ~90-day
   DB expiry.
 - **Route B — Render API + Neon DB (most durable):** host the API on Render but
@@ -101,9 +101,9 @@ database in one file. The one thing to know and plan around is the **cold start*
 
 | Layer | Provider | Config file already in repo |
 |---|---|---|
-| Website | **Vercel** | `infra/vercel.json` |
-| API server | **Render** (free web service) | `infra/render.yaml` |
-| Database | **Neon** (Route B) *or* Render Postgres (Route A) | `infra/render.yaml` (Route A) |
+| Website | **Vercel** | `vercel.json` |
+| API server | **Render** (free web service) | `render.yaml` |
+| Database | **Neon** (Route B) *or* Render Postgres (Route A) | `render.yaml` (Route A) |
 
 The milestones in §7 follow **Route B** (Render API + Neon DB) because it's the
 most durable free setup, and note where Route A is simpler.
@@ -157,7 +157,7 @@ pilot; all are worth knowing before you demo.
    like `postgresql://user:password@ep-xxx.neon.tech/reveal?sslmode=require`.
 2. Copy that string somewhere safe — it becomes `DATABASE_URL` everywhere.
 
-**Route A (Render Postgres):** skip this step; `infra/render.yaml` creates the
+**Route A (Render Postgres):** skip this step; `render.yaml` creates the
 database for you in Milestone 3, and Render supplies its `DATABASE_URL`.
 
 ### Milestone 2 — Set up the database schema (one time, from your laptop)
@@ -184,24 +184,28 @@ pnpm --filter @reveal/api db:seed       # loads survey content + the 4 admin acc
 
 ### Milestone 3 — Deploy the API server (Render)
 
-1. In Render, create a new service **from the repo**. Render detects
-   `infra/render.yaml` (a "Blueprint"), which already declares:
-   - build: install → build `@reveal/shared` → build `@reveal/api`
+1. In Render, choose **New → Blueprint** and pick this repo. Render detects
+   `render.yaml` at the repo root (a "Blueprint"), which already declares:
+   - build: `corepack enable` → install → build `@reveal/shared` → build `@reveal/api`
    - start: `pnpm --filter @reveal/api start`
    - a health check at `/health`
-2. Set the environment variables Render marks as "sync: false" (see §7-vars
-   table below) — at minimum `DATABASE_URL`, `JWT_SECRET`, and `CORS_ORIGIN`.
+   - the free Postgres (`reveal-db`), with `DATABASE_URL` **auto-wired** into the API
+   - `JWT_SECRET` **auto-generated** by Render (you don't invent one)
+   - `SYNTHESIS_MODE=manual` (deterministic writer, no API key needed)
+2. The only variable you must set by hand is `CORS_ORIGIN` — and you can only
+   fill it once the website exists, so leave it for Milestone 5.
 3. Deploy. When it's live you'll have an API URL like
    `https://reveal-api.onrender.com`. Confirm it by visiting
    `https://reveal-api.onrender.com/health` — it should return `{"status":"ok"}`.
 
-> **Route A note:** the same Blueprint also stands up the free Render Postgres and
-> wires its `DATABASE_URL` in automatically — in that case do Milestone 2 *after*
-> this step, pointing at the Render database's connection string.
+> **Migrations:** the Blueprint creates the database but does **not** create the
+> tables. Run Milestone 2 once from your laptop against the database's
+> **External** connection string (Render dashboard → `reveal-db` → "External
+> Database URL") before the API can serve anything.
 
 ### Milestone 4 — Deploy the website (Vercel)
 
-1. In Vercel, **import the repo**. Vercel picks up `infra/vercel.json`, which
+1. In Vercel, **import the repo**. Vercel picks up `vercel.json`, which
    already sets:
    - build: build `@reveal/shared` → build `@reveal/web`
    - output: `apps/web/dist`
@@ -257,9 +261,9 @@ Set these in your host's dashboard. **Never commit real secrets** — the repo's
 
 | Variable | Where it's set | Required? | What to set it to |
 |---|---|---|---|
-| `DATABASE_URL` | Render (API) | **Yes** | Your Neon/Render Postgres connection string |
-| `JWT_SECRET` | Render (API) | **Yes** | A long random string (`openssl rand -base64 32`) |
-| `CORS_ORIGIN` | Render (API) | **Yes** | Your Vercel site URL (comma-separated if several) |
+| `DATABASE_URL` | Render (API) | Auto | Auto-wired from `reveal-db` by the Blueprint (or set a Neon string for Route B) |
+| `JWT_SECRET` | Render (API) | Auto | Auto-generated by the Blueprint (`generateValue`) — leave it |
+| `CORS_ORIGIN` | Render (API) | **Yes** | Your Vercel site URL (comma-separated if several) — the one var you set by hand |
 | `NODE_ENV` | Render (API) | Yes | `production` (already in `render.yaml`) |
 | `PORT` | Render (API) | Auto | Render provides it; defaults to 4000 locally |
 | `VITE_API_URL` | Vercel (web) | **Yes** | Your Render API URL (no trailing `/api`) |
@@ -301,10 +305,10 @@ server.
 ```
 1. DATABASE   → Neon: create project, copy connection string
 2. SCHEMA     → locally: DATABASE_URL=… ; pnpm db:migrate ; pnpm db:seed
-3. API        → Render: import repo (uses infra/render.yaml)
+3. API        → Render: import repo (uses render.yaml)
                 set DATABASE_URL, JWT_SECRET, CORS_ORIGIN
                 verify /health returns ok
-4. WEBSITE    → Vercel: import repo (uses infra/vercel.json)
+4. WEBSITE    → Vercel: import repo (uses vercel.json)
                 set VITE_API_URL = the Render API URL
 5. CONNECT    → Render: set CORS_ORIGIN = the Vercel site URL, redeploy
 6. TEST       → sign up → survey → admin approve → read report
@@ -316,6 +320,6 @@ Total monthly cost: $0
 ---
 
 *Deploy configs referenced here already live in the repo:
-[`infra/render.yaml`](./infra/render.yaml) and
-[`infra/vercel.json`](./infra/vercel.json). Architecture background:
+[`render.yaml`](./render.yaml) and
+[`vercel.json`](./vercel.json). Architecture background:
 [`ARCHITECTURE.md`](./ARCHITECTURE.md).*
