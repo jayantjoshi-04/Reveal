@@ -14,6 +14,9 @@ export function SignUp(): JSX.Element {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [devCode, setDevCode] = useState<string | undefined>();
+  const [emailSent, setEmailSent] = useState(true);
+  const [resendMsg, setResendMsg] = useState<string | null>(null);
+  const [resending, setResending] = useState(false);
   const [code, setCode] = useState('');
   const [f, setF] = useState({ name: '', gender: '', dob: '', institution: '', domain_of_interest: '', email: '', username: '', password: '' });
   const set = (k: keyof typeof f) => (e: { target: { value: string } }) => setF({ ...f, [k]: e.target.value });
@@ -26,12 +29,27 @@ export function SignUp(): JSX.Element {
     try {
       const res = await api.signup(f);
       setDevCode(res.devVerificationCode);
+      setEmailSent(res.emailSent);
       if (res.devVerificationCode) setCode(res.devVerificationCode);
       setStep(3);
     } catch (e) {
       setErr(e instanceof ApiError ? (e.issues?.join(' · ') ?? e.message) : 'Could not create account');
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function resend(): Promise<void> {
+    setResendMsg(null);
+    setResending(true);
+    try {
+      const res = await api.resendVerification(f.email);
+      setEmailSent(res.emailSent);
+      setResendMsg(res.emailSent ? 'Sent — check your inbox (and spam).' : 'Could not send. Please try again shortly.');
+    } catch {
+      setResendMsg('Could not send. Please try again shortly.');
+    } finally {
+      setResending(false);
     }
   }
 
@@ -114,11 +132,21 @@ export function SignUp(): JSX.Element {
         {step === 3 && (
           <div className="animate-fade-in space-y-4">
             <h2 className="font-serif text-2xl text-slate-900">Verify your email</h2>
-            <p className="text-sm text-slate-500">We sent a 6-digit code to <b className="text-slate-700">{f.email}</b>. Enter it to continue.</p>
+            <p className="text-sm text-slate-500">We sent a 6-digit code to <b className="text-slate-700">{f.email}</b>. Enter it to continue — check your spam folder if it isn’t there.</p>
             {devCode ? <p className="rounded-lg bg-accent-soft px-3 py-2 text-xs text-accent-dark">Dev mode — your code is <b>{devCode}</b> (auto-filled).</p> : null}
+            {!emailSent && !devCode ? (
+              <p className="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700">We couldn’t send the email just now. Tap <b>Resend code</b> below, or contact support if it keeps failing.</p>
+            ) : null}
             <Field label="Verification code"><Input value={code} onChange={(e) => setCode(e.target.value)} placeholder="123456" inputMode="numeric" /></Field>
             {err ? <p className="text-sm text-rose-600">{err}</p> : null}
             <Button className="w-full" loading={busy} disabled={code.length < 6} onClick={verifyAndEnter}>Verify & continue</Button>
+            <div className="text-center text-[13px] text-slate-400">
+              Didn’t get it?{' '}
+              <button type="button" onClick={resend} disabled={resending} className="font-medium text-accent hover:underline disabled:opacity-50">
+                {resending ? 'Sending…' : 'Resend code'}
+              </button>
+              {resendMsg ? <p className="mt-1 text-xs text-slate-500">{resendMsg}</p> : null}
+            </div>
           </div>
         )}
 

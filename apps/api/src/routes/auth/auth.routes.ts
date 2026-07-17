@@ -24,14 +24,21 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
 
   app.post('/auth/signup', async (req, reply) => {
     const body = signupBody.parse(req.body);
-    const { student, devVerificationCode } = await auth.signup(body);
-    return reply.send({ student, devVerificationCode });
+    const { student, devVerificationCode, emailSent } = await auth.signup(body);
+    return reply.send({ student, devVerificationCode, emailSent });
   });
 
   app.post('/auth/verify', async (req, reply) => {
     const { email, code } = z.object({ email: z.string().email(), code: z.string() }).parse(req.body);
     await auth.verifyEmail(email, code);
     return reply.send({ ok: true, verified: true });
+  });
+
+  app.post('/auth/resend-verification', async (req, reply) => {
+    const { email } = z.object({ email: z.string().email() }).parse(req.body);
+    const { emailSent } = await auth.resendVerification(email);
+    // Always 200 — never reveal whether the address has an account.
+    return reply.send({ ok: true, emailSent });
   });
 
   app.post('/auth/signin', async (req, reply) => {

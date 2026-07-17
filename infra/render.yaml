@@ -34,6 +34,26 @@ services:
         value: manual
       - key: ANTHROPIC_API_KEY
         sync: false
+      # ── Email (verification + welcome) ──
+      # Set APP_URL to your Vercel site so email links point at the live app.
+      - key: APP_URL
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: SUPPORT_EMAIL
+        sync: false
+      # Pick ONE transport. Resend (HTTPS) is easiest on Render:
+      - key: RESEND_API_KEY
+        sync: false
+      # …or any SMTP provider instead (leave RESEND_API_KEY blank if you use these):
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
 
 databases:
   - name: reveal-db

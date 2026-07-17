@@ -59,8 +59,9 @@ const post = (path: string, body?: unknown) =>
 
 export const api = {
   // ── auth ──
-  signup: (body: SignupBody) => request<{ student: { student_id: string; name: string; email: string }; devVerificationCode?: string }>('/auth/signup', { method: 'POST', body: JSON.stringify(body) }),
+  signup: (body: SignupBody) => request<{ student: { student_id: string; name: string; email: string }; devVerificationCode?: string; emailSent: boolean }>('/auth/signup', { method: 'POST', body: JSON.stringify(body) }),
   verify: (email: string, code: string) => post('/auth/verify', { email, code }),
+  resendVerification: (email: string) => request<{ ok: boolean; emailSent: boolean }>('/auth/resend-verification', { method: 'POST', body: JSON.stringify({ email }) }),
   signin: (identifier: string, password: string) => request<{ token: string; student: { student_id: string; name: string; email: string } }>('/auth/signin', { method: 'POST', body: JSON.stringify({ identifier, password }) }),
   adminSignin: (username: string, password: string) => request<{ token: string; admin: { staff_id: string; name: string; email: string } }>('/auth/admin/signin', { method: 'POST', body: JSON.stringify({ username, password }) }),
 

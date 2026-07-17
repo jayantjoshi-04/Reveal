@@ -25,6 +25,25 @@ const envSchema = z.object({
   SYNTHESIS_TEMPERATURE: z.coerce.number().default(0.3),
   SYNTHESIS_MODE: z.enum(['auto', 'manual']).default('auto'),
   STORAGE_BUCKET: z.string().default('reveal-uploads'),
+
+  // ─── Email (verification + welcome) ──────────────────────────────────
+  // Product identity used in emails and links.
+  APP_NAME: z.string().default('REVEAL'),
+  // Public site URL, used for links/buttons inside emails.
+  APP_URL: z.string().default('http://localhost:5173'),
+  // "From" address. Must be a sender your provider is allowed to send as
+  // (Resend: a verified domain, or onboarding@resend.dev in test; SMTP: your
+  // verified single-sender). Format: `Name <address@example.com>`.
+  EMAIL_FROM: z.string().default('REVEAL <onboarding@resend.dev>'),
+  // Support/reply address shown in the email footer + terms.
+  SUPPORT_EMAIL: z.string().default('support@reveal.app'),
+  // Transport A — Resend HTTP API (recommended on Render; works over HTTPS).
+  RESEND_API_KEY: z.string().optional(),
+  // Transport B — any SMTP provider (SendGrid, Brevo, Gmail, Mailgun, …).
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.coerce.number().default(587),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
 });
 
 export type Env = z.infer<typeof envSchema>;

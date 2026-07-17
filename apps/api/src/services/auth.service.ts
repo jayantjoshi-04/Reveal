@@ -7,6 +7,7 @@ import bcrypt from 'bcryptjs';
 import { db } from '../config/db.js';
 import { env } from '../config/env.js';
 import { BadRequest, Conflict, HttpError } from './errors.js';
+import { sendVerificationEmail } from './email.service.js';
 import type { Staff, Student } from '@reveal/shared';
 
 const ROUNDS = 10;
@@ -35,8 +36,24 @@ export interface SignupInput {
   cohort?: string;
 }
 
-/** Create an unverified student, returning a verification code (dev surfaces it). */
-export async function signup(input: SignupInput): Promise<{ student: Student; devVerificationCode?: string }> {
+/**
+ * Best-effort verification email. Never throws — a provider outage must not
+ * break signup; the failure is logged and reflected in the returned flag.
+ */
+async function emailCode(to: string, name: string, code: string): Promise<boolean> {
+  try {
+    const via = await sendVerificationEmail(to, name, code);
+    return via !== 'console';
+  } catch (err) {
+    console.error(`[auth] verification email to ${to} failed: ${(err as Error).message}`);
+    return false;
+  }
+}
+
+/** Create an unverified student and email the verification code. */
+export async function signup(
+  input: SignupInput,
+): Promise<{ student: Student; devVerificationCode?: string; emailSent: boolean }> {
   const dupe = await db().query('SELECT 1 FROM student WHERE email = $1 OR username = $2', [input.email, input.username]);
   if (dupe.rowCount) throw new Conflict('email or username already registered');
 
@@ -60,8 +77,29 @@ export async function signup(input: SignupInput): Promise<{ student: Student; de
       code,
     ],
   );
-  // Real deployments email the code; in dev we return it so the UI can show it.
-  return { student: rows[0]!, devVerificationCode: env().NODE_ENV === 'production' ? undefined : code };
+  const emailSent = await emailCode(input.email, input.name, code);
+  // The code travels by email. In non-production we also return it so the local
+  // dev flow can auto-fill without a mail provider; never in production.
+  return { student: rows[0]!, devVerificationCode: env().NODE_ENV === 'production' ? undefined : code, emailSent };
+}
+
+/**
+ * Re-send the verification code to an unverified account. Silent for unknown or
+ * already-verified emails so it can't be used to probe who has an account.
+ */
+export async function resendVerification(email: string): Promise<{ emailSent: boolean }> {
+  const { rows } = await db().query<{ name: string; verification_code: string | null; email_verified: boolean }>(
+    'SELECT name, verification_code, email_verified FROM student WHERE email = $1',
+    [email],
+  );
+  const row = rows[0];
+  if (!row || row.email_verified) return { emailSent: false };
+
+  // Reissue a fresh code so a lost/expired one is replaced.
+  const code = makeCode();
+  await db().query('UPDATE student SET verification_code = $1 WHERE email = $2', [code, email]);
+  const emailSent = await emailCode(email, row.name, code);
+  return { emailSent };
 }
 
 export async function verifyEmail(email: string, code: string): Promise<void> {
