@@ -11,8 +11,10 @@
     "build": "pnpm -r --filter ./packages/* --filter ./apps/* build",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
-    "dev:api": "pnpm --filter @reveal/api dev",
-    "dev:web": "pnpm --filter @reveal/web dev",
+    "shared:build": "pnpm --filter @reveal/shared build",
+    "dev:api": "pnpm shared:build && pnpm --filter @reveal/api dev",
+    "dev:web": "pnpm shared:build && pnpm --filter @reveal/web dev",
+    "dev": "pnpm shared:build && pnpm --parallel --filter @reveal/api --filter @reveal/web dev",
     "db:migrate": "pnpm --filter @reveal/api db:migrate",
     "db:seed": "pnpm --filter @reveal/api db:seed"
   },
