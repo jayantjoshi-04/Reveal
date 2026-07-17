@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 /** Public marketing landing — light premium style, modern touches. Nav · hero ·
@@ -19,8 +19,8 @@ export function Landing(): JSX.Element {
 // ── Nav ──────────────────────────────────────────────────────────────────────
 function Nav({ onContact }: { onContact: () => void }): JSX.Element {
   return (
-    <header className="sticky top-0 z-40 pt-3">
-      <div className="glass mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-5 py-3 sm:px-6">
+    <header className="sticky top-0 z-40">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
         <span className="text-sm font-bold uppercase tracking-[0.3em] text-slate-900">Re<span className="text-accent">veal</span></span>
         <button
           onClick={onContact}
@@ -132,9 +132,11 @@ function InfoCard({ tone, eyebrow, title, children }: { tone: 'light' | 'dark'; 
 }
 
 // ── Founders ─────────────────────────────────────────────────────────────────
+interface Person { name: string; role: string; initials: string; photo?: string }
+
 function Founders(): JSX.Element {
-  const people = [
-    { name: 'Jhaanvi Hiremath', role: 'Founder', initials: 'JH' },
+  const people: Person[] = [
+    { name: 'Jhaanvi Hiremath', role: 'Founder', initials: 'JH', photo: '/founders/jhaanvi.jpg' },
     { name: 'Prashant Anolkar', role: 'Founder', initials: 'PA' },
     { name: 'Reva', role: 'Founder', initials: 'R' },
   ];
@@ -146,19 +148,36 @@ function Founders(): JSX.Element {
         <div className="mt-12 grid gap-6 sm:grid-cols-3">
           {people.map((p, i) => (
             <div key={p.name} className="hover-lift animate-slide-up rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-card" style={{ animationDelay: `${i * 90}ms` }}>
-              <div className="mx-auto h-28 w-28 rounded-full bg-gradient-to-br from-accent via-violet-400 to-fuchsia-400 p-[3px]">
-                <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                  <span className="font-serif text-3xl text-accent-dark">{p.initials}</span>
-                </div>
-              </div>
+              <FounderAvatar person={p} />
               <div className="mt-5 text-lg font-semibold text-slate-900">{p.name}</div>
               <div className="mt-1 font-mono text-[11px] uppercase tracking-wider text-accent">{p.role}</div>
-              <div className="mt-3 text-[12px] text-slate-400">Headshot coming soon</div>
+              {!p.photo ? <div className="mt-3 text-[12px] text-slate-400">Headshot coming soon</div> : null}
             </div>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function FounderAvatar({ person }: { person: Person }): JSX.Element {
+  const [broken, setBroken] = useState(false);
+  const showPhoto = person.photo && !broken;
+  return (
+    <div className="mx-auto h-28 w-28 rounded-full bg-gradient-to-br from-accent via-violet-400 to-fuchsia-400 p-[3px]">
+      {showPhoto ? (
+        <img
+          src={person.photo}
+          alt={person.name}
+          onError={() => setBroken(true)}
+          className="h-full w-full rounded-full object-cover"
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
+          <span className="font-serif text-3xl text-accent-dark">{person.initials}</span>
+        </div>
+      )}
+    </div>
   );
 }
 
