@@ -132,11 +132,13 @@ function InfoCard({ tone, eyebrow, title, children }: { tone: 'light' | 'dark'; 
 }
 
 // ── Founders ─────────────────────────────────────────────────────────────────
-interface Person { name: string; role: string; initials: string; photo?: string }
+interface Person { name: string; role: string; initials: string; photos?: string[] }
 
 function Founders(): JSX.Element {
   const people: Person[] = [
-    { name: 'Jhaanvi Hiremath', role: 'Founder', initials: 'JH', photo: '/founders/jhaanvi.jpg' },
+    // Tries each candidate in order, then falls back to initials — so either a
+    // .jpg or .jpeg dropped in apps/web/public/founders/ just works.
+    { name: 'Jhaanvi Hiremath', role: 'Founder', initials: 'JH', photos: ['/founders/jhaanvi.jpg', '/founders/jhaanvi.jpeg', '/founders/jhaanvi.png'] },
     { name: 'Prashant Anolkar', role: 'Founder', initials: 'PA' },
     { name: 'Reva', role: 'Founder', initials: 'R' },
   ];
@@ -151,7 +153,7 @@ function Founders(): JSX.Element {
               <FounderAvatar person={p} />
               <div className="mt-5 text-lg font-semibold text-slate-900">{p.name}</div>
               <div className="mt-1 font-mono text-[11px] uppercase tracking-wider text-accent">{p.role}</div>
-              {!p.photo ? <div className="mt-3 text-[12px] text-slate-400">Headshot coming soon</div> : null}
+              {!p.photos ? <div className="mt-3 text-[12px] text-slate-400">Headshot coming soon</div> : null}
             </div>
           ))}
         </div>
@@ -161,15 +163,17 @@ function Founders(): JSX.Element {
 }
 
 function FounderAvatar({ person }: { person: Person }): JSX.Element {
-  const [broken, setBroken] = useState(false);
-  const showPhoto = person.photo && !broken;
+  // Walk the candidate photo URLs on error; when they're all exhausted, show initials.
+  const [idx, setIdx] = useState(0);
+  const candidates = person.photos ?? [];
+  const src = idx < candidates.length ? candidates[idx] : null;
   return (
     <div className="mx-auto h-28 w-28 rounded-full bg-gradient-to-br from-accent via-violet-400 to-fuchsia-400 p-[3px]">
-      {showPhoto ? (
+      {src ? (
         <img
-          src={person.photo}
+          src={src}
           alt={person.name}
-          onError={() => setBroken(true)}
+          onError={() => setIdx((i) => i + 1)}
           className="h-full w-full rounded-full object-cover"
         />
       ) : (
