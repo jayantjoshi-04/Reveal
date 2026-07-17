@@ -19,8 +19,8 @@ export function Landing(): JSX.Element {
 // ── Nav ──────────────────────────────────────────────────────────────────────
 function Nav({ onContact }: { onContact: () => void }): JSX.Element {
   return (
-    <header className="sticky top-0 z-40">
-      <div className="glass mx-auto mt-3 flex max-w-6xl items-center justify-between rounded-2xl px-5 py-3 sm:px-6">
+    <header className="sticky top-0 z-40 pt-3">
+      <div className="glass mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-5 py-3 sm:px-6">
         <span className="text-sm font-bold uppercase tracking-[0.3em] text-slate-900">Re<span className="text-accent">veal</span></span>
         <button
           onClick={onContact}
@@ -61,31 +61,8 @@ function Hero({ onStart, onSignIn }: { onStart: () => void; onSignIn: () => void
           </button>
         </div>
 
-        {/* floating structural preview — subtle gradient ring (modern touch) */}
-        <div className="animate-slide-up mt-16" style={{ animationDelay: '320ms' }}>
-          <div className="mx-auto max-w-3xl rounded-[28px] bg-gradient-to-br from-accent/30 via-violet-400/20 to-transparent p-px shadow-lift">
-            <div className="rounded-[27px] bg-white/70 p-3 backdrop-blur">
-              <div className="rounded-2xl bg-white p-6 text-left sm:p-8">
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full bg-accent-soft px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-accent-dark">A · stated</span>
-                  <span className="font-mono text-[11px] text-slate-400">42%</span>
-                </div>
-                <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-                  <div className="h-full rounded-full bg-gradient-to-r from-accent to-violet-500" style={{ width: '42%' }} />
-                </div>
-                <div className="mt-5 font-serif text-2xl text-slate-900">Tick what’s true — be honest, not aspirational.</div>
-                <div className="mt-4 grid grid-cols-2 gap-2">
-                  {['clear purpose', 'see who it helps', 'in the field', 'genuinely hard'].map((t, i) => (
-                    <div key={t} className={`rounded-xl border px-3 py-2 text-xs font-medium ${i < 2 ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-500'}`}>{t}</div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* stat row */}
-        <div className="animate-slide-up mt-12 grid grid-cols-3 gap-4" style={{ animationDelay: '400ms' }}>
+        <div className="animate-slide-up mt-16 grid grid-cols-3 gap-4" style={{ animationDelay: '320ms' }}>
           {[
             { k: '2 channels', s: 'what you say · what you do' },
             { k: '15 question sets', s: 'across Section A & B' },
