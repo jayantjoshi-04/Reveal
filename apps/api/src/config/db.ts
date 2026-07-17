@@ -12,14 +12,30 @@ pg.types.setTypeParser(pg.types.builtins.NUMERIC, (v) => (v === null ? null : Nu
 
 let pool: pg.Pool | null = null;
 
+/**
+ * Hosted Postgres (Supabase / Neon / Render) requires SSL, and so does any
+ * connection to a non-local host — including running `db:migrate` from a laptop
+ * against the production database. So enable SSL whenever the host isn't local
+ * (or NODE_ENV is production), and never for localhost dev. `rejectUnauthorized:
+ * false` accepts the providers' managed certificates.
+ */
+function needsSsl(): boolean {
+  if (env().NODE_ENV === 'production') return true;
+  try {
+    const host = new URL(env().DATABASE_URL).hostname;
+    return !['localhost', '127.0.0.1', '::1', ''].includes(host);
+  } catch {
+    return false;
+  }
+}
+
 export function db(): pg.Pool {
   if (pool) return pool;
   pool = new Pool({
     connectionString: env().DATABASE_URL,
     max: 10, // conservative for free-tier Postgres
     idleTimeoutMillis: 30_000,
-    // Supabase/Neon require SSL in production
-    ssl: env().NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
+    ssl: needsSsl() ? { rejectUnauthorized: false } : undefined,
   });
   return pool;
 }
