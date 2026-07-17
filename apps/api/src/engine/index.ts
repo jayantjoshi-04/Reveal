@@ -12,6 +12,7 @@ import { scoreCapacities, capacityConfidence, type CapacityScore } from './capac
 export type Appearances = Partial<Record<Capacity, number>>;
 import { scoreValues, scoreRoles, scoreGaps, scoreMarket, directionCheck, projectPattern, wishImp, scoreCoherence } from './traits.js';
 import { scoreDispositions, summariseDispositions } from './dispositions.js';
+import { scoreNutrients } from './nutrients.js';
 import { round } from './util.js';
 
 export const ENGINE_VERSION = '1.0.0';
@@ -71,9 +72,12 @@ export function run(raw: RawCapture, k: ScoringConstants = SCORING, appearances?
   if (project_pattern.gap_note) experiments.push({ targets: project_pattern.gap_note, reason: 'portfolio_gap' });
   if (market.classification !== 'aligned') experiments.push({ targets: market.wish_dir, reason: 'market_choice' });
 
-  // 7 · Dispositions — six bipolar positions, read behaviourally (B3 · B7 · B8)
+  // 7 · Dispositions — six bipolar positions (B9 · B3 · B7 · B8)
   const dispositions = scoreDispositions(raw);
   const dispositions_summary = summariseDispositions(dispositions);
+
+  // 7b · Nutrients & bands — what conditions the work needs to give you
+  const { nutrients, environment_surprise } = scoreNutrients(raw);
 
   // 8 · Differentiation one-liner inputs
   const differentiation: Findings['differentiation'] = {
@@ -98,6 +102,8 @@ export function run(raw: RawCapture, k: ScoringConstants = SCORING, appearances?
     experiments,
     dispositions,
     dispositions_summary,
+    nutrients,
+    environment_surprise,
   };
 
   const trait_scores = buildTraitScores(capScores, k);

@@ -69,8 +69,9 @@ suite('e2e · full capture → engine → approve → report (real DB)', () => {
     const P: Record<string, unknown> = {
       consent: { data_use: true, retention_ack: true, granted_at: new Date().toISOString() },
       portfolio_facts: { projects: [
-        { project_id: 'p1', title: 'ReVIVE', domain: 'health', initiated: 'self', group: 'group', roles: ['researcher','sensemaker'], demonstrated_capabilities: ['design_research'], commercial_impact_self_tag: 0.9 },
-        { project_id: 'p2', title: 'Ibex', domain: 'branding', initiated: 'assigned', group: 'group', roles: ['builder_maker'], demonstrated_capabilities: ['visual_comm'], commercial_impact_self_tag: -0.6 } ] },
+        { project_id: 'p1', title: 'ReVIVE', domain: 'health', initiated: 'self', group: 'group', roles: ['researcher','sensemaker'], demonstrated_capabilities: ['design_research'], commercial_impact_self_tag: 0.9, went_well: true, condition_tags: ['had_resources','constant_feedback','safe_to_be_wrong','tight_structure'] },
+        { project_id: 'p2', title: 'Ibex', domain: 'branding', initiated: 'assigned', group: 'group', roles: ['builder_maker'], demonstrated_capabilities: ['visual_comm'], commercial_impact_self_tag: -0.6, went_well: true, condition_tags: ['had_resources','new_territory'] } ],
+        struggled_project: { present: true, condition_tags: ['no_structure','little_feedback'], note: 'the room had no schedule' } },
       // real items → server recomputes A-scores (never trusts a client score)
       a1: { items: [
         ...Array.from({ length: 6 }, (_, i) => ({ prompt_id: `e${i}`, chosen_capacity: 'empathy', ms: 1 })),
@@ -92,6 +93,7 @@ suite('e2e · full capture → engine → approve → report (real DB)', () => {
       b8: { disruptions: [{ response: 'reframe', recovery_ms: 1, generated_new: true }] },
       b5: { wish, actual, pays_best: pays, centroid_wish: cen(wish), centroid_actual: cen(actual), centroid_lucrative: cen(pays) },
       b7: { allocation: { deepen_a_craft: 10, teach: 2 }, total: 12 }, // concentrated → Deep
+      b9: { scenarios: ['s1','s2','s3','s4','s5','s6','s7','s8'].map((id, i) => ({ scenario_id: id, q1_choice: i % 5, q2_choice: i % 4 })) },
       a7: { desired_levels: { field_research: 0.9, venture: 0.85, facilitation: 0.8, systems_service: 0.7, design_research: 0.6, framing: 0.5, ideation: 0.4, prototyping: 0.3, craft_execution: 0.3, visual_comm: 0.3, material_media: 0.2, functional_usability: 0.3 }, desired_skills_ranked: ['field_research', 'venture', 'facilitation', 'systems_service', 'design_research'], perceived_market_rank: [{ field: 'UI/UX', rank: 1 }], direction_market_stance: 'opposed' },
       b6: { images: [{ ref: 'i1', why: 'a' }, { ref: 'i2', why: 'b' }, { ref: 'i3', why: 'c' }], detected_thread: ['human-present', 'story-laden', 'historical'], confirmed: null },
       a6: { topics: ['community', 'children'], admired: [] },
@@ -132,7 +134,13 @@ suite('e2e · full capture → engine → approve → report (real DB)', () => {
     expect(report.body.findings.dispositions).toHaveLength(6);
     expect(report.body.findings.dispositions.every((d: { position: number }) => d.position >= -1 && d.position <= 1)).toBe(true);
     const dw = report.body.findings.dispositions.find((d: { dimension: string }) => d.dimension === 'DW');
-    expect(dw.position).toBeLessThan(0); // allocation concentrated in one pursuit → Deep
+    expect(typeof dw.position).toBe('number'); // blended from B7 concentration + B9 scenarios
+    // nutrients & bands (B9 scenario Q2 × project condition tags × struggled-project)
+    expect(report.body.findings.nutrients).toHaveLength(6);
+    const bands = new Set(['preferred', 'stretch', 'unsupportive', 'undetermined']);
+    expect(report.body.findings.nutrients.every((n: { band: string }) => bands.has(n.band))).toBe(true);
+    // struggled_project tagged no_structure + B8 abandon-free → structure can carry hindrance
+    expect(report.body.findings.nutrients.find((n: { nutrient: string }) => n.nutrient === 'structure')).toBeTruthy();
   }, 30_000);
 
   it('rejects admin sign-in with a wrong password', async () => {

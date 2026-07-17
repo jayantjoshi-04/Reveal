@@ -146,7 +146,64 @@ function SectionToday({ slots, findings }: { slots: ReportSlots; findings: Findi
           </div>
           <Prose>{slots.conditions_line}</Prose>
         </Card>
+
+        <NutrientsCard findings={findings} />
       </div>
+    </div>
+  );
+}
+
+// ── Nutrients & bands · "Your conditions" ────────────────────────────────────
+function NutrientsCard({ findings }: { findings: Findings }): JSX.Element | null {
+  const nutrients = findings.nutrients ?? [];
+  if (nutrients.length === 0) return null;
+  const lbl = (n: string): string => n.charAt(0).toUpperCase() + n.slice(1);
+  const inBand = (b: string): string[] => nutrients.filter((n) => n.band === b).map((n) => lbl(n.nutrient));
+  const preferred = inBand('preferred');
+  const stretch = inBand('stretch');
+  const unsupportive = inBand('unsupportive');
+  const anything = preferred.length + stretch.length + unsupportive.length > 0;
+
+  return (
+    <Card span2>
+      <CardTitle>Your conditions · what the work needs to give you</CardTitle>
+      {anything ? (
+        <div className="grid gap-3.5 md:grid-cols-3">
+          <BandCol title="Preferred" note="growth easiest here now" tone="emerald" items={preferred} />
+          <BandCol title="Stretch" note="growth available, with support" tone="amber" items={stretch} />
+          <BandCol title="Unsupportive" note="hard-going so far — about the room, not you" tone="rose" items={unsupportive} />
+        </div>
+      ) : (
+        <p className="text-[13px] text-slate-500">Not enough signal yet to place your conditions — this fills in as you re-run with more projects tagged.</p>
+      )}
+      {findings.environment_surprise ? (
+        <div className="mt-4 flex items-center gap-3 rounded-xl border border-accent/30 bg-accent-soft p-4">
+          <span className="font-serif text-2xl text-accent">⚡</span>
+          <p className="text-[13px] leading-relaxed text-slate-600">
+            Your best work happened in conditions you say you don’t need — <b className="text-accent-dark">{findings.environment_surprise.nutrient}</b>. Does that feel true?
+          </p>
+        </div>
+      ) : null}
+      <Prose>Read from what you chose across the scenarios (stated) and what was actually present in your projects (revealed). An assessment can only say what’s been true so far — supported exposure genuinely changes this.</Prose>
+    </Card>
+  );
+}
+
+function BandCol({ title, note, tone, items }: { title: string; note: string; tone: 'emerald' | 'amber' | 'rose'; items: string[] }): JSX.Element {
+  const tones = {
+    emerald: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+    amber: 'border-amber-200 bg-amber-50 text-amber-700',
+    rose: 'border-rose-200 bg-rose-50 text-rose-600',
+  };
+  return (
+    <div className={`rounded-xl border p-4 ${tones[tone]}`}>
+      <div className="mb-2 font-mono text-[9.5px] uppercase tracking-wide">{title}</div>
+      {items.length ? (
+        <ul className="space-y-1 text-[12px] text-slate-700">{items.map((i) => <li key={i}>· {i}</li>)}</ul>
+      ) : (
+        <div className="text-[12px] italic text-slate-400">—</div>
+      )}
+      <div className="mt-2 text-[10px] text-slate-400">{note}</div>
     </div>
   );
 }

@@ -15,6 +15,7 @@ import {
   B4_CATEGORIES,
   DISRUPTION_RESPONSES,
   RESUME_FRAMES,
+  CONDITION_TAGS,
 } from '../enums.js';
 
 const unit = z.number().min(0).max(1); // normalised 0–1 score
@@ -148,6 +149,21 @@ export const b8DisruptionSchema = z.object({
   felt: z.string().optional(),
 });
 
+// B9 scenario suite — per scenario, the chosen Q1 action + Q2 variant (indices).
+// The engine resolves indices against the SCENARIOS content to score.
+export const b9ScenariosSchema = z.object({
+  scenarios: z.array(
+    z.object({
+      scenario_id: z.string(),
+      q1_choice: z.number().int().min(0),
+      q1_ms: ms.optional(),
+      why_text: z.string().optional(), // captured & shown, never scored in v1
+      q2_choice: z.number().int().min(0),
+      q2_ms: ms.optional(),
+    }),
+  ),
+});
+
 export const channelBSchema = z.object({
   b1_budget: b1BudgetSchema.optional(),
   b2_dilemmas: b2DilemmasSchema.optional(),
@@ -157,6 +173,7 @@ export const channelBSchema = z.object({
   b6_upload: b6UploadSchema.optional(),
   b7_year: b7YearSchema.optional(),
   b8_disruption: b8DisruptionSchema.optional(),
+  b9_scenarios: b9ScenariosSchema.optional(),
 });
 
 // ── Portfolio ──────────────────────────────────────────────────────────────
@@ -172,10 +189,23 @@ export const projectSchema = z.object({
   demonstrated_capabilities: z.array(capabilityEnum).optional(),
   commercial_impact_self_tag: signed.optional(),
   noticed_unasked: z.string().optional(),
+  // A8 interpretive: whether it went well + the setting it happened in (the
+  // REVEALED side of the nutrient read).
+  went_well: z.boolean().optional(),
+  condition_tags: z.array(z.enum(CONDITION_TAGS)).optional(),
 });
 
 export const portfolioSchema = z.object({
   projects: z.array(projectSchema).default([]),
+  // A8 struggled-project probe — the only hindrance evidence the instrument
+  // holds. Reads the SETTING ("what was the room like?"), never the failure.
+  struggled_project: z
+    .object({
+      present: z.boolean(),
+      condition_tags: z.array(z.enum(CONDITION_TAGS)).default([]),
+      note: z.string().optional(),
+    })
+    .optional(),
   resume: z
     .object({ uploaded: z.boolean(), file_ref: z.string().optional(), parsed_frame: z.enum(RESUME_FRAMES) })
     .optional(),
@@ -208,4 +238,5 @@ export const MODULE_PAYLOAD_SCHEMAS = {
   b6: b6UploadSchema,
   b7: b7YearSchema,
   b8: b8DisruptionSchema,
+  b9: b9ScenariosSchema,
 } as const;

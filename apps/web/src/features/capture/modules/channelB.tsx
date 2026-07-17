@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { B4_CATEGORIES, B7_PURSUITS, DISRUPTION_RESPONSES, type Value } from '@reveal/shared';
+import { B4_CATEGORIES, B7_PURSUITS, DISRUPTION_RESPONSES, SCENARIOS, type Value } from '@reveal/shared';
 import { api } from '../../../lib/api.js';
 import type { ModuleProps } from '../types.js';
 import { Prompt, PrimaryBtn, Option, Options } from './ui.js';
@@ -348,6 +348,67 @@ export function B8Module({ onSubmit, busy }: ModuleProps): JSX.Element {
           </Option>
         ))}
       </Options>
+    </>
+  );
+}
+
+/** B9 · Scenario suite — one situation, two questions × 8. Q1 = what you'd do
+ *  (disposition), Q2 = which version brings out your best (nutrient dosage). */
+export function B9Module({ onSubmit, busy }: ModuleProps): JSX.Element {
+  const [idx, setIdx] = useState(0);
+  const [phase, setPhase] = useState<'q1' | 'why' | 'q2'>('q1');
+  const [q1, setQ1] = useState<number | null>(null);
+  const [why, setWhy] = useState('');
+  const [answers, setAnswers] = useState<{ scenario_id: string; q1_choice: number; why_text: string; q2_choice: number }[]>([]);
+  const [t] = useState(Date.now());
+  const sc = SCENARIOS[idx]!;
+  const total = SCENARIOS.length;
+
+  const chooseQ1 = (i: number): void => { setQ1(i); setPhase('why'); };
+  const chooseQ2 = (q2: number): void => {
+    const rec = { scenario_id: sc.id, q1_choice: q1!, why_text: why.trim(), q2_choice: q2, q1_ms: Date.now() - t, q2_ms: Date.now() - t };
+    const next = [...answers, rec];
+    if (idx + 1 < total) {
+      setAnswers(next); setIdx(idx + 1); setPhase('q1'); setQ1(null); setWhy('');
+    } else {
+      onSubmit({ scenarios: next });
+    }
+  };
+
+  return (
+    <>
+      <div className="mb-2 flex items-center gap-2 font-mono text-xs uppercase tracking-wide text-slate-400">
+        <span className="text-sm">{sc.icon}</span> Scenario {idx + 1} of {total}
+      </div>
+      <Prompt>{sc.title}</Prompt>
+      <p className="mb-4 text-sm leading-relaxed text-slate-500">{sc.context}</p>
+
+      {phase === 'q1' ? (
+        <>
+          <div className="mb-2.5 text-[13px] font-medium text-slate-700">{sc.q1_prompt}</div>
+          <Options>
+            {sc.q1.map((o, i) => <Option key={i} onClick={() => chooseQ1(i)}>{o.text}</Option>)}
+          </Options>
+        </>
+      ) : phase === 'why' ? (
+        <>
+          <div className="mb-2 text-[13px] font-medium text-slate-700">In a line — why? <span className="font-normal text-slate-400">optional, comes back in your report</span></div>
+          <textarea
+            className="mb-5 h-24 w-full resize-none rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
+            value={why}
+            onChange={(e) => setWhy(e.target.value)}
+            placeholder="Because…"
+          />
+          <PrimaryBtn disabled={busy} onClick={() => setPhase('q2')}>Continue</PrimaryBtn>
+        </>
+      ) : (
+        <>
+          <div className="mb-2.5 text-[13px] font-medium text-slate-700">{sc.q2_prompt}</div>
+          <Options>
+            {sc.q2.map((v, i) => <Option key={i} onClick={() => chooseQ2(i)}>{v.text}</Option>)}
+          </Options>
+        </>
+      )}
     </>
   );
 }

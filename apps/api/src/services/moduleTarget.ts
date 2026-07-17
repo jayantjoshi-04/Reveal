@@ -19,6 +19,7 @@ const CHANNEL_B_KEYS: Partial<Record<ModuleCode, string>> = {
   b6: 'b6_upload',
   b7: 'b7_year',
   b8: 'b8_disruption',
+  b9: 'b9_scenarios',
 };
 
 export type ModuleTarget =

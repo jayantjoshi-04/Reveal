@@ -120,6 +120,25 @@ export const findingsSchema = z.object({
     )
     .optional(),
   dispositions_summary: z.string().optional(),
+
+  // What conditions the work needs to give you (nutrients), sorted into bands.
+  // Optional so pre-nutrient derived rows still parse; the engine always sets it.
+  nutrients: z
+    .array(
+      z.object({
+        nutrient: z.string(), // structure · feedback · challenge · novelty · resources · safety
+        stated_need: z.enum(['low', 'moderate', 'high']),
+        revealed_present: z.enum(['low', 'moderate', 'high']).nullable(),
+        band: z.enum(['preferred', 'stretch', 'unsupportive', 'undetermined']),
+        hindrance_evidence: z.boolean(),
+        required_by_direction: z.boolean(),
+      }),
+    )
+    .optional(),
+  environment_surprise: z
+    .object({ nutrient: z.string(), stated_need: z.string(), revealed_present: z.string() })
+    .nullable()
+    .optional(),
 });
 
 export type Findings = z.infer<typeof findingsSchema>;

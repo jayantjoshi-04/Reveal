@@ -2,16 +2,12 @@
  * REVEAL · Layer 2 · Dispositions (pure, deterministic)
  * ---------------------------------------------------------------------------
  * Six bipolar tensions, read behaviourally and stored as a SIGNED position in
- * −1…+1 — never an amount, because no pole is "better". Sources (re-tags of
- * tasks already captured, plus B7):
- *   AR act⟷reflect      · B3 first-three-moves (position-weighted)
- *   ES experiment⟷study · B3
- *   SB solo⟷bring-in    · B3
- *   DW deep⟷wide        · B7 unconstrained-year concentration (Herfindahl)
- *   PA persist⟷adapt    · B8 disruption response (weak-but-real)
- *   RD reinvent⟷discipline · B8 generated_new (weak-but-real)
+ * −1…+1 — never an amount, because no pole is "better". Sources:
+ *   B9 scenario suite Q1 (primary) · B3 first-three-moves · B7 (DW) · B8 (PA/RD)
+ * Position = Σ(weight × pole_sign) ÷ Σ(weight). Tier: well-motivated if ≥3
+ * situations touch the dimension, else thin (suppressed in the report).
  */
-import { B7_PURSUITS, DISPOSITION_DIMS, type DispositionCode, type Findings, type RawCapture } from '@reveal/shared';
+import { B7_PURSUITS, DISPOSITION_DIMS, POLE_TO_DIM, SCENARIOS, type DispositionCode, type Findings, type RawCapture } from '@reveal/shared';
 import { round } from './util.js';
 
 type Dim = NonNullable<Findings['dispositions']>[number];
@@ -28,27 +24,6 @@ const MOVE_MAP: Record<string, Partial<Record<DispositionCode, number>>> = {
   'question whether the brief is right': { AR: +1 },
 };
 
-/** Position-weighted read of the three B3 moves for AR / ES / SB. */
-function fromB3(raw: RawCapture): Partial<Record<DispositionCode, number>> {
-  const moves = raw.channel_b.b3_moves?.ordered_moves ?? [];
-  const num: Partial<Record<DispositionCode, number>> = {};
-  const den: Partial<Record<DispositionCode, number>> = {};
-  moves.forEach((move, i) => {
-    const weight = 3 - i; // 1st = 3, 2nd = 2, 3rd = 1
-    const contrib = MOVE_MAP[move];
-    if (!contrib) return;
-    for (const [dim, sign] of Object.entries(contrib) as [DispositionCode, number][]) {
-      num[dim] = (num[dim] ?? 0) + weight * sign;
-      den[dim] = (den[dim] ?? 0) + weight * Math.abs(sign);
-    }
-  });
-  const out: Partial<Record<DispositionCode, number>> = {};
-  for (const dim of ['AR', 'ES', 'SB'] as DispositionCode[]) {
-    if (den[dim]) out[dim] = clamp((num[dim] ?? 0) / den[dim]!);
-  }
-  return out;
-}
-
 /** DW from B7: concentration (Herfindahl) → Deep(−) ; spread → Wide(+). */
 function fromB7(raw: RawCapture): number | undefined {
   const alloc = raw.channel_b.b7_year?.allocation;
@@ -56,12 +31,10 @@ function fromB7(raw: RawCapture): number | undefined {
   const months = Object.values(alloc).filter((m) => m > 0);
   const total = months.reduce((a, b) => a + b, 0);
   if (total <= 0 || months.length === 0) return undefined;
-  // Herfindahl over the FULL pursuit space (per the spec: "1–2 pursuits → deep,
-  // spread across 4+ → wide") — so fewer pursuits reads Deep regardless of split.
   const h = months.reduce((a, m) => a + (m / total) ** 2, 0);
-  const hMin = 1 / B7_PURSUITS.length; // even spread across all pursuits
-  const c = (h - hMin) / (1 - hMin); // 0 = fully spread, 1 = all in one
-  return clamp(1 - 2 * c); // concentrated → −1 (Deep) · spread → +1 (Wide)
+  const hMin = 1 / B7_PURSUITS.length;
+  const c = (h - hMin) / (1 - hMin);
+  return clamp(1 - 2 * c);
 }
 
 /** PA & RD from B8 disruption responses (averaged over the disruptions). */
@@ -73,33 +46,65 @@ function fromB8(raw: RawCapture): { PA?: number; RD?: number } {
   let rd = 0;
   for (const d of ds) {
     pa += paMap[d.response] ?? 0;
-    rd += d.generated_new ? -0.7 : 0.5; // reinvent(−) vs discipline(+)
+    rd += d.generated_new ? -0.7 : 0.5;
   }
   return { PA: clamp(pa / ds.length), RD: clamp(rd / ds.length) };
 }
 
 export function scoreDispositions(raw: RawCapture): Dim[] {
-  const b3 = fromB3(raw);
-  const dw = fromB7(raw);
-  const b8 = fromB8(raw);
+  const num: Partial<Record<DispositionCode, number>> = {};
+  const den: Partial<Record<DispositionCode, number>> = {};
+  const sits: Partial<Record<DispositionCode, number>> = {}; // # situations touching each dim
+  const bump = (dim: DispositionCode, sign: number, w: number): void => {
+    num[dim] = (num[dim] ?? 0) + w * sign;
+    den[dim] = (den[dim] ?? 0) + w;
+  };
+  const countSituation = (dims: Iterable<DispositionCode>): void => {
+    for (const d of dims) sits[d] = (sits[d] ?? 0) + 1;
+  };
 
-  const positions: Partial<Record<DispositionCode, { pos: number; tier: 'well_motivated' | 'thin' }>> = {};
-  for (const dim of ['AR', 'ES', 'SB'] as DispositionCode[]) {
-    if (b3[dim] !== undefined) positions[dim] = { pos: b3[dim]!, tier: 'well_motivated' };
+  // B3 (one situation, weighted by move position)
+  const moves = raw.channel_b.b3_moves?.ordered_moves ?? [];
+  const b3dims = new Set<DispositionCode>();
+  moves.forEach((move, i) => {
+    const contrib = MOVE_MAP[move];
+    if (!contrib) return;
+    const weight = 3 - i;
+    for (const [dim, sign] of Object.entries(contrib) as [DispositionCode, number][]) {
+      bump(dim, Math.sign(sign), weight * Math.abs(sign));
+      b3dims.add(dim);
+    }
+  });
+  if (b3dims.size) countSituation(b3dims);
+
+  // B9 scenario suite Q1 (primary — each scenario is a situation)
+  for (const s of raw.channel_b.b9_scenarios?.scenarios ?? []) {
+    const def = SCENARIOS.find((x) => x.id === s.scenario_id);
+    const opt = def?.q1[s.q1_choice];
+    if (!opt) continue;
+    const hit = new Set<DispositionCode>();
+    for (const tag of opt.tags) {
+      const pm = POLE_TO_DIM[tag.pole];
+      if (!pm) continue;
+      bump(pm.dim, pm.sign, tag.w);
+      hit.add(pm.dim);
+    }
+    if (hit.size) countSituation(hit);
   }
-  if (dw !== undefined) positions.DW = { pos: dw, tier: 'well_motivated' };
-  if (b8.PA !== undefined) positions.PA = { pos: b8.PA, tier: 'thin' };
-  if (b8.RD !== undefined) positions.RD = { pos: b8.RD, tier: 'thin' };
+
+  // B7 → DW, B8 → PA/RD (each a situation, blended as one weighted signal)
+  const dw = fromB7(raw);
+  if (dw !== undefined) { num.DW = (num.DW ?? 0) + dw; den.DW = (den.DW ?? 0) + 1; countSituation(['DW']); }
+  const b8 = fromB8(raw);
+  if (b8.PA !== undefined) { num.PA = (num.PA ?? 0) + b8.PA; den.PA = (den.PA ?? 0) + 1; countSituation(['PA']); }
+  if (b8.RD !== undefined) { num.RD = (num.RD ?? 0) + b8.RD; den.RD = (den.RD ?? 0) + 1; countSituation(['RD']); }
 
   return DISPOSITION_DIMS.map((d) => {
-    const p = positions[d.code];
-    return {
-      dimension: d.code,
-      low_pole: d.low,
-      high_pole: d.high,
-      position: round(p?.pos ?? 0, 2),
-      tier: p?.tier ?? ('thin' as const),
-    };
+    const has = den[d.code] && den[d.code]! > 0;
+    const position = has ? clamp(num[d.code]! / den[d.code]!) : 0;
+    // ≥3 situations → well-motivated; else thin (report suppresses the slider)
+    const tier: 'well_motivated' | 'thin' = (sits[d.code] ?? 0) >= 3 ? 'well_motivated' : 'thin';
+    return { dimension: d.code, low_pole: d.low, high_pole: d.high, position: round(position, 2), tier };
   });
 }
 

@@ -114,6 +114,49 @@ export const DISPOSITION_DIMS = [
 ] as const;
 export type DispositionCode = (typeof DISPOSITION_DIMS)[number]['code'];
 
+/** Disposition pole label → dimension + sign (− = low pole, + = high pole). */
+export const POLE_TO_DIM: Record<string, { dim: DispositionCode; sign: -1 | 1 }> = {
+  Act: { dim: 'AR', sign: -1 }, Reflect: { dim: 'AR', sign: 1 },
+  Experiment: { dim: 'ES', sign: -1 }, Study: { dim: 'ES', sign: 1 },
+  Persist: { dim: 'PA', sign: -1 }, Adapt: { dim: 'PA', sign: 1 },
+  Reinvent: { dim: 'RD', sign: -1 }, Discipline: { dim: 'RD', sign: 1 },
+  Solo: { dim: 'SB', sign: -1 }, 'Bring-in': { dim: 'SB', sign: 1 },
+  'Go-deep': { dim: 'DW', sign: -1 }, 'Range-wide': { dim: 'DW', sign: 1 },
+};
+
+// ── Nutrients · 6 environmental conditions · dosage low/moderate/high ────────
+export const NUTRIENTS = ['structure', 'feedback', 'challenge', 'novelty', 'resources', 'safety'] as const;
+export type Nutrient = (typeof NUTRIENTS)[number];
+export const NUTRIENT_LABEL: Record<Nutrient, string> = {
+  structure: 'Structure', feedback: 'Feedback', challenge: 'Challenge',
+  novelty: 'Novelty', resources: 'Resources', safety: 'Safety',
+};
+export const NUTRIENT_LEVELS = ['low', 'moderate', 'high'] as const;
+export type NutrientLevel = (typeof NUTRIENT_LEVELS)[number];
+export const NUTRIENT_BANDS = ['preferred', 'stretch', 'unsupportive', 'undetermined'] as const;
+export type NutrientBand = (typeof NUTRIENT_BANDS)[number];
+
+// ── Condition tags · 12 paired · the revealed side of the nutrient read ─────
+// Each project (and the struggled-project probe) is tagged with any that applied.
+export const CONDITION_TAGS = [
+  'tight_structure', 'no_structure',
+  'constant_feedback', 'little_feedback',
+  'out_of_depth', 'within_range',
+  'new_territory', 'familiar_ground',
+  'had_resources', 'made_do',
+  'safe_to_be_wrong', 'high_stakes_exposed',
+] as const;
+export type ConditionTag = (typeof CONDITION_TAGS)[number];
+/** Which nutrient + pole (+ present / − absent) a condition tag evidences. */
+export const CONDITION_TAG_TO_NUTRIENT: Record<ConditionTag, { nutrient: Nutrient; positive: boolean }> = {
+  tight_structure: { nutrient: 'structure', positive: true }, no_structure: { nutrient: 'structure', positive: false },
+  constant_feedback: { nutrient: 'feedback', positive: true }, little_feedback: { nutrient: 'feedback', positive: false },
+  out_of_depth: { nutrient: 'challenge', positive: true }, within_range: { nutrient: 'challenge', positive: false },
+  new_territory: { nutrient: 'novelty', positive: true }, familiar_ground: { nutrient: 'novelty', positive: false },
+  had_resources: { nutrient: 'resources', positive: true }, made_do: { nutrient: 'resources', positive: false },
+  safe_to_be_wrong: { nutrient: 'safety', positive: true }, high_stakes_exposed: { nutrient: 'safety', positive: false },
+};
+
 // ── B7 unconstrained-year pursuits · months sum to 12 ───────────────────────
 export const B7_PURSUITS = [
   'deepen_a_craft',
@@ -175,6 +218,7 @@ export const MODULE_CODES = [
   'b7',
   'a7',
   'b6',
+  'b9',
   'a5',
   'a6',
   'portfolio_interpretive',
