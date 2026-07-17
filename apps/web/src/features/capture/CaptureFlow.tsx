@@ -116,7 +116,9 @@ function ModuleView({
 }): JSX.Element {
   const meta = MODULE_REGISTRY[cursor];
   if (!meta) return <p className="text-sm text-slate-500">Unknown module: {cursor}</p>;
-  const progress = (CAPTURE_SEQUENCE.indexOf(cursor as never) + 1) / CAPTURE_SEQUENCE.length;
+  // Fraction of modules already completed — the current (unanswered) module
+  // doesn't count, so the very first screen starts at 0% and it fills as you go.
+  const progress = CAPTURE_SEQUENCE.indexOf(cursor as never) / CAPTURE_SEQUENCE.length;
   const { Component } = meta;
   return (
     <SessionShell progress={progress} chip={meta.chip} chipTone={meta.tone}>
