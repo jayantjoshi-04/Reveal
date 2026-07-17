@@ -66,6 +66,9 @@ export const api = {
 
   // ── student ──
   meDashboard: () => request<Dashboard>('/me/dashboard'),
+  meReports: () => request<{ reports: ReportHistoryRow[] }>('/me/reports'),
+  updateProfile: (patch: { name?: string; institution?: string; domain_of_interest?: string }) =>
+    request('/me/profile', { method: 'PATCH', body: JSON.stringify(patch) }),
   startInstance: () => request<InstanceState>('/instances', { method: 'POST' }),
   getState: (id: string) => request<InstanceState>(`/instances/${id}/state`),
   submitModule: (id: string, code: string, payload: unknown, responseMs?: number) =>
@@ -99,6 +102,15 @@ export interface SignupBody {
 export interface Dashboard {
   profile: { name: string; email: string; username: string | null; domain_of_interest: string | null; institution: string | null };
   instance: { instance_id: string; status: string; started_at: string; completed_at: string | null; generated_at: string | null } | null;
+  report_ready: boolean;
+}
+export interface ReportHistoryRow {
+  instance_id: string;
+  schema_version: string;
+  status: string;
+  started_at: string;
+  completed_at: string | null;
+  generated_at: string | null;
   report_ready: boolean;
 }
 export interface AdminOverview { version_id: string; a_items: number; b_tasks: number; artifacts: number; students: number; to_review: number; released: number; }

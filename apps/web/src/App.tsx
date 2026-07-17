@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth, type Role } from './store/auth.js';
+import { Landing } from './features/landing/Landing.js';
 import { Welcome } from './features/welcome/Welcome.js';
 import { SignUp } from './features/auth/SignUp.js';
 import { SignIn } from './features/auth/SignIn.js';
@@ -23,7 +24,8 @@ function Protected({ allow, children }: { allow: Role[]; children: JSX.Element }
 export default function App(): JSX.Element {
   return (
     <Routes>
-      <Route path="/" element={<Welcome />} />
+      <Route path="/" element={<Landing />} />
+      <Route path="/welcome" element={<Welcome />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/admin/signin" element={<AdminSignIn />} />

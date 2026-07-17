@@ -27,6 +27,37 @@
   .press {
     @apply transition-transform duration-150 active:scale-[0.98];
   }
+  /* Frosted-glass surfaces for the next-gen shell. */
+  .glass {
+    background: rgba(255, 255, 255, 0.65);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    backdrop-filter: saturate(180%) blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  .glass-dark {
+    background: rgba(15, 23, 42, 0.55);
+    -webkit-backdrop-filter: saturate(160%) blur(16px);
+    backdrop-filter: saturate(160%) blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  /* Indigo→violet gradient text for hero emphasis. */
+  .text-gradient {
+    background: linear-gradient(100deg, #4f46e5, #7c3aed 55%, #6366f1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Soft ambient mesh backdrop. */
+  .bg-mesh {
+    background-color: #f8fafc;
+    background-image:
+      radial-gradient(at 18% 12%, rgba(99, 102, 241, 0.14) 0px, transparent 55%),
+      radial-gradient(at 82% 8%, rgba(124, 58, 237, 0.1) 0px, transparent 50%),
+      radial-gradient(at 75% 88%, rgba(79, 70, 229, 0.1) 0px, transparent 55%);
+  }
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lift;
+  }
 }
 
 @layer components {

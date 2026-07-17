@@ -106,6 +106,54 @@ export async function getStudentDashboard(studentId: string): Promise<{
   return { profile: p.rows[0]!, instance: i.rows[0] ?? null };
 }
 
+/** Update the editable slice of a student's profile. Only whitelisted fields. */
+export async function updateStudentProfile(
+  studentId: string,
+  patch: { name?: string; institution?: string; domain_of_interest?: string },
+): Promise<void> {
+  const sets: string[] = [];
+  const vals: unknown[] = [studentId];
+  for (const [col, val] of Object.entries(patch)) {
+    if (val === undefined) continue;
+    vals.push(val);
+    sets.push(`${col} = $${vals.length}`);
+  }
+  if (sets.length === 0) return;
+  await db().query(`UPDATE student SET ${sets.join(', ')} WHERE student_id = $1`, vals);
+}
+
+export interface StudentReportRow {
+  instance_id: string;
+  schema_version: string;
+  status: string;
+  started_at: string;
+  completed_at: string | null;
+  generated_at: string | null;
+  report_ready: boolean;
+}
+
+/** Every run this student owns, newest first — powers the Reports history view. */
+export async function listStudentReports(studentId: string): Promise<StudentReportRow[]> {
+  const { rows } = await db().query<StudentReportRow & { has_payload: boolean }>(
+    `SELECT ri.instance_id, ri.schema_version, ri.status, ri.started_at, ri.completed_at, ri.generated_at,
+            (rp.instance_id IS NOT NULL) AS has_payload
+       FROM report_instance ri
+       LEFT JOIN report_payload rp ON rp.instance_id = ri.instance_id
+      WHERE ri.student_id = $1
+      ORDER BY ri.started_at DESC`,
+    [studentId],
+  );
+  return rows.map((r) => ({
+    instance_id: r.instance_id,
+    schema_version: r.schema_version,
+    status: r.status,
+    started_at: r.started_at,
+    completed_at: r.completed_at,
+    generated_at: r.generated_at,
+    report_ready: r.status === 'released' && r.has_payload,
+  }));
+}
+
 export async function setInstanceStatus(
   instanceId: string,
   status: InstanceStatus,

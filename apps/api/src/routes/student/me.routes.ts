@@ -1,7 +1,8 @@
 /** The signed-in student's dashboard: profile + latest run status + report state. */
 import type { FastifyInstance } from 'fastify';
+import { z } from 'zod';
 import { requireStudent } from '../../middleware/auth.js';
-import { getStudentDashboard } from '../../repositories/instance.repo.js';
+import { getStudentDashboard, listStudentReports, updateStudentProfile } from '../../repositories/instance.repo.js';
 import { getReportPayload } from '../../repositories/derived.repo.js';
 
 export async function meRoutes(app: FastifyInstance): Promise<void> {
@@ -17,5 +18,24 @@ export async function meRoutes(app: FastifyInstance): Promise<void> {
         : null,
       report_ready: reportReady,
     };
+  });
+
+  // Full run history — powers the Reports history view in the dashboard.
+  app.get('/me/reports', async (req) => {
+    const reports = await listStudentReports(req.user!.sub);
+    return { reports };
+  });
+
+  // Edit the profile fields the student controls.
+  app.patch('/me/profile', async (req, reply) => {
+    const patch = z
+      .object({
+        name: z.string().min(1).max(120).optional(),
+        institution: z.string().max(160).optional(),
+        domain_of_interest: z.string().max(160).optional(),
+      })
+      .parse(req.body ?? {});
+    await updateStudentProfile(req.user!.sub, patch);
+    return reply.send({ ok: true });
   });
 }
