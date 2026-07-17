@@ -206,5 +206,6 @@ export const MODULE_PAYLOAD_SCHEMAS = {
   b4: b4AttentionSchema,
   b5: b5WishsortSchema,
   b6: b6UploadSchema,
+  b7: b7YearSchema,
   b8: b8DisruptionSchema,
 } as const;

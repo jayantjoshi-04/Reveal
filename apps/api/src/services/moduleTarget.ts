@@ -17,6 +17,7 @@ const CHANNEL_B_KEYS: Partial<Record<ModuleCode, string>> = {
   b4: 'b4_attention',
   b5: 'b5_wishsort',
   b6: 'b6_upload',
+  b7: 'b7_year',
   b8: 'b8_disruption',
 };
 

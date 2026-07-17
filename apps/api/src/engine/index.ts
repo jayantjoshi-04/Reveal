@@ -11,6 +11,7 @@ import { scoreCapacities, capacityConfidence, type CapacityScore } from './capac
 /** A1 capacity appearance counts, needed to normalise A-scores server-side. */
 export type Appearances = Partial<Record<Capacity, number>>;
 import { scoreValues, scoreRoles, scoreGaps, scoreMarket, directionCheck, projectPattern, wishImp, scoreCoherence } from './traits.js';
+import { scoreDispositions, summariseDispositions } from './dispositions.js';
 import { round } from './util.js';
 
 export const ENGINE_VERSION = '1.0.0';
@@ -70,7 +71,11 @@ export function run(raw: RawCapture, k: ScoringConstants = SCORING, appearances?
   if (project_pattern.gap_note) experiments.push({ targets: project_pattern.gap_note, reason: 'portfolio_gap' });
   if (market.classification !== 'aligned') experiments.push({ targets: market.wish_dir, reason: 'market_choice' });
 
-  // 7 · Differentiation one-liner inputs
+  // 7 · Dispositions — six bipolar positions, read behaviourally (B3 · B7 · B8)
+  const dispositions = scoreDispositions(raw);
+  const dispositions_summary = summariseDispositions(dispositions);
+
+  // 8 · Differentiation one-liner inputs
   const differentiation: Findings['differentiation'] = {
     top_capacity: capacities[0]?.name ?? 'empathy',
     second: capacities[1]?.name ?? 'analytical',
@@ -91,6 +96,8 @@ export function run(raw: RawCapture, k: ScoringConstants = SCORING, appearances?
     market,
     coherence,
     experiments,
+    dispositions,
+    dispositions_summary,
   };
 
   const trait_scores = buildTraitScores(capScores, k);

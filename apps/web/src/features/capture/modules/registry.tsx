@@ -1,6 +1,6 @@
 import type { ModuleProps } from '../types.js';
 import { A1Module, A3Module, A4Module, A6Module, A7Module } from './channelA.js';
-import { B1Module, B2Module, B3Module, B4Module, B5Module, B6Module, B8Module } from './channelB.js';
+import { B1Module, B2Module, B3Module, B4Module, B5Module, B6Module, B7Module, B8Module } from './channelB.js';
 import { ConsentModule, PortfolioFactsModule, PortfolioInterpretiveModule, ResumeModule } from './portfolio.js';
 
 export interface ModuleMeta {
@@ -22,6 +22,7 @@ export const MODULE_REGISTRY: Record<string, ModuleMeta> = {
   a4: { Component: A4Module, chip: 'A · stated', tone: 'a' },
   b8: { Component: B8Module, chip: 'B · behavioural', tone: 'b' },
   b5: { Component: B5Module, chip: 'B · behavioural · runs first', tone: 'b' },
+  b7: { Component: B7Module, chip: 'B · behavioural · dispositions', tone: 'b' },
   a7: { Component: A7Module, chip: 'A · stated · after wish-sort', tone: 'a' },
   b6: { Component: B6Module, chip: 'B · behavioural · upload', tone: 'b' },
   a6: { Component: A6Module, chip: 'A · stated', tone: 'a' },

@@ -75,6 +75,25 @@ export function Bullet({ label, now, target }: { label: string; now: number; tar
   );
 }
 
+/** A bipolar disposition slider (−1…+1). Neither pole is "better". On the dark section. */
+export function DispositionSlider({ low, high, position, faded }: { low: string; high: string; position: number; faded?: boolean }): JSX.Element {
+  const x = ((Math.max(-1, Math.min(1, position)) + 1) / 2) * 100; // −1..1 → 0..100
+  const lean = position < -0.05 ? 'low' : position > 0.05 ? 'high' : 'mid';
+  return (
+    <div className="grid grid-cols-[84px_1fr_84px] items-center gap-3">
+      <span className={`text-right text-[11px] ${lean === 'low' ? 'font-semibold text-slate-200' : 'text-slate-500'}`}>{low}</span>
+      <span className="relative h-[6px] rounded-full" style={{ background: 'rgba(255,255,255,.1)' }}>
+        <span className="absolute left-1/2 top-1/2 h-3 w-px -translate-x-1/2 -translate-y-1/2 bg-white/25" />
+        <span
+          className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-slate-900"
+          style={{ left: `${x}%`, background: faded ? '#64748b' : '#818CF8' }}
+        />
+      </span>
+      <span className={`text-[11px] ${lean === 'high' ? 'font-semibold text-slate-200' : 'text-slate-500'}`}>{high}</span>
+    </div>
+  );
+}
+
 const DIR_X: Record<string, number> = { impact: 0.84, commercial: 0.18, mixed: 0.5 };
 
 /** The direction-vs-market axis: pays · wish · now on one line. On the dark section. */

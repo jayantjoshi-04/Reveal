@@ -81,7 +81,7 @@ export const SESSIONS: readonly SessionDef[] = [
     sessionNo: 3,
     title: 'Pulls, aspiration & reflection',
     estMinutes: 18,
-    modules: ['b5', 'a7', 'b6', 'a6', 'portfolio_interpretive', 'resume'],
+    modules: ['b5', 'b7', 'a7', 'b6', 'a6', 'portfolio_interpretive', 'resume'],
   },
 ] as const;
 

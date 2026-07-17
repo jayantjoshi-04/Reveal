@@ -104,6 +104,22 @@ export const findingsSchema = z.object({
       reason: z.enum(['real_gap', 'claim_surprise', 'portfolio_gap', 'market_choice']),
     }),
   ),
+
+  // How you prefer to work — six bipolar tensions, read behaviourally. Signed
+  // −1…+1 (a position, never an amount — no pole is "better"). Optional so
+  // pre-dispositions derived rows still validate; the engine always sets it.
+  dispositions: z
+    .array(
+      z.object({
+        dimension: z.string(), // AR · ES · PA · RD · SB · DW
+        low_pole: z.string(),
+        high_pole: z.string(),
+        position: z.number().min(-1).max(1),
+        tier: z.enum(['well_motivated', 'thin']),
+      }),
+    )
+    .optional(),
+  dispositions_summary: z.string().optional(),
 });
 
 export type Findings = z.infer<typeof findingsSchema>;

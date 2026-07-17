@@ -91,6 +91,7 @@ suite('e2e · full capture → engine → approve → report (real DB)', () => {
       a4: { thrive: ['clear_purpose', 'see_who_it_helps', 'in_the_field'], wither: ['purely_commercial', 'only_money'] },
       b8: { disruptions: [{ response: 'reframe', recovery_ms: 1, generated_new: true }] },
       b5: { wish, actual, pays_best: pays, centroid_wish: cen(wish), centroid_actual: cen(actual), centroid_lucrative: cen(pays) },
+      b7: { allocation: { deepen_a_craft: 10, teach: 2 }, total: 12 }, // concentrated → Deep
       a7: { desired_levels: { field_research: 0.9, venture: 0.85, facilitation: 0.8, systems_service: 0.7, design_research: 0.6, framing: 0.5, ideation: 0.4, prototyping: 0.3, craft_execution: 0.3, visual_comm: 0.3, material_media: 0.2, functional_usability: 0.3 }, desired_skills_ranked: ['field_research', 'venture', 'facilitation', 'systems_service', 'design_research'], perceived_market_rank: [{ field: 'UI/UX', rank: 1 }], direction_market_stance: 'opposed' },
       b6: { images: [{ ref: 'i1', why: 'a' }, { ref: 'i2', why: 'b' }, { ref: 'i3', why: 'c' }], detected_thread: ['human-present', 'story-laden', 'historical'], confirmed: null },
       a6: { topics: ['community', 'children'], admired: [] },
@@ -127,6 +128,11 @@ suite('e2e · full capture → engine → approve → report (real DB)', () => {
     expect(report.status).toBe(200);
     expect(report.body.slots.differentiation_statement.length).toBeGreaterThan(0);
     expect(report.body.findings.capacities[0].name).toBe('empathy'); // recomputed server-side
+    // dispositions: six bipolar positions, read behaviourally (B3 · B7 · B8)
+    expect(report.body.findings.dispositions).toHaveLength(6);
+    expect(report.body.findings.dispositions.every((d: { position: number }) => d.position >= -1 && d.position <= 1)).toBe(true);
+    const dw = report.body.findings.dispositions.find((d: { dimension: string }) => d.dimension === 'DW');
+    expect(dw.position).toBeLessThan(0); // allocation concentrated in one pursuit → Deep
   }, 30_000);
 
   it('rejects admin sign-in with a wrong password', async () => {

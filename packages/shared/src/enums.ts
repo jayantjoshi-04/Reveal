@@ -102,6 +102,31 @@ export type ArtifactStyle = (typeof ARTIFACT_STYLES)[number];
 export const DISRUPTION_RESPONSES = ['abandon', 'adapt', 'reframe'] as const;
 export type DisruptionResponse = (typeof DISRUPTION_RESPONSES)[number];
 
+// ── Dispositions · 6 bipolar tensions · signed −1…+1 · no better pole ───────
+// Read behaviourally from B3 (AR/ES/SB), B7 (DW) and B8 (PA/RD).
+export const DISPOSITION_DIMS = [
+  { code: 'AR', low: 'Act', high: 'Reflect' },
+  { code: 'ES', low: 'Experiment', high: 'Study' },
+  { code: 'PA', low: 'Persist', high: 'Adapt' },
+  { code: 'RD', low: 'Reinvent', high: 'Discipline' },
+  { code: 'SB', low: 'Solo', high: 'Bring-in' },
+  { code: 'DW', low: 'Deep', high: 'Wide' },
+] as const;
+export type DispositionCode = (typeof DISPOSITION_DIMS)[number]['code'];
+
+// ── B7 unconstrained-year pursuits · months sum to 12 ───────────────────────
+export const B7_PURSUITS = [
+  'deepen_a_craft',
+  'learn_a_new_domain',
+  'work_with_a_community',
+  'build_a_venture',
+  'travel_and_absorb',
+  'teach',
+  'personal_work',
+  'study_research',
+] as const;
+export type B7Pursuit = (typeof B7_PURSUITS)[number];
+
 // ── Conditions · A4 thrive / wither checklists ─────────────────────────────
 export const THRIVE_CONDITIONS = [
   'clear_purpose',
@@ -147,6 +172,7 @@ export const MODULE_CODES = [
   'a4',
   'b8',
   'b5',
+  'b7',
   'a7',
   'b6',
   'a5',

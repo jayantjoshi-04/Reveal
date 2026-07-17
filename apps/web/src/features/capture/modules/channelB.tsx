@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { B4_CATEGORIES, DISRUPTION_RESPONSES, type Value } from '@reveal/shared';
+import { B4_CATEGORIES, B7_PURSUITS, DISRUPTION_RESPONSES, type Value } from '@reveal/shared';
 import { api } from '../../../lib/api.js';
 import type { ModuleProps } from '../types.js';
 import { Prompt, PrimaryBtn, Option, Options } from './ui.js';
@@ -266,6 +266,55 @@ export function B6Module({ onSubmit, busy }: ModuleProps): JSX.Element {
         }
       >
         {uploaded < 3 ? `Upload all 3 images (${uploaded}/3)` : 'Next'}
+      </PrimaryBtn>
+    </>
+  );
+}
+
+/** B7 · Unconstrained year — allocate 12 months across pursuits (feeds Deep⟷Wide). */
+const PURSUIT_LABEL: Record<string, string> = {
+  deepen_a_craft: 'Deepen a craft',
+  learn_a_new_domain: 'Learn a new domain',
+  work_with_a_community: 'Work with a community',
+  build_a_venture: 'Build a venture',
+  travel_and_absorb: 'Travel & absorb',
+  teach: 'Teach',
+  personal_work: 'Personal work',
+  study_research: 'Pure study / research',
+};
+export function B7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
+  const [alloc, setAlloc] = useState<Record<string, number>>(() => Object.fromEntries(B7_PURSUITS.map((p) => [p, 0])));
+  const total = Object.values(alloc).reduce((a, b) => a + b, 0);
+  const left = 12 - total;
+  const set = (p: string, v: number): void => setAlloc({ ...alloc, [p]: Math.max(0, v) });
+  return (
+    <>
+      <Prompt>One fully-funded year, no obligations. Spend it.</Prompt>
+      <p className="mb-3 text-sm text-slate-500">Allocate 12 months across what you’d pursue. Where the months pile up is the pull.</p>
+      <div className="mb-3 flex items-center justify-between font-mono text-[11px] uppercase tracking-wide text-slate-400">
+        <span>{total}/12 months</span>
+        <span>{left} left</span>
+      </div>
+      <div className="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+        <div className="h-full rounded-full bg-gradient-to-r from-accent to-violet-500 transition-[width] duration-300" style={{ width: `${(total / 12) * 100}%` }} />
+      </div>
+      <div className="mb-4 space-y-2">
+        {B7_PURSUITS.map((p) => (
+          <div key={p} className={`flex items-center justify-between rounded-xl border px-3.5 py-2.5 transition-colors ${alloc[p]! > 0 ? 'border-accent/40 bg-accent-soft/50' : 'border-slate-200'}`}>
+            <span className="text-sm text-slate-700">{PURSUIT_LABEL[p] ?? p}</span>
+            <div className="flex items-center gap-2.5">
+              <button type="button" onClick={() => set(p, alloc[p]! - 1)} disabled={alloc[p]! === 0} className="press flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition-colors hover:border-slate-300 disabled:opacity-30">−</button>
+              <span className="w-6 text-center font-mono text-sm text-slate-900">{alloc[p]}</span>
+              <button type="button" onClick={() => set(p, alloc[p]! + 1)} disabled={left <= 0} className="press flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition-colors hover:border-slate-300 disabled:opacity-30">+</button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <PrimaryBtn
+        disabled={busy || total !== 12}
+        onClick={() => onSubmit({ allocation: Object.fromEntries(Object.entries(alloc).filter(([, v]) => v > 0)), total: 12 })}
+      >
+        {total === 12 ? 'Next' : `Allocate all 12 months (${total}/12)`}
       </PrimaryBtn>
     </>
   );

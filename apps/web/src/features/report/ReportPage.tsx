@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import type { Findings, ReportSlots, TraitScore } from '@reveal/shared';
 import { api, ApiError } from '../../lib/api.js';
 import { TopBar } from '../../components/TopBar.js';
-import { Gauge, Bar, Bullet, MarketAxis, ProjectScatter, capColor } from './charts.js';
+import { Gauge, Bar, Bullet, MarketAxis, ProjectScatter, DispositionSlider, capColor } from './charts.js';
 
 function label(code: string): string {
   return code.replace(/_/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase());
@@ -188,6 +188,22 @@ function SectionHeading({ slots, findings }: { slots: ReportSlots; findings: Fin
           </div>
           <Prose dark>{slots.gap_line}</Prose>
         </DarkCard>
+
+        {findings.dispositions && findings.dispositions.length > 0 ? (
+          <DarkCard span2>
+            <CardTitle dark>How you work · six tensions</CardTitle>
+            <div className="mt-1 space-y-2.5">
+              {findings.dispositions.map((d) => (
+                <DispositionSlider key={d.dimension} low={d.low_pole} high={d.high_pole} position={d.position} faded={d.tier === 'thin'} />
+              ))}
+            </div>
+            <div className="mt-3 flex items-center gap-2 font-mono text-[9px] uppercase tracking-wide text-slate-500">
+              <span className="inline-block h-2 w-2 rounded-full bg-indigo-400" /> well-motivated
+              <span className="ml-2 inline-block h-2 w-2 rounded-full bg-slate-500" /> thinner signal
+            </div>
+            {findings.dispositions_summary ? <Prose dark>{findings.dispositions_summary}</Prose> : null}
+          </DarkCard>
+        ) : null}
 
         <DarkCard span2>
           <CardTitle dark>Which way are you leaning?</CardTitle>
