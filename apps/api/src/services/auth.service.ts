@@ -50,33 +50,57 @@ async function emailCode(to: string, name: string, code: string): Promise<boolea
   }
 }
 
-/** Create an unverified student and email the verification code. */
+/**
+ * Register a student and email the verification code. Idempotent for the common
+ * "signed up, missed the email, tried again" case: a re-signup with the same
+ * email — as long as that account is still UNVERIFIED — refreshes the details
+ * and re-issues a fresh code instead of erroring. A verified email, or a
+ * username owned by someone else, is a real conflict.
+ */
 export async function signup(
   input: SignupInput,
 ): Promise<{ student: Student; devVerificationCode?: string; emailSent: boolean }> {
-  const dupe = await db().query('SELECT 1 FROM student WHERE email = $1 OR username = $2', [input.email, input.username]);
-  if (dupe.rowCount) throw new Conflict('email or username already registered');
-
   const password_hash = await hashPassword(input.password);
   const code = makeCode();
-  const { rows } = await db().query<Student>(
-    `INSERT INTO student (name, email, username, password_hash, gender, dob, institution, domain_of_interest, cohort, verification_code, email_verified)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,false)
-     RETURNING student_id, name, email, cohort, created_at`,
-    [
-      input.name,
-      input.email,
-      input.username,
-      password_hash,
-      // Empty strings from optional form fields → NULL (a DATE column rejects "").
-      input.gender || null,
-      input.dob || null,
-      input.institution || null,
-      input.domain_of_interest || null,
-      input.cohort || null,
-      code,
-    ],
+
+  const byEmail = await db().query<{ email_verified: boolean }>(
+    'SELECT email_verified FROM student WHERE email = $1',
+    [input.email],
   );
+  const existing = byEmail.rows[0];
+  if (existing?.email_verified) throw new Conflict('That email is already registered — please sign in instead.');
+
+  // A username is only a conflict when a *different* account already holds it.
+  const userTaken = await db().query('SELECT 1 FROM student WHERE username = $1 AND email <> $2', [input.username, input.email]);
+  if (userTaken.rowCount) throw new Conflict('That username is taken — please choose another.');
+
+  const args = [
+    input.name,
+    input.username,
+    password_hash,
+    // Empty strings from optional form fields → NULL (a DATE column rejects "").
+    input.gender || null,
+    input.dob || null,
+    input.institution || null,
+    input.domain_of_interest || null,
+    input.cohort || null,
+    code,
+    input.email,
+  ];
+
+  const { rows } = existing
+    ? await db().query<Student>(
+        `UPDATE student SET name=$1, username=$2, password_hash=$3, gender=$4, dob=$5, institution=$6, domain_of_interest=$7, cohort=$8, verification_code=$9
+         WHERE email=$10 RETURNING student_id, name, email, cohort, created_at`,
+        args,
+      )
+    : await db().query<Student>(
+        `INSERT INTO student (name, username, password_hash, gender, dob, institution, domain_of_interest, cohort, verification_code, email, email_verified)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,false)
+         RETURNING student_id, name, email, cohort, created_at`,
+        args,
+      );
+
   const emailSent = await emailCode(input.email, input.name, code);
   // The code travels by email. In non-production we also return it so the local
   // dev flow can auto-fill without a mail provider; never in production.
