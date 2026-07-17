@@ -1,6 +1,6 @@
 # REVEAL API + database — Render Blueprint (Infrastructure as Code).
-# Render auto-detects this file at the REPO ROOT. In the dashboard:
-#   New  →  Blueprint  →  pick this repo  →  Render reads render.yaml.
+# This repo's Render Blueprint is configured to read this file at infra/render.yaml.
+# In the dashboard: Blueprints → Reveal → Manual sync (it reads this file).
 # It stands up the API service AND a free Postgres, and wires them together.
 services:
   - type: web

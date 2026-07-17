@@ -319,8 +319,9 @@ reveal/
 └── apps/web/           The React + Vite + Tailwind website the student uses.
     └── src/features/     landing, auth, survey capture, dashboard, report, admin
 
-Ready-made deploy configs sit at the repo root — `vercel.json` (website) and
-`render.yaml` (API + database). See the deployment plan.
+Ready-made deploy configs: `vercel.json` (website, at the repo root, where
+Vercel looks) and `infra/render.yaml` (API + database, where the Render
+Blueprint is wired to read it). See the deployment plan.
 ```
 
 The four-layer pipeline described above lives inside `apps/api/src`. The engine
