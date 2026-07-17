@@ -46,8 +46,10 @@ export function SessionShell({
         <span>{section}</span>
         <span>{pct < 100 ? 'in progress' : 'complete'}</span>
       </div>
-      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-card sm:p-9">
-        <div className="flex min-h-[360px] flex-col">{children}</div>
+      <div className="rounded-[26px] bg-gradient-to-br from-accent/20 via-violet-400/12 to-transparent p-px shadow-card">
+        <div className="rounded-[25px] bg-white p-6 sm:p-9">
+          <div className="flex min-h-[360px] flex-col">{children}</div>
+        </div>
       </div>
     </div>
   );

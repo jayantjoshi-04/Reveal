@@ -44,7 +44,9 @@ function Frame({ children }: { children: React.ReactNode }): JSX.Element {
     <div className="min-h-screen bg-slate-50">
       <TopBar doc="Design Signature" />
       <div className="mx-auto max-w-5xl px-4 py-8 sm:py-12">
-        <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-card">{children}</div>
+        <div className="rounded-[28px] bg-gradient-to-br from-accent/25 via-violet-400/15 to-transparent p-px shadow-lift">
+          <div className="overflow-hidden rounded-[27px] border border-slate-200/60 bg-white">{children}</div>
+        </div>
       </div>
     </div>
   );

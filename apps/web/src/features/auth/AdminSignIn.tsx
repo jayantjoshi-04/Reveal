@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthShell } from './AuthShell.js';
-import { Card, Button, Input, Field } from '../../components/ui.js';
+import { RingCard, Button, Input, Field } from '../../components/ui.js';
 import { api, ApiError } from '../../lib/api.js';
 import { useAuth } from '../../store/auth.js';
 
@@ -29,7 +29,7 @@ export function AdminSignIn(): JSX.Element {
 
   return (
     <AuthShell>
-      <Card className="p-7">
+      <RingCard innerClassName="p-7">
         <div className="mb-1 inline-flex items-center gap-2 rounded-full bg-slate-900 px-3 py-1 text-[11px] font-medium text-white">⚙ Admin</div>
         <h2 className="mt-3 font-serif text-2xl text-slate-900">Admin sign in</h2>
         <p className="mb-6 mt-1 text-sm text-slate-500">Access the instrument, reports, and student directory.</p>
@@ -42,7 +42,7 @@ export function AdminSignIn(): JSX.Element {
         <p className="mt-6 text-center text-[13px] text-slate-400">
           Not an admin? <Link to="/" className="font-medium text-accent hover:underline">Back to start</Link>
         </p>
-      </Card>
+      </RingCard>
     </AuthShell>
   );
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthShell } from './AuthShell.js';
-import { Card, Button, Input, Select, Field } from '../../components/ui.js';
+import { RingCard, Button, Input, Select, Field } from '../../components/ui.js';
 import { api, ApiError } from '../../lib/api.js';
 import { useAuth } from '../../store/auth.js';
 
@@ -52,7 +52,7 @@ export function SignUp(): JSX.Element {
 
   return (
     <AuthShell>
-      <Card className="p-7">
+      <RingCard innerClassName="p-7">
         {/* progress */}
         <div className="mb-6 flex items-center gap-2">
           {steps.map((s, i) => (
@@ -125,7 +125,7 @@ export function SignUp(): JSX.Element {
         <p className="mt-6 text-center text-[13px] text-slate-400">
           Already have an account? <Link to="/signin" className="font-medium text-accent hover:underline">Sign in</Link>
         </p>
-      </Card>
+      </RingCard>
     </AuthShell>
   );
 }

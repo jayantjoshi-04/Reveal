@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { AuthShell } from '../auth/AuthShell.js';
-import { Card } from '../../components/ui.js';
+import { Card, RingCard } from '../../components/ui.js';
 
 export function Welcome(): JSX.Element {
   const nav = useNavigate();
@@ -22,13 +22,9 @@ export function Welcome(): JSX.Element {
         </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-3">
-        {paths.map((p) => (
-          <button
-            key={p.to}
-            onClick={() => nav(p.to)}
-            className="press group text-left focus:outline-none"
-          >
-            <Card className={`h-full p-5 transition-all duration-200 hover:-translate-y-1 hover:shadow-lift ${p.primary ? 'ring-2 ring-accent/20' : ''}`}>
+        {paths.map((p) => {
+          const inner = (
+            <>
               <div className={`mb-4 flex h-10 w-10 items-center justify-center rounded-xl text-lg ${p.primary ? 'bg-accent text-white' : 'bg-slate-100 text-slate-500'}`}>
                 {p.icon}
               </div>
@@ -37,9 +33,18 @@ export function Welcome(): JSX.Element {
               <div className={`mt-4 text-sm font-medium ${p.primary ? 'text-accent' : 'text-slate-400'} transition-transform group-hover:translate-x-0.5`}>
                 Continue →
               </div>
-            </Card>
-          </button>
-        ))}
+            </>
+          );
+          return (
+            <button key={p.to} onClick={() => nav(p.to)} className="press group text-left transition-transform duration-200 hover:-translate-y-1 focus:outline-none">
+              {p.primary ? (
+                <RingCard className="h-full transition-shadow hover:shadow-lift" innerClassName="h-full p-5">{inner}</RingCard>
+              ) : (
+                <Card className="h-full p-5 transition-shadow hover:shadow-lift">{inner}</Card>
+              )}
+            </button>
+          );
+        })}
       </div>
     </AuthShell>
   );

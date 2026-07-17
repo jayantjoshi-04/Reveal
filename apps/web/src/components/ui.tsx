@@ -219,6 +219,16 @@ export function GlowCard({
   );
 }
 
+/** A light card wrapped in a subtle gradient ring — the modern-light accent
+ *  used across auth, the survey shell and the report hero. */
+export function RingCard({ className = '', innerClassName = '', children }: { className?: string; innerClassName?: string; children: ReactNode }): JSX.Element {
+  return (
+    <div className={`rounded-[26px] bg-gradient-to-br from-accent/25 via-violet-400/15 to-transparent p-px shadow-card ${className}`}>
+      <div className={`h-full rounded-[25px] bg-white ${innerClassName}`}>{children}</div>
+    </div>
+  );
+}
+
 /** Full-screen saving overlay. Blocks interaction (so double-clicks and
  *  accidental navigation can't fire) while a background save is in flight. */
 export function SavingOverlay({ show, label = 'Saving your progress…' }: { show: boolean; label?: string }): JSX.Element | null {
