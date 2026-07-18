@@ -129,6 +129,31 @@ export async function resendVerification(email: string): Promise<{ emailSent: bo
   return { emailSent };
 }
 
+/**
+ * Admin-provisioned student: created already verified with a chosen password,
+ * so the student can sign in immediately — no email verification needed. This
+ * is the pilot path that sidesteps email deliverability entirely.
+ */
+export async function createStudentByAdmin(input: {
+  name: string;
+  email: string;
+  username: string;
+  password: string;
+  domain_of_interest?: string;
+}): Promise<Student> {
+  const dupe = await db().query('SELECT 1 FROM student WHERE email = $1 OR username = $2', [input.email, input.username]);
+  if (dupe.rowCount) throw new Conflict('A student with that email or username already exists.');
+
+  const password_hash = await hashPassword(input.password);
+  const { rows } = await db().query<Student>(
+    `INSERT INTO student (name, email, username, password_hash, domain_of_interest, email_verified, account_status)
+     VALUES ($1,$2,$3,$4,$5,true,'active')
+     RETURNING student_id, name, email, cohort, created_at`,
+    [input.name, input.email, input.username, password_hash, input.domain_of_interest || null],
+  );
+  return rows[0]!;
+}
+
 export async function verifyEmail(email: string, code: string): Promise<void> {
   const { rows } = await db().query<{ verification_code: string | null; email_verified: boolean }>(
     'SELECT verification_code, email_verified FROM student WHERE email = $1',

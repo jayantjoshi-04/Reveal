@@ -1,7 +1,16 @@
+import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api } from '../../lib/api.js';
-import { Card, Skeleton, Badge } from '../../components/ui.js';
+import { api, ApiError } from '../../lib/api.js';
+import { Card, Skeleton, Badge, Button, Input, Field } from '../../components/ui.js';
 import { AdminPageHeader } from './AdminLayout.js';
+
+const genPassword = (): string => {
+  const words = ['delta', 'ember', 'cobalt', 'lumen', 'harbor', 'quartz', 'zephyr', 'atlas', 'onyx', 'vellum'];
+  const w = words[Math.floor(Math.random() * words.length)]!;
+  return `${w}-${Math.floor(1000 + Math.random() * 9000)}`;
+};
+
+const emptyForm = () => ({ name: '', email: '', username: '', password: genPassword(), domain_of_interest: '' });
 
 export function StudentDirectory(): JSX.Element {
   const qc = useQueryClient();
@@ -11,9 +20,97 @@ export function StudentDirectory(): JSX.Element {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['admin-students'] }),
   });
 
+  const [open, setOpen] = useState(false);
+  const [f, setF] = useState(emptyForm());
+  const [err, setErr] = useState<string | null>(null);
+  const [created, setCreated] = useState<{ username: string; password: string } | null>(null);
+  const set = (k: keyof typeof f) => (e: { target: { value: string } }) => setF({ ...f, [k]: e.target.value });
+
+  const create = useMutation({
+    mutationFn: () => api.adminCreateStudent(f),
+    onSuccess: () => {
+      setCreated({ username: f.username, password: f.password });
+      setErr(null);
+      setF(emptyForm());
+      qc.invalidateQueries({ queryKey: ['admin-students'] });
+    },
+    onError: (e) => setErr(e instanceof ApiError ? (e.issues?.join(' · ') ?? e.message) : 'Could not create student'),
+  });
+
+  const valid = f.name && /.+@.+\..+/.test(f.email) && f.username.length >= 3 && f.password.length >= 8;
+
   return (
     <div className="animate-fade-in">
-      <AdminPageHeader title="Students" sub="Master directory — accounts, metadata, and status." />
+      <AdminPageHeader
+        title="Students"
+        sub="Master directory — accounts, metadata, and status."
+        action={
+          <Button
+            variant="ghost"
+            onClick={() => {
+              setOpen((v) => !v);
+              setCreated(null);
+              setErr(null);
+            }}
+          >
+            {open ? 'Close' : '＋ Add student'}
+          </Button>
+        }
+      />
+
+      {open ? (
+        <Card className="mb-5 p-5">
+          <h3 className="mb-1 font-serif text-lg text-slate-900">Create a student account</h3>
+          <p className="mb-4 text-sm text-slate-500">
+            Pre-verified — the student signs in straight away with the username &amp; password below. No email needed.
+          </p>
+
+          {created ? (
+            <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+              <div className="mb-2 text-sm font-semibold text-emerald-800">✓ Account created — share these credentials</div>
+              <div className="grid gap-2 sm:grid-cols-2">
+                <div className="rounded-lg bg-white px-3 py-2 text-sm">
+                  <div className="text-[11px] uppercase tracking-wide text-slate-400">Username</div>
+                  <div className="font-mono font-semibold text-slate-900">{created.username}</div>
+                </div>
+                <div className="rounded-lg bg-white px-3 py-2 text-sm">
+                  <div className="text-[11px] uppercase tracking-wide text-slate-400">Password</div>
+                  <div className="font-mono font-semibold text-slate-900">{created.password}</div>
+                </div>
+              </div>
+              <button
+                className="mt-3 text-xs font-medium text-emerald-700 hover:underline"
+                onClick={() => navigator.clipboard?.writeText(`Username: ${created.username}\nPassword: ${created.password}`)}
+              >
+                Copy credentials
+              </button>
+            </div>
+          ) : null}
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Field label="Full name"><Input value={f.name} onChange={set('name')} placeholder="Aria Mehta" /></Field>
+            <Field label="Email"><Input type="email" value={f.email} onChange={set('email')} placeholder="aria@school.edu" /></Field>
+            <Field label="Username"><Input value={f.username} onChange={set('username')} placeholder="aria.mehta" /></Field>
+            <Field label="Password">
+              <div className="flex gap-2">
+                <Input value={f.password} onChange={set('password')} />
+                <button
+                  type="button"
+                  className="press shrink-0 rounded-xl border border-slate-200 px-3 text-xs font-medium text-slate-600 hover:border-slate-300"
+                  onClick={() => setF({ ...f, password: genPassword() })}
+                >
+                  Regenerate
+                </button>
+              </div>
+            </Field>
+          </div>
+          {err ? <p className="mt-3 text-sm text-rose-600">{err}</p> : null}
+          <div className="mt-4 flex gap-2">
+            <Button loading={create.isPending} disabled={!valid} onClick={() => create.mutate()}>Create student</Button>
+          </div>
+        </Card>
+      ) : null}
+
       <Card className="overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">

@@ -93,6 +93,8 @@ export const api = {
   approveReport: (id: string) => post(`/admin/reports/${id}/approve`) as Promise<{ generated: boolean; model: string }>,
   rejectReport: (id: string, reason?: string) => post(`/admin/reports/${id}/reject`, { reason }),
   adminStudents: () => request<StudentRow[]>('/admin/students'),
+  adminCreateStudent: (b: { name: string; email: string; username: string; password: string; domain_of_interest?: string }) =>
+    request<{ student: { student_id: string; name: string; email: string } }>('/admin/students', { method: 'POST', body: JSON.stringify(b) }),
   setStudentStatus: (id: string, status: 'active' | 'suspended') => request(`/admin/students/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) }),
 };
 

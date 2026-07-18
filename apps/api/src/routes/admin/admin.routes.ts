@@ -9,6 +9,7 @@ import { requireAdmin } from '../../middleware/auth.js';
 import * as instrument from '../../repositories/instrument.repo.js';
 import * as instanceRepo from '../../repositories/instance.repo.js';
 import * as reviewRepo from '../../repositories/review.repo.js';
+import * as auth from '../../services/auth.service.js';
 import { getDerived, getReportPayload } from '../../repositories/derived.repo.js';
 import { getInstance } from '../../repositories/instance.repo.js';
 import { generateReport } from '../../services/generation.service.js';
@@ -126,6 +127,22 @@ export async function adminRoutes(app: FastifyInstance): Promise<void> {
 
   // ── Student directory ─────────────────────────────────────────────────────
   app.get('/admin/students', async () => instanceRepo.listStudents());
+
+  // Provision a student directly (pre-verified) — the pilot path that needs no
+  // email verification. The admin hands the username + password to the student.
+  app.post('/admin/students', async (req, reply) => {
+    const body = z
+      .object({
+        name: z.string().min(1),
+        email: z.string().email(),
+        username: z.string().min(3),
+        password: z.string().min(8),
+        domain_of_interest: z.string().optional(),
+      })
+      .parse(req.body);
+    const student = await auth.createStudentByAdmin(body);
+    return reply.send({ student });
+  });
 
   app.patch('/admin/students/:id/status', async (req, reply) => {
     const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
