@@ -35,7 +35,15 @@ export function db(): pg.Pool {
     connectionString: env().DATABASE_URL,
     max: 10, // conservative for free-tier Postgres
     idleTimeoutMillis: 30_000,
+    keepAlive: true, // reduce idle-connection drops by cloud Postgres
     ssl: needsSsl() ? { rejectUnauthorized: false } : undefined,
+  });
+  // Cloud Postgres (Render/Neon/Supabase) drops idle connections. node-postgres
+  // surfaces that as an 'error' event on the pool; with no listener it becomes an
+  // unhandled error and CRASHES the process. Log it and let the pool recycle the
+  // dead client — the next query transparently opens a fresh one.
+  pool.on('error', (err) => {
+    console.error(`[db] idle client error (pool will recover): ${err.message}`);
   });
   return pool;
 }
