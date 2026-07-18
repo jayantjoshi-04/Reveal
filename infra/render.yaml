@@ -42,10 +42,13 @@ services:
         sync: false
       - key: SUPPORT_EMAIL
         sync: false
-      # Pick ONE transport. Resend (HTTPS) is easiest on Render:
+      # Pick ONE transport. HTTP transports (Resend / Brevo) use HTTPS and work
+      # even on hosts that block outbound SMTP ports — recommended on Render.
       - key: RESEND_API_KEY
         sync: false
-      # …or any SMTP provider instead (leave RESEND_API_KEY blank if you use these):
+      - key: BREVO_API_KEY
+        sync: false
+      # …or any SMTP provider (leave the HTTP keys blank if you use these):
       - key: SMTP_HOST
         sync: false
       - key: SMTP_PORT

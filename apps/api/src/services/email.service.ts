@@ -19,7 +19,14 @@ export interface Mail {
   text: string;
 }
 
-export type EmailProvider = 'resend' | 'smtp' | 'console';
+export type EmailProvider = 'resend' | 'brevo' | 'smtp' | 'console';
+
+/** Split `Name <addr@x.com>` (or a bare address) into name + email. */
+function parseFrom(from: string): { name: string; email: string } {
+  const m = /^\s*(.*?)\s*<\s*([^>]+)\s*>\s*$/.exec(from);
+  if (m) return { name: m[1]!.replace(/^"|"$/g, ''), email: m[2]! };
+  return { name: '', email: from.trim() };
+}
 
 function escapeHtml(s: string): string {
   return s
@@ -39,6 +46,22 @@ async function sendViaResend(mail: Mail): Promise<void> {
   if (!res.ok) throw new Error(`Resend ${res.status}: ${(await res.text()).slice(0, 300)}`);
 }
 
+async function sendViaBrevo(mail: Mail): Promise<void> {
+  const from = parseFrom(env().EMAIL_FROM);
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: { 'api-key': env().BREVO_API_KEY!, 'content-type': 'application/json', accept: 'application/json' },
+    body: JSON.stringify({
+      sender: { name: from.name || env().APP_NAME, email: from.email },
+      to: [{ email: mail.to }],
+      subject: mail.subject,
+      htmlContent: mail.html,
+      textContent: mail.text,
+    }),
+  });
+  if (!res.ok) throw new Error(`Brevo ${res.status}: ${(await res.text()).slice(0, 300)}`);
+}
+
 async function sendViaSmtp(mail: Mail): Promise<void> {
   const { default: nodemailer } = await import('nodemailer');
   const port = env().SMTP_PORT;
@@ -47,16 +70,28 @@ async function sendViaSmtp(mail: Mail): Promise<void> {
     port,
     secure: port === 465, // 465 = implicit TLS; 587/25 = STARTTLS
     auth: env().SMTP_USER ? { user: env().SMTP_USER, pass: env().SMTP_PASS } : undefined,
+    // Fail fast — some hosts block outbound SMTP ports; don't hang the request.
+    connectionTimeout: 8000,
+    greetingTimeout: 8000,
+    socketTimeout: 12000,
   });
   await transport.sendMail({ from: env().EMAIL_FROM, to: mail.to, subject: mail.subject, html: mail.html, text: mail.text });
 }
 
-/** Send an email via whichever transport is configured. Returns the one used. */
+/**
+ * Send an email via whichever transport is configured. HTTP transports (Resend,
+ * Brevo) are preferred because they use HTTPS (443) — reliable on hosts that
+ * block outbound SMTP ports. Returns the transport used.
+ */
 export async function sendMail(mail: Mail): Promise<EmailProvider> {
   const cfg = env();
   if (cfg.RESEND_API_KEY) {
     await sendViaResend(mail);
     return 'resend';
+  }
+  if (cfg.BREVO_API_KEY) {
+    await sendViaBrevo(mail);
+    return 'brevo';
   }
   if (cfg.SMTP_HOST) {
     await sendViaSmtp(mail);

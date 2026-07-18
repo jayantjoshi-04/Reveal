@@ -37,17 +37,20 @@ export interface SignupInput {
 }
 
 /**
- * Best-effort verification email. Never throws — a provider outage must not
- * break signup; the failure is logged and reflected in the returned flag.
+ * Best-effort verification email. Never throws and never blocks the request for
+ * long: a provider outage or a blocked SMTP port must not freeze signup. The
+ * send is capped at a few seconds; if it's slower it keeps running in the
+ * background and we optimistically report it as sent (the user can Resend).
  */
 async function emailCode(to: string, name: string, code: string): Promise<boolean> {
-  try {
-    const via = await sendVerificationEmail(to, name, code);
-    return via !== 'console';
-  } catch (err) {
-    console.error(`[auth] verification email to ${to} failed: ${(err as Error).message}`);
-    return false;
-  }
+  const send = sendVerificationEmail(to, name, code)
+    .then((via) => via !== 'console')
+    .catch((err) => {
+      console.error(`[auth] verification email to ${to} failed: ${(err as Error).message}`);
+      return false;
+    });
+  const timeout = new Promise<boolean>((res) => setTimeout(() => res(true), 6000));
+  return Promise.race([send, timeout]);
 }
 
 /**

@@ -37,9 +37,12 @@ const envSchema = z.object({
   EMAIL_FROM: z.string().default('REVEAL <onboarding@resend.dev>'),
   // Support/reply address shown in the email footer + terms.
   SUPPORT_EMAIL: z.string().default('support@reveal.app'),
-  // Transport A — Resend HTTP API (recommended on Render; works over HTTPS).
+  // Transport A — Resend HTTP API (over HTTPS).
   RESEND_API_KEY: z.string().optional(),
-  // Transport B — any SMTP provider (SendGrid, Brevo, Gmail, Mailgun, …).
+  // Transport B — Brevo HTTP API (over HTTPS; no domain needed, single sender).
+  BREVO_API_KEY: z.string().optional(),
+  // Transport C — any SMTP provider (SendGrid, Brevo, Gmail, Mailgun, …).
+  // Note: some hosts block outbound SMTP ports; prefer an HTTP transport there.
   SMTP_HOST: z.string().optional(),
   SMTP_PORT: z.coerce.number().default(587),
   SMTP_USER: z.string().optional(),
