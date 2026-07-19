@@ -12,7 +12,7 @@ export function AuthShell({ children, wide }: { children: ReactNode; wide?: bool
           <Link to="/" className="text-[13px] font-bold uppercase tracking-[0.28em] text-slate-900">
             Re<span className="text-gradient">veal</span>
           </Link>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-slate-400">Ingenium · dventurelabs</span>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-slate-400">Radikle</span>
         </header>
         <main className="flex flex-1 items-center justify-center py-6">
           <div className={`w-full animate-slide-up ${wide ? 'max-w-2xl' : 'max-w-md'}`}>{children}</div>

@@ -34,7 +34,7 @@ export function AdminSignIn(): JSX.Element {
         <h2 className="mt-3 font-serif text-2xl text-slate-900">Admin sign in</h2>
         <p className="mb-6 mt-1 text-sm text-slate-500">Access the instrument, reports, and student directory.</p>
         <div className="space-y-4">
-          <Field label="Username"><Input value={username} onChange={(e) => setU(e.target.value)} placeholder="jahaanvi" autoFocus onKeyDown={(e) => e.key === 'Enter' && submit()} /></Field>
+          <Field label="Username"><Input value={username} onChange={(e) => setU(e.target.value)} placeholder="your username" autoFocus onKeyDown={(e) => e.key === 'Enter' && submit()} /></Field>
           <Field label="Password"><Input type="password" value={password} onChange={(e) => setP(e.target.value)} placeholder="••••••••" onKeyDown={(e) => e.key === 'Enter' && submit()} /></Field>
           {err ? <p className="text-sm text-rose-600">{err}</p> : null}
           <Button className="w-full" loading={busy} disabled={!username || !password} onClick={submit}>Sign in</Button>

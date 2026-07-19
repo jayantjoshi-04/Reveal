@@ -5,9 +5,15 @@
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
+    /* Lavender canvas so the rubber-band/overscroll area blends with the mesh
+       instead of flashing white at the very top or bottom. */
+    background-color: #f3f2fb;
+    /* Kill the elastic overscroll that reveals a mismatched background. */
+    overscroll-behavior: none;
   }
   body {
-    @apply bg-slate-50 text-slate-900 font-sans;
+    @apply text-slate-900 font-sans;
+    background-color: #f3f2fb;
     font-size: 15px;
     line-height: 1.6;
   }
@@ -49,11 +55,14 @@
   }
   /* Soft ambient mesh backdrop. */
   .bg-mesh {
-    background-color: #f8fafc;
+    background-color: #f3f2fb;
     background-image:
-      radial-gradient(at 18% 12%, rgba(99, 102, 241, 0.14) 0px, transparent 55%),
-      radial-gradient(at 82% 8%, rgba(124, 58, 237, 0.1) 0px, transparent 50%),
-      radial-gradient(at 75% 88%, rgba(79, 70, 229, 0.1) 0px, transparent 55%);
+      /* top bloom spills down behind the (transparent) nav so there's no flat
+         strip above the hero — the tint reaches the very top of the page. */
+      radial-gradient(at 50% -8%, rgba(124, 58, 237, 0.13) 0px, transparent 55%),
+      radial-gradient(at 18% 10%, rgba(99, 102, 241, 0.16) 0px, transparent 55%),
+      radial-gradient(at 82% 6%, rgba(124, 58, 237, 0.12) 0px, transparent 50%),
+      radial-gradient(at 75% 86%, rgba(79, 70, 229, 0.1) 0px, transparent 55%);
   }
   .hover-lift {
     @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lift;

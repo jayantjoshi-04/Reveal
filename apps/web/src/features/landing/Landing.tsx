@@ -207,9 +207,9 @@ function Footer({ onSignIn, onAdmin, onStart }: { onSignIn: () => void; onAdmin:
           <div>
             <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">Contact</div>
             <ul className="mt-4 space-y-2 text-sm text-slate-400">
-              <li><a className="transition-colors hover:text-white" href="mailto:hello@reveal.design">hello@reveal.design</a></li>
-              <li>dventurelabs · Ingenium</li>
-              <li>Bengaluru, India</li>
+              <li><a className="transition-colors hover:text-white" href="mailto:service@radikle.org">service@radikle.org</a></li>
+              <li>Radikle</li>
+              <li>Mumbai, India</li>
             </ul>
           </div>
           <div>
@@ -222,7 +222,7 @@ function Footer({ onSignIn, onAdmin, onStart }: { onSignIn: () => void; onAdmin:
           </div>
         </div>
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-[12px] text-slate-500 sm:flex-row">
-          <div>© {new Date().getFullYear()} REVEAL · dventurelabs. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} REVEAL · Radikle. All rights reserved.</div>
           <div className="flex items-center gap-5">
             <a className="transition-colors hover:text-slate-300" href="#">Terms &amp; Conditions</a>
             <a className="transition-colors hover:text-slate-300" href="#">Privacy</a>

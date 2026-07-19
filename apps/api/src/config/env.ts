@@ -34,9 +34,9 @@ const envSchema = z.object({
   // "From" address. Must be a sender your provider is allowed to send as
   // (Resend: a verified domain, or onboarding@resend.dev in test; SMTP: your
   // verified single-sender). Format: `Name <address@example.com>`.
-  EMAIL_FROM: z.string().default('REVEAL <onboarding@resend.dev>'),
+  EMAIL_FROM: z.string().default('REVEAL <service@radikle.org>'),
   // Support/reply address shown in the email footer + terms.
-  SUPPORT_EMAIL: z.string().default('support@reveal.app'),
+  SUPPORT_EMAIL: z.string().default('service@radikle.org'),
   // Transport A — Resend HTTP API (over HTTPS).
   RESEND_API_KEY: z.string().optional(),
   // Transport B — Brevo HTTP API (over HTTPS; no domain needed, single sender).

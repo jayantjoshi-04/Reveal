@@ -84,7 +84,7 @@ export function SignUp(): JSX.Element {
         {step === 0 && (
           <div className="animate-fade-in space-y-4">
             <h2 className="font-serif text-2xl text-slate-900">Let’s start with you</h2>
-            <Field label="Full name"><Input value={f.name} onChange={set('name')} placeholder="Jaanhvi Hiremath" autoFocus /></Field>
+            <Field label="Full name"><Input value={f.name} onChange={set('name')} placeholder="John Doe" autoFocus /></Field>
             <div className="grid grid-cols-2 gap-3">
               <Field label="Gender">
                 <Select value={f.gender} onChange={set('gender')}>
@@ -119,7 +119,7 @@ export function SignUp(): JSX.Element {
           <div className="animate-fade-in space-y-4">
             <h2 className="font-serif text-2xl text-slate-900">Create your login</h2>
             <Field label="Email"><Input type="email" value={f.email} onChange={set('email')} placeholder="you@school.edu" /></Field>
-            <Field label="Username" hint="Letters, numbers, _ or . — at least 3 characters"><Input value={f.username} onChange={set('username')} placeholder="jaanhvi" /></Field>
+            <Field label="Username" hint="Letters, numbers, _ or . — at least 3 characters"><Input value={f.username} onChange={set('username')} placeholder="john.doe" /></Field>
             <Field label="Password" hint="At least 8 characters"><Input type="password" value={f.password} onChange={set('password')} placeholder="••••••••" /></Field>
             {err ? <p className="text-sm text-rose-600">{err}</p> : null}
             <div className="flex gap-3">

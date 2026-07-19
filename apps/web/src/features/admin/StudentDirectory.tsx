@@ -88,9 +88,9 @@ export function StudentDirectory(): JSX.Element {
           ) : null}
 
           <div className="grid gap-3 sm:grid-cols-2">
-            <Field label="Full name"><Input value={f.name} onChange={set('name')} placeholder="Aria Mehta" /></Field>
-            <Field label="Email"><Input type="email" value={f.email} onChange={set('email')} placeholder="aria@school.edu" /></Field>
-            <Field label="Username"><Input value={f.username} onChange={set('username')} placeholder="aria.mehta" /></Field>
+            <Field label="Full name"><Input value={f.name} onChange={set('name')} placeholder="John Doe" /></Field>
+            <Field label="Email"><Input type="email" value={f.email} onChange={set('email')} placeholder="john@school.edu" /></Field>
+            <Field label="Username"><Input value={f.username} onChange={set('username')} placeholder="john.doe" /></Field>
             <Field label="Password">
               <div className="flex gap-2">
                 <Input value={f.password} onChange={set('password')} />
