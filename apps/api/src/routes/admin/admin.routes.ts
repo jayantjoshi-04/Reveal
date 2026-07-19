@@ -24,6 +24,15 @@ async function liveVersion(): Promise<string> {
 export async function adminRoutes(app: FastifyInstance): Promise<void> {
   app.addHook('preHandler', requireAdmin);
 
+  // ── Account ───────────────────────────────────────────────────────────────
+  app.post('/admin/change-password', async (req, reply) => {
+    const { current_password, new_password } = z
+      .object({ current_password: z.string().min(1), new_password: z.string().min(8) })
+      .parse(req.body);
+    await auth.changeAdminPassword(req.user!.sub, current_password, new_password);
+    return reply.send({ ok: true });
+  });
+
   // ── Overview ──────────────────────────────────────────────────────────────
   app.get('/admin/overview', async () => {
     const versionId = await liveVersion();

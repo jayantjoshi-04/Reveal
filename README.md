@@ -59,11 +59,15 @@ call on facilitator approval.
 **Students** sign up (multi-step) → verify email → sign in. In dev, the verification code
 is returned by the signup call and auto-filled in the UI (no email provider needed).
 
-**Admins** (seeded, temp password `reveal@2026`): `jahaanvi`, `prashant`, `reva`, `jayant`.
+**Admins** are seeded (`jahaanvi`, `prashant`, `reva`, `jayant`) with a **temporary
+password printed by the seed script**. **Change it immediately** on first login via the
+admin portal (**Settings → Change password**) — never ship the default to production.
 Sign in at `/admin/signin`. The admin portal is the GUI over the database — questionnaire
-CRUD, report approval/rejection, and the student directory. The facilitator role is retired.
+CRUD, report approval/rejection, the student directory (including creating pre-verified
+student accounts), and account settings. The facilitator role is retired.
 
-All passwords are bcrypt-hashed; admin endpoints enforce role-based access control.
+All passwords are bcrypt-hashed; admin endpoints enforce role-based access control. Re-running
+the seed never resets an admin password that has already been changed.
 
 ## Tests
 

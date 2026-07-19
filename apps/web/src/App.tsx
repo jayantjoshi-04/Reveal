@@ -14,6 +14,7 @@ import { AdminOverview } from './features/admin/AdminOverview.js';
 import { QuestionManager } from './features/admin/QuestionManager.js';
 import { ReportManager } from './features/admin/ReportManager.js';
 import { StudentDirectory } from './features/admin/StudentDirectory.js';
+import { AdminSettings } from './features/admin/AdminSettings.js';
 
 function Protected({ allow, children }: { allow: Role[]; children: JSX.Element }): JSX.Element {
   const role = useAuth((s) => s.role);
@@ -40,6 +41,7 @@ export default function App(): JSX.Element {
         <Route path="questions" element={<QuestionManager />} />
         <Route path="reports" element={<ReportManager />} />
         <Route path="students" element={<StudentDirectory />} />
+        <Route path="settings" element={<AdminSettings />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

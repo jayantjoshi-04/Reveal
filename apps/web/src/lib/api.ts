@@ -96,6 +96,7 @@ export const api = {
   adminCreateStudent: (b: { name: string; email: string; username: string; password: string; domain_of_interest?: string }) =>
     request<{ student: { student_id: string; name: string; email: string } }>('/admin/students', { method: 'POST', body: JSON.stringify(b) }),
   setStudentStatus: (id: string, status: 'active' | 'suspended') => request(`/admin/students/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) }),
+  adminChangePassword: (current_password: string, new_password: string) => post('/admin/change-password', { current_password, new_password }),
 };
 
 export interface SignupBody {

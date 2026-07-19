@@ -83,17 +83,25 @@ async function seed(): Promise<void> {
     });
   }
 
-  // Seed the 4 named admins with a bcrypt-hashed temporary password.
+  // Seed the 4 named admins with a bcrypt-hashed temporary password. On
+  // conflict we DELIBERATELY do not touch password_hash — so re-running the
+  // seed never resets a password an admin has already rotated in the portal.
   const hash = await hashPassword('reveal@2026');
+  let fresh = 0;
   for (const a of ADMINS) {
-    await db().query(
+    const r = await db().query(
       `INSERT INTO staff (email, name, role, username, password_hash)
        VALUES ($1,$2,'admin',$3,$4)
-       ON CONFLICT (email) DO UPDATE SET name = EXCLUDED.name, username = EXCLUDED.username, password_hash = EXCLUDED.password_hash, role = 'admin'`,
+       ON CONFLICT (email) DO UPDATE SET name = EXCLUDED.name, username = EXCLUDED.username, role = 'admin'`,
       [a.email, a.name, a.username, hash],
     );
+    fresh += r.rowCount ?? 0;
   }
-  console.log(`✓ Seeded ${ADMINS.length} admins (${ADMINS.map((a) => a.username).join(', ')}) · temp password: reveal@2026`);
+  console.log(
+    `✓ Seeded ${ADMINS.length} admins (${ADMINS.map((a) => a.username).join(', ')}). ` +
+      `New accounts get temp password "reveal@2026" — change it in the admin portal on first login. ` +
+      `Existing admins keep their current password.`,
+  );
 }
 
 seed()

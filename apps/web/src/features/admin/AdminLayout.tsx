@@ -6,6 +6,7 @@ const NAV = [
   { to: '/admin/questions', label: 'Questionnaire', icon: '❔' },
   { to: '/admin/reports', label: 'Reports', icon: '▤' },
   { to: '/admin/students', label: 'Students', icon: '☺' },
+  { to: '/admin/settings', label: 'Settings', icon: '⚙' },
 ];
 
 export function AdminLayout(): JSX.Element {

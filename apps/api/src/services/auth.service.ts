@@ -187,3 +187,15 @@ export async function signinAdmin(username: string, password: string): Promise<S
   if (!a || !(await verifyPassword(password, a.password_hash))) throw new HttpError(401, 'invalid admin credentials');
   return a;
 }
+
+/** An admin rotates their own password after verifying the current one. */
+export async function changeAdminPassword(staffId: string, current: string, next: string): Promise<void> {
+  const { rows } = await db().query<{ password_hash: string | null }>(
+    "SELECT password_hash FROM staff WHERE staff_id = $1 AND role = 'admin'",
+    [staffId],
+  );
+  const a = rows[0];
+  if (!a) throw new HttpError(404, 'admin not found');
+  if (!(await verifyPassword(current, a.password_hash))) throw new BadRequest('current password is incorrect');
+  await db().query('UPDATE staff SET password_hash = $2 WHERE staff_id = $1', [staffId, await hashPassword(next)]);
+}
