@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import type { Findings, ReportSlots, TraitScore } from '@reveal/shared';
@@ -77,7 +78,7 @@ function Hero({ slots, findings }: { slots: ReportSlots; findings: Findings }): 
 
 function Vital({ k, v, s, flag }: { k: string; v: string; s: string; flag?: boolean }): JSX.Element {
   return (
-    <div className={`rounded-2xl border p-4 ${flag ? 'border-accent/30 bg-accent-soft' : 'border-slate-200 bg-white'}`}>
+    <div className={`rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card ${flag ? 'border-accent/30 bg-accent-soft' : 'border-slate-200 bg-white'}`}>
       <div className={`font-mono text-[10px] uppercase tracking-wide ${flag ? 'text-accent' : 'text-slate-400'}`}>{k}</div>
       <div className={`mt-2 font-serif text-xl ${flag ? 'text-accent-dark' : 'text-slate-900'}`}>{v}</div>
       <div className="mt-1 text-[11px] text-slate-500">{s}</div>
@@ -362,8 +363,39 @@ function SectionHead({ tab, tabClass, title, sub, dark }: { tab: string; tabClas
     </div>
   );
 }
+/** Scroll-reveal hook: fades/rises an element in the first time it enters view. */
+function useInView<T extends HTMLElement>(): [React.RefObject<T>, boolean] {
+  const ref = useRef<T>(null);
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e!.isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.12 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return [ref, shown];
+}
+
+/** Interactive report card: rises in on scroll, lifts + glows on hover. */
 function Card({ children, span2 }: { children: React.ReactNode; span2?: boolean }): JSX.Element {
-  return <div className={`flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-card ${span2 ? 'md:col-span-2' : ''}`}>{children}</div>;
+  const [ref, shown] = useInView<HTMLDivElement>();
+  return (
+    <div
+      ref={ref}
+      className={`group flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-card transition-all duration-500 ease-[cubic-bezier(.16,1,.3,1)] hover:-translate-y-1 hover:border-accent/30 hover:shadow-lift ${span2 ? 'md:col-span-2' : ''} ${shown ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}
+    >
+      {children}
+    </div>
+  );
 }
 function DarkCard({ children, span2 }: { children: React.ReactNode; span2?: boolean }): JSX.Element {
   return <div className={`flex flex-col rounded-2xl border border-slate-700 bg-slate-800/60 p-5 ${span2 ? 'md:col-span-2' : ''}`}>{children}</div>;
