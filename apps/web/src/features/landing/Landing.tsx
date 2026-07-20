@@ -142,9 +142,9 @@ function Founders(): JSX.Element {
   const people: Person[] = [
     // Tries each candidate in order, then falls back to initials — so either a
     // .jpg or .jpeg dropped in apps/web/public/founders/ just works.
-    { name: 'Jhaanvi Hiremath', role: 'Founder', initials: 'JH', photos: photoSet('jhaanvi') },
-    { name: 'Prashant Anolkar', role: 'Founder', initials: 'PA', photos: photoSet('prashant') },
-    { name: 'Reva', role: 'Founder', initials: 'R', photos: photoSet('reva') },
+    { name: 'Jaanhvi Hiremath', role: 'Founder', initials: 'JH', photos: photoSet('jaanhvi') },
+    { name: 'Prasad Anaokar', role: 'Founder', initials: 'PA', photos: photoSet('prasad') },
+    { name: 'Reva Surve', role: 'Founder', initials: 'RS', photos: photoSet('reva') },
   ];
   return (
     <section id="founders" className="px-6 py-20">
