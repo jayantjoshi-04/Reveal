@@ -1,76 +1,161 @@
-import { useState, type ReactNode } from 'react';
+import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Logo, LogoMark } from '../../components/Logo.js';
+import { Grain } from '../../components/Grain.js';
+import { useTheme } from '../../store/theme.js';
 
-/** Public marketing landing — light premium style, modern touches. Nav · hero ·
- *  about/vision · founders · footer. (Tutorial/how-it-works section removed.) */
+/** Public marketing landing — cinematic, minimalist, theme-aware.
+ *  Nav · hero · about · pricing · founders · footer. */
 export function Landing(): JSX.Element {
   const nav = useNavigate();
+  const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   return (
-    <div className="min-h-screen bg-mesh text-slate-900">
-      <Nav onContact={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} />
+    <div className="bg-mesh relative min-h-screen overflow-x-hidden text-slate-900 dark:text-slate-100">
+      <Grain />
+      <Nav onPricing={() => go('pricing')} onHelp={() => go('contact')} onSignIn={() => nav('/signin')} />
       <Hero onStart={() => nav('/signup')} onSignIn={() => nav('/signin')} />
       <About />
+      <Pricing onStart={() => nav('/signup')} />
       <Founders />
       <Footer onSignIn={() => nav('/signin')} onAdmin={() => nav('/admin/signin')} onStart={() => nav('/signup')} />
     </div>
   );
 }
 
-// ── Nav ──────────────────────────────────────────────────────────────────────
-function Nav({ onContact }: { onContact: () => void }): JSX.Element {
+// ── Scroll-reveal helper ─────────────────────────────────────────────────────
+function Rise({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }): JSX.Element {
+  const ref = useRef<HTMLDivElement>(null);
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e!.isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <header className="sticky top-0 z-40">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <span className="text-sm font-bold uppercase tracking-[0.3em] text-slate-900">Re<span className="text-accent">veal</span></span>
-        <button
-          onClick={onContact}
-          className="press rounded-xl bg-slate-900 px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-slate-800"
-        >
-          Contact
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ease-[cubic-bezier(.16,1,.3,1)] ${shown ? 'translate-y-0 opacity-100 blur-0' : 'translate-y-6 opacity-0 blur-[6px]'} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// ── Theme toggle ─────────────────────────────────────────────────────────────
+function ThemeToggle(): JSX.Element {
+  const { theme, toggle } = useTheme();
+  const dark = theme === 'dark';
+  return (
+    <button
+      onClick={toggle}
+      aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+      className="press grid h-9 w-9 place-items-center rounded-full border border-slate-200/80 bg-white/70 text-slate-600 transition-colors hover:text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-white"
+    >
+      {dark ? (
+        <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+          <circle cx="12" cy="12" r="4.2" /><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" />
+        </svg>
+      ) : (
+        <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 12.8A8.5 8.5 0 1111.2 3a6.5 6.5 0 009.8 9.8z" />
+        </svg>
+      )}
+    </button>
+  );
+}
+
+// ── Nav ──────────────────────────────────────────────────────────────────────
+function Nav({ onPricing, onHelp, onSignIn }: { onPricing: () => void; onHelp: () => void; onSignIn: () => void }): JSX.Element {
+  return (
+    <header className="sticky top-0 z-40 px-4 pt-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-2xl border border-white/60 bg-white/55 px-3.5 py-2.5 shadow-card backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.045]">
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="press">
+          <Logo markClass="h-6 w-6" wordClass="text-[18px]" />
         </button>
+        <nav className="hidden items-center gap-1 md:flex">
+          <NavItem onClick={onPricing}>Explore pricing</NavItem>
+          <NavItem onClick={onHelp}>Help &amp; Support</NavItem>
+        </nav>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            onClick={onSignIn}
+            className="press rounded-xl bg-slate-900 px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+          >
+            Sign in
+          </button>
+        </div>
       </div>
     </header>
+  );
+}
+
+function NavItem({ children, onClick }: { children: ReactNode; onClick: () => void }): JSX.Element {
+  return (
+    <button
+      onClick={onClick}
+      className="press rounded-lg px-3 py-2 text-[13px] font-medium text-slate-600 transition-colors hover:bg-slate-900/[0.04] hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
+    >
+      {children}
+    </button>
   );
 }
 
 // ── Hero ─────────────────────────────────────────────────────────────────────
 function Hero({ onStart, onSignIn }: { onStart: () => void; onSignIn: () => void }): JSX.Element {
   return (
-    <section className="relative overflow-hidden px-6 pb-24 pt-16 sm:pt-24">
-      <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 animate-blob rounded-full bg-accent/20 blur-3xl" />
-      <div className="pointer-events-none absolute -right-16 top-40 h-80 w-80 animate-blob rounded-full bg-violet-400/20 blur-3xl [animation-delay:4s]" />
+    <section className="relative overflow-hidden px-6 pb-24 pt-14 sm:pt-20">
+      {/* aurora blobs */}
+      <div className="pointer-events-none absolute -left-24 top-4 h-80 w-80 animate-aurora rounded-full bg-accent/25 blur-[90px] dark:bg-accent/40" />
+      <div className="pointer-events-none absolute right-[-6rem] top-28 h-96 w-96 animate-aurora rounded-full bg-fuchsia-400/20 blur-[100px] [animation-delay:5s] dark:bg-fuchsia-500/25" />
+      <div className="pointer-events-none absolute bottom-0 left-1/3 h-72 w-72 animate-aurora rounded-full bg-signature/20 blur-[90px] [animation-delay:9s] dark:bg-signature/20" />
+      {/* faint orbit vector */}
+      <OrbitVector className="pointer-events-none absolute left-1/2 top-1/2 h-[130%] w-[130%] -translate-x-1/2 -translate-y-1/2 text-accent/10 dark:text-white/[0.06]" />
+
       <div className="relative mx-auto max-w-4xl text-center">
-        <div className="animate-slide-up inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-accent backdrop-blur">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" /> Design diagnostic · for design students
+        <div className="animate-reveal-up inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/70 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-accent backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-indigo-300">
+          <LogoMark className="h-3.5 w-3.5" /> Design diagnostic · for design students
         </div>
-        <h1 className="animate-slide-up mt-6 font-serif text-5xl leading-[1.05] tracking-tight sm:text-6xl md:text-7xl" style={{ animationDelay: '80ms' }}>
+        <h1 className="animate-reveal-up mt-7 font-display text-5xl font-medium leading-[1.02] tracking-tight sm:text-6xl md:text-7xl" style={{ animationDelay: '90ms', letterSpacing: '-0.03em' }}>
           See the designer your
           <br />
-          <span className="text-gradient italic">work already shows.</span>
+          <span className="text-gradient-signature italic">work already shows.</span>
         </h1>
-        <p className="animate-slide-up mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-600" style={{ animationDelay: '160ms' }}>
+        <p className="animate-reveal-up mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-300" style={{ animationDelay: '180ms' }}>
           REVEAL reads how you design — from what you <em>do</em>, not just what you say — and returns a
           high-fidelity Design Signature: your strengths today, where you’re heading, and the steps that close the gap.
         </p>
-        <div className="animate-slide-up mt-9 flex flex-wrap items-center justify-center gap-3" style={{ animationDelay: '240ms' }}>
-          <button onClick={onStart} className="press rounded-2xl bg-accent px-7 py-3.5 text-[15px] font-semibold text-white shadow-lift transition-transform hover:scale-[1.02]">
-            Get started →
+        <div className="animate-reveal-up mt-9 flex flex-wrap items-center justify-center gap-3" style={{ animationDelay: '270ms' }}>
+          <button onClick={onStart} className="press group relative overflow-hidden rounded-2xl bg-accent px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow transition-transform hover:scale-[1.02]">
+            <span className="relative z-10">Get started →</span>
+            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
           </button>
-          <button onClick={onSignIn} className="press rounded-2xl border border-slate-300 bg-white/70 px-7 py-3.5 text-[15px] font-semibold text-slate-700 backdrop-blur transition-colors hover:border-slate-400">
+          <button onClick={onSignIn} className="press rounded-2xl border border-slate-300 bg-white/60 px-7 py-3.5 text-[15px] font-semibold text-slate-700 backdrop-blur transition-colors hover:border-slate-400 dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:border-white/30">
             Sign in
           </button>
         </div>
 
         {/* stat row */}
-        <div className="animate-slide-up mt-16 grid grid-cols-3 gap-4" style={{ animationDelay: '320ms' }}>
+        <div className="animate-reveal-up mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3" style={{ animationDelay: '360ms' }}>
           {[
             { k: '2 channels', s: 'what you say · what you do' },
             { k: '15 question sets', s: 'across Section A & B' },
             { k: 'Re-runnable', s: 'a snapshot, not a verdict' },
           ].map((m) => (
-            <div key={m.k} className="rounded-2xl border border-slate-200 bg-white/60 p-4 backdrop-blur">
-              <div className="font-serif text-xl text-slate-900 sm:text-2xl">{m.k}</div>
-              <div className="mt-1 text-[12px] text-slate-500">{m.s}</div>
+            <div key={m.k} className="hover-lift rounded-2xl border border-slate-200/70 bg-white/60 p-5 backdrop-blur dark:border-white/10 dark:bg-white/[0.04]">
+              <div className="font-display text-xl font-medium text-slate-900 dark:text-white sm:text-2xl">{m.k}</div>
+              <div className="mt-1 text-[12px] text-slate-500 dark:text-slate-400">{m.s}</div>
             </div>
           ))}
         </div>
@@ -79,86 +164,139 @@ function Hero({ onStart, onSignIn }: { onStart: () => void; onSignIn: () => void
   );
 }
 
-// ── About & Vision ───────────────────────────────────────────────────────────
-function About(): JSX.Element {
+// A faint concentric-orbit vector graphic (aperture rings) for depth.
+function OrbitVector({ className = '' }: { className?: string }): JSX.Element {
   return (
-    <section id="about" className="px-6 py-20">
-      <div className="mx-auto max-w-6xl">
-        <SectionLabel>About REVEAL</SectionLabel>
-        <h2 className="mt-3 max-w-3xl font-serif text-4xl leading-tight text-slate-900 sm:text-5xl">
-          A mirror for the designer you’re becoming.
-        </h2>
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          <InfoCard tone="light" eyebrow="Our mission" title="Recognition, not a test">
-            Design students already carry thick, formed instincts — REVEAL exists to reflect them back. It watches the
-            choices you make across a series of situations, then compares that with what you claim, so the picture is
-            read from evidence rather than self-report. Nothing is graded; there’s no cohort to beat. Everything compares
-            you to you.
-          </InfoCard>
-          <InfoCard tone="dark" eyebrow="Our vision" title="A loop you re-run for life">
-            One reading captures where you are today. The real value is the trajectory: do the things your Signature
-            suggests, come back in a few months, and watch the shape move. REVEAL is built to be re-run — a developmental
-            loop that grows with you, surfacing gaps as learnable steps and strengths as directions to lean into.
-          </InfoCard>
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {[
-            { i: '🧭', t: 'Two channels', d: 'Channel A reads what you state; Channel B reads what you reveal under gentle constraint. Surprises live in the gap between them.' },
-            { i: '📐', t: 'Deterministic core', d: 'Findings are computed by a transparent engine — every number traces back to a choice you made. No black box.' },
-            { i: '✦', t: 'Design Signature', d: 'A premium, visual report: capacities, values, roles, your reach & gap, and specific growth experiments.' },
-          ].map((c) => (
-            <div key={c.t} className="hover-lift rounded-2xl border border-slate-200 bg-white p-5 shadow-card">
-              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-xl">{c.i}</div>
-              <div className="text-[15px] font-semibold text-slate-900">{c.t}</div>
-              <div className="mt-1.5 text-[13px] leading-relaxed text-slate-500">{c.d}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <svg viewBox="0 0 600 600" className={className} fill="none" aria-hidden="true">
+      {[70, 130, 195, 265].map((r) => (
+        <circle key={r} cx="300" cy="300" r={r} stroke="currentColor" strokeWidth="1" />
+      ))}
+      <circle cx="300" cy="300" r="265" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 12" className="origin-center animate-aperture-spin [animation-duration:60s]" />
+      <circle cx="300" cy="35" r="4" fill="currentColor" />
+      <circle cx="565" cy="300" r="3" fill="currentColor" />
+    </svg>
   );
 }
 
-function InfoCard({ tone, eyebrow, title, children }: { tone: 'light' | 'dark'; eyebrow: string; title: string; children: ReactNode }): JSX.Element {
-  const dark = tone === 'dark';
+// ── About / Vision ───────────────────────────────────────────────────────────
+function SectionLabel({ children }: { children: ReactNode }): JSX.Element {
   return (
-    <div className={`hover-lift relative overflow-hidden rounded-3xl p-8 shadow-card ${dark ? 'bg-slate-900 text-slate-200' : 'border border-slate-200 bg-white'}`}>
-      {dark ? <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent/20 blur-3xl" /> : null}
-      <div className={`relative font-mono text-[11px] uppercase tracking-[0.2em] ${dark ? 'text-indigo-300' : 'text-accent'}`}>{eyebrow}</div>
-      <h3 className={`relative mt-2 font-serif text-2xl ${dark ? 'text-white' : 'text-slate-900'}`}>{title}</h3>
-      <p className={`relative mt-3 text-sm leading-relaxed ${dark ? 'text-slate-300' : 'text-slate-600'}`}>{children}</p>
+    <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-accent dark:text-indigo-300">
+      <span className="h-px w-8 bg-accent/50 dark:bg-indigo-300/40" />
+      {children}
     </div>
+  );
+}
+
+function About(): JSX.Element {
+  const cards = [
+    { t: 'What you say', d: 'Forced-choice scenarios surface your stated values, capacities, and the domains you gravitate toward.', k: 'Channel A' },
+    { t: 'What you do', d: 'Constrained tasks — budget cuts, timed attention, visual sorts — read your behaviour, not your intentions.', k: 'Channel B' },
+    { t: 'Your signature', d: 'A deterministic engine turns both into one high-fidelity picture — then it’s phrased into a report you can act on.', k: 'The output' },
+  ];
+  return (
+    <section className="px-6 py-24">
+      <div className="mx-auto max-w-6xl">
+        <Rise>
+          <SectionLabel>The idea</SectionLabel>
+          <h2 className="mt-4 max-w-3xl font-display text-4xl font-medium leading-tight tracking-tight text-slate-900 dark:text-white sm:text-5xl" style={{ letterSpacing: '-0.02em' }}>
+            Two channels, read together, reveal what a portfolio alone can’t.
+          </h2>
+        </Rise>
+        <div className="mt-14 grid gap-5 md:grid-cols-3">
+          {cards.map((c, i) => (
+            <Rise key={c.t} delay={i * 110}>
+              <div className="group hover-lift relative h-full overflow-hidden rounded-3xl border border-slate-200/70 bg-white/70 p-7 backdrop-blur dark:border-white/10 dark:bg-white/[0.035]">
+                <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-accent/10 blur-2xl transition-opacity group-hover:opacity-100 dark:bg-accent/20" />
+                <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-signature">{c.k}</div>
+                <div className="mt-4 font-display text-2xl font-medium text-slate-900 dark:text-white">{c.t}</div>
+                <p className="mt-3 text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">{c.d}</p>
+              </div>
+            </Rise>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Pricing ──────────────────────────────────────────────────────────────────
+function Pricing({ onStart }: { onStart: () => void }): JSX.Element {
+  const tiers = [
+    { name: 'Explorer', price: 'Free', note: 'during the pilot', features: ['One full Design Signature', 'All 15 question sets', 'Re-run anytime'], cta: 'Get started', highlight: false },
+    { name: 'Studio', price: 'Coming soon', note: 'for cohorts & studios', features: ['Everything in Explorer', 'Cohort dashboard', 'Facilitator review tools'], cta: 'Talk to us', highlight: true },
+    { name: 'Campus', price: 'Custom', note: 'for institutions', features: ['Everything in Studio', 'Bulk onboarding', 'Priority support'], cta: 'Talk to us', highlight: false },
+  ];
+  return (
+    <section id="pricing" className="px-6 py-24">
+      <div className="mx-auto max-w-6xl">
+        <Rise className="text-center">
+          <SectionLabel>
+            <span className="mx-auto flex items-center gap-3">Pricing</span>
+          </SectionLabel>
+          <h2 className="mt-4 font-display text-4xl font-medium tracking-tight text-slate-900 dark:text-white sm:text-5xl" style={{ letterSpacing: '-0.02em' }}>
+            Simple and honest.
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-slate-600 dark:text-slate-300">Free while we pilot. You only ever pay for what genuinely helps you grow.</p>
+        </Rise>
+        <div className="mt-14 grid gap-5 md:grid-cols-3">
+          {tiers.map((t, i) => (
+            <Rise key={t.name} delay={i * 110}>
+              <div className={`relative h-full rounded-3xl p-[1px] ${t.highlight ? 'glow-ring shadow-glow' : ''}`}>
+                <div className={`flex h-full flex-col rounded-3xl border p-7 backdrop-blur ${t.highlight ? 'border-transparent bg-white dark:bg-noir-card' : 'border-slate-200/70 bg-white/70 dark:border-white/10 dark:bg-white/[0.035]'}`}>
+                  {t.highlight ? <div className="mb-3 inline-flex w-fit rounded-full bg-accent-soft px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-accent-dark dark:bg-accent/15 dark:text-indigo-200">Most popular</div> : null}
+                  <div className="font-display text-2xl font-medium text-slate-900 dark:text-white">{t.name}</div>
+                  <div className="mt-3 flex items-baseline gap-2">
+                    <span className="font-display text-3xl font-medium text-slate-900 dark:text-white">{t.price}</span>
+                    <span className="text-[13px] text-slate-500 dark:text-slate-400">{t.note}</span>
+                  </div>
+                  <ul className="mt-6 flex-1 space-y-3 text-[14px] text-slate-600 dark:text-slate-300">
+                    {t.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2.5">
+                        <svg viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 shrink-0 text-accent dark:text-indigo-400" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 10.5l3.2 3.2L15 6" /></svg>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={onStart} className={`press mt-7 rounded-xl px-5 py-3 text-[14px] font-semibold transition-colors ${t.highlight ? 'bg-accent text-white hover:bg-accent-dark' : 'border border-slate-300 text-slate-700 hover:border-slate-400 dark:border-white/15 dark:text-slate-200 dark:hover:border-white/30'}`}>
+                    {t.cta}
+                  </button>
+                </div>
+              </div>
+            </Rise>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
 // ── Founders ─────────────────────────────────────────────────────────────────
 interface Person { name: string; role: string; initials: string; photos?: string[] }
-
-/** Candidate headshot URLs for a founder — any of these extensions in
- *  apps/web/public/founders/ is picked up; missing files fall back to initials. */
 const photoSet = (slug: string): string[] => [`/founders/${slug}.jpg`, `/founders/${slug}.jpeg`, `/founders/${slug}.png`];
 
 function Founders(): JSX.Element {
   const people: Person[] = [
-    // Tries each candidate in order, then falls back to initials — so either a
-    // .jpg or .jpeg dropped in apps/web/public/founders/ just works.
     { name: 'Jaanhvi Hiremath', role: 'Founder', initials: 'JH', photos: photoSet('jaanhvi') },
     { name: 'Prasad Anaokar', role: 'Founder', initials: 'PA', photos: photoSet('prasad') },
     { name: 'Reva Surve', role: 'Founder', initials: 'RS', photos: photoSet('reva') },
   ];
   return (
-    <section id="founders" className="px-6 py-20">
+    <section id="founders" className="px-6 py-24">
       <div className="mx-auto max-w-6xl">
-        <SectionLabel>The team</SectionLabel>
-        <h2 className="mt-3 font-serif text-4xl leading-tight text-slate-900 sm:text-5xl">Built by designers, for designers.</h2>
-        <div className="mt-12 grid gap-6 sm:grid-cols-3">
+        <Rise>
+          <SectionLabel>The team</SectionLabel>
+          <h2 className="mt-4 font-display text-4xl font-medium leading-tight tracking-tight text-slate-900 dark:text-white sm:text-5xl" style={{ letterSpacing: '-0.02em' }}>Built by designers, for designers.</h2>
+        </Rise>
+        <div className="mt-14 grid gap-6 sm:grid-cols-3">
           {people.map((p, i) => (
-            <div key={p.name} className="hover-lift animate-slide-up rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-card" style={{ animationDelay: `${i * 90}ms` }}>
-              <FounderAvatar person={p} />
-              <div className="mt-5 text-lg font-semibold text-slate-900">{p.name}</div>
-              <div className="mt-1 font-mono text-[11px] uppercase tracking-wider text-accent">{p.role}</div>
-              {!p.photos ? <div className="mt-3 text-[12px] text-slate-400">Headshot coming soon</div> : null}
-            </div>
+            <Rise key={p.name} delay={i * 100}>
+              <div className="hover-lift rounded-3xl border border-slate-200/70 bg-white/80 p-6 text-center shadow-card dark:border-white/10 dark:bg-white/[0.04]">
+                <FounderAvatar person={p} />
+                <div className="mt-5 text-lg font-semibold text-slate-900 dark:text-white">{p.name}</div>
+                <div className="mt-1 font-mono text-[11px] uppercase tracking-wider text-accent dark:text-indigo-300">{p.role}</div>
+              </div>
+            </Rise>
           ))}
         </div>
       </div>
@@ -167,22 +305,16 @@ function Founders(): JSX.Element {
 }
 
 function FounderAvatar({ person }: { person: Person }): JSX.Element {
-  // Walk the candidate photo URLs on error; when they're all exhausted, show initials.
   const [idx, setIdx] = useState(0);
   const candidates = person.photos ?? [];
   const src = idx < candidates.length ? candidates[idx] : null;
   return (
-    <div className="mx-auto h-28 w-28 rounded-full bg-gradient-to-br from-accent via-violet-400 to-fuchsia-400 p-[3px]">
+    <div className="mx-auto h-28 w-28 rounded-full bg-gradient-to-br from-accent via-violet-400 to-signature p-[3px]">
       {src ? (
-        <img
-          src={src}
-          alt={person.name}
-          onError={() => setIdx((i) => i + 1)}
-          className="h-full w-full rounded-full object-cover"
-        />
+        <img src={src} alt={person.name} onError={() => setIdx((i) => i + 1)} className="h-full w-full rounded-full object-cover" />
       ) : (
-        <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-          <span className="font-serif text-3xl text-accent-dark">{person.initials}</span>
+        <div className="flex h-full w-full items-center justify-center rounded-full bg-white dark:bg-noir-card">
+          <span className="font-display text-3xl text-accent-dark dark:text-indigo-300">{person.initials}</span>
         </div>
       )}
     </div>
@@ -192,20 +324,21 @@ function FounderAvatar({ person }: { person: Person }): JSX.Element {
 // ── Footer ───────────────────────────────────────────────────────────────────
 function Footer({ onSignIn, onAdmin, onStart }: { onSignIn: () => void; onAdmin: () => void; onStart: () => void }): JSX.Element {
   return (
-    <footer id="contact" className="bg-slate-950 px-6 pb-10 pt-16 text-slate-300">
-      <div className="mx-auto max-w-6xl">
+    <footer id="contact" className="relative overflow-hidden bg-noir px-6 pb-10 pt-20 text-slate-300">
+      <OrbitVector className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] text-white/[0.05]" />
+      <div className="relative mx-auto max-w-6xl">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <div className="text-sm font-bold uppercase tracking-[0.3em] text-white">Re<span className="text-accent">veal</span></div>
-            <p className="mt-3 max-w-xs text-sm leading-relaxed text-slate-400">
+            <Logo markClass="h-7 w-7" wordClass="text-[20px] !text-white" />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
               A hybrid design diagnostic that reads how you design and returns a high-fidelity Design Signature.
             </p>
-            <button onClick={onStart} className="press mt-5 rounded-xl bg-accent px-5 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-accent-dark">
+            <button onClick={onStart} className="press mt-6 rounded-xl bg-accent px-5 py-2.5 text-[13px] font-semibold text-white shadow-glow transition-colors hover:bg-accent-dark">
               Get started →
             </button>
           </div>
           <div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">Contact</div>
+            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">Help &amp; Support</div>
             <ul className="mt-4 space-y-2 text-sm text-slate-400">
               <li><a className="transition-colors hover:text-white" href="mailto:service@radikle.org">service@radikle.org</a></li>
               <li>Radikle</li>
@@ -221,7 +354,7 @@ function Footer({ onSignIn, onAdmin, onStart }: { onSignIn: () => void; onAdmin:
             </ul>
           </div>
         </div>
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-[12px] text-slate-500 sm:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-[12px] text-slate-500 sm:flex-row">
           <div>© {new Date().getFullYear()} REVEAL · Radikle. All rights reserved.</div>
           <div className="flex items-center gap-5">
             <a className="transition-colors hover:text-slate-300" href="#">Terms &amp; Conditions</a>
@@ -232,15 +365,5 @@ function Footer({ onSignIn, onAdmin, onStart }: { onSignIn: () => void; onAdmin:
         </div>
       </div>
     </footer>
-  );
-}
-
-// ── shared ───────────────────────────────────────────────────────────────────
-function SectionLabel({ children }: { children: ReactNode }): JSX.Element {
-  return (
-    <div className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-accent">
-      <span className="h-px w-6 bg-accent/50" />
-      {children}
-    </div>
   );
 }

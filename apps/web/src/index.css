@@ -17,6 +17,17 @@
     font-size: 15px;
     line-height: 1.6;
   }
+  /* ── Dark theme base (toggled by .dark on <html>) ──────────────────────── */
+  :root.dark {
+    background-color: #08080f;
+  }
+  :root.dark body {
+    background-color: #08080f;
+    color: #e5e7eb;
+  }
+  ::selection {
+    background: rgba(99, 102, 241, 0.25);
+  }
 }
 
 @layer utilities {
@@ -66,6 +77,34 @@
   }
   .hover-lift {
     @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lift;
+  }
+  /* ── Cinematic brand utilities ─────────────────────────────────────────── */
+  /* Film grain — put on a fixed, full-bleed, pointer-events-none overlay. */
+  .bg-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 140px 140px;
+  }
+  /* Indigo→violet→gold "revelation" clip-text. */
+  .text-gradient-signature {
+    background: linear-gradient(102deg, #4f46e5, #7c3aed 46%, #f0a934);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* The mesh flips to a deep noir field in dark mode. */
+  :root.dark .bg-mesh {
+    background-color: #08080f;
+    background-image:
+      radial-gradient(at 50% -8%, rgba(124, 58, 237, 0.28) 0px, transparent 55%),
+      radial-gradient(at 18% 10%, rgba(79, 70, 229, 0.22) 0px, transparent 55%),
+      radial-gradient(at 82% 6%, rgba(217, 70, 239, 0.16) 0px, transparent 50%),
+      radial-gradient(at 75% 90%, rgba(240, 169, 52, 0.1) 0px, transparent 55%);
+  }
+  /* Gradient hairline border via padding trick — use .glow-ring > .glow-inner. */
+  .glow-ring {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.6), rgba(217, 70, 239, 0.35) 55%, rgba(240, 169, 52, 0.5));
+    padding: 1px;
+    border-radius: inherit;
   }
   /* ── Dark "noir" theme + glowing gradient-border cards ──────────────────── */
   .bg-noir {
