@@ -17,9 +17,9 @@ export function SessionShell({
     chipTone === 'a'
       ? 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
       : chipTone === 'b'
-        ? 'bg-accent-soft text-accent-dark'
+        ? 'bg-accent-soft text-accent-dark dark:bg-accent/25 dark:text-accent-soft'
         : chipTone === 'sealed'
-          ? 'bg-emerald-50 text-emerald-700'
+          ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300'
           : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400';
 
   const section = chipTone === 'a' ? 'Section A · what you say' : chipTone === 'b' ? 'Section B · what you do' : chipTone === 'sealed' ? 'Session sealed' : 'Getting started';

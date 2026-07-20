@@ -6,7 +6,7 @@ import { Input, Field, Segmented, UploadField, type UploadedFile } from '../../.
 
 const chip = (on: boolean): string =>
   `press rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
-    on ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:border-slate-300'
+    on ? 'border-accent bg-accent-soft text-accent-dark dark:bg-accent/25 dark:text-white' : 'border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-white/25'
   }`;
 
 const CONDITION_LABEL: Record<ConditionTag, string> = {

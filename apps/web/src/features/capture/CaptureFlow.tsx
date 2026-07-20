@@ -63,9 +63,9 @@ export function CaptureFlow(): JSX.Element {
       <div className="flex flex-col items-center px-4 py-8 sm:py-12">
         <div className="w-full max-w-xl">
           {error ? (
-            <div className="mb-4 animate-fade-in rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-[13px] text-rose-700">
+            <div className="mb-4 animate-fade-in rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-[13px] text-rose-700 dark:border-rose-500/40 dark:bg-rose-500/10 dark:text-rose-300">
               <b>Couldn’t save.</b> {error}
-              <div className="mt-1 text-xs text-rose-500">Your selections are still here — just tap the button again.</div>
+              <div className="mt-1 text-xs text-rose-500 dark:text-rose-400">Your selections are still here — just tap the button again.</div>
             </div>
           ) : null}
         </div>
@@ -133,7 +133,7 @@ function SealScreen({ sessionNo, busy, onSeal }: { sessionNo: number; busy: bool
   return (
     <SessionShell progress={sessionNo / 3} chip="Sealed · locked" chipTone="sealed">
       <div className="flex flex-1 flex-col items-center justify-center gap-3 py-6 text-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-3xl">{last ? '✦' : '🔒'}</div>
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-3xl dark:bg-emerald-500/15">{last ? '✦' : '🔒'}</div>
         <div className="font-serif text-2xl text-slate-900 dark:text-white">{last ? 'All done — nicely done.' : `Session ${sessionNo} saved.`}</div>
         <div className="max-w-sm text-sm leading-relaxed text-slate-500 dark:text-slate-400">
           {last

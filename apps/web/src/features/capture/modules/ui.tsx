@@ -24,13 +24,13 @@ export function Option({
       onClick={onClick}
       className={`press flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition-all duration-200 ${
         selected
-          ? 'border-accent bg-accent-soft text-accent-dark shadow-sm'
-          : 'border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 hover:border-accent/50 hover:bg-slate-50'
+          ? 'border-accent bg-accent-soft text-accent-dark shadow-sm dark:bg-accent/25 dark:text-white'
+          : 'border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-200 hover:border-accent/50 hover:bg-slate-50 dark:hover:border-accent/50 dark:hover:bg-white/5'
       }`}
     >
       <span
         className={`flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full border transition-colors ${
-          selected ? 'border-accent bg-accent text-white' : 'border-slate-300'
+          selected ? 'border-accent bg-accent text-white' : 'border-slate-300 dark:border-white/25'
         }`}
       >
         {selected ? <span className="text-[9px] leading-none">✓</span> : null}

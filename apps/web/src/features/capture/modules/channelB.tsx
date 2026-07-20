@@ -25,7 +25,7 @@ export function B1Module({ onSubmit, busy }: ModuleProps): JSX.Element {
           <button
             key={v}
             onClick={() => toggle(v)}
-            className={`press rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${cut.includes(v) ? 'border-rose-300 bg-rose-50 text-rose-500 line-through' : 'border-accent text-accent hover:bg-accent-soft'}`}
+            className={`press rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${cut.includes(v) ? 'border-rose-300 bg-rose-50 text-rose-500 line-through dark:border-rose-500/40 dark:bg-rose-500/15 dark:text-rose-300' : 'border-accent text-accent hover:bg-accent-soft dark:hover:bg-accent/15'}`}
           >
             {label(v)}
           </button>
@@ -149,7 +149,7 @@ export function B4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Tap the 3 things that jump out. <span className="font-sans text-sm font-normal text-slate-400">8s</span></Prompt>
-      <div className="mb-4 flex h-28 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 dark:bg-white/5 text-center font-mono text-[11px] uppercase tracking-wide text-slate-400">
+      <div className="mb-4 flex h-28 items-center justify-center rounded-2xl border border-dashed border-slate-300 dark:border-white/15 bg-slate-50 dark:bg-white/5 text-center font-mono text-[11px] uppercase tracking-wide text-slate-400">
         ▦ SCENE {sceneIdx + 1} of {scenes.length} · {scene.stimulus_id}
       </div>
       <div className="mb-5 grid grid-cols-2 gap-2">
@@ -157,7 +157,7 @@ export function B4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
           <button
             key={cat}
             onClick={() => tap(cat)}
-            className={`press rounded-xl border px-3 py-2.5 text-xs font-medium transition-colors ${taps.includes(cat) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300'}`}
+            className={`press rounded-xl border px-3 py-2.5 text-xs font-medium transition-colors ${taps.includes(cat) ? 'border-accent bg-accent-soft text-accent-dark dark:bg-accent/25 dark:text-white' : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/25'}`}
           >
             {cat} {taps.filter((t) => t === cat).length > 0 ? `· ${taps.indexOf(cat) + 1}` : ''}
           </button>
@@ -218,7 +218,7 @@ export function B5Module({ onSubmit, busy }: ModuleProps): JSX.Element {
           <button
             key={a.seq}
             onClick={() => toggle(a.seq)}
-            className={`press rounded-xl border px-2.5 py-2 text-left text-[11px] leading-snug transition-colors ${picked.includes(a.seq) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300'}`}
+            className={`press rounded-xl border px-2.5 py-2 text-left text-[11px] leading-snug transition-colors ${picked.includes(a.seq) ? 'border-accent bg-accent-soft text-accent-dark dark:bg-accent/25 dark:text-white' : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/25'}`}
           >
             {a.title}
           </button>
@@ -244,7 +244,7 @@ export function B6Module({ onSubmit, busy }: ModuleProps): JSX.Element {
       <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">Not your own work. Upload each image, and add one line on why.</p>
       <div className="mb-4 space-y-3">
         {files.map((f, i) => (
-          <div key={i} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50/50 p-3">
+          <div key={i} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/[0.04] p-3">
             <UploadField
               label={`Image ${i + 1}`}
               hint="Required — tap to choose an image"
@@ -302,12 +302,12 @@ export function B7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
         <span>{total}/12 months</span>
         <span>{left} left</span>
       </div>
-      <div className="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+      <div className="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
         <div className="h-full rounded-full bg-gradient-to-r from-accent to-violet-500 transition-[width] duration-300" style={{ width: `${(total / 12) * 100}%` }} />
       </div>
       <div className="mb-4 space-y-2">
         {B7_PURSUITS.map((p) => (
-          <div key={p} className={`flex items-center justify-between rounded-xl border px-3.5 py-2.5 transition-colors ${alloc[p]! > 0 ? 'border-accent/40 bg-accent-soft/50' : 'border-slate-200 dark:border-white/10'}`}>
+          <div key={p} className={`flex items-center justify-between rounded-xl border px-3.5 py-2.5 transition-colors ${alloc[p]! > 0 ? 'border-accent/40 bg-accent-soft/50 dark:bg-accent/15' : 'border-slate-200 dark:border-white/10'}`}>
             <span className="text-sm text-slate-700 dark:text-slate-200">{PURSUIT_LABEL[p] ?? p}</span>
             <div className="flex items-center gap-2.5">
               <button type="button" onClick={() => set(p, alloc[p]! - 1)} disabled={alloc[p]! === 0} className="press flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 transition-colors hover:border-slate-300 disabled:opacity-30">−</button>
@@ -332,7 +332,7 @@ export function B8Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   const [t] = useState(Date.now());
   return (
     <>
-      <div className="mb-4 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-center font-mono text-[11px] uppercase tracking-wide text-amber-700">
+      <div className="mb-4 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-center font-mono text-[11px] uppercase tracking-wide text-amber-700 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-300">
         ⚡ THE BRIEF JUST CHANGED · your main approach is no longer allowed.
       </div>
       <Prompt>What do you do now?</Prompt>
