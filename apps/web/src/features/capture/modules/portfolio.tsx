@@ -71,7 +71,7 @@ export function PortfolioFactsModule({ onSubmit, busy }: ModuleProps): JSX.Eleme
       <p className="mb-5 text-sm text-slate-500 dark:text-slate-400">The facts, your role, and whether each leaned commercial or impact.</p>
       <div className="mb-4 space-y-5">
         {projects.map((p, i) => (
-          <div key={i} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50/50 p-4">
+          <div key={i} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/[0.04] p-4">
             <div className="mb-3 space-y-3">
               <Field label="Project title"><Input value={p.title} onChange={(e) => update(i, { title: e.target.value })} placeholder="ReVIVE" /></Field>
               <Field label="What it was"><Input value={p.domain} onChange={(e) => update(i, { domain: e.target.value })} placeholder="organ transport · health" /></Field>

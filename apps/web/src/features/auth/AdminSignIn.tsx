@@ -30,9 +30,9 @@ export function AdminSignIn(): JSX.Element {
   return (
     <AuthShell>
       <RingCard innerClassName="p-7">
-        <div className="mb-1 inline-flex items-center gap-2 rounded-full bg-slate-900 px-3 py-1 text-[11px] font-medium text-white">⚙ Admin</div>
-        <h2 className="mt-3 font-serif text-2xl text-slate-900">Admin sign in</h2>
-        <p className="mb-6 mt-1 text-sm text-slate-500">Access the instrument, reports, and student directory.</p>
+        <div className="mb-1 inline-flex items-center gap-2 rounded-full bg-slate-900 px-3 py-1 text-[11px] font-medium text-white dark:bg-white/10">⚙ Admin</div>
+        <h2 className="mt-3 font-serif text-2xl text-slate-900 dark:text-white">Admin sign in</h2>
+        <p className="mb-6 mt-1 text-sm text-slate-500 dark:text-slate-400">Access the instrument, reports, and student directory.</p>
         <div className="space-y-4">
           <Field label="Username"><Input value={username} onChange={(e) => setU(e.target.value)} placeholder="your username" autoFocus onKeyDown={(e) => e.key === 'Enter' && submit()} /></Field>
           <Field label="Password"><Input type="password" value={password} onChange={(e) => setP(e.target.value)} placeholder="••••••••" onKeyDown={(e) => e.key === 'Enter' && submit()} /></Field>

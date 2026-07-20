@@ -39,7 +39,7 @@ export function AdminLayout(): JSX.Element {
           </nav>
           <div className="border-t border-slate-100 dark:border-white/10 pt-4">
             <div className="px-3 text-[13px] font-medium text-slate-700 dark:text-slate-200">{name}</div>
-            <button className="mt-2 px-3 text-[13px] text-slate-400 hover:text-slate-700" onClick={() => { signOut(); nav('/'); }}>Sign out</button>
+            <button className="mt-2 px-3 text-[13px] text-slate-400 hover:text-slate-700 dark:hover:text-slate-200" onClick={() => { signOut(); nav('/'); }}>Sign out</button>
           </div>
         </aside>
 

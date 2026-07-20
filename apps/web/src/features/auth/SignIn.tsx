@@ -30,8 +30,8 @@ export function SignIn(): JSX.Element {
   return (
     <AuthShell>
       <RingCard innerClassName="p-7">
-        <h2 className="font-serif text-2xl text-slate-900">Welcome back</h2>
-        <p className="mb-6 mt-1 text-sm text-slate-500">Sign in to continue your Design Signature.</p>
+        <h2 className="font-serif text-2xl text-slate-900 dark:text-white">Welcome back</h2>
+        <p className="mb-6 mt-1 text-sm text-slate-500 dark:text-slate-400">Sign in to continue your Design Signature.</p>
         <div className="space-y-4">
           <Field label="Email or username"><Input value={identifier} onChange={(e) => setId(e.target.value)} placeholder="you@school.edu" autoFocus onKeyDown={(e) => e.key === 'Enter' && submit()} /></Field>
           <Field label="Password"><Input type="password" value={password} onChange={(e) => setPw(e.target.value)} placeholder="••••••••" onKeyDown={(e) => e.key === 'Enter' && submit()} /></Field>

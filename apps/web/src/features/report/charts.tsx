@@ -22,7 +22,7 @@ export function Gauge({ value, label, sub, color }: { value: number; label: stri
   return (
     <div className="flex-1 text-center" style={{ minWidth: 74 }}>
       <svg viewBox="0 0 90 90" className="mx-auto h-[84px] w-[84px]">
-        <circle cx="45" cy="45" r={r} fill="none" stroke="#e2e8f0" strokeWidth="9" />
+        <circle cx="45" cy="45" r={r} fill="none" className="stroke-slate-200 dark:stroke-white/10" strokeWidth="9" />
         <circle
           cx="45"
           cy="45"
@@ -34,12 +34,12 @@ export function Gauge({ value, label, sub, color }: { value: number; label: stri
           strokeDasharray={`${dash} ${circ}`}
           transform="rotate(-90 45 45)"
         />
-        <text x="45" y="51" textAnchor="middle" fontFamily="DM Mono, monospace" fontSize="17" fontWeight="500" fill="#0f172a">
+        <text x="45" y="51" textAnchor="middle" fontFamily="DM Mono, monospace" fontSize="17" fontWeight="500" className="fill-slate-900 dark:fill-white">
           {Math.round(value)}
         </text>
       </svg>
       <div className="mt-0.5 font-mono text-[9px] uppercase leading-tight text-slate-400">
-        <b className="block text-[9.5px] text-slate-900">{label}</b>
+        <b className="block text-[9.5px] text-slate-900 dark:text-white">{label}</b>
         {sub}
       </div>
     </div>
@@ -50,8 +50,8 @@ export function Gauge({ value, label, sub, color }: { value: number; label: stri
 export function Bar({ label, value, color = '#4F46E5', note }: { label: string; value: number; color?: string; note?: string }): JSX.Element {
   return (
     <div className="grid grid-cols-[96px_1fr_36px] items-center gap-2.5 text-xs">
-      <span className="text-slate-700">{label}</span>
-      <span className="h-[9px] overflow-hidden rounded-full bg-slate-200">
+      <span className="text-slate-700 dark:text-slate-200">{label}</span>
+      <span className="h-[9px] overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
         <span className="block h-full rounded-full" style={{ width: `${Math.round(value * 100)}%`, background: color }} />
       </span>
       <span className="text-right font-mono text-[10px] text-slate-400">{note ?? value.toFixed(2)}</span>
@@ -121,21 +121,21 @@ export function MarketAxis({ wish, actual, pays }: { wish: string; actual: strin
 export function ProjectScatter({ leadImpact, outlier }: { leadImpact: string[]; outlier: string | null }): JSX.Element {
   return (
     <svg viewBox="0 0 720 240" className="w-full">
-      <line x1="60" y1="125" x2="680" y2="125" stroke="#e2e8f0" strokeWidth="1.5" />
-      <line x1="370" y1="26" x2="370" y2="214" stroke="#e2e8f0" strokeWidth="1.5" />
+      <line x1="60" y1="125" x2="680" y2="125" className="stroke-slate-200 dark:stroke-white/10" strokeWidth="1.5" />
+      <line x1="370" y1="26" x2="370" y2="214" className="stroke-slate-200 dark:stroke-white/10" strokeWidth="1.5" />
       <text x="64" y="228" fill="#94a3b8" fontFamily="DM Mono, monospace" fontSize="10">← COMMERCIAL</text>
       <text x="676" y="228" fill="#94a3b8" fontFamily="DM Mono, monospace" fontSize="10" textAnchor="end">IMPACT →</text>
       <text x="378" y="36" fill="#94a3b8" fontFamily="DM Mono, monospace" fontSize="10">↑ YOU LEAD</text>
       {leadImpact.slice(0, 5).map((t, i) => (
         <g key={t}>
           <circle cx={520 + i * 28} cy={70 + i * 14} r={i === 0 ? 13 : 9} fill={i === 0 ? '#4F46E5' : '#94a3b8'} />
-          <text x={520 + i * 28} y={54 + i * 14} fill="#0f172a" fontFamily="DM Sans" fontSize="10" textAnchor="middle">{t}</text>
+          <text x={520 + i * 28} y={54 + i * 14} className="fill-slate-900 dark:fill-white" fontFamily="DM Sans" fontSize="10" textAnchor="middle">{t}</text>
         </g>
       ))}
       {outlier ? (
         <g>
           <circle cx="250" cy="120" r="8" fill="#94a3b8" />
-          <text x="250" y="106" fill="#475569" fontFamily="DM Sans" fontSize="10" textAnchor="middle">{outlier}</text>
+          <text x="250" y="106" className="fill-slate-600 dark:fill-slate-300" fontFamily="DM Sans" fontSize="10" textAnchor="middle">{outlier}</text>
         </g>
       ) : null}
     </svg>

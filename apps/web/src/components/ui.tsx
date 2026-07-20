@@ -160,17 +160,17 @@ export function UploadField({
         onClick={() => inputRef.current?.click()}
         className={`press flex w-full items-center gap-3 rounded-2xl border-2 border-dashed px-4 text-left transition-colors ${
           compact ? 'py-3' : 'py-6'
-        } ${done ? 'border-emerald-300 bg-emerald-50' : 'border-slate-300 bg-slate-50 hover:border-accent/50'}`}
+        } ${done ? 'border-emerald-300 bg-emerald-50 dark:border-emerald-500/40 dark:bg-emerald-500/10' : 'border-slate-300 bg-slate-50 hover:border-accent/50 dark:border-white/15 dark:bg-white/5'}`}
       >
         <span
           className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl text-lg ${
-            done ? 'bg-emerald-500 text-white' : 'bg-white text-slate-400 shadow-sm'
+            done ? 'bg-emerald-500 text-white' : 'bg-white text-slate-400 shadow-sm dark:bg-white/10 dark:shadow-none'
           }`}
         >
           {done ? '✓' : uploading ? <Spinner className="text-accent" /> : '⬆'}
         </span>
         <span className="min-w-0 flex-1">
-          <span className={`block truncate text-sm font-medium ${done ? 'text-emerald-700' : 'text-slate-700'}`}>
+          <span className={`block truncate text-sm font-medium ${done ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-700 dark:text-slate-200'}`}>
             {value ? value.name : label}
           </span>
           <span className={`block text-xs ${done ? 'text-emerald-600' : 'text-slate-400'}`}>

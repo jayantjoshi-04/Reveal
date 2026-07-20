@@ -99,7 +99,7 @@ function CaptureHeader({ session, busy }: { session: number; busy: boolean }): J
           <span className="rounded-full bg-slate-100 dark:bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">
             Session {session} of {SESSIONS.length}
           </span>
-          <button className="text-[13px] font-medium text-slate-400 hover:text-slate-700" onClick={() => nav('/dashboard')}>Exit</button>
+          <button className="text-[13px] font-medium text-slate-400 hover:text-slate-700 dark:hover:text-slate-200" onClick={() => nav('/dashboard')}>Exit</button>
         </div>
       </div>
     </header>

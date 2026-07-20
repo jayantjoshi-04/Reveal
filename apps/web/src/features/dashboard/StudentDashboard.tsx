@@ -105,7 +105,7 @@ function NavTab({ active, onClick, children }: { active: boolean; onClick: () =>
 }
 function MenuItem({ onClick, icon, title, sub, danger }: { onClick: () => void; icon: string; title: string; sub: string; danger?: boolean }): JSX.Element {
   return (
-    <button onClick={onClick} className="flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-slate-50">
+    <button onClick={onClick} className="flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-slate-50 dark:hover:bg-white/5">
       <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-white/10 text-sm">{icon}</span>
       <span>
         <span className={`block text-[13px] font-semibold ${danger ? 'text-rose-600' : 'text-slate-800 dark:text-slate-100'}`}>{title}</span>

@@ -130,7 +130,7 @@ export function StudentDirectory(): JSX.Element {
                 ))
               ) : data && data.length ? (
                 data.map((s) => (
-                  <tr key={s.student_id} className="border-b border-slate-50 transition-colors hover:bg-slate-50/60">
+                  <tr key={s.student_id} className="border-b border-slate-50 transition-colors hover:bg-slate-50/60 dark:border-white/5 dark:hover:bg-white/5">
                     <td className="px-5 py-3.5">
                       <div className="font-medium text-slate-900 dark:text-white">{s.name}</div>
                       <div className="text-xs text-slate-400">{s.email}{s.username ? ` · @${s.username}` : ''}</div>

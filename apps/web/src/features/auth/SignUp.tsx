@@ -75,7 +75,7 @@ export function SignUp(): JSX.Element {
         <div className="mb-6 flex items-center gap-2">
           {steps.map((s, i) => (
             <div key={s} className="flex flex-1 flex-col gap-1.5">
-              <div className={`h-1 rounded-full transition-colors duration-300 ${i <= step ? 'bg-accent' : 'bg-slate-200'}`} />
+              <div className={`h-1 rounded-full transition-colors duration-300 ${i <= step ? 'bg-accent' : 'bg-slate-200 dark:bg-white/10'}`} />
               <span className={`text-[10px] font-medium uppercase tracking-wide ${i === step ? 'text-accent' : 'text-slate-400'}`}>{s}</span>
             </div>
           ))}
@@ -83,7 +83,7 @@ export function SignUp(): JSX.Element {
 
         {step === 0 && (
           <div className="animate-fade-in space-y-4">
-            <h2 className="font-serif text-2xl text-slate-900">Let’s start with you</h2>
+            <h2 className="font-serif text-2xl text-slate-900 dark:text-white">Let’s start with you</h2>
             <Field label="Full name"><Input value={f.name} onChange={set('name')} placeholder="John Doe" autoFocus /></Field>
             <div className="grid grid-cols-2 gap-3">
               <Field label="Gender">
@@ -100,7 +100,7 @@ export function SignUp(): JSX.Element {
 
         {step === 1 && (
           <div className="animate-fade-in space-y-4">
-            <h2 className="font-serif text-2xl text-slate-900">Your background</h2>
+            <h2 className="font-serif text-2xl text-slate-900 dark:text-white">Your background</h2>
             <Field label="Institution studied"><Input value={f.institution} onChange={set('institution')} placeholder="National Institute of Design" /></Field>
             <Field label="Domain of interest">
               <Select value={f.domain_of_interest} onChange={set('domain_of_interest')}>
@@ -117,7 +117,7 @@ export function SignUp(): JSX.Element {
 
         {step === 2 && (
           <div className="animate-fade-in space-y-4">
-            <h2 className="font-serif text-2xl text-slate-900">Create your login</h2>
+            <h2 className="font-serif text-2xl text-slate-900 dark:text-white">Create your login</h2>
             <Field label="Email"><Input type="email" value={f.email} onChange={set('email')} placeholder="you@school.edu" /></Field>
             <Field label="Username" hint="Letters, numbers, _ or . — at least 3 characters"><Input value={f.username} onChange={set('username')} placeholder="john.doe" /></Field>
             <Field label="Password" hint="At least 8 characters"><Input type="password" value={f.password} onChange={set('password')} placeholder="••••••••" /></Field>
@@ -131,8 +131,8 @@ export function SignUp(): JSX.Element {
 
         {step === 3 && (
           <div className="animate-fade-in space-y-4">
-            <h2 className="font-serif text-2xl text-slate-900">Verify your email</h2>
-            <p className="text-sm text-slate-500">We sent a 6-digit code to <b className="text-slate-700">{f.email}</b>. Enter it to continue — check your spam folder if it isn’t there.</p>
+            <h2 className="font-serif text-2xl text-slate-900 dark:text-white">Verify your email</h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400">We sent a 6-digit code to <b className="text-slate-700 dark:text-slate-200">{f.email}</b>. Enter it to continue — check your spam folder if it isn’t there.</p>
             {devCode ? <p className="rounded-lg bg-accent-soft px-3 py-2 text-xs text-accent-dark">Dev mode — your code is <b>{devCode}</b> (auto-filled).</p> : null}
             {!emailSent && !devCode ? (
               <p className="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700">We couldn’t send the email just now. Tap <b>Resend code</b> below, or contact support if it keeps failing.</p>
@@ -145,7 +145,7 @@ export function SignUp(): JSX.Element {
               <button type="button" onClick={resend} disabled={resending} className="font-medium text-accent hover:underline disabled:opacity-50">
                 {resending ? 'Sending…' : 'Resend code'}
               </button>
-              {resendMsg ? <p className="mt-1 text-xs text-slate-500">{resendMsg}</p> : null}
+              {resendMsg ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{resendMsg}</p> : null}
             </div>
           </div>
         )}

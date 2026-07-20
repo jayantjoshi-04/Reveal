@@ -6,17 +6,17 @@ export function TopBar({ doc }: { doc?: string }): JSX.Element {
   const { name, role, signOut } = useAuth();
   const nav = useNavigate();
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/80 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-noir-2/70">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3.5">
         <div className="flex items-center gap-2.5">
           <LogoLink markClass="h-5 w-5" wordClass="text-[16px]" />
           {doc ? <span className="font-mono text-[11px] uppercase tracking-wide text-slate-400">· {doc}</span> : null}
         </div>
         <div className="flex items-center gap-4">
-          {name ? <span className="text-[13px] text-slate-500">{name}</span> : null}
+          {name ? <span className="text-[13px] text-slate-500 dark:text-slate-400">{name}</span> : null}
           {role ? (
             <button
-              className="text-[13px] font-medium text-slate-400 transition-colors hover:text-slate-700"
+              className="text-[13px] font-medium text-slate-400 transition-colors hover:text-slate-700 dark:hover:text-slate-200"
               onClick={() => {
                 signOut();
                 nav('/');

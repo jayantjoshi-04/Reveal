@@ -97,7 +97,7 @@ function QuestionCard({ item, onChange }: { item: AItem; onChange: () => void })
       />
       {dirty ? (
         <div className="mt-2 flex justify-end gap-2">
-          <button className="text-xs text-slate-400 hover:text-slate-700" onClick={() => setPrompt(item.prompt)}>Reset</button>
+          <button className="text-xs text-slate-400 hover:text-slate-700 dark:hover:text-slate-200" onClick={() => setPrompt(item.prompt)}>Reset</button>
           <Button variant="subtle" className="px-3 py-1.5 text-xs" loading={save.isPending} onClick={() => save.mutate()}>Save prompt</Button>
         </div>
       ) : null}

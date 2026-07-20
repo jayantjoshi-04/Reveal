@@ -28,6 +28,18 @@
   ::selection {
     background: rgba(99, 102, 241, 0.25);
   }
+  /* Chrome/Safari paint autofilled inputs with an opaque light fill that
+     ignores our background — override it so fields stay on-theme in dark mode. */
+  :root.dark input:-webkit-autofill,
+  :root.dark input:-webkit-autofill:hover,
+  :root.dark input:-webkit-autofill:focus,
+  :root.dark input:-webkit-autofill:active {
+    -webkit-text-fill-color: #ffffff;
+    caret-color: #ffffff;
+    -webkit-box-shadow: 0 0 0 1000px #14141f inset;
+    box-shadow: 0 0 0 1000px #14141f inset;
+    transition: background-color 9999s ease-in-out 0s;
+  }
 }
 
 @layer utilities {

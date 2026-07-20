@@ -30,7 +30,7 @@ export function Onboarding(): JSX.Element {
       <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/70 backdrop-blur dark:border-white/10 dark:bg-noir-2/70">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-3.5">
           <LogoLink markClass="h-5 w-5" wordClass="text-[16px]" />
-          <button className="text-[13px] font-medium text-slate-400 transition-colors hover:text-slate-700" onClick={() => nav('/dashboard')}>Back to dashboard</button>
+          <button className="text-[13px] font-medium text-slate-400 transition-colors hover:text-slate-700 dark:hover:text-slate-200" onClick={() => nav('/dashboard')}>Back to dashboard</button>
         </div>
       </header>
 

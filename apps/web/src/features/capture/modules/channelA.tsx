@@ -86,8 +86,8 @@ export function A3Module({ onSubmit, busy }: ModuleProps): JSX.Element {
           <div key={v} className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-noir-card px-4 py-2.5 text-sm text-slate-700 dark:text-slate-200 shadow-sm">
             <span><span className="mr-1 font-mono text-xs text-slate-400">{i + 1}</span> {label(v)}</span>
             <span className="flex gap-1">
-              <button className="press rounded-lg px-2 py-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-accent" onClick={() => move(i, -1)}>↑</button>
-              <button className="press rounded-lg px-2 py-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-accent" onClick={() => move(i, 1)}>↓</button>
+              <button className="press rounded-lg px-2 py-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-accent dark:hover:bg-white/10" onClick={() => move(i, -1)}>↑</button>
+              <button className="press rounded-lg px-2 py-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-accent dark:hover:bg-white/10" onClick={() => move(i, 1)}>↓</button>
             </span>
           </div>
         ))}
