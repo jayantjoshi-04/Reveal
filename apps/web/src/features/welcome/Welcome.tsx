@@ -13,10 +13,10 @@ export function Welcome(): JSX.Element {
     <AuthShell wide>
       <div className="mb-10 text-center">
         <div className="mb-4 font-mono text-[11px] uppercase tracking-[0.3em] text-accent">Reveal · Design Diagnostic</div>
-        <h1 className="font-serif text-4xl leading-tight text-slate-900 md:text-5xl">
+        <h1 className="font-serif text-4xl leading-tight text-slate-900 dark:text-white md:text-5xl">
           See the designer your <span className="italic text-accent">work already shows.</span>
         </h1>
-        <p className="mx-auto mt-4 max-w-lg text-[15px] leading-relaxed text-slate-500">
+        <p className="mx-auto mt-4 max-w-lg text-[15px] leading-relaxed text-slate-500 dark:text-slate-400">
           A hybrid assessment that reads how you design — from what you do, not just what you say — and returns a
           high-fidelity Design Signature.
         </p>
@@ -25,11 +25,11 @@ export function Welcome(): JSX.Element {
         {paths.map((p) => {
           const inner = (
             <>
-              <div className={`mb-4 flex h-10 w-10 items-center justify-center rounded-xl text-lg ${p.primary ? 'bg-accent text-white' : 'bg-slate-100 text-slate-500'}`}>
+              <div className={`mb-4 flex h-10 w-10 items-center justify-center rounded-xl text-lg ${p.primary ? 'bg-accent text-white' : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400'}`}>
                 {p.icon}
               </div>
-              <div className="text-[15px] font-semibold text-slate-900">{p.title}</div>
-              <div className="mt-1 text-[13px] leading-snug text-slate-500">{p.sub}</div>
+              <div className="text-[15px] font-semibold text-slate-900 dark:text-white">{p.title}</div>
+              <div className="mt-1 text-[13px] leading-snug text-slate-500 dark:text-slate-400">{p.sub}</div>
               <div className={`mt-4 text-sm font-medium ${p.primary ? 'text-accent' : 'text-slate-400'} transition-transform group-hover:translate-x-0.5`}>
                 Continue →
               </div>

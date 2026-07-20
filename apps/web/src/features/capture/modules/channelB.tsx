@@ -129,7 +129,7 @@ export function B4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   const [sceneIdx, setSceneIdx] = useState(0);
   const [taps, setTaps] = useState<string[]>([]);
   const [all, setAll] = useState<{ stimulus_id: string; marked: { category: string; order: number }[] }[]>([]);
-  if (!scenes || scenes.length === 0) return <p className="text-sm text-slate-500">Loading scenes…</p>;
+  if (!scenes || scenes.length === 0) return <p className="text-sm text-slate-500 dark:text-slate-400">Loading scenes…</p>;
   const scene = scenes[sceneIdx]!;
   const tap = (cat: string): void => {
     if (taps.length >= 3) return;
@@ -149,7 +149,7 @@ export function B4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Tap the 3 things that jump out. <span className="font-sans text-sm font-normal text-slate-400">8s</span></Prompt>
-      <div className="mb-4 flex h-28 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 text-center font-mono text-[11px] uppercase tracking-wide text-slate-400">
+      <div className="mb-4 flex h-28 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 dark:bg-white/5 text-center font-mono text-[11px] uppercase tracking-wide text-slate-400">
         ▦ SCENE {sceneIdx + 1} of {scenes.length} · {scene.stimulus_id}
       </div>
       <div className="mb-5 grid grid-cols-2 gap-2">
@@ -157,7 +157,7 @@ export function B4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
           <button
             key={cat}
             onClick={() => tap(cat)}
-            className={`press rounded-xl border px-3 py-2.5 text-xs font-medium transition-colors ${taps.includes(cat) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-600 hover:border-slate-300'}`}
+            className={`press rounded-xl border px-3 py-2.5 text-xs font-medium transition-colors ${taps.includes(cat) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300'}`}
           >
             {cat} {taps.filter((t) => t === cat).length > 0 ? `· ${taps.indexOf(cat) + 1}` : ''}
           </button>
@@ -180,7 +180,7 @@ export function B5Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   const [passIdx, setPassIdx] = useState(0);
   const [picked, setPicked] = useState<number[]>([]);
   const [results, setResults] = useState<Record<string, { imp: number; hum: number }[]>>({});
-  if (!artifacts) return <p className="text-sm text-slate-500">Loading the wall…</p>;
+  if (!artifacts) return <p className="text-sm text-slate-500 dark:text-slate-400">Loading the wall…</p>;
 
   const toggle = (seq: number): void =>
     setPicked(picked.includes(seq) ? picked.filter((x) => x !== seq) : picked.length < 8 ? [...picked, seq] : picked);
@@ -218,7 +218,7 @@ export function B5Module({ onSubmit, busy }: ModuleProps): JSX.Element {
           <button
             key={a.seq}
             onClick={() => toggle(a.seq)}
-            className={`press rounded-xl border px-2.5 py-2 text-left text-[11px] leading-snug transition-colors ${picked.includes(a.seq) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-600 hover:border-slate-300'}`}
+            className={`press rounded-xl border px-2.5 py-2 text-left text-[11px] leading-snug transition-colors ${picked.includes(a.seq) ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300'}`}
           >
             {a.title}
           </button>
@@ -241,10 +241,10 @@ export function B6Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Bring 3 things you can't stop looking at.</Prompt>
-      <p className="mb-4 text-sm text-slate-500">Not your own work. Upload each image, and add one line on why.</p>
+      <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">Not your own work. Upload each image, and add one line on why.</p>
       <div className="mb-4 space-y-3">
         {files.map((f, i) => (
-          <div key={i} className="rounded-2xl border border-slate-200 bg-slate-50/50 p-3">
+          <div key={i} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50/50 p-3">
             <UploadField
               label={`Image ${i + 1}`}
               hint="Required — tap to choose an image"
@@ -257,7 +257,7 @@ export function B6Module({ onSubmit, busy }: ModuleProps): JSX.Element {
               value={whys[i]}
               onChange={(e) => setWhys(whys.map((x, j) => (j === i ? e.target.value : x)))}
               placeholder="One line on why…"
-              className="mt-2.5 w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
+              className="mt-2.5 w-full rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-noir-card px-4 py-2.5 text-sm text-slate-900 dark:text-white shadow-sm transition-colors placeholder:text-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
             />
           </div>
         ))}
@@ -297,7 +297,7 @@ export function B7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>One fully-funded year, no obligations. Spend it.</Prompt>
-      <p className="mb-3 text-sm text-slate-500">Allocate 12 months across what you’d pursue. Where the months pile up is the pull.</p>
+      <p className="mb-3 text-sm text-slate-500 dark:text-slate-400">Allocate 12 months across what you’d pursue. Where the months pile up is the pull.</p>
       <div className="mb-3 flex items-center justify-between font-mono text-[11px] uppercase tracking-wide text-slate-400">
         <span>{total}/12 months</span>
         <span>{left} left</span>
@@ -307,12 +307,12 @@ export function B7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
       </div>
       <div className="mb-4 space-y-2">
         {B7_PURSUITS.map((p) => (
-          <div key={p} className={`flex items-center justify-between rounded-xl border px-3.5 py-2.5 transition-colors ${alloc[p]! > 0 ? 'border-accent/40 bg-accent-soft/50' : 'border-slate-200'}`}>
-            <span className="text-sm text-slate-700">{PURSUIT_LABEL[p] ?? p}</span>
+          <div key={p} className={`flex items-center justify-between rounded-xl border px-3.5 py-2.5 transition-colors ${alloc[p]! > 0 ? 'border-accent/40 bg-accent-soft/50' : 'border-slate-200 dark:border-white/10'}`}>
+            <span className="text-sm text-slate-700 dark:text-slate-200">{PURSUIT_LABEL[p] ?? p}</span>
             <div className="flex items-center gap-2.5">
-              <button type="button" onClick={() => set(p, alloc[p]! - 1)} disabled={alloc[p]! === 0} className="press flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition-colors hover:border-slate-300 disabled:opacity-30">−</button>
-              <span className="w-6 text-center font-mono text-sm text-slate-900">{alloc[p]}</span>
-              <button type="button" onClick={() => set(p, alloc[p]! + 1)} disabled={left <= 0} className="press flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition-colors hover:border-slate-300 disabled:opacity-30">+</button>
+              <button type="button" onClick={() => set(p, alloc[p]! - 1)} disabled={alloc[p]! === 0} className="press flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 transition-colors hover:border-slate-300 disabled:opacity-30">−</button>
+              <span className="w-6 text-center font-mono text-sm text-slate-900 dark:text-white">{alloc[p]}</span>
+              <button type="button" onClick={() => set(p, alloc[p]! + 1)} disabled={left <= 0} className="press flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 transition-colors hover:border-slate-300 disabled:opacity-30">+</button>
             </div>
           </div>
         ))}
@@ -381,20 +381,20 @@ export function B9Module({ onSubmit, busy }: ModuleProps): JSX.Element {
         <span className="text-sm">{sc.icon}</span> Scenario {idx + 1} of {total}
       </div>
       <Prompt>{sc.title}</Prompt>
-      <p className="mb-4 text-sm leading-relaxed text-slate-500">{sc.context}</p>
+      <p className="mb-4 text-sm leading-relaxed text-slate-500 dark:text-slate-400">{sc.context}</p>
 
       {phase === 'q1' ? (
         <>
-          <div className="mb-2.5 text-[13px] font-medium text-slate-700">{sc.q1_prompt}</div>
+          <div className="mb-2.5 text-[13px] font-medium text-slate-700 dark:text-slate-200">{sc.q1_prompt}</div>
           <Options>
             {sc.q1.map((o, i) => <Option key={i} onClick={() => chooseQ1(i)}>{o.text}</Option>)}
           </Options>
         </>
       ) : phase === 'why' ? (
         <>
-          <div className="mb-2 text-[13px] font-medium text-slate-700">In a line — why? <span className="font-normal text-slate-400">optional, comes back in your report</span></div>
+          <div className="mb-2 text-[13px] font-medium text-slate-700 dark:text-slate-200">In a line — why? <span className="font-normal text-slate-400">optional, comes back in your report</span></div>
           <textarea
-            className="mb-5 h-24 w-full resize-none rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
+            className="mb-5 h-24 w-full resize-none rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-noir-card px-4 py-3 text-sm text-slate-900 dark:text-white shadow-sm transition-colors placeholder:text-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
             value={why}
             onChange={(e) => setWhy(e.target.value)}
             placeholder="Because…"
@@ -403,7 +403,7 @@ export function B9Module({ onSubmit, busy }: ModuleProps): JSX.Element {
         </>
       ) : (
         <>
-          <div className="mb-2.5 text-[13px] font-medium text-slate-700">{sc.q2_prompt}</div>
+          <div className="mb-2.5 text-[13px] font-medium text-slate-700 dark:text-slate-200">{sc.q2_prompt}</div>
           <Options>
             {sc.q2.map((v, i) => <Option key={i} onClick={() => chooseQ2(i)}>{v.text}</Option>)}
           </Options>

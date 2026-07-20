@@ -25,18 +25,18 @@ export function AdminOverview(): JSX.Element {
             {isLoading ? (
               <Skeleton className="mt-2 h-8 w-12" />
             ) : (
-              <div className={`mt-1 font-serif text-3xl ${t.accent ? 'text-accent' : 'text-slate-900'}`}>{t.value ?? 0}</div>
+              <div className={`mt-1 font-serif text-3xl ${t.accent ? 'text-accent' : 'text-slate-900 dark:text-white'}`}>{t.value ?? 0}</div>
             )}
           </Card>
         ))}
       </div>
       <Card className="mt-6 p-6">
         <div className="font-mono text-[10px] uppercase tracking-widest text-slate-400">The admin console</div>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-500">
-          This portal is the GUI over the database. Use <b className="text-slate-700">Questionnaire</b> to add, edit, or
-          remove questions and their tags; <b className="text-slate-700">Reports</b> to approve or reject student
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+          This portal is the GUI over the database. Use <b className="text-slate-700 dark:text-slate-200">Questionnaire</b> to add, edit, or
+          remove questions and their tags; <b className="text-slate-700 dark:text-slate-200">Reports</b> to approve or reject student
           submissions (approval triggers the single report-generation pass); and{' '}
-          <b className="text-slate-700">Students</b> to manage accounts and statuses.
+          <b className="text-slate-700 dark:text-slate-200">Students</b> to manage accounts and statuses.
         </p>
       </Card>
     </div>

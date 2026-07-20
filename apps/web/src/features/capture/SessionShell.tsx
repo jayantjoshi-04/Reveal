@@ -15,12 +15,12 @@ export function SessionShell({
 }): JSX.Element {
   const chipClass =
     chipTone === 'a'
-      ? 'bg-slate-100 text-slate-600'
+      ? 'bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300'
       : chipTone === 'b'
         ? 'bg-accent-soft text-accent-dark'
         : chipTone === 'sealed'
           ? 'bg-emerald-50 text-emerald-700'
-          : 'bg-slate-100 text-slate-500';
+          : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400';
 
   const section = chipTone === 'a' ? 'Section A · what you say' : chipTone === 'b' ? 'Section B · what you do' : chipTone === 'sealed' ? 'Session sealed' : 'Getting started';
   const pct = Math.round(progress * 100);
@@ -34,7 +34,7 @@ export function SessionShell({
         <span className="font-mono text-[11px] tabular-nums text-slate-400">{pct}%</span>
       </div>
       {/* fluid, section-aware progress bar */}
-      <div className="mb-1.5 h-2.5 w-full overflow-hidden rounded-full bg-slate-200/80 shadow-inner">
+      <div className="mb-1.5 h-2.5 w-full overflow-hidden rounded-full bg-slate-200/80 shadow-inner dark:bg-white/10">
         <div
           className="relative h-full rounded-full bg-gradient-to-r from-accent to-violet-500 transition-[width] duration-700 ease-out"
           style={{ width: `${pct}%` }}
@@ -47,7 +47,7 @@ export function SessionShell({
         <span>{pct < 100 ? 'in progress' : 'complete'}</span>
       </div>
       <div className="rounded-[26px] bg-gradient-to-br from-accent/20 via-violet-400/12 to-transparent p-px shadow-card">
-        <div className="rounded-[25px] bg-white p-6 sm:p-9">
+        <div className="rounded-[25px] bg-white dark:bg-noir-card p-6 sm:p-9">
           <div className="flex min-h-[360px] flex-col">{children}</div>
         </div>
       </div>

@@ -60,8 +60,8 @@ export function StudentDirectory(): JSX.Element {
 
       {open ? (
         <Card className="mb-5 p-5">
-          <h3 className="mb-1 font-serif text-lg text-slate-900">Create a student account</h3>
-          <p className="mb-4 text-sm text-slate-500">
+          <h3 className="mb-1 font-serif text-lg text-slate-900 dark:text-white">Create a student account</h3>
+          <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">
             Pre-verified — the student signs in straight away with the username &amp; password below. No email needed.
           </p>
 
@@ -69,13 +69,13 @@ export function StudentDirectory(): JSX.Element {
             <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
               <div className="mb-2 text-sm font-semibold text-emerald-800">✓ Account created — share these credentials</div>
               <div className="grid gap-2 sm:grid-cols-2">
-                <div className="rounded-lg bg-white px-3 py-2 text-sm">
+                <div className="rounded-lg bg-white dark:bg-noir-card px-3 py-2 text-sm">
                   <div className="text-[11px] uppercase tracking-wide text-slate-400">Username</div>
-                  <div className="font-mono font-semibold text-slate-900">{created.username}</div>
+                  <div className="font-mono font-semibold text-slate-900 dark:text-white">{created.username}</div>
                 </div>
-                <div className="rounded-lg bg-white px-3 py-2 text-sm">
+                <div className="rounded-lg bg-white dark:bg-noir-card px-3 py-2 text-sm">
                   <div className="text-[11px] uppercase tracking-wide text-slate-400">Password</div>
-                  <div className="font-mono font-semibold text-slate-900">{created.password}</div>
+                  <div className="font-mono font-semibold text-slate-900 dark:text-white">{created.password}</div>
                 </div>
               </div>
               <button
@@ -96,7 +96,7 @@ export function StudentDirectory(): JSX.Element {
                 <Input value={f.password} onChange={set('password')} />
                 <button
                   type="button"
-                  className="press shrink-0 rounded-xl border border-slate-200 px-3 text-xs font-medium text-slate-600 hover:border-slate-300"
+                  className="press shrink-0 rounded-xl border border-slate-200 dark:border-white/10 px-3 text-xs font-medium text-slate-600 dark:text-slate-300 hover:border-slate-300"
                   onClick={() => setF({ ...f, password: genPassword() })}
                 >
                   Regenerate
@@ -115,7 +115,7 @@ export function StudentDirectory(): JSX.Element {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-100 text-left font-mono text-[10px] uppercase tracking-widest text-slate-400">
+              <tr className="border-b border-slate-100 dark:border-white/10 text-left font-mono text-[10px] uppercase tracking-widest text-slate-400">
                 <th className="px-5 py-3">Student</th>
                 <th className="px-5 py-3">Domain</th>
                 <th className="px-5 py-3">Progress</th>
@@ -132,10 +132,10 @@ export function StudentDirectory(): JSX.Element {
                 data.map((s) => (
                   <tr key={s.student_id} className="border-b border-slate-50 transition-colors hover:bg-slate-50/60">
                     <td className="px-5 py-3.5">
-                      <div className="font-medium text-slate-900">{s.name}</div>
+                      <div className="font-medium text-slate-900 dark:text-white">{s.name}</div>
                       <div className="text-xs text-slate-400">{s.email}{s.username ? ` · @${s.username}` : ''}</div>
                     </td>
-                    <td className="px-5 py-3.5 text-slate-600">{s.domain_of_interest ?? '—'}</td>
+                    <td className="px-5 py-3.5 text-slate-600 dark:text-slate-300">{s.domain_of_interest ?? '—'}</td>
                     <td className="px-5 py-3.5">
                       <Badge tone={s.latest_status === 'released' ? 'green' : s.latest_status === 'capture_complete' ? 'amber' : 'slate'}>
                         {s.latest_status ? s.latest_status.replace(/_/g, ' ') : 'not started'}
@@ -147,7 +147,7 @@ export function StudentDirectory(): JSX.Element {
                     </td>
                     <td className="px-5 py-3.5 text-right">
                       <button
-                        className="text-xs font-medium text-slate-500 hover:text-slate-900"
+                        className="text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900"
                         onClick={() => setStatus.mutate({ id: s.student_id, status: s.account_status === 'active' ? 'suspended' : 'active' })}
                       >
                         {s.account_status === 'active' ? 'Suspend' : 'Reactivate'}

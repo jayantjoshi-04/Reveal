@@ -57,7 +57,7 @@ export function CaptureFlow(): JSX.Element {
   const activeSession = state?.active_session ?? 1;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-white/5">
       <SavingOverlay show={busy} />
       <CaptureHeader session={activeSession} busy={busy} />
       <div className="flex flex-col items-center px-4 py-8 sm:py-12">
@@ -91,12 +91,12 @@ export function CaptureFlow(): JSX.Element {
 function CaptureHeader({ session, busy }: { session: number; busy: boolean }): JSX.Element {
   const nav = useNavigate();
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/80 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-slate-200 dark:border-white/10 bg-white/80 backdrop-blur dark:bg-noir-2/70">
       <div className="mx-auto flex max-w-xl items-center justify-between px-4 py-3.5">
         <LogoLink markClass="h-5 w-5" wordClass="text-[16px]" />
         <div className="flex items-center gap-3">
           {busy ? <span className="font-mono text-[10px] uppercase tracking-wide text-slate-400">Saving…</span> : null}
-          <span className="rounded-full bg-slate-100 px-3 py-1 font-mono text-[10px] uppercase tracking-wide text-slate-500">
+          <span className="rounded-full bg-slate-100 dark:bg-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-wide text-slate-500 dark:text-slate-400">
             Session {session} of {SESSIONS.length}
           </span>
           <button className="text-[13px] font-medium text-slate-400 hover:text-slate-700" onClick={() => nav('/dashboard')}>Exit</button>
@@ -116,7 +116,7 @@ function ModuleView({
   onSubmit: (p: unknown, ms?: number) => void;
 }): JSX.Element {
   const meta = MODULE_REGISTRY[cursor];
-  if (!meta) return <p className="text-sm text-slate-500">Unknown module: {cursor}</p>;
+  if (!meta) return <p className="text-sm text-slate-500 dark:text-slate-400">Unknown module: {cursor}</p>;
   // Fraction of modules already completed — the current (unanswered) module
   // doesn't count, so the very first screen starts at 0% and it fills as you go.
   const progress = CAPTURE_SEQUENCE.indexOf(cursor as never) / CAPTURE_SEQUENCE.length;
@@ -134,8 +134,8 @@ function SealScreen({ sessionNo, busy, onSeal }: { sessionNo: number; busy: bool
     <SessionShell progress={sessionNo / 3} chip="Sealed · locked" chipTone="sealed">
       <div className="flex flex-1 flex-col items-center justify-center gap-3 py-6 text-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 text-3xl">{last ? '✦' : '🔒'}</div>
-        <div className="font-serif text-2xl text-slate-900">{last ? 'All done — nicely done.' : `Session ${sessionNo} saved.`}</div>
-        <div className="max-w-sm text-sm leading-relaxed text-slate-500">
+        <div className="font-serif text-2xl text-slate-900 dark:text-white">{last ? 'All done — nicely done.' : `Session ${sessionNo} saved.`}</div>
+        <div className="max-w-sm text-sm leading-relaxed text-slate-500 dark:text-slate-400">
           {last
             ? 'Your responses go to an admin for a quick quality check. Your dashboard will update the moment your Design Signature is ready.'
             : `${SESSION_TITLES[sessionNo]} is locked in. You’ll pick up exactly where you left off, with nothing to redo.`}

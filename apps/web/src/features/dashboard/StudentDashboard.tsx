@@ -68,7 +68,7 @@ function DashboardNav({ name, view, setView, onSignOut }: { name: string | null;
   }, []);
   const initials = (name ?? 'You').split(' ').map((s) => s[0]).slice(0, 2).join('').toUpperCase();
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/70 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/70 backdrop-blur dark:border-white/10 dark:bg-noir-2/70">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-3">
         <LogoLink markClass="h-5 w-5" wordClass="text-[16px]" />
         <div className="flex items-center gap-1">
@@ -77,18 +77,18 @@ function DashboardNav({ name, view, setView, onSignOut }: { name: string | null;
           <div className="relative ml-1" ref={ref}>
             <button
               onClick={() => setOpen((o) => !o)}
-              className="press flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1 pl-1 pr-3 text-[13px] font-medium text-slate-700 transition-colors hover:border-slate-300"
+              className="press flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-noir-card py-1 pl-1 pr-3 text-[13px] font-medium text-slate-700 dark:text-slate-200 transition-colors hover:border-slate-300"
             >
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent text-[11px] font-semibold text-white">{initials}</span>
               <span className="hidden sm:inline">{name ?? 'You'}</span>
               <span className="text-slate-400">▾</span>
             </button>
             {open ? (
-              <div className="animate-fade-in absolute right-0 mt-2 w-56 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lift">
+              <div className="animate-fade-in absolute right-0 mt-2 w-56 overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-noir-card shadow-lift">
                 <MenuItem onClick={() => { setView('profile'); setOpen(false); }} icon="👤" title="Edit profile" sub="Name & information" />
                 <MenuItem onClick={() => { setView('billing'); setOpen(false); }} icon="💳" title="Payment & billing" sub="Plan & invoices" />
                 <MenuItem onClick={() => { setView('settings'); setOpen(false); }} icon="⚙️" title="Account settings" sub="Email & security" />
-                <div className="border-t border-slate-100" />
+                <div className="border-t border-slate-100 dark:border-white/10" />
                 <MenuItem onClick={onSignOut} icon="↩" title="Sign out" sub="End this session" danger />
               </div>
             ) : null}
@@ -100,15 +100,15 @@ function DashboardNav({ name, view, setView, onSignOut }: { name: string | null;
 }
 function NavTab({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }): JSX.Element {
   return (
-    <button onClick={onClick} className={`rounded-xl px-3 py-1.5 text-[13px] font-medium transition-colors ${active ? 'bg-slate-900 text-white' : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'}`}>{children}</button>
+    <button onClick={onClick} className={`rounded-xl px-3 py-1.5 text-[13px] font-medium transition-colors ${active ? 'bg-slate-900 text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-slate-800'}`}>{children}</button>
   );
 }
 function MenuItem({ onClick, icon, title, sub, danger }: { onClick: () => void; icon: string; title: string; sub: string; danger?: boolean }): JSX.Element {
   return (
     <button onClick={onClick} className="flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-slate-50">
-      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-sm">{icon}</span>
+      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 dark:bg-white/10 text-sm">{icon}</span>
       <span>
-        <span className={`block text-[13px] font-semibold ${danger ? 'text-rose-600' : 'text-slate-800'}`}>{title}</span>
+        <span className={`block text-[13px] font-semibold ${danger ? 'text-rose-600' : 'text-slate-800 dark:text-slate-100'}`}>{title}</span>
         <span className="block text-[11px] text-slate-400">{sub}</span>
       </span>
     </button>
@@ -186,8 +186,8 @@ function Home({ data, nav, setView }: { data: Dashboard; nav: (p: string) => voi
           ].map((c) => (
             <Card key={c.t} className="p-5">
               <div className="mb-2 text-xl">{c.i}</div>
-              <div className="text-[15px] font-semibold text-slate-900">{c.t}</div>
-              <div className="mt-1 text-[13px] text-slate-500">{c.d}</div>
+              <div className="text-[15px] font-semibold text-slate-900 dark:text-white">{c.t}</div>
+              <div className="mt-1 text-[13px] text-slate-500 dark:text-slate-400">{c.d}</div>
             </Card>
           ))}
         </div>
@@ -211,8 +211,8 @@ function Reports({ nav }: { nav: (p: string) => void }): JSX.Element {
     <div className="animate-slide-up space-y-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="font-serif text-3xl text-slate-900">Reports</h1>
-          <p className="mt-1 text-sm text-slate-500">Every run you’ve taken. Open a released report, or track one in review.</p>
+          <h1 className="font-serif text-3xl text-slate-900 dark:text-white">Reports</h1>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Every run you’ve taken. Open a released report, or track one in review.</p>
         </div>
         <div className="w-full sm:w-64">
           <Input placeholder="Search by status or date…" value={q} onChange={(e) => setQ(e.target.value)} />
@@ -224,8 +224,8 @@ function Reports({ nav }: { nav: (p: string) => void }): JSX.Element {
       ) : rows.length === 0 ? (
         <Card className="p-10 text-center">
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-xl">🗂</div>
-          <div className="font-serif text-xl text-slate-900">{data?.reports.length ? 'No matches' : 'No reports yet'}</div>
-          <p className="mx-auto mt-1 max-w-sm text-sm text-slate-500">{data?.reports.length ? 'Try a different search.' : 'Take the survey and your Design Signature will appear here.'}</p>
+          <div className="font-serif text-xl text-slate-900 dark:text-white">{data?.reports.length ? 'No matches' : 'No reports yet'}</div>
+          <p className="mx-auto mt-1 max-w-sm text-sm text-slate-500 dark:text-slate-400">{data?.reports.length ? 'Try a different search.' : 'Take the survey and your Design Signature will appear here.'}</p>
           {!data?.reports.length ? <Button className="mx-auto mt-5" onClick={() => nav('/onboarding')}>Take the survey →</Button> : null}
         </Card>
       ) : (
@@ -245,7 +245,7 @@ function ReportRow({ row, index, onOpen }: { row: ReportHistoryRow; index: numbe
         <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-soft to-violet-100 font-serif text-lg text-accent-dark">✦</div>
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[15px] font-semibold text-slate-900">Design Signature #{index}</span>
+            <span className="text-[15px] font-semibold text-slate-900 dark:text-white">Design Signature #{index}</span>
             <Badge tone={tone}>{statusLabel(row.status)}</Badge>
           </div>
           <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5 font-mono text-[11px] text-slate-400">
@@ -291,14 +291,14 @@ function Profile({ data }: { data: Dashboard }): JSX.Element {
   return (
     <div className="animate-slide-up max-w-xl space-y-5">
       <div>
-        <h1 className="font-serif text-3xl text-slate-900">Edit profile</h1>
-        <p className="mt-1 text-sm text-slate-500">Update your name and information. Your email is your login and can’t be changed here.</p>
+        <h1 className="font-serif text-3xl text-slate-900 dark:text-white">Edit profile</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Update your name and information. Your email is your login and can’t be changed here.</p>
       </div>
       <Card className="space-y-4 p-6">
         <Field label="Full name"><Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your name" /></Field>
         <Field label="Institution"><Input value={form.institution} onChange={(e) => setForm({ ...form, institution: e.target.value })} placeholder="e.g. NID" /></Field>
         <Field label="Domain of interest"><Input value={form.domain_of_interest} onChange={(e) => setForm({ ...form, domain_of_interest: e.target.value })} placeholder="e.g. Product design" /></Field>
-        <Field label="Email (read-only)"><Input value={data.profile.email} disabled className="cursor-not-allowed bg-slate-50 text-slate-400" /></Field>
+        <Field label="Email (read-only)"><Input value={data.profile.email} disabled className="cursor-not-allowed bg-slate-50 dark:bg-white/5 text-slate-400" /></Field>
         <div className="flex items-center gap-3 pt-1">
           <Button loading={mut.isPending} onClick={() => mut.mutate()}>Save changes</Button>
           {saved ? <span className="animate-fade-in text-[13px] font-medium text-emerald-600">✓ Saved</span> : null}
@@ -319,8 +319,8 @@ function Billing(): JSX.Element {
   return (
     <div className="animate-slide-up max-w-2xl space-y-5">
       <div>
-        <h1 className="font-serif text-3xl text-slate-900">Payment &amp; billing</h1>
-        <p className="mt-1 text-sm text-slate-500">Your plan and invoice history.</p>
+        <h1 className="font-serif text-3xl text-slate-900 dark:text-white">Payment &amp; billing</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Your plan and invoice history.</p>
       </div>
       <Card className="overflow-hidden">
         <div className="flex items-center justify-between gap-4 bg-gradient-to-br from-accent to-accent-dark p-6 text-white">
@@ -332,7 +332,7 @@ function Billing(): JSX.Element {
           <Badge tone="green">Active</Badge>
         </div>
         <div className="flex items-center justify-between p-5">
-          <div className="text-sm text-slate-500">Payments aren’t enabled yet — this is a preview of billing.</div>
+          <div className="text-sm text-slate-500 dark:text-slate-400">Payments aren’t enabled yet — this is a preview of billing.</div>
           <Button variant="ghost" disabled>Manage plan</Button>
         </div>
       </Card>
@@ -342,11 +342,11 @@ function Billing(): JSX.Element {
           {invoices.map((iv) => (
             <div key={iv.id} className="flex items-center justify-between py-3">
               <div>
-                <div className="text-sm font-medium text-slate-800">{iv.id} · {iv.label}</div>
+                <div className="text-sm font-medium text-slate-800 dark:text-slate-100">{iv.id} · {iv.label}</div>
                 <div className="font-mono text-[11px] text-slate-400">{iv.date}</div>
               </div>
               <div className="flex items-center gap-4">
-                <span className="text-sm font-semibold text-slate-700">{iv.amount}</span>
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{iv.amount}</span>
                 <button className="text-[13px] font-medium text-accent hover:text-accent-dark" disabled>Receipt</button>
               </div>
             </div>
@@ -362,8 +362,8 @@ function Settings({ data, onSignOut }: { data: Dashboard; onSignOut: () => void 
   return (
     <div className="animate-slide-up max-w-xl space-y-5">
       <div>
-        <h1 className="font-serif text-3xl text-slate-900">Account settings</h1>
-        <p className="mt-1 text-sm text-slate-500">Manage your login and session.</p>
+        <h1 className="font-serif text-3xl text-slate-900 dark:text-white">Account settings</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Manage your login and session.</p>
       </div>
       <Card className="divide-y divide-slate-100">
         <Row k="Email" v={data.profile.email} />
@@ -372,15 +372,15 @@ function Settings({ data, onSignOut }: { data: Dashboard; onSignOut: () => void 
       </Card>
       <Card className="flex items-center justify-between p-5">
         <div>
-          <div className="text-[15px] font-semibold text-slate-900">Sign out</div>
-          <div className="text-[13px] text-slate-500">End your session on this device.</div>
+          <div className="text-[15px] font-semibold text-slate-900 dark:text-white">Sign out</div>
+          <div className="text-[13px] text-slate-500 dark:text-slate-400">End your session on this device.</div>
         </div>
         <Button variant="ghost" onClick={onSignOut}>Sign out</Button>
       </Card>
       <Card className="flex items-center justify-between border-rose-100 p-5">
         <div>
           <div className="text-[15px] font-semibold text-rose-600">Delete account</div>
-          <div className="text-[13px] text-slate-500">Permanently remove your data. Contact support to proceed.</div>
+          <div className="text-[13px] text-slate-500 dark:text-slate-400">Permanently remove your data. Contact support to proceed.</div>
         </div>
         <Button variant="danger" disabled>Delete</Button>
       </Card>
@@ -392,7 +392,7 @@ function Row({ k, v, action }: { k: string; v: string; action?: ReactNode }): JS
     <div className="flex items-center justify-between px-5 py-4">
       <div>
         <div className="font-mono text-[10px] uppercase tracking-widest text-slate-400">{k}</div>
-        <div className="mt-0.5 text-sm text-slate-800">{v}</div>
+        <div className="mt-0.5 text-sm text-slate-800 dark:text-slate-100">{v}</div>
       </div>
       {action}
     </div>
@@ -417,8 +417,8 @@ function Timeline({ stage }: { stage: number }): JSX.Element {
                 {i < STEPS.length - 1 ? <span className={`mt-1 h-8 w-0.5 ${done ? 'bg-emerald-400' : 'bg-slate-200'}`} /> : null}
               </div>
               <div className="pb-1">
-                <div className={`text-sm font-semibold ${active ? 'text-accent' : done ? 'text-slate-900' : 'text-slate-400'}`}>{s.label}{active ? ' · in progress' : ''}</div>
-                <div className="text-[13px] text-slate-500">{s.note}</div>
+                <div className={`text-sm font-semibold ${active ? 'text-accent' : done ? 'text-slate-900 dark:text-white' : 'text-slate-400'}`}>{s.label}{active ? ' · in progress' : ''}</div>
+                <div className="text-[13px] text-slate-500 dark:text-slate-400">{s.note}</div>
               </div>
             </li>
           );
@@ -431,7 +431,7 @@ function Stat({ label, value }: { label: string; value: string }): JSX.Element {
   return (
     <Card className="p-4">
       <div className="font-mono text-[10px] uppercase tracking-widest text-slate-400">{label}</div>
-      <div className="mt-1 text-lg font-semibold text-slate-900">{value}</div>
+      <div className="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{value}</div>
     </Card>
   );
 }

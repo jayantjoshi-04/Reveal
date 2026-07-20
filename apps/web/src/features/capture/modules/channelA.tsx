@@ -27,7 +27,7 @@ export function A1Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   const [picks, setPicks] = useState<{ prompt_id: string; chosen_capacity: Capacity; ms: number }[]>([]);
   const [startedAt] = useState(Date.now());
 
-  if (!items || items.length === 0) return <p className="text-sm text-slate-500">Loading items…</p>;
+  if (!items || items.length === 0) return <p className="text-sm text-slate-500 dark:text-slate-400">Loading items…</p>;
   const item = items[idx]!;
 
   function choose(tag: string): void {
@@ -80,10 +80,10 @@ export function A3Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   return (
     <>
       <Prompt>Drag these into your true order.</Prompt>
-      <p className="mb-4 text-sm text-slate-500">You've already shown us under pressure — this can't be walked back.</p>
+      <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">You've already shown us under pressure — this can't be walked back.</p>
       <div className="mb-4 space-y-1.5">
         {order.map((v, i) => (
-          <div key={v} className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 shadow-sm">
+          <div key={v} className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-noir-card px-4 py-2.5 text-sm text-slate-700 dark:text-slate-200 shadow-sm">
             <span><span className="mr-1 font-mono text-xs text-slate-400">{i + 1}</span> {label(v)}</span>
             <span className="flex gap-1">
               <button className="press rounded-lg px-2 py-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-accent" onClick={() => move(i, -1)}>↑</button>
@@ -173,7 +173,7 @@ export function A7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
       <div className="mb-5 grid grid-cols-1 gap-x-5 gap-y-3 sm:grid-cols-2">
         {CAPABILITIES.map((c) => (
           <div key={c}>
-            <div className="mb-1 flex justify-between text-[13px] text-slate-600">
+            <div className="mb-1 flex justify-between text-[13px] text-slate-600 dark:text-slate-300">
               <span>{label(c)}</span>
               <span className="font-mono text-xs text-slate-400">{Math.round(levels[c]! * 100)}</span>
             </div>
@@ -188,7 +188,7 @@ export function A7Module({ onSubmit, busy }: ModuleProps): JSX.Element {
           </div>
         ))}
       </div>
-      <div className="mb-3 text-sm text-slate-500">What interests you vs. what pays best:</div>
+      <div className="mb-3 text-sm text-slate-500 dark:text-slate-400">What interests you vs. what pays best:</div>
       <Options className="mb-5">
         {(['aligned', 'slightly_apart', 'opposed'] as const).map((s) => (
           <Option key={s} selected={stance === s} onClick={() => setStance(s)}>
@@ -221,7 +221,7 @@ function Toggle({ on, onClick, children }: { on: boolean; onClick: () => void; c
   return (
     <button
       onClick={onClick}
-      className={`press rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${on ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 text-slate-500 hover:border-slate-300'}`}
+      className={`press rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${on ? 'border-accent bg-accent-soft text-accent-dark' : 'border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:border-slate-300'}`}
     >
       {children}
     </button>

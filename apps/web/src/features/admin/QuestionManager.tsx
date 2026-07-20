@@ -93,7 +93,7 @@ function QuestionCard({ item, onChange }: { item: AItem; onChange: () => void })
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
         rows={2}
-        className="mt-2 w-full resize-none rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-900 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
+        className="mt-2 w-full resize-none rounded-xl border border-slate-200 dark:border-white/10 px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/15"
       />
       {dirty ? (
         <div className="mt-2 flex justify-end gap-2">
@@ -102,7 +102,7 @@ function QuestionCard({ item, onChange }: { item: AItem; onChange: () => void })
         </div>
       ) : null}
 
-      <div className="mt-4 border-t border-slate-100 pt-3">
+      <div className="mt-4 border-t border-slate-100 dark:border-white/10 pt-3">
         <div className="mb-2 font-mono text-[10px] uppercase tracking-widest text-slate-400">Options → tag</div>
         <div className="space-y-2">
           {item.options.map((o) => <OptionRow key={o.option_id} option={o} onChange={onChange} />)}

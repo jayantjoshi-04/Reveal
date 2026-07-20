@@ -38,8 +38,8 @@ export function AdminSettings(): JSX.Element {
     <div className="animate-fade-in">
       <AdminPageHeader title="Settings" sub="Your admin account." />
       <Card className="max-w-lg p-6">
-        <h3 className="mb-1 font-serif text-lg text-slate-900">Change password</h3>
-        <p className="mb-5 text-sm text-slate-500">
+        <h3 className="mb-1 font-serif text-lg text-slate-900 dark:text-white">Change password</h3>
+        <p className="mb-5 text-sm text-slate-500 dark:text-slate-400">
           Set a strong password you don’t use elsewhere. Do this on first login to replace the seeded default.
         </p>
 

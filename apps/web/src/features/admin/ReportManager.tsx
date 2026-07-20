@@ -27,7 +27,7 @@ export function ReportManager(): JSX.Element {
               <button key={r.instance_id} onClick={() => setSelected(r.instance_id)} className="block w-full text-left">
                 <Card className={`press flex items-center justify-between p-4 transition-all hover:shadow-lift ${selected === r.instance_id ? 'ring-2 ring-accent/30' : ''}`}>
                   <div>
-                    <div className="text-sm font-semibold text-slate-900">{r.student_name}</div>
+                    <div className="text-sm font-semibold text-slate-900 dark:text-white">{r.student_name}</div>
                     <div className="mt-0.5 text-xs text-slate-400">{r.cohort ? `cohort ${r.cohort} · ` : ''}{r.status.replace(/_/g, ' ')}</div>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -65,7 +65,7 @@ function ReportDetail({ id }: { id: string }): JSX.Element {
   return (
     <Card className="animate-fade-in p-6">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="font-serif text-xl text-slate-900">Before you generate</h3>
+        <h3 className="font-serif text-xl text-slate-900 dark:text-white">Before you generate</h3>
         <Badge tone={data.status === 'released' ? 'green' : 'amber'}>{data.status.replace(/_/g, ' ')}</Badge>
       </div>
 
@@ -104,8 +104,8 @@ function ReportDetail({ id }: { id: string }): JSX.Element {
 
 function Row({ label, tone, children }: { label: string; tone: 'accent' | 'amber' | 'green' | 'slate'; children: React.ReactNode }): JSX.Element {
   return (
-    <div className="flex items-center justify-between gap-2 rounded-xl border border-slate-100 bg-slate-50/60 px-3.5 py-2.5 text-[13px]">
-      <span className="text-slate-700"><b className="text-slate-900">{label} ·</b> {children}</span>
+    <div className="flex items-center justify-between gap-2 rounded-xl border border-slate-100 dark:border-white/10 bg-slate-50/60 px-3.5 py-2.5 text-[13px]">
+      <span className="text-slate-700 dark:text-slate-200"><b className="text-slate-900 dark:text-white">{label} ·</b> {children}</span>
     </div>
   );
 }
