@@ -1,5 +1,6 @@
 /** REVEAL brand marks. The aperture is a gradient "lens" that opens/reveals —
  *  it doubles as the loader spinner. The wordmark is set in the display serif. */
+import { Link } from 'react-router-dom';
 
 let gid = 0;
 
@@ -55,5 +56,15 @@ export function Logo({
         Reveal
       </span>
     </span>
+  );
+}
+
+/** Logo that links home — use in every app chrome (nav, sidebars, headers). */
+export function LogoLink(props: Parameters<typeof Logo>[0] & { to?: string }): JSX.Element {
+  const { to = '/', ...rest } = props;
+  return (
+    <Link to={to} className="press inline-flex" aria-label="Reveal — home">
+      <Logo {...rest} />
+    </Link>
   );
 }

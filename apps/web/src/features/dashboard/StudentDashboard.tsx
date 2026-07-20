@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api, type Dashboard, type ReportHistoryRow } from '../../lib/api.js';
 import { useAuth } from '../../store/auth.js';
 import { Button, Card, Skeleton, Badge, Field, Input } from '../../components/ui.js';
+import { LogoLink } from '../../components/Logo.js';
 
 type View = 'home' | 'reports' | 'profile' | 'billing' | 'settings';
 
@@ -69,7 +70,7 @@ function DashboardNav({ name, view, setView, onSignOut }: { name: string | null;
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/70 backdrop-blur">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-3">
-        <button onClick={() => setView('home')} className="text-[13px] font-bold uppercase tracking-[0.28em] text-slate-900">Re<span className="text-accent">veal</span></button>
+        <LogoLink markClass="h-5 w-5" wordClass="text-[16px]" />
         <div className="flex items-center gap-1">
           <NavTab active={view === 'home'} onClick={() => setView('home')}>Home</NavTab>
           <NavTab active={view === 'reports'} onClick={() => setView('reports')}>Reports</NavTab>

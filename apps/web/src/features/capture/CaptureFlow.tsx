@@ -5,6 +5,7 @@ import { CAPTURE_SEQUENCE, SESSIONS } from '@reveal/shared';
 import { api, ApiError } from '../../lib/api.js';
 import { useAuth } from '../../store/auth.js';
 import { SavingOverlay } from '../../components/ui.js';
+import { LogoLink } from '../../components/Logo.js';
 import { SessionShell } from './SessionShell.js';
 import { MODULE_REGISTRY } from './modules/registry.js';
 import { SESSION_TITLES } from './types.js';
@@ -92,7 +93,7 @@ function CaptureHeader({ session, busy }: { session: number; busy: boolean }): J
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/80 backdrop-blur">
       <div className="mx-auto flex max-w-xl items-center justify-between px-4 py-3.5">
-        <span className="text-[13px] font-bold uppercase tracking-[0.28em] text-slate-900">Re<span className="text-accent">veal</span></span>
+        <LogoLink markClass="h-5 w-5" wordClass="text-[16px]" />
         <div className="flex items-center gap-3">
           {busy ? <span className="font-mono text-[10px] uppercase tracking-wide text-slate-400">Saving…</span> : null}
           <span className="rounded-full bg-slate-100 px-3 py-1 font-mono text-[10px] uppercase tracking-wide text-slate-500">

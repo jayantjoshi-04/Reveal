@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui.js';
+import { LogoLink } from '../../components/Logo.js';
 import { api } from '../../lib/api.js';
 import { useAuth } from '../../store/auth.js';
 
@@ -28,7 +29,7 @@ export function Onboarding(): JSX.Element {
       {/* top bar */}
       <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/70 backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-3.5">
-          <span className="text-[13px] font-bold uppercase tracking-[0.28em] text-slate-900">Re<span className="text-accent">veal</span></span>
+          <LogoLink markClass="h-5 w-5" wordClass="text-[16px]" />
           <button className="text-[13px] font-medium text-slate-400 transition-colors hover:text-slate-700" onClick={() => nav('/dashboard')}>Back to dashboard</button>
         </div>
       </header>

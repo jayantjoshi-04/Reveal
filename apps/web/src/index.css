@@ -100,11 +100,24 @@
       radial-gradient(at 82% 6%, rgba(217, 70, 239, 0.16) 0px, transparent 50%),
       radial-gradient(at 75% 90%, rgba(240, 169, 52, 0.1) 0px, transparent 55%);
   }
-  /* Gradient hairline border via padding trick — use .glow-ring > .glow-inner. */
+  /* Even gradient border via the mask trick — no corner artifacts, any bg.
+     Apply .glow-ring directly to the card; it draws a 1.5px gradient ring. */
   .glow-ring {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.6), rgba(217, 70, 239, 0.35) 55%, rgba(240, 169, 52, 0.5));
-    padding: 1px;
+    position: relative;
+  }
+  .glow-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
     border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(135deg, #6366f1, #d946ef 55%, #f0a934);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
   /* ── Dark "noir" theme + glowing gradient-border cards ──────────────────── */
   .bg-noir {

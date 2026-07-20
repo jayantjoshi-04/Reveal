@@ -1,5 +1,6 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../store/auth.js';
+import { LogoLink } from '../../components/Logo.js';
 
 const NAV = [
   { to: '/admin', label: 'Overview', icon: '▦', end: true },
@@ -17,9 +18,9 @@ export function AdminLayout(): JSX.Element {
       <div className="mx-auto flex max-w-7xl">
         {/* sidebar */}
         <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-slate-200 bg-white px-4 py-6 md:flex">
-          <div className="px-2">
-            <span className="text-[13px] font-bold uppercase tracking-[0.28em] text-slate-900">Re<span className="text-accent">veal</span></span>
-            <div className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-slate-400">Admin console</div>
+          <div className="px-1">
+            <LogoLink markClass="h-6 w-6" wordClass="text-[17px]" />
+            <div className="mt-1 pl-0.5 font-mono text-[10px] uppercase tracking-widest text-slate-400">Admin console</div>
           </div>
           <nav className="mt-8 flex-1 space-y-1">
             {NAV.map((n) => (

@@ -10,7 +10,16 @@ export function Landing(): JSX.Element {
   const nav = useNavigate();
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   return (
-    <div className="bg-mesh relative min-h-screen overflow-x-hidden text-slate-900 dark:text-slate-100">
+    <div className="bg-mesh relative min-h-screen text-slate-900 dark:text-slate-100">
+      {/* Full-page aurora BEHIND everything (incl. the nav) so the gradient
+          reaches the very top. Clipped here — not on a sticky ancestor — so the
+          navbar can stay sticky. */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -left-24 top-2 h-80 w-80 animate-aurora rounded-full bg-accent/25 blur-[90px] dark:bg-accent/40" />
+        <div className="absolute right-[-6rem] top-24 h-96 w-96 animate-aurora rounded-full bg-fuchsia-400/20 blur-[100px] [animation-delay:5s] dark:bg-fuchsia-500/25" />
+        <div className="absolute left-1/3 top-[520px] h-72 w-72 animate-aurora rounded-full bg-signature/20 blur-[90px] [animation-delay:9s]" />
+        <OrbitVector className="absolute left-1/2 top-[-14%] h-[1000px] w-[1000px] -translate-x-1/2 text-accent/10 dark:text-white/[0.06]" />
+      </div>
       <Grain />
       <Nav onPricing={() => go('pricing')} onHelp={() => go('contact')} onSignIn={() => nav('/signin')} />
       <Hero onStart={() => nav('/signup')} onSignIn={() => nav('/signin')} />
@@ -115,14 +124,7 @@ function NavItem({ children, onClick }: { children: ReactNode; onClick: () => vo
 // ── Hero ─────────────────────────────────────────────────────────────────────
 function Hero({ onStart, onSignIn }: { onStart: () => void; onSignIn: () => void }): JSX.Element {
   return (
-    <section className="relative overflow-hidden px-6 pb-24 pt-14 sm:pt-20">
-      {/* aurora blobs */}
-      <div className="pointer-events-none absolute -left-24 top-4 h-80 w-80 animate-aurora rounded-full bg-accent/25 blur-[90px] dark:bg-accent/40" />
-      <div className="pointer-events-none absolute right-[-6rem] top-28 h-96 w-96 animate-aurora rounded-full bg-fuchsia-400/20 blur-[100px] [animation-delay:5s] dark:bg-fuchsia-500/25" />
-      <div className="pointer-events-none absolute bottom-0 left-1/3 h-72 w-72 animate-aurora rounded-full bg-signature/20 blur-[90px] [animation-delay:9s] dark:bg-signature/20" />
-      {/* faint orbit vector */}
-      <OrbitVector className="pointer-events-none absolute left-1/2 top-1/2 h-[130%] w-[130%] -translate-x-1/2 -translate-y-1/2 text-accent/10 dark:text-white/[0.06]" />
-
+    <section className="relative px-6 pb-24 pt-14 sm:pt-20">
       <div className="relative mx-auto max-w-4xl text-center">
         <div className="animate-reveal-up inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/70 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-accent backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-indigo-300">
           <LogoMark className="h-3.5 w-3.5" /> Design diagnostic · for design students
@@ -241,27 +243,25 @@ function Pricing({ onStart }: { onStart: () => void }): JSX.Element {
         </Rise>
         <div className="mt-14 grid gap-5 md:grid-cols-3">
           {tiers.map((t, i) => (
-            <Rise key={t.name} delay={i * 110}>
-              <div className={`relative h-full rounded-3xl p-[1px] ${t.highlight ? 'glow-ring shadow-glow' : ''}`}>
-                <div className={`flex h-full flex-col rounded-3xl border p-7 backdrop-blur ${t.highlight ? 'border-transparent bg-white dark:bg-noir-card' : 'border-slate-200/70 bg-white/70 dark:border-white/10 dark:bg-white/[0.035]'}`}>
-                  {t.highlight ? <div className="mb-3 inline-flex w-fit rounded-full bg-accent-soft px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-accent-dark dark:bg-accent/15 dark:text-indigo-200">Most popular</div> : null}
-                  <div className="font-display text-2xl font-medium text-slate-900 dark:text-white">{t.name}</div>
-                  <div className="mt-3 flex items-baseline gap-2">
-                    <span className="font-display text-3xl font-medium text-slate-900 dark:text-white">{t.price}</span>
-                    <span className="text-[13px] text-slate-500 dark:text-slate-400">{t.note}</span>
-                  </div>
-                  <ul className="mt-6 flex-1 space-y-3 text-[14px] text-slate-600 dark:text-slate-300">
-                    {t.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2.5">
-                        <svg viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 shrink-0 text-accent dark:text-indigo-400" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 10.5l3.2 3.2L15 6" /></svg>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <button onClick={onStart} className={`press mt-7 rounded-xl px-5 py-3 text-[14px] font-semibold transition-colors ${t.highlight ? 'bg-accent text-white hover:bg-accent-dark' : 'border border-slate-300 text-slate-700 hover:border-slate-400 dark:border-white/15 dark:text-slate-200 dark:hover:border-white/30'}`}>
-                    {t.cta}
-                  </button>
+            <Rise key={t.name} delay={i * 110} className="h-full">
+              <div className={`relative flex h-full flex-col rounded-3xl border p-7 ${t.highlight ? 'glow-ring border-transparent bg-white shadow-glow dark:bg-noir-card' : 'border-slate-200/70 bg-white/70 backdrop-blur dark:border-white/10 dark:bg-white/[0.035]'}`}>
+                {t.highlight ? <div className="mb-3 inline-flex w-fit rounded-full bg-accent-soft px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-accent-dark dark:bg-accent/15 dark:text-indigo-200">Most popular</div> : null}
+                <div className="font-display text-2xl font-medium text-slate-900 dark:text-white">{t.name}</div>
+                <div className="mt-3 flex items-baseline gap-2">
+                  <span className="font-display text-3xl font-medium text-slate-900 dark:text-white">{t.price}</span>
+                  <span className="text-[13px] text-slate-500 dark:text-slate-400">{t.note}</span>
                 </div>
+                <ul className="mt-6 flex-1 space-y-3 text-[14px] text-slate-600 dark:text-slate-300">
+                  {t.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2.5">
+                      <svg viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 shrink-0 text-accent dark:text-indigo-400" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 10.5l3.2 3.2L15 6" /></svg>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={onStart} className={`press mt-7 rounded-xl px-5 py-3 text-[14px] font-semibold transition-colors ${t.highlight ? 'bg-accent text-white hover:bg-accent-dark' : 'border border-slate-300 text-slate-700 hover:border-slate-400 dark:border-white/15 dark:text-slate-200 dark:hover:border-white/30'}`}>
+                  {t.cta}
+                </button>
               </div>
             </Rise>
           ))}
