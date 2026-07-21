@@ -188,8 +188,8 @@ export function UploadField({
  *  The signature surface of the noir theme. `from`/`to` are the gradient hues;
  *  the outer glow intensifies on hover. */
 export function GlowCard({
-  from = '#6366f1',
-  to = '#a855f7',
+  from = '#7c3aed',
+  to = '#a878f8',
   className = '',
   innerClassName = '',
   glow = 0.55,

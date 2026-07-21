@@ -11,9 +11,9 @@ export function LogoMark({ className = '', spin = false }: { className?: string;
     <svg viewBox="0 0 32 32" className={className} aria-hidden="true">
       <defs>
         <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#4f46e5" />
-          <stop offset="0.5" stopColor="#a855f7" />
-          <stop offset="1" stopColor="#f0a934" />
+          <stop offset="0" stopColor="#7c3aed" />
+          <stop offset="0.5" stopColor="#a878f8" />
+          <stop offset="1" stopColor="#bee65f" />
         </linearGradient>
       </defs>
       <g className={spin ? 'origin-center animate-aperture-spin' : ''}>

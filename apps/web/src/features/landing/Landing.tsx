@@ -16,7 +16,7 @@ export function Landing(): JSX.Element {
           navbar can stay sticky. */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-24 top-2 h-80 w-80 animate-aurora rounded-full bg-accent/25 blur-[90px] dark:bg-accent/40" />
-        <div className="absolute right-[-6rem] top-24 h-96 w-96 animate-aurora rounded-full bg-fuchsia-400/20 blur-[100px] [animation-delay:5s] dark:bg-fuchsia-500/25" />
+        <div className="absolute right-[-6rem] top-24 h-96 w-96 animate-aurora rounded-full bg-pool/20 blur-[100px] [animation-delay:5s] dark:bg-pool/25" />
         <div className="absolute left-1/3 top-[520px] h-72 w-72 animate-aurora rounded-full bg-signature/20 blur-[90px] [animation-delay:9s]" />
         <OrbitVector className="absolute left-1/2 top-[-14%] h-[1000px] w-[1000px] -translate-x-1/2 text-accent/10 dark:text-white/[0.06]" />
       </div>

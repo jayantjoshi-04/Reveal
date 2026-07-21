@@ -2,16 +2,16 @@
 
 // Cohesive cool palette (indigo-led) with a single warm accent for contrast.
 const CAP_COLOR: Record<string, string> = {
-  empathy: '#4F46E5', // indigo (accent)
-  analytical: '#0EA5E9', // sky
-  narrative: '#8B5CF6', // violet
+  empathy: '#7C3AED', // brand violet (accent)
+  analytical: '#2192D9', // pool blue
+  narrative: '#A878F8', // iris (bright violet)
   conviction: '#F59E0B', // amber (the one warm)
   systems_sensing: '#14B8A6', // teal
   aesthetic: '#64748B', // slate
 };
 
 export function capColor(name: string): string {
-  return CAP_COLOR[name] ?? '#4F46E5';
+  return CAP_COLOR[name] ?? '#7C3AED';
 }
 
 /** A capacity ring gauge (value 0–100). */
@@ -47,7 +47,7 @@ export function Gauge({ value, label, sub, color }: { value: number; label: stri
 }
 
 /** A horizontal bar (0–1). */
-export function Bar({ label, value, color = '#4F46E5', note }: { label: string; value: number; color?: string; note?: string }): JSX.Element {
+export function Bar({ label, value, color = '#7C3AED', note }: { label: string; value: number; color?: string; note?: string }): JSX.Element {
   return (
     <div className="grid grid-cols-[96px_1fr_36px] items-center gap-2.5 text-xs">
       <span className="text-slate-700 dark:text-slate-200">{label}</span>
@@ -66,7 +66,7 @@ export function Bullet({ label, now, target }: { label: string; now: number; tar
       <span className="text-xs text-slate-300">{label}</span>
       <span className="relative h-[11px] rounded-full" style={{ background: 'rgba(255,255,255,.1)' }}>
         <span className="absolute left-0 top-0 h-full rounded-full bg-slate-500" style={{ width: `${now * 100}%` }} />
-        <span className="absolute top-[-3px] h-[17px] w-[3px] rounded" style={{ left: `${target * 100}%`, background: '#818CF8' }} />
+        <span className="absolute top-[-3px] h-[17px] w-[3px] rounded" style={{ left: `${target * 100}%`, background: '#A878F8' }} />
       </span>
       <span className="text-right font-mono text-[9.5px] text-slate-400">
         {Math.round(now * 100)}→{Math.round(target * 100)}
@@ -86,7 +86,7 @@ export function DispositionSlider({ low, high, position, faded }: { low: string;
         <span className="absolute left-1/2 top-1/2 h-3 w-px -translate-x-1/2 -translate-y-1/2 bg-white/25" />
         <span
           className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-slate-900"
-          style={{ left: `${x}%`, background: faded ? '#64748b' : '#818CF8' }}
+          style={{ left: `${x}%`, background: faded ? '#64748b' : '#A878F8' }}
         />
       </span>
       <span className={`text-[11px] ${lean === 'high' ? 'font-semibold text-slate-200' : 'text-slate-500'}`}>{high}</span>
@@ -109,8 +109,8 @@ export function MarketAxis({ wish, actual, pays }: { wish: string; actual: strin
       <text x="640" y="55" fill="#94a3b8" fontFamily="DM Mono, monospace" fontSize="10" textAnchor="end">THE WORK YOU LOVE →</text>
       <circle cx={X(px)} cy="80" r="8" fill="#64748b" />
       <text x={X(px)} y="105" fill="#94a3b8" fontFamily="DM Mono, monospace" fontSize="9" textAnchor="middle">pays</text>
-      <circle cx={X(wx)} cy="80" r="11" fill="none" stroke="#818CF8" strokeWidth="2.5" />
-      <text x={X(wx)} y="105" fill="#A5B4FC" fontFamily="DM Mono, monospace" fontSize="9" textAnchor="middle">wish</text>
+      <circle cx={X(wx)} cy="80" r="11" fill="none" stroke="#A878F8" strokeWidth="2.5" />
+      <text x={X(wx)} y="105" fill="#C4B5FD" fontFamily="DM Mono, monospace" fontSize="9" textAnchor="middle">wish</text>
       <circle cx={X(ax)} cy="80" r="13" fill="#F59E0B" />
       <text x={X(ax)} y="34" fill="#FBBF24" fontFamily="DM Sans" fontSize="13" fontWeight="700" textAnchor="middle">NOW</text>
     </svg>
@@ -128,7 +128,7 @@ export function ProjectScatter({ leadImpact, outlier }: { leadImpact: string[]; 
       <text x="378" y="36" fill="#94a3b8" fontFamily="DM Mono, monospace" fontSize="10">↑ YOU LEAD</text>
       {leadImpact.slice(0, 5).map((t, i) => (
         <g key={t}>
-          <circle cx={520 + i * 28} cy={70 + i * 14} r={i === 0 ? 13 : 9} fill={i === 0 ? '#4F46E5' : '#94a3b8'} />
+          <circle cx={520 + i * 28} cy={70 + i * 14} r={i === 0 ? 13 : 9} fill={i === 0 ? '#7C3AED' : '#94a3b8'} />
           <text x={520 + i * 28} y={54 + i * 14} className="fill-slate-900 dark:fill-white" fontFamily="DM Sans" fontSize="10" textAnchor="middle">{t}</text>
         </g>
       ))}
