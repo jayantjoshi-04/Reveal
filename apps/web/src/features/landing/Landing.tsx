@@ -5,7 +5,7 @@ import { Grain } from '../../components/Grain.js';
 import { useTheme } from '../../store/theme.js';
 
 /** Public marketing landing — cinematic, minimalist, theme-aware.
- *  Nav · hero · about · pricing · founders · footer. */
+ *  Nav · hero · about · pricing · footer. */
 export function Landing(): JSX.Element {
   const nav = useNavigate();
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -25,7 +25,6 @@ export function Landing(): JSX.Element {
       <Hero onStart={() => nav('/signup')} onSignIn={() => nav('/signin')} />
       <About />
       <Pricing onStart={() => nav('/signup')} />
-      <Founders />
       <Footer onSignIn={() => nav('/signin')} onAdmin={() => nav('/admin/signin')} onStart={() => nav('/signup')} />
     </div>
   );
@@ -268,56 +267,6 @@ function Pricing({ onStart }: { onStart: () => void }): JSX.Element {
         </div>
       </div>
     </section>
-  );
-}
-
-// ── Founders ─────────────────────────────────────────────────────────────────
-interface Person { name: string; role: string; initials: string; photos?: string[] }
-const photoSet = (slug: string): string[] => [`/founders/${slug}.jpg`, `/founders/${slug}.jpeg`, `/founders/${slug}.png`];
-
-function Founders(): JSX.Element {
-  const people: Person[] = [
-    { name: 'Jaanhvi Hiremath', role: 'Founder', initials: 'JH', photos: photoSet('jaanhvi') },
-    { name: 'Prasad Anaokar', role: 'Founder', initials: 'PA', photos: photoSet('prasad') },
-    { name: 'Reva Surve', role: 'Founder', initials: 'RS', photos: photoSet('reva') },
-  ];
-  return (
-    <section id="founders" className="px-6 py-24">
-      <div className="mx-auto max-w-6xl">
-        <Rise>
-          <SectionLabel>The team</SectionLabel>
-          <h2 className="mt-4 font-display text-4xl font-medium leading-tight tracking-tight text-slate-900 dark:text-white sm:text-5xl" style={{ letterSpacing: '-0.02em' }}>Built by designers, for designers.</h2>
-        </Rise>
-        <div className="mt-14 grid gap-6 sm:grid-cols-3">
-          {people.map((p, i) => (
-            <Rise key={p.name} delay={i * 100}>
-              <div className="hover-lift rounded-3xl border border-slate-200/70 bg-white/80 p-6 text-center shadow-card dark:border-white/10 dark:bg-white/[0.04]">
-                <FounderAvatar person={p} />
-                <div className="mt-5 text-lg font-semibold text-slate-900 dark:text-white">{p.name}</div>
-                <div className="mt-1 font-mono text-[11px] uppercase tracking-wider text-accent dark:text-indigo-300">{p.role}</div>
-              </div>
-            </Rise>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FounderAvatar({ person }: { person: Person }): JSX.Element {
-  const [idx, setIdx] = useState(0);
-  const candidates = person.photos ?? [];
-  const src = idx < candidates.length ? candidates[idx] : null;
-  return (
-    <div className="mx-auto h-28 w-28 rounded-full bg-gradient-to-br from-accent via-violet-400 to-signature p-[3px]">
-      {src ? (
-        <img src={src} alt={person.name} onError={() => setIdx((i) => i + 1)} className="h-full w-full rounded-full object-cover" />
-      ) : (
-        <div className="flex h-full w-full items-center justify-center rounded-full bg-white dark:bg-noir-card">
-          <span className="font-display text-3xl text-accent-dark dark:text-indigo-300">{person.initials}</span>
-        </div>
-      )}
-    </div>
   );
 }
 
