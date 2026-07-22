@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Logo, LogoMark } from '../../components/Logo.js';
 import { Grain } from '../../components/Grain.js';
 import { useTheme } from '../../store/theme.js';
+import { ClarityStage } from './ClarityStage.js';
 
 /** Public marketing landing — cinematic, minimalist, theme-aware.
  *  Nav · hero · about · pricing · footer. */
@@ -129,13 +130,14 @@ function Hero({ onStart, onSignIn }: { onStart: () => void; onSignIn: () => void
           <LogoMark className="h-3.5 w-3.5" /> Design diagnostic · for design students
         </div>
         <h1 className="animate-reveal-up mt-7 font-display text-5xl font-medium leading-[1.02] tracking-tight sm:text-6xl md:text-7xl" style={{ animationDelay: '90ms', letterSpacing: '-0.03em' }}>
-          See the designer your
+          From a tangle of signals
           <br />
-          <span className="text-gradient-signature italic">work already shows.</span>
+          <span className="text-gradient-signature italic">to one clear signature.</span>
         </h1>
         <p className="animate-reveal-up mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-300" style={{ animationDelay: '180ms' }}>
-          REVEAL reads how you design — from what you <em>do</em>, not just what you say — and returns a
-          high-fidelity Design Signature: your strengths today, where you’re heading, and the steps that close the gap.
+          Everything you design sends a signal. REVEAL reads how you work — from what you <em>do</em>, not just what you
+          say — and pulls the through-line out of the noise: your strengths today, where you’re heading, and the steps
+          that close the gap.
         </p>
         <div className="animate-reveal-up mt-9 flex flex-wrap items-center justify-center gap-3" style={{ animationDelay: '270ms' }}>
           <button onClick={onStart} className="press group relative overflow-hidden rounded-2xl bg-accent px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow transition-transform hover:scale-[1.02]">
@@ -146,9 +148,16 @@ function Hero({ onStart, onSignIn }: { onStart: () => void; onSignIn: () => void
             Sign in
           </button>
         </div>
+      </div>
 
+      {/* the live "confusion → clarity" showpiece */}
+      <div className="animate-reveal-up mt-14 sm:mt-16" style={{ animationDelay: '360ms' }}>
+        <ClarityStage />
+      </div>
+
+      <div className="mx-auto max-w-4xl text-center">
         {/* stat row */}
-        <div className="animate-reveal-up mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3" style={{ animationDelay: '360ms' }}>
+        <div className="animate-reveal-up mt-14 grid grid-cols-1 gap-4 sm:grid-cols-3" style={{ animationDelay: '420ms' }}>
           {[
             { k: '2 channels', s: 'what you say · what you do' },
             { k: '15 question sets', s: 'across Section A & B' },

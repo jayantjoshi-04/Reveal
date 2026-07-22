@@ -90,6 +90,28 @@
   .hover-lift {
     @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lift;
   }
+  /* ── Hero "confusion → clarity" stage ──────────────────────────────────── */
+  /* Each tangled thread drifts on its own rhythm; combined with heavy blur it
+     reads as living gradient flow that resolves into the capsule. */
+  @keyframes thread-float {
+    0%, 100% { transform: translateY(0) scaleY(1); }
+    50% { transform: translateY(-14px) scaleY(1.04); }
+  }
+  @keyframes thread-flow {
+    to { stroke-dashoffset: -1000; }
+  }
+  @keyframes beam-breathe {
+    0%, 100% { opacity: 0.65; transform: scaleX(0.97); }
+    50% { opacity: 1; transform: scaleX(1.03); }
+  }
+  @keyframes caret-blink {
+    0%, 45% { opacity: 1; }
+    50%, 95% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .thread-float, .beam-breathe { animation: none !important; }
+  }
   /* ── Cinematic brand utilities ─────────────────────────────────────────── */
   /* Film grain — put on a fixed, full-bleed, pointer-events-none overlay. */
   .bg-grain {
