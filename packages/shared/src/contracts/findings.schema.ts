@@ -139,6 +139,12 @@ export const findingsSchema = z.object({
     .object({ nutrient: z.string(), stated_need: z.string(), revealed_present: z.string() })
     .nullable()
     .optional(),
+
+  // B4 · attention capture — per scene, what the layers the student noticed
+  // first communicate. Deterministic, derived from the tapped items' categories.
+  attention: z
+    .array(z.object({ scene: z.string(), noticed: z.array(z.string()) }))
+    .optional(),
 });
 
 export type Findings = z.infer<typeof findingsSchema>;

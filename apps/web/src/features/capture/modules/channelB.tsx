@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { B4_CATEGORIES, B7_PURSUITS, DISRUPTION_RESPONSES, SCENARIOS, type Value } from '@reveal/shared';
+import { B4_SCENES, B7_PURSUITS, DISRUPTION_RESPONSES, SCENARIOS, type Value } from '@reveal/shared';
 import { api } from '../../../lib/api.js';
 import type { ModuleProps } from '../types.js';
 import { Prompt, PrimaryBtn, Option, Options } from './ui.js';
@@ -123,48 +123,64 @@ export function B3Module({ onSubmit, busy }: ModuleProps): JSX.Element {
   );
 }
 
-/** B4 · Attention capture — tap 3 zones per scene. */
+/** B4 · Attention capture — each scene shows one busy image; the student taps
+ *  the 3 things they notice first. Every item secretly maps to an attention
+ *  layer (PEOPLE/FORM/SYSTEM/DETAIL/TEXT), which is what feeds capacity scoring
+ *  and drives the "what caught your eye" readout in the report. */
 export function B4Module({ onSubmit, busy }: ModuleProps): JSX.Element {
-  const { data: scenes } = useQuery({ queryKey: ['scenes'], queryFn: () => api.content<{ stimulus_id: string }[]>('scenes') });
+  const scenes = B4_SCENES;
   const [sceneIdx, setSceneIdx] = useState(0);
-  const [taps, setTaps] = useState<string[]>([]);
+  const [picks, setPicks] = useState<number[]>([]); // indices into the shuffled item list, in tap order
   const [all, setAll] = useState<{ stimulus_id: string; marked: { category: string; order: number }[] }[]>([]);
-  if (!scenes || scenes.length === 0) return <p className="text-sm text-slate-500 dark:text-slate-400">Loading scenes…</p>;
   const scene = scenes[sceneIdx]!;
-  const tap = (cat: string): void => {
-    if (taps.length >= 3) return;
-    setTaps([...taps, cat]);
+  // Shuffle once per scene so re-renders (and taps) don't reshuffle the field,
+  // and so the hidden category order never hints at the answer.
+  const items = useMemo(() => [...scene.items].sort(() => Math.random() - 0.5), [sceneIdx]); // eslint-disable-line react-hooks/exhaustive-deps
+  const last = sceneIdx + 1 >= scenes.length;
+
+  const toggle = (i: number): void => {
+    setPicks((p) => (p.includes(i) ? p.filter((x) => x !== i) : p.length < 3 ? [...p, i] : p));
   };
   const nextScene = (): void => {
-    const marked = taps.map((category, i) => ({ category, order: i + 1 }));
+    const marked = picks.map((itemIdx, order) => ({ category: items[itemIdx]!.category, order: order + 1 }));
     const nextAll = [...all, { stimulus_id: scene.stimulus_id, marked }];
-    if (sceneIdx + 1 < scenes.length) {
+    if (!last) {
       setAll(nextAll);
-      setTaps([]);
+      setPicks([]);
       setSceneIdx(sceneIdx + 1);
     } else {
       onSubmit({ stimuli: nextAll });
     }
   };
+
   return (
     <>
-      <Prompt>Tap the 3 things that jump out. <span className="font-sans text-sm font-normal text-slate-400">8s</span></Prompt>
-      <div className="mb-4 flex h-28 items-center justify-center rounded-2xl border border-dashed border-slate-300 dark:border-white/15 bg-slate-50 dark:bg-white/5 text-center font-mono text-[11px] uppercase tracking-wide text-slate-400">
-        ▦ SCENE {sceneIdx + 1} of {scenes.length} · {scene.stimulus_id}
+      <div className="mb-2 flex items-center justify-between font-mono text-xs uppercase tracking-wide text-slate-400">
+        <span>Scene {sceneIdx + 1} of {scenes.length}</span>
+        <span>{picks.length}/3 noticed</span>
       </div>
-      <div className="mb-5 grid grid-cols-2 gap-2">
-        {B4_CATEGORIES.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => tap(cat)}
-            className={`press rounded-xl border px-3 py-2.5 text-xs font-medium transition-colors ${taps.includes(cat) ? 'border-accent bg-accent-soft text-accent-dark dark:bg-accent/25 dark:text-white' : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/25'}`}
-          >
-            {cat} {taps.filter((t) => t === cat).length > 0 ? `· ${taps.indexOf(cat) + 1}` : ''}
-          </button>
-        ))}
+      <Prompt>{scene.title} — tap the 3 things you notice first.</Prompt>
+      <div className="mb-4 overflow-hidden rounded-2xl border border-slate-200 shadow-card dark:border-white/10">
+        <img src={scene.image} alt={scene.title} loading="eager" className="h-52 w-full object-cover sm:h-60" />
       </div>
-      <PrimaryBtn disabled={busy || taps.length !== 3} onClick={nextScene}>
-        {sceneIdx + 1 < scenes.length ? 'Next scene' : 'Done'}
+      <div className="mb-5 flex flex-wrap gap-2">
+        {items.map((it, i) => {
+          const pos = picks.indexOf(i);
+          const on = pos >= 0;
+          return (
+            <button
+              key={it.label}
+              onClick={() => toggle(i)}
+              className={`press inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${on ? 'border-accent bg-accent-soft text-accent-dark dark:bg-accent/25 dark:text-white' : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/25'}`}
+            >
+              {on ? <span className="flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-semibold text-white">{pos + 1}</span> : null}
+              {it.label}
+            </button>
+          );
+        })}
+      </div>
+      <PrimaryBtn disabled={busy || picks.length !== 3} onClick={nextScene}>
+        {last ? 'Done' : 'Next scene'}
       </PrimaryBtn>
     </>
   );

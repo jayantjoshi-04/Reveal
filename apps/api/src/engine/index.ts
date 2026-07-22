@@ -5,7 +5,7 @@
  * data and constants it produces identical findings every time. This is the
  * only thing that decides what is TRUE about a student; the LLM only phrases it.
  */
-import { SCORING, type Capacity, type Findings, type RawCapture, type ScoringConstants, type TraitScore } from '@reveal/shared';
+import { SCORING, b4Scene, type Capacity, type Findings, type RawCapture, type ScoringConstants, type TraitScore } from '@reveal/shared';
 import { scoreCapacities, capacityConfidence, type CapacityScore } from './capacities.js';
 
 /** A1 capacity appearance counts, needed to normalise A-scores server-side. */
@@ -79,6 +79,10 @@ export function run(raw: RawCapture, k: ScoringConstants = SCORING, appearances?
   // 7b · Nutrients & bands — what conditions the work needs to give you
   const { nutrients, environment_surprise } = scoreNutrients(raw);
 
+  // 7c · Attention (B4) — for each scene, the "what it communicates" lines for
+  //      the distinct layers the student's eye landed on. Purely derived.
+  const attention = buildAttention(raw);
+
   // 8 · Differentiation one-liner inputs
   const differentiation: Findings['differentiation'] = {
     top_capacity: capacities[0]?.name ?? 'empathy',
@@ -104,11 +108,34 @@ export function run(raw: RawCapture, k: ScoringConstants = SCORING, appearances?
     dispositions_summary,
     nutrients,
     environment_surprise,
+    attention,
   };
 
   const trait_scores = buildTraitScores(capScores, k);
 
   return { engine_version: ENGINE_VERSION, findings, trait_scores };
+}
+
+/** For each B4 scene, the layers the student noticed → what those reveal. */
+function buildAttention(raw: RawCapture): Findings['attention'] {
+  const b4 = raw.channel_b.b4_attention;
+  if (!b4?.stimuli?.length) return [];
+  const out: NonNullable<Findings['attention']> = [];
+  for (const stim of b4.stimuli) {
+    const scene = b4Scene(stim.stimulus_id);
+    if (!scene) continue;
+    // distinct layers, preserving the order the student tapped them in
+    const seen = new Set<string>();
+    const noticed: string[] = [];
+    for (const mark of [...stim.marked].sort((a, b) => a.order - b.order)) {
+      if (seen.has(mark.category)) continue;
+      seen.add(mark.category);
+      const line = scene.communicates[mark.category as keyof typeof scene.communicates];
+      if (line) noticed.push(line);
+    }
+    if (noticed.length) out.push({ scene: scene.title, noticed });
+  }
+  return out;
 }
 
 /** Per-capacity trait_scores rows for the Evidence Room + debugging. */

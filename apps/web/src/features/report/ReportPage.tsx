@@ -149,8 +149,37 @@ function SectionToday({ slots, findings }: { slots: ReportSlots; findings: Findi
         </Card>
 
         <NutrientsCard findings={findings} />
+
+        <AttentionCard findings={findings} />
       </div>
     </div>
+  );
+}
+
+/** B4 · what the student's eye went to first, across the busy scenes. */
+function AttentionCard({ findings }: { findings: Findings }): JSX.Element | null {
+  const att = findings.attention ?? [];
+  if (att.length === 0) return null;
+  return (
+    <Card span2>
+      <CardTitle>What caught your eye · where your attention goes first</CardTitle>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {att.map((a) => (
+          <div key={a.scene} className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 dark:border-white/10 dark:bg-white/[0.04]">
+            <div className="font-mono text-[9.5px] uppercase tracking-wide text-accent dark:text-iris">{a.scene}</div>
+            <ul className="mt-2 space-y-1.5">
+              {a.noticed.map((n, i) => (
+                <li key={i} className="flex gap-2 text-[12.5px] leading-snug text-slate-600 dark:text-slate-300">
+                  <span className="mt-1 h-1 w-1 flex-shrink-0 rounded-full bg-accent dark:bg-iris" />
+                  {n}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <Prose>Shown a busy scene, your eye went here first — a quiet signal of what you notice without trying, and the lens you bring to any brief.</Prose>
+    </Card>
   );
 }
 
