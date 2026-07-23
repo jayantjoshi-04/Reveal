@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Logo, LogoMark } from '../../components/Logo.js';
+import { Logo } from '../../components/Logo.js';
 import { Grain } from '../../components/Grain.js';
 import { useTheme } from '../../store/theme.js';
-import { ClarityStage } from './ClarityStage.js';
+import { ClarityHero } from './ClarityStage.js';
 
 /** Public marketing landing — cinematic, minimalist, theme-aware.
  *  Nav · hero · about · pricing · footer. */
@@ -23,7 +23,7 @@ export function Landing(): JSX.Element {
       </div>
       <Grain />
       <Nav onPricing={() => go('pricing')} onHelp={() => go('contact')} onSignIn={() => nav('/signin')} />
-      <Hero onStart={() => nav('/signup')} onSignIn={() => nav('/signin')} />
+      <ClarityHero onStart={() => nav('/signup')} onSignIn={() => nav('/signin')} />
       <About />
       <Pricing onStart={() => nav('/signup')} />
       <Footer onSignIn={() => nav('/signin')} onAdmin={() => nav('/admin/signin')} onStart={() => nav('/signup')} />
@@ -121,59 +121,6 @@ function NavItem({ children, onClick }: { children: ReactNode; onClick: () => vo
   );
 }
 
-// ── Hero ─────────────────────────────────────────────────────────────────────
-function Hero({ onStart, onSignIn }: { onStart: () => void; onSignIn: () => void }): JSX.Element {
-  return (
-    <section className="relative px-6 pb-24 pt-14 sm:pt-20">
-      <div className="relative mx-auto max-w-4xl text-center">
-        <div className="animate-reveal-up inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/70 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-accent backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-indigo-300">
-          <LogoMark className="h-3.5 w-3.5" /> Design diagnostic · for design students
-        </div>
-        <h1 className="animate-reveal-up mt-7 font-display text-5xl font-medium leading-[1.02] tracking-tight sm:text-6xl md:text-7xl" style={{ animationDelay: '90ms', letterSpacing: '-0.03em' }}>
-          From a tangle of signals
-          <br />
-          <span className="text-gradient-signature italic">to one clear signature.</span>
-        </h1>
-        <p className="animate-reveal-up mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 dark:text-slate-300" style={{ animationDelay: '180ms' }}>
-          Everything you design sends a signal. REVEAL reads how you work — from what you <em>do</em>, not just what you
-          say — and pulls the through-line out of the noise: your strengths today, where you’re heading, and the steps
-          that close the gap.
-        </p>
-        <div className="animate-reveal-up mt-9 flex flex-wrap items-center justify-center gap-3" style={{ animationDelay: '270ms' }}>
-          <button onClick={onStart} className="press group relative overflow-hidden rounded-2xl bg-accent px-7 py-3.5 text-[15px] font-semibold text-white shadow-glow transition-transform hover:scale-[1.02]">
-            <span className="relative z-10">Get started →</span>
-            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-          </button>
-          <button onClick={onSignIn} className="press rounded-2xl border border-slate-300 bg-white/60 px-7 py-3.5 text-[15px] font-semibold text-slate-700 backdrop-blur transition-colors hover:border-slate-400 dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:border-white/30">
-            Sign in
-          </button>
-        </div>
-      </div>
-
-      {/* the live "confusion → clarity" showpiece */}
-      <div className="animate-reveal-up mt-14 sm:mt-16" style={{ animationDelay: '360ms' }}>
-        <ClarityStage />
-      </div>
-
-      <div className="mx-auto max-w-4xl text-center">
-        {/* stat row */}
-        <div className="animate-reveal-up mt-14 grid grid-cols-1 gap-4 sm:grid-cols-3" style={{ animationDelay: '420ms' }}>
-          {[
-            { k: '2 channels', s: 'what you say · what you do' },
-            { k: '15 question sets', s: 'across Section A & B' },
-            { k: 'Re-runnable', s: 'a snapshot, not a verdict' },
-          ].map((m) => (
-            <div key={m.k} className="hover-lift rounded-2xl border border-slate-200/70 bg-white/60 p-5 backdrop-blur dark:border-white/10 dark:bg-white/[0.04]">
-              <div className="font-display text-xl font-medium text-slate-900 dark:text-white sm:text-2xl">{m.k}</div>
-              <div className="mt-1 text-[12px] text-slate-500 dark:text-slate-400">{m.s}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // A faint concentric-orbit vector graphic (aperture rings) for depth.
 function OrbitVector({ className = '' }: { className?: string }): JSX.Element {
   return (
@@ -205,7 +152,7 @@ function About(): JSX.Element {
     { t: 'Your signature', d: 'A deterministic engine turns both into one high-fidelity picture — then it’s phrased into a report you can act on.', k: 'The output' },
   ];
   return (
-    <section className="px-6 py-24">
+    <section id="about" className="px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <Rise>
           <SectionLabel>The idea</SectionLabel>
