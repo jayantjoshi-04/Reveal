@@ -38,7 +38,7 @@ export function ClarityHero({ onStart, onSignIn }: { onStart: () => void; onSign
       ref={ref}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      className="group relative -mt-[60px] min-h-[100svh] overflow-hidden bg-[#060608] text-white"
+      className="group relative min-h-[100svh] overflow-hidden bg-[#060608] text-white"
       style={{ '--mx': 0, '--my': 0 } as React.CSSProperties}
     >
       {/* ── ambient wash + grain ───────────────────────────────────────── */}

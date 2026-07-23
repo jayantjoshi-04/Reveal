@@ -50,7 +50,7 @@ export function Logo({
     <span className={`inline-flex items-center gap-2 ${className}`}>
       {showMark ? <LogoMark className={markClass} /> : null}
       <span
-        className={`font-display font-medium tracking-tight text-slate-900 dark:text-white ${wordClass}`}
+        className={`font-display font-medium tracking-tight ${/\btext-/.test(wordClass) ? '' : 'text-slate-900 dark:text-white'} ${wordClass}`}
         style={{ letterSpacing: '-0.02em' }}
       >
         Reveal
