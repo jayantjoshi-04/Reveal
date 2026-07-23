@@ -10,16 +10,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── Brand system · "Electric Touch" ──────────────────────────────
-        // Electric lime "revelation" pop against the violet (was warm gold).
-        signature: '#BEE65F', // Chlorine
-        'signature-soft': '#EEF6D6',
-        // Extra palette hues woven through auroras, mesh, and charts.
-        pool: '#2192D9', // Pool Dip — electric blue
-        powder: '#B2DBF7', // Powder — soft sky
-        pear: '#C2D039', // Pear — yellow-green
-        ivory: '#F5F4E3', // Ivory — warm light canvas
-        iris: '#A878F8', // Illusion — bright pastel violet (glows/markers)
+        // ── Brand system (cinematic) ─────────────────────────────────────
+        // Signature warm accent — "revelation" light against the indigo.
+        signature: '#F0A934',
+        'signature-soft': '#FDF1DC',
         // Deep noir surfaces for dark mode.
         noir: '#08080F',
         'noir-2': '#101019',
@@ -46,11 +40,10 @@ export default {
         rule: '#E4E0D8',
         mid: '#7d7d74',
         dim: '#a7a79e',
-        // Primary brand violet (Illusion / Indigo hue). The pastel palette
-        // tint is `iris`; these UI weights keep white text legible on buttons.
-        accent: '#7C3AED',
-        'accent-dark': '#6D28D9',
-        'accent-soft': '#EDE9FE',
+        // Premium neutral accent for the new auth/admin surfaces.
+        accent: '#4F46E5',
+        'accent-dark': '#4338CA',
+        'accent-soft': '#EEF2FF',
       },
       fontFamily: {
         // Cinematic editorial serif for display; crisp sans for UI; refined mono for labels.
@@ -62,8 +55,8 @@ export default {
       boxShadow: {
         card: '0 1px 2px rgba(15,23,42,.04), 0 8px 24px -12px rgba(15,23,42,.12)',
         lift: '0 4px 12px rgba(15,23,42,.06), 0 20px 40px -16px rgba(15,23,42,.18)',
-        glow: '0 0 0 1px rgba(124,58,237,.15), 0 12px 40px -12px rgba(124,58,237,.45)',
-        'glow-gold': '0 0 0 1px rgba(190,230,95,.25), 0 12px 40px -12px rgba(190,230,95,.5)',
+        glow: '0 0 0 1px rgba(99,102,241,.15), 0 12px 40px -12px rgba(99,102,241,.45)',
+        'glow-gold': '0 0 0 1px rgba(240,169,52,.2), 0 12px 40px -12px rgba(240,169,52,.4)',
       },
       keyframes: {
         'fade-in': { '0%': { opacity: '0' }, '100%': { opacity: '1' } },

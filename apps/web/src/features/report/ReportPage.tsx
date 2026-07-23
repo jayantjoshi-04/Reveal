@@ -166,11 +166,11 @@ function AttentionCard({ findings }: { findings: Findings }): JSX.Element | null
       <div className="grid gap-4 sm:grid-cols-2">
         {att.map((a) => (
           <div key={a.scene} className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 dark:border-white/10 dark:bg-white/[0.04]">
-            <div className="font-mono text-[9.5px] uppercase tracking-wide text-accent dark:text-iris">{a.scene}</div>
+            <div className="font-mono text-[9.5px] uppercase tracking-wide text-accent dark:text-indigo-300">{a.scene}</div>
             <ul className="mt-2 space-y-1.5">
               {a.noticed.map((n, i) => (
                 <li key={i} className="flex gap-2 text-[12.5px] leading-snug text-slate-600 dark:text-slate-300">
-                  <span className="mt-1 h-1 w-1 flex-shrink-0 rounded-full bg-accent dark:bg-iris" />
+                  <span className="mt-1 h-1 w-1 flex-shrink-0 rounded-full bg-accent dark:bg-indigo-400" />
                   {n}
                 </li>
               ))}

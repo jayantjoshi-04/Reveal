@@ -100,7 +100,7 @@ export function ClarityHero({ onStart, onSignIn }: { onStart: () => void; onSign
       {/* ── overlaid content: headline above centre, capsule at centre, CTAs below ── */}
       <div className="relative z-10 grid min-h-[100svh] grid-rows-[1fr_auto_1fr] px-6">
         <div className="flex flex-col items-center justify-end pb-9 text-center">
-          <div className="animate-reveal-up inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-iris backdrop-blur">
+          <div className="animate-reveal-up inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-indigo-300 backdrop-blur">
             <LogoMark className="h-3.5 w-3.5" /> Design diagnostic · for design students
           </div>
           <h1 className="animate-reveal-up mt-6 font-display text-4xl font-medium leading-[1.03] tracking-tight sm:text-5xl md:text-6xl" style={{ animationDelay: '90ms', letterSpacing: '-0.03em' }}>
@@ -142,7 +142,7 @@ export function ClarityHero({ onStart, onSignIn }: { onStart: () => void; onSign
       </div>
 
       {/* soft fade into the page below + scroll cue */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#f5f4e3] dark:to-noir" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#f3f2fb] dark:to-noir" />
       <button
         onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
         aria-label="Scroll to learn more"
