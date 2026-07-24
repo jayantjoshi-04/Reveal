@@ -106,7 +106,7 @@ export function Segmented<T extends string>({
             aria-selected={on}
             onClick={() => onChange(o.value)}
             className={`press flex-1 rounded-lg px-3 py-2 text-xs font-semibold transition-colors ${
-              on ? 'bg-white text-accent-dark shadow-sm dark:bg-white/15 dark:text-white' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
+              on ? 'bg-accent text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
             }`}
           >
             {o.label}

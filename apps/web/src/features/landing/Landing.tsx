@@ -62,18 +62,14 @@ function Rise({ children, delay = 0, className = '' }: { children: ReactNode; de
 }
 
 // ── Theme toggle ─────────────────────────────────────────────────────────────
-function ThemeToggle({ overHero }: { overHero: boolean }): JSX.Element {
+function ThemeToggle(): JSX.Element {
   const { theme, toggle } = useTheme();
   const dark = theme === 'dark';
   return (
     <button
       onClick={toggle}
       aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className={`press grid h-9 w-9 place-items-center rounded-full border transition-colors ${
-        overHero
-          ? 'border-white/15 bg-white/10 text-white/80 hover:text-white'
-          : 'border-slate-200/80 bg-white/70 text-slate-600 hover:text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-white'
-      }`}
+      className="press grid h-9 w-9 place-items-center rounded-full border border-slate-200/80 bg-white/70 text-slate-600 transition-colors hover:text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-white"
     >
       {dark ? (
         <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
@@ -90,39 +86,21 @@ function ThemeToggle({ overHero }: { overHero: boolean }): JSX.Element {
 
 // ── Nav ──────────────────────────────────────────────────────────────────────
 function Nav({ onPricing, onHelp, onSignIn }: { onPricing: () => void; onHelp: () => void; onSignIn: () => void }): JSX.Element {
-  // Over the always-dark hero the nav uses light-on-dark styling; once it
-  // passes the hero into the themed body it flips to the themed glass pill.
-  const [overHero, setOverHero] = useState(true);
-  useEffect(() => {
-    const onScroll = (): void => setOverHero(window.scrollY < window.innerHeight - 80);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
     <header className="fixed inset-x-0 top-0 z-40 px-4 pt-4">
-      <div
-        className={`mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-2xl border px-3.5 py-2.5 shadow-card backdrop-blur-xl transition-colors duration-300 ${
-          overHero ? 'border-white/10 bg-white/[0.07]' : 'border-white/60 bg-white/55 dark:border-white/10 dark:bg-white/[0.045]'
-        }`}
-      >
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-2xl border border-white/60 bg-white/55 px-3.5 py-2.5 shadow-card backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.045]">
         <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="press">
-          <Logo markClass="h-6 w-6" wordClass={`text-[18px] ${overHero ? 'text-white' : ''}`} />
+          <Logo markClass="h-6 w-6" wordClass="text-[18px]" />
         </button>
         <nav className="hidden items-center gap-1 md:flex">
-          <NavItem onClick={onPricing} overHero={overHero}>Explore pricing</NavItem>
-          <NavItem onClick={onHelp} overHero={overHero}>Help &amp; Support</NavItem>
+          <NavItem onClick={onPricing}>Explore pricing</NavItem>
+          <NavItem onClick={onHelp}>Help &amp; Support</NavItem>
         </nav>
         <div className="flex items-center gap-2">
-          <ThemeToggle overHero={overHero} />
+          <ThemeToggle />
           <button
             onClick={onSignIn}
-            className={`press rounded-xl px-4 py-2 text-[13px] font-semibold transition-colors ${
-              overHero
-                ? 'bg-white text-slate-900 hover:bg-slate-200'
-                : 'bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200'
-            }`}
+            className="press rounded-xl bg-slate-900 px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
           >
             Sign in
           </button>
@@ -132,15 +110,11 @@ function Nav({ onPricing, onHelp, onSignIn }: { onPricing: () => void; onHelp: (
   );
 }
 
-function NavItem({ children, onClick, overHero }: { children: ReactNode; onClick: () => void; overHero: boolean }): JSX.Element {
+function NavItem({ children, onClick }: { children: ReactNode; onClick: () => void }): JSX.Element {
   return (
     <button
       onClick={onClick}
-      className={`press rounded-lg px-3 py-2 text-[13px] font-medium transition-colors ${
-        overHero
-          ? 'text-white/80 hover:bg-white/10 hover:text-white'
-          : 'text-slate-600 hover:bg-slate-900/[0.04] hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white'
-      }`}
+      className="press rounded-lg px-3 py-2 text-[13px] font-medium text-slate-600 transition-colors hover:bg-slate-900/[0.04] hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
     >
       {children}
     </button>
@@ -255,13 +229,13 @@ function Pricing({ onStart }: { onStart: () => void }): JSX.Element {
 // ── Footer ───────────────────────────────────────────────────────────────────
 function Footer({ onSignIn, onAdmin, onStart }: { onSignIn: () => void; onAdmin: () => void; onStart: () => void }): JSX.Element {
   return (
-    <footer id="contact" className="relative overflow-hidden bg-noir px-6 pb-10 pt-20 text-slate-300">
-      <OrbitVector className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] text-white/[0.05]" />
+    <footer id="contact" className="relative overflow-hidden border-t border-slate-200 bg-slate-50 px-6 pb-10 pt-20 text-slate-600 dark:border-transparent dark:bg-noir dark:text-slate-300">
+      <OrbitVector className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] text-slate-900/[0.04] dark:text-white/[0.05]" />
       <div className="relative mx-auto max-w-6xl">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Logo markClass="h-7 w-7" wordClass="text-[20px] !text-white" />
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
+            <Logo markClass="h-7 w-7" wordClass="text-[20px]" />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-500 dark:text-slate-400">
               A hybrid design diagnostic that reads how you design and returns a high-fidelity Design Signature.
             </p>
             <button onClick={onStart} className="press mt-6 rounded-xl bg-accent px-5 py-2.5 text-[13px] font-semibold text-white shadow-glow transition-colors hover:bg-accent-dark">
@@ -269,29 +243,29 @@ function Footer({ onSignIn, onAdmin, onStart }: { onSignIn: () => void; onAdmin:
             </button>
           </div>
           <div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">Help &amp; Support</div>
-            <ul className="mt-4 space-y-2 text-sm text-slate-400">
-              <li><a className="transition-colors hover:text-white" href="mailto:service@radikle.org">service@radikle.org</a></li>
+            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Help &amp; Support</div>
+            <ul className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <li><a className="transition-colors hover:text-slate-900 dark:hover:text-white" href="mailto:service@radikle.org">service@radikle.org</a></li>
               <li>Radikle</li>
               <li>Mumbai, India</li>
             </ul>
           </div>
           <div>
-            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">Elsewhere</div>
-            <ul className="mt-4 space-y-2 text-sm text-slate-400">
-              <li><a className="transition-colors hover:text-white" href="#" aria-label="Instagram">Instagram</a></li>
-              <li><a className="transition-colors hover:text-white" href="#" aria-label="LinkedIn">LinkedIn</a></li>
-              <li><a className="transition-colors hover:text-white" href="#" aria-label="X / Twitter">X (Twitter)</a></li>
+            <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Elsewhere</div>
+            <ul className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <li><a className="transition-colors hover:text-slate-900 dark:hover:text-white" href="#" aria-label="Instagram">Instagram</a></li>
+              <li><a className="transition-colors hover:text-slate-900 dark:hover:text-white" href="#" aria-label="LinkedIn">LinkedIn</a></li>
+              <li><a className="transition-colors hover:text-slate-900 dark:hover:text-white" href="#" aria-label="X / Twitter">X (Twitter)</a></li>
             </ul>
           </div>
         </div>
-        <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-[12px] text-slate-500 sm:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-slate-200 pt-6 text-[12px] text-slate-500 dark:border-white/10 sm:flex-row">
           <div>© {new Date().getFullYear()} REVEAL · Radikle. All rights reserved.</div>
           <div className="flex items-center gap-5">
-            <a className="transition-colors hover:text-slate-300" href="#">Terms &amp; Conditions</a>
-            <a className="transition-colors hover:text-slate-300" href="#">Privacy</a>
-            <button className="transition-colors hover:text-slate-300" onClick={onSignIn}>Sign in</button>
-            <button className="transition-colors hover:text-slate-300" onClick={onAdmin}>Admin</button>
+            <a className="transition-colors hover:text-slate-900 dark:hover:text-slate-300" href="#">Terms &amp; Conditions</a>
+            <a className="transition-colors hover:text-slate-900 dark:hover:text-slate-300" href="#">Privacy</a>
+            <button className="transition-colors hover:text-slate-900 dark:hover:text-slate-300" onClick={onSignIn}>Sign in</button>
+            <button className="transition-colors hover:text-slate-900 dark:hover:text-slate-300" onClick={onAdmin}>Admin</button>
           </div>
         </div>
       </div>
