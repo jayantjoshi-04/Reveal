@@ -1,0 +1,416 @@
+[
+  {
+    "id": "domain_consumer_technology_electronics",
+    "track": "physical",
+    "name": "Consumer Technology & Electronics",
+    "emphasis": "+Spatial +Digital +Systems",
+    "primary_intent": "Creation",
+    "note": "Fast, high-novelty, launch-paced.",
+    "critical_skills": [
+      {
+        "skill": "Manufacturing & DFM",
+        "required_level": 70
+      },
+      {
+        "skill": "Electronics / embedded literacy",
+        "required_level": 55
+      }
+    ]
+  },
+  {
+    "id": "domain_automotive_mobility_micro_mobility",
+    "track": "physical",
+    "name": "Automotive & Mobility / Micro-mobility",
+    "emphasis": "+Spatial +Systems +Aesthetic",
+    "primary_intent": "Mastery",
+    "note": "Rigorous, resource-heavy, long cycles.",
+    "critical_skills": [
+      {
+        "skill": "Manufacturing & DFM",
+        "required_level": 75
+      },
+      {
+        "skill": "Safety Engineering",
+        "required_level": 70
+      }
+    ]
+  },
+  {
+    "id": "domain_medical_technology_devices",
+    "track": "physical",
+    "name": "Medical Technology & Devices",
+    "emphasis": "+Analytical +Careful +Human-factors",
+    "primary_intent": "Impact · Understanding",
+    "note": "Regulated; rigour and safety dominate.",
+    "critical_skills": [
+      {
+        "skill": "Regulatory & Compliance",
+        "required_level": 75
+      },
+      {
+        "skill": "Human Factors",
+        "required_level": 70
+      }
+    ]
+  },
+  {
+    "id": "domain_robotics_smart_automation",
+    "track": "physical",
+    "name": "Robotics & Smart Automation",
+    "emphasis": "+Systems +Analytical +Spatial",
+    "primary_intent": "Mastery · Creation",
+    "note": "Emerging, systems-heavy, high challenge.",
+    "critical_skills": [
+      {
+        "skill": "Mechatronics literacy",
+        "required_level": 70
+      },
+      {
+        "skill": "Sensor / HW integration",
+        "required_level": 60
+      }
+    ]
+  },
+  {
+    "id": "domain_furniture_spatial_lighting",
+    "track": "physical",
+    "name": "Furniture, Spatial & Lighting",
+    "emphasis": "+Aesthetic +Spatial +Materials",
+    "primary_intent": "Creation · Aesthetic mastery",
+    "note": "Craft + aesthetic, slower cadence.",
+    "critical_skills": [
+      {
+        "skill": "Materials & Finish craft",
+        "required_level": 70
+      },
+      {
+        "skill": "Fabrication",
+        "required_level": 60
+      }
+    ]
+  },
+  {
+    "id": "domain_athletic_gear_wearables_smart_apparel",
+    "track": "physical",
+    "name": "Athletic Gear, Wearables & Smart Apparel",
+    "emphasis": "+Kinesthetic +Materials +Human-factors",
+    "primary_intent": "Creation",
+    "note": "Body/materials, performance-driven.",
+    "critical_skills": [
+      {
+        "skill": "Materials & Textiles",
+        "required_level": 68
+      },
+      {
+        "skill": "Ergonomics / Biomechanics",
+        "required_level": 65
+      }
+    ]
+  },
+  {
+    "id": "domain_fmcg_packaged_goods",
+    "track": "physical",
+    "name": "FMCG / Packaged Goods",
+    "emphasis": "+Aesthetic +Trend +Speed",
+    "primary_intent": "Creation · Impact",
+    "note": "Fast, brand-led, high-volume.",
+    "critical_skills": [
+      {
+        "skill": "Packaging & Print production",
+        "required_level": 65
+      },
+      {
+        "skill": "Trend & Brand literacy",
+        "required_level": 60
+      }
+    ]
+  },
+  {
+    "id": "domain_social_impact_development",
+    "track": "physical",
+    "name": "Social Impact / Development",
+    "emphasis": "+Empathy +Systems +Impact",
+    "primary_intent": "Impact · Connection",
+    "note": "Cross-track. Resource-lean, mission-led.",
+    "critical_skills": [
+      {
+        "skill": "Field research & Facilitation",
+        "required_level": 65
+      },
+      {
+        "skill": "Frugal engineering",
+        "required_level": 55
+      }
+    ]
+  },
+  {
+    "id": "domain_sustainability",
+    "track": "physical",
+    "name": "Sustainability",
+    "emphasis": "+Naturalistic +Systems +Sustain",
+    "primary_intent": "Impact · Understanding",
+    "note": "Cross-track. Systems + circularity.",
+    "critical_skills": [
+      {
+        "skill": "LCA & Circularity methods",
+        "required_level": 70
+      },
+      {
+        "skill": "Materials science",
+        "required_level": 60
+      }
+    ]
+  },
+  {
+    "id": "domain_toys_play_education",
+    "track": "physical",
+    "name": "Toys / Play / Education",
+    "emphasis": "+Playful +Empathy +Aesthetic",
+    "primary_intent": "Creation · Connection",
+    "note": "Cross-track. Play-led, empathic.",
+    "critical_skills": [
+      {
+        "skill": "Safety & Child-development literacy",
+        "required_level": 60
+      },
+      {
+        "skill": "Play mechanics",
+        "required_level": 55
+      }
+    ]
+  },
+  {
+    "id": "domain_luxury_craft_artisanal",
+    "track": "physical",
+    "name": "Luxury / Craft / Artisanal",
+    "emphasis": "+Aesthetic +Materials +Kinesthetic",
+    "primary_intent": "Aesthetic mastery",
+    "note": "Craft, slow, precision.",
+    "critical_skills": [
+      {
+        "skill": "Materials & Finish mastery",
+        "required_level": 78
+      },
+      {
+        "skill": "Craft techniques",
+        "required_level": 72
+      }
+    ]
+  },
+  {
+    "id": "domain_rural_agri_innovation",
+    "track": "physical",
+    "name": "Rural / Agri innovation",
+    "emphasis": "+Empathy +Systems +Frugal",
+    "primary_intent": "Impact · Understanding",
+    "note": "Cross-track. Frugal, resource-lean.",
+    "critical_skills": [
+      {
+        "skill": "Field research",
+        "required_level": 62
+      },
+      {
+        "skill": "Frugal / Appropriate tech",
+        "required_level": 60
+      }
+    ]
+  },
+  {
+    "id": "domain_software_digital_products",
+    "track": "digital",
+    "name": "Software / Digital Products",
+    "emphasis": "+Digital +Systems",
+    "primary_intent": "Creation",
+    "note": "General-purpose, fast, launch-paced.",
+    "critical_skills": [
+      {
+        "skill": "Design tooling & handoff",
+        "required_level": 65
+      },
+      {
+        "skill": "Front-end literacy",
+        "required_level": 55
+      }
+    ]
+  },
+  {
+    "id": "domain_saas_enterprise_tools",
+    "track": "digital",
+    "name": "SaaS & Enterprise Tools",
+    "emphasis": "+Systems +Analytical",
+    "primary_intent": "Mastery",
+    "note": "Rigorous, complex, structured.",
+    "critical_skills": [
+      {
+        "skill": "Complex-systems modeling",
+        "required_level": 68
+      },
+      {
+        "skill": "Data & Analytics",
+        "required_level": 60
+      }
+    ]
+  },
+  {
+    "id": "domain_fintech_digital_banking",
+    "track": "digital",
+    "name": "Fintech & Digital Banking",
+    "emphasis": "+Analytical +Careful +Trust",
+    "primary_intent": "Mastery · Impact",
+    "note": "Regulated; trust and rigour dominate.",
+    "critical_skills": [
+      {
+        "skill": "Data & Analytics",
+        "required_level": 68
+      },
+      {
+        "skill": "Security & Trust literacy",
+        "required_level": 65
+      }
+    ]
+  },
+  {
+    "id": "domain_healthcare_tech_digital_health",
+    "track": "digital",
+    "name": "Healthcare Tech / Digital Health",
+    "emphasis": "+Empathy +Analytical +Careful",
+    "primary_intent": "Impact · Understanding",
+    "note": "Regulated, empathic, high-safety.",
+    "critical_skills": [
+      {
+        "skill": "Regulatory & Compliance",
+        "required_level": 70
+      },
+      {
+        "skill": "Clinical / Human Factors",
+        "required_level": 68
+      }
+    ]
+  },
+  {
+    "id": "domain_edtech_gamified_platforms",
+    "track": "digital",
+    "name": "EdTech & Gamified Platforms",
+    "emphasis": "+Empathy +Playful +Narrative",
+    "primary_intent": "Connection · Impact",
+    "note": "Learner-centred, engagement-led.",
+    "critical_skills": [
+      {
+        "skill": "Learning-science literacy",
+        "required_level": 62
+      },
+      {
+        "skill": "Gamification mechanics",
+        "required_level": 58
+      }
+    ]
+  },
+  {
+    "id": "domain_e_commerce_logistics_marketplaces",
+    "track": "digital",
+    "name": "E-Commerce, Logistics & Marketplaces",
+    "emphasis": "+Analytical +Systems +Speed",
+    "primary_intent": "Impact · Mastery",
+    "note": "Fast, data-driven, high-scale.",
+    "critical_skills": [
+      {
+        "skill": "Data & Analytics",
+        "required_level": 70
+      },
+      {
+        "skill": "Conversion / Growth methods",
+        "required_level": 65
+      }
+    ]
+  },
+  {
+    "id": "domain_entertainment_immersive_media",
+    "track": "digital",
+    "name": "Entertainment & Immersive Media",
+    "emphasis": "+Aesthetic +Narrative +Novelty",
+    "primary_intent": "Creation",
+    "note": "High-novelty, expressive.",
+    "critical_skills": [
+      {
+        "skill": "Motion & Interaction craft",
+        "required_level": 68
+      },
+      {
+        "skill": "Narrative / Content",
+        "required_level": 62
+      }
+    ]
+  },
+  {
+    "id": "domain_social_impact_development",
+    "track": "digital",
+    "name": "Social Impact / Development",
+    "emphasis": "+Empathy +Impact",
+    "primary_intent": "Impact · Connection",
+    "note": "Cross-track. Resource-lean, mission-led.",
+    "critical_skills": [
+      {
+        "skill": "Field research & Facilitation",
+        "required_level": 62
+      },
+      {
+        "skill": "Accessibility & Inclusive design",
+        "required_level": 58
+      }
+    ]
+  },
+  {
+    "id": "domain_environment_cleantech",
+    "track": "digital",
+    "name": "Environment & Cleantech",
+    "emphasis": "+Systems +Naturalistic +Sustain",
+    "primary_intent": "Impact · Understanding",
+    "note": "Cross-track. Systems + sustainability.",
+    "critical_skills": [
+      {
+        "skill": "Systems & Data literacy",
+        "required_level": 65
+      },
+      {
+        "skill": "Sustainability methods",
+        "required_level": 60
+      }
+    ]
+  },
+  {
+    "id": "domain_games_play_education",
+    "track": "digital",
+    "name": "Games / Play / Education",
+    "emphasis": "+Playful +Aesthetic +Narrative",
+    "primary_intent": "Creation · Connection",
+    "note": "Cross-track. Play-led.",
+    "critical_skills": [
+      {
+        "skill": "Game design & mechanics",
+        "required_level": 68
+      },
+      {
+        "skill": "Narrative / Content",
+        "required_level": 60
+      }
+    ]
+  },
+  {
+    "id": "domain_rural_agri_innovation",
+    "track": "digital",
+    "name": "Rural / Agri innovation",
+    "emphasis": "+Empathy +Systems +Frugal",
+    "primary_intent": "Impact · Understanding",
+    "note": "Cross-track. Frugal, resource-lean.",
+    "critical_skills": [
+      {
+        "skill": "Field research",
+        "required_level": 60
+      },
+      {
+        "skill": "Low-bandwidth / Frugal design",
+        "required_level": 58
+      }
+    ]
+  }
+]

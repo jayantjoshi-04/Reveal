@@ -1,0 +1,50 @@
+[
+  {
+    "id": "Mastery",
+    "name": "Mastery",
+    "tier": 1,
+    "default_valence": "approach"
+  },
+  {
+    "id": "Control",
+    "name": "Control",
+    "tier": 1,
+    "default_valence": "approach"
+  },
+  {
+    "id": "Connection",
+    "name": "Connection",
+    "tier": 1,
+    "default_valence": "approach"
+  },
+  {
+    "id": "Creation",
+    "name": "Creation",
+    "tier": 2,
+    "default_valence": "approach"
+  },
+  {
+    "id": "Understanding",
+    "name": "Understanding",
+    "tier": 2,
+    "default_valence": "approach"
+  },
+  {
+    "id": "Impact",
+    "name": "Impact",
+    "tier": 2,
+    "default_valence": "approach"
+  },
+  {
+    "id": "Recognition",
+    "name": "Recognition",
+    "tier": 3,
+    "default_valence": "approach"
+  },
+  {
+    "id": "Security",
+    "name": "Security",
+    "tier": 3,
+    "default_valence": "avoidance"
+  }
+]

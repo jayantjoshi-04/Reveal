@@ -1,0 +1,101 @@
+{
+  "package": "reveal_seed",
+  "ruleset_version": "2.0.0",
+  "generated": "2026-08-03",
+  "load_order": [
+    "constructs.json",
+    "intent_drivers.json",
+    "ruleset_version.json",
+    "roles.json",
+    "domains.json",
+    "activities.json",
+    "activity_options.json",
+    "derivation_rules.json",
+    "molecule_rules.json",
+    "required_profiles.json",
+    "growth_vehicles.json",
+    "products.json",
+    "price_rules.json"
+  ],
+  "tables": [
+    {
+      "file": "constructs.json",
+      "status": "ready",
+      "rows": 45,
+      "depends_on": "—"
+    },
+    {
+      "file": "intent_drivers.json",
+      "status": "ready",
+      "rows": 8,
+      "depends_on": "—"
+    },
+    {
+      "file": "activities.json",
+      "status": "ready",
+      "rows": 30,
+      "depends_on": "constructs"
+    },
+    {
+      "file": "activity_options.json",
+      "status": "ready",
+      "rows": 309,
+      "depends_on": "activities · constructs"
+    },
+    {
+      "file": "derivation_rules.json",
+      "status": "ready",
+      "rows": 104,
+      "depends_on": "activities · constructs"
+    },
+    {
+      "file": "molecule_rules.json",
+      "status": "ready",
+      "rows": 23,
+      "depends_on": "constructs · intent_drivers"
+    },
+    {
+      "file": "ruleset_version.json",
+      "status": "ready",
+      "rows": 1,
+      "depends_on": "—"
+    },
+    {
+      "file": "roles.json",
+      "status": "ready",
+      "rows": 22,
+      "depends_on": "constructs"
+    },
+    {
+      "file": "domains.json",
+      "status": "ready",
+      "rows": 23,
+      "depends_on": "constructs"
+    },
+    {
+      "file": "required_profiles.json",
+      "status": "ready",
+      "rows": 806,
+      "depends_on": "roles · domains · constructs"
+    },
+    {
+      "file": "growth_vehicles.json",
+      "status": "ready",
+      "rows": 17,
+      "depends_on": "constructs"
+    },
+    {
+      "file": "products.json",
+      "status": "stub",
+      "rows": "stub (3 example)",
+      "depends_on": "—"
+    },
+    {
+      "file": "price_rules.json",
+      "status": "stub",
+      "rows": "stub (1 example)",
+      "depends_on": "products"
+    }
+  ],
+  "note": "Master-data (Layer 2) seed. Transactional tables (students, report_instance, raw_capture, derived, commerce records) are created empty by the schema and populated at runtime — not seeded."
+}

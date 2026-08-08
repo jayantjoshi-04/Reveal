@@ -1,0 +1,6450 @@
+[
+  {
+    "id": "rp_0001",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Conviction",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0002",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Empathy",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0003",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Analytical",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0004",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Narrative",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0005",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Aesthetic",
+    "required_level": 82,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0006",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Systems",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0007",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Spatial",
+    "required_level": 82,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0008",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Kinesthetic",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0009",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Naturalistic",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0010",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Sketch/Viz",
+    "required_level": 78,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0011",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Digital/Intx",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0012",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Making",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0013",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Materials",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0014",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Research",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0015",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Sustain/Sys",
+    "required_level": 42,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0016",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Collab",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0017",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "With↔Alone",
+    "required_level": 0,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0018",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Deep↔Broad",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0019",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Hands↔Visual",
+    "required_level": -45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0020",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Bold↔Careful",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0021",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0022",
+    "target_type": "role",
+    "target_id": "role_industrial_product_designer",
+    "construct_id": "Experiment↔Study",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0023",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Conviction",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0024",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Empathy",
+    "required_level": 82,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0025",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Analytical",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0026",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Narrative",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0027",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Aesthetic",
+    "required_level": 42,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0028",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Systems",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0029",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Spatial",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0030",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Kinesthetic",
+    "required_level": 32,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0031",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Naturalistic",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0032",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Sketch/Viz",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0033",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Digital/Intx",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0034",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Making",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0035",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Materials",
+    "required_level": 42,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0036",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Research",
+    "required_level": 82,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0037",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Sustain/Sys",
+    "required_level": 42,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0038",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Collab",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0039",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "With↔Alone",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0040",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Deep↔Broad",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0041",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Hands↔Visual",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0042",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Bold↔Careful",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0043",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0044",
+    "target_type": "role",
+    "target_id": "role_design_researcher_physical",
+    "construct_id": "Experiment↔Study",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0045",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Conviction",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0046",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Empathy",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0047",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Analytical",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0048",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Narrative",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0049",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Aesthetic",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0050",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Systems",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0051",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Spatial",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0052",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Kinesthetic",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0053",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Naturalistic",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0054",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Sketch/Viz",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0055",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Digital/Intx",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0056",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Making",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0057",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Materials",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0058",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Research",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0059",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Sustain/Sys",
+    "required_level": 85,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0060",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Collab",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0061",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "With↔Alone",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0062",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Deep↔Broad",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0063",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Hands↔Visual",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0064",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Bold↔Careful",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0065",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0066",
+    "target_type": "role",
+    "target_id": "role_circular_design_specialist",
+    "construct_id": "Experiment↔Study",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0067",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Conviction",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0068",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Empathy",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0069",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Analytical",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0070",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Narrative",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0071",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Aesthetic",
+    "required_level": 85,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0072",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Systems",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0073",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Spatial",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0074",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Kinesthetic",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0075",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Naturalistic",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0076",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Sketch/Viz",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0077",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Digital/Intx",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0078",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Making",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0079",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Materials",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0080",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Research",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0081",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Sustain/Sys",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0082",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Collab",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0083",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "With↔Alone",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0084",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Deep↔Broad",
+    "required_level": -45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0085",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Hands↔Visual",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0086",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Bold↔Careful",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0087",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0088",
+    "target_type": "role",
+    "target_id": "role_cmf_designer",
+    "construct_id": "Experiment↔Study",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0089",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Conviction",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0090",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Empathy",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0091",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Analytical",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0092",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Narrative",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0093",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Aesthetic",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0094",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Systems",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0095",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Spatial",
+    "required_level": 78,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0096",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Kinesthetic",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0097",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Naturalistic",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0098",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Sketch/Viz",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0099",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Digital/Intx",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0100",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Making",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0101",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Materials",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0102",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Research",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0103",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Sustain/Sys",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0104",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Collab",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0105",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "With↔Alone",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0106",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Deep↔Broad",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0107",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Hands↔Visual",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0108",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Bold↔Careful",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0109",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0110",
+    "target_type": "role",
+    "target_id": "role_product_design_engineer_pde",
+    "construct_id": "Experiment↔Study",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0111",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Conviction",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0112",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Empathy",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0113",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Analytical",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0114",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Narrative",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0115",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Aesthetic",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0116",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Systems",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0117",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Spatial",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0118",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Kinesthetic",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0119",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Naturalistic",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0120",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Sketch/Viz",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0121",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Digital/Intx",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0122",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Making",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0123",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Materials",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0124",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Research",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0125",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Sustain/Sys",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0126",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Collab",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0127",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "With↔Alone",
+    "required_level": 0,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0128",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Deep↔Broad",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0129",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Hands↔Visual",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0130",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Bold↔Careful",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0131",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0132",
+    "target_type": "role",
+    "target_id": "role_packaging_sustainable_packaging",
+    "construct_id": "Experiment↔Study",
+    "required_level": 0,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0133",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Conviction",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0134",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Empathy",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0135",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Analytical",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0136",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Narrative",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0137",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Aesthetic",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0138",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Systems",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0139",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Spatial",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0140",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Kinesthetic",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0141",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Naturalistic",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0142",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Sketch/Viz",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0143",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Digital/Intx",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0144",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Making",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0145",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Materials",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0146",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Research",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0147",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Sustain/Sys",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0148",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Collab",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0149",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "With↔Alone",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0150",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Deep↔Broad",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0151",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Hands↔Visual",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0152",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Bold↔Careful",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0153",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0154",
+    "target_type": "role",
+    "target_id": "role_hardware_ergonomist_human_factors",
+    "construct_id": "Experiment↔Study",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0155",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Conviction",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0156",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Empathy",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0157",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Analytical",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0158",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Narrative",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0159",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Aesthetic",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0160",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Systems",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0161",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Spatial",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0162",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Kinesthetic",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0163",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Naturalistic",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0164",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Sketch/Viz",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0165",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Digital/Intx",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0166",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Making",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0167",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Materials",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0168",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Research",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0169",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Sustain/Sys",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0170",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Collab",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0171",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "With↔Alone",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0172",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Deep↔Broad",
+    "required_level": -40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0173",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Hands↔Visual",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0174",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Bold↔Careful",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0175",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0176",
+    "target_type": "role",
+    "target_id": "role_parametric_design_specialist",
+    "construct_id": "Experiment↔Study",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0177",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Conviction",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0178",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Empathy",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0179",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Analytical",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0180",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Narrative",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0181",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Aesthetic",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0182",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Systems",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0183",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Spatial",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0184",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Kinesthetic",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0185",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Naturalistic",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0186",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Sketch/Viz",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0187",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Digital/Intx",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0188",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Making",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0189",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Materials",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0190",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Research",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0191",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Sustain/Sys",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0192",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Collab",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0193",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "With↔Alone",
+    "required_level": -40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0194",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Deep↔Broad",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0195",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Hands↔Visual",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0196",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Bold↔Careful",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0197",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0198",
+    "target_type": "role",
+    "target_id": "role_design_strategist_physical",
+    "construct_id": "Experiment↔Study",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0199",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Conviction",
+    "required_level": 82,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0200",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Empathy",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0201",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Analytical",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0202",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Narrative",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0203",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Aesthetic",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0204",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Systems",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0205",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Spatial",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0206",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Kinesthetic",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0207",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Naturalistic",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0208",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Sketch/Viz",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0209",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Digital/Intx",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0210",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Making",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0211",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Materials",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0212",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Research",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0213",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Sustain/Sys",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0214",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Collab",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0215",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "With↔Alone",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0216",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Deep↔Broad",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0217",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Hands↔Visual",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0218",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Bold↔Careful",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0219",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0220",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_physical",
+    "construct_id": "Experiment↔Study",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0221",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Conviction",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0222",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Empathy",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0223",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Analytical",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0224",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Narrative",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0225",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Aesthetic",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0226",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Systems",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0227",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Spatial",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0228",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Kinesthetic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0229",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Naturalistic",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0230",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Sketch/Viz",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0231",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Digital/Intx",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0232",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Making",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0233",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Materials",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0234",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Research",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0235",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Sustain/Sys",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0236",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Collab",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0237",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "With↔Alone",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0238",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Deep↔Broad",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0239",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Hands↔Visual",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0240",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Bold↔Careful",
+    "required_level": -5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0241",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0242",
+    "target_type": "role",
+    "target_id": "role_product_designer_digital",
+    "construct_id": "Experiment↔Study",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0243",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Conviction",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0244",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Empathy",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0245",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Analytical",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0246",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Narrative",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0247",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Aesthetic",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0248",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Systems",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0249",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Spatial",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0250",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Kinesthetic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0251",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Naturalistic",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0252",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Sketch/Viz",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0253",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Digital/Intx",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0254",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Making",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0255",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Materials",
+    "required_level": 18,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0256",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Research",
+    "required_level": 82,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0257",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Sustain/Sys",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0258",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Collab",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0259",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "With↔Alone",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0260",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Deep↔Broad",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0261",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Hands↔Visual",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0262",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Bold↔Careful",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0263",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0264",
+    "target_type": "role",
+    "target_id": "role_design_researcher_digital",
+    "construct_id": "Experiment↔Study",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0265",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Conviction",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0266",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Empathy",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0267",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Analytical",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0268",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Narrative",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0269",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Aesthetic",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0270",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Systems",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0271",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Spatial",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0272",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Kinesthetic",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0273",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Naturalistic",
+    "required_level": 18,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0274",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Sketch/Viz",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0275",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Digital/Intx",
+    "required_level": 82,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0276",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Making",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0277",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Materials",
+    "required_level": 18,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0278",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Research",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0279",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Sustain/Sys",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0280",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Collab",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0281",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "With↔Alone",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0282",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Deep↔Broad",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0283",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Hands↔Visual",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0284",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Bold↔Careful",
+    "required_level": 0,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0285",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0286",
+    "target_type": "role",
+    "target_id": "role_interaction_designer",
+    "construct_id": "Experiment↔Study",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0287",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Conviction",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0288",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Empathy",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0289",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Analytical",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0290",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Narrative",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0291",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Aesthetic",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0292",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Systems",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0293",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Spatial",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0294",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Kinesthetic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0295",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Naturalistic",
+    "required_level": 18,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0296",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Sketch/Viz",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0297",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Digital/Intx",
+    "required_level": 88,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0298",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Making",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0299",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Materials",
+    "required_level": 18,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0300",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Research",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0301",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Sustain/Sys",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0302",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Collab",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0303",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "With↔Alone",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0304",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Deep↔Broad",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0305",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Hands↔Visual",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0306",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Bold↔Careful",
+    "required_level": -5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0307",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0308",
+    "target_type": "role",
+    "target_id": "role_design_engineer_ux_engineer",
+    "construct_id": "Experiment↔Study",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0309",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Conviction",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0310",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Empathy",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0311",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Analytical",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0312",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Narrative",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0313",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Aesthetic",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0314",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Systems",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0315",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Spatial",
+    "required_level": 28,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0316",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Kinesthetic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0317",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Naturalistic",
+    "required_level": 18,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0318",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Sketch/Viz",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0319",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Digital/Intx",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0320",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Making",
+    "required_level": 28,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0321",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Materials",
+    "required_level": 18,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0322",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Research",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0323",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Sustain/Sys",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0324",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Collab",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0325",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "With↔Alone",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0326",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Deep↔Broad",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0327",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Hands↔Visual",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0328",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Bold↔Careful",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0329",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0330",
+    "target_type": "role",
+    "target_id": "role_ai_experience_designer",
+    "construct_id": "Experiment↔Study",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0331",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Conviction",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0332",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Empathy",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0333",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Analytical",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0334",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Narrative",
+    "required_level": 48,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0335",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Aesthetic",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0336",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Systems",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0337",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Spatial",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0338",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Kinesthetic",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0339",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Naturalistic",
+    "required_level": 18,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0340",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Sketch/Viz",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0341",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Digital/Intx",
+    "required_level": 82,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0342",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Making",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0343",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Materials",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0344",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Research",
+    "required_level": 52,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0345",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Sustain/Sys",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0346",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Collab",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0347",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "With↔Alone",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0348",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Deep↔Broad",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0349",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Hands↔Visual",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0350",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Bold↔Careful",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0351",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0352",
+    "target_type": "role",
+    "target_id": "role_spatial_ui_ux_xr_interaction",
+    "construct_id": "Experiment↔Study",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0353",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Conviction",
+    "required_level": 48,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0354",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Empathy",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0355",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Analytical",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0356",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Narrative",
+    "required_level": 42,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0357",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Aesthetic",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0358",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Systems",
+    "required_level": 78,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0359",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Spatial",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0360",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Kinesthetic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0361",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Naturalistic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0362",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Sketch/Viz",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0363",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Digital/Intx",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0364",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Making",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0365",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Materials",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0366",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Research",
+    "required_level": 48,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0367",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Sustain/Sys",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0368",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Collab",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0369",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "With↔Alone",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0370",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Deep↔Broad",
+    "required_level": -40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0371",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Hands↔Visual",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0372",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Bold↔Careful",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0373",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0374",
+    "target_type": "role",
+    "target_id": "role_design_systems_specialist",
+    "construct_id": "Experiment↔Study",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0375",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Conviction",
+    "required_level": 48,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0376",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Empathy",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0377",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Analytical",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0378",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Narrative",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0379",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Aesthetic",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0380",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Systems",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0381",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Spatial",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0382",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Kinesthetic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0383",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Naturalistic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0384",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Sketch/Viz",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0385",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Digital/Intx",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0386",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Making",
+    "required_level": 22,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0387",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Materials",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0388",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Research",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0389",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Sustain/Sys",
+    "required_level": 28,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0390",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Collab",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0391",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "With↔Alone",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0392",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Deep↔Broad",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0393",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Hands↔Visual",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0394",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Bold↔Careful",
+    "required_level": 0,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0395",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0396",
+    "target_type": "role",
+    "target_id": "role_conversation_designer_vui",
+    "construct_id": "Experiment↔Study",
+    "required_level": 0,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0397",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Conviction",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0398",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Empathy",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0399",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Analytical",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0400",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Narrative",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0401",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Aesthetic",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0402",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Systems",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0403",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Spatial",
+    "required_level": 22,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0404",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Kinesthetic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0405",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Naturalistic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0406",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Sketch/Viz",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0407",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Digital/Intx",
+    "required_level": 78,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0408",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Making",
+    "required_level": 22,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0409",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Materials",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0410",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Research",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0411",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Sustain/Sys",
+    "required_level": 28,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0412",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Collab",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0413",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "With↔Alone",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0414",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Deep↔Broad",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0415",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Hands↔Visual",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0416",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Bold↔Careful",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0417",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0418",
+    "target_type": "role",
+    "target_id": "role_product_growth_designer",
+    "construct_id": "Experiment↔Study",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0419",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Conviction",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0420",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Empathy",
+    "required_level": 82,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0421",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Analytical",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0422",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Narrative",
+    "required_level": 52,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0423",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Aesthetic",
+    "required_level": 42,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0424",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Systems",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0425",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Spatial",
+    "required_level": 22,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0426",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Kinesthetic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0427",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Naturalistic",
+    "required_level": 18,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0428",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Sketch/Viz",
+    "required_level": 42,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0429",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Digital/Intx",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0430",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Making",
+    "required_level": 22,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0431",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Materials",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0432",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Research",
+    "required_level": 85,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0433",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Sustain/Sys",
+    "required_level": 32,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0434",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Collab",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0435",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "With↔Alone",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0436",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Deep↔Broad",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0437",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Hands↔Visual",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0438",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Bold↔Careful",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0439",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0440",
+    "target_type": "role",
+    "target_id": "role_ux_researcher",
+    "construct_id": "Experiment↔Study",
+    "required_level": 42,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0441",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Conviction",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0442",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Empathy",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0443",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Analytical",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0444",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Narrative",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0445",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Aesthetic",
+    "required_level": 52,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0446",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Systems",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0447",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Spatial",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0448",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Kinesthetic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0449",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Naturalistic",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0450",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Sketch/Viz",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0451",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Digital/Intx",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0452",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Making",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0453",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Materials",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0454",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Research",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0455",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Sustain/Sys",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0456",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Collab",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0457",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "With↔Alone",
+    "required_level": -40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0458",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Deep↔Broad",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0459",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Hands↔Visual",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0460",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Bold↔Careful",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0461",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0462",
+    "target_type": "role",
+    "target_id": "role_design_strategist_digital",
+    "construct_id": "Experiment↔Study",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0463",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Conviction",
+    "required_level": 82,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0464",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Empathy",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0465",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Analytical",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0466",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Narrative",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0467",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Aesthetic",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0468",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Systems",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0469",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Spatial",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0470",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Kinesthetic",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0471",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Naturalistic",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0472",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Sketch/Viz",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0473",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Digital/Intx",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0474",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Making",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0475",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Materials",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0476",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Research",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0477",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Sustain/Sys",
+    "required_level": 38,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0478",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Collab",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0479",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "With↔Alone",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0480",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Deep↔Broad",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0481",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Hands↔Visual",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0482",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Bold↔Careful",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0483",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Reinvent↔Redefine",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0484",
+    "target_type": "role",
+    "target_id": "role_design_entrepreneur_digital",
+    "construct_id": "Experiment↔Study",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0485",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Auto↔Structure",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0486",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0487",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0488",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Single↔Novelty",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0489",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0490",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Blame↔Safe",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0491",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0492",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Concept↔Launch",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0493",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Impact↔Income",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0494",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "User↔Business",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0495",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Craft↔Velocity",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0496",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Auton↔Belong",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0497",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Explore↔Secure",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0498",
+    "target_type": "domain",
+    "target_id": "domain_consumer_technology_electronics",
+    "construct_id": "Equity↔Focus",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0499",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Auto↔Structure",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0500",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0501",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0502",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Single↔Novelty",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0503",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0504",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Blame↔Safe",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0505",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0506",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Concept↔Launch",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0507",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Impact↔Income",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0508",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "User↔Business",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0509",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0510",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Auton↔Belong",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0511",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Explore↔Secure",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0512",
+    "target_type": "domain",
+    "target_id": "domain_automotive_mobility_micro_mobility",
+    "construct_id": "Equity↔Focus",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0513",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Auto↔Structure",
+    "required_level": 85,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0514",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0515",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0516",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Single↔Novelty",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0517",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0518",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Blame↔Safe",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0519",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0520",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Concept↔Launch",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0521",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Impact↔Income",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0522",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "User↔Business",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0523",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0524",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Auton↔Belong",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0525",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Explore↔Secure",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0526",
+    "target_type": "domain",
+    "target_id": "domain_medical_technology_devices",
+    "construct_id": "Equity↔Focus",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0527",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Auto↔Structure",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0528",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0529",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0530",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Single↔Novelty",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0531",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0532",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Blame↔Safe",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0533",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0534",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Concept↔Launch",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0535",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Impact↔Income",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0536",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "User↔Business",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0537",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Craft↔Velocity",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0538",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Auton↔Belong",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0539",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Explore↔Secure",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0540",
+    "target_type": "domain",
+    "target_id": "domain_robotics_smart_automation",
+    "construct_id": "Equity↔Focus",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0541",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Auto↔Structure",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0542",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0543",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0544",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Single↔Novelty",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0545",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0546",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Blame↔Safe",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0547",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0548",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Concept↔Launch",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0549",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Impact↔Income",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0550",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "User↔Business",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0551",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0552",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Auton↔Belong",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0553",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Explore↔Secure",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0554",
+    "target_type": "domain",
+    "target_id": "domain_furniture_spatial_lighting",
+    "construct_id": "Equity↔Focus",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0555",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Auto↔Structure",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0556",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0557",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0558",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Single↔Novelty",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0559",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0560",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Blame↔Safe",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0561",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0562",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Concept↔Launch",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0563",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Impact↔Income",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0564",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "User↔Business",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0565",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Craft↔Velocity",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0566",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Auton↔Belong",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0567",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Explore↔Secure",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0568",
+    "target_type": "domain",
+    "target_id": "domain_athletic_gear_wearables_smart_apparel",
+    "construct_id": "Equity↔Focus",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0569",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Auto↔Structure",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0570",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0571",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0572",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Single↔Novelty",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0573",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0574",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Blame↔Safe",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0575",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0576",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Concept↔Launch",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0577",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Impact↔Income",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0578",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "User↔Business",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0579",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Craft↔Velocity",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0580",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Auton↔Belong",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0581",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Explore↔Secure",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0582",
+    "target_type": "domain",
+    "target_id": "domain_fmcg_packaged_goods",
+    "construct_id": "Equity↔Focus",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0583",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Auto↔Structure",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0584",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0585",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0586",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Single↔Novelty",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0587",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0588",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Blame↔Safe",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0589",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0590",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Concept↔Launch",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0591",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Impact↔Income",
+    "required_level": -70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0592",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "User↔Business",
+    "required_level": -65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0593",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0594",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Auton↔Belong",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0595",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Explore↔Secure",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0596",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Equity↔Focus",
+    "required_level": -65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0597",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Auto↔Structure",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0598",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0599",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0600",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Single↔Novelty",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0601",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0602",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Blame↔Safe",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0603",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0604",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Concept↔Launch",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0605",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Impact↔Income",
+    "required_level": -55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0606",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "User↔Business",
+    "required_level": -45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0607",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0608",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Auton↔Belong",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0609",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Explore↔Secure",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0610",
+    "target_type": "domain",
+    "target_id": "domain_sustainability",
+    "construct_id": "Equity↔Focus",
+    "required_level": -40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0611",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Auto↔Structure",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0612",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0613",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0614",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Single↔Novelty",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0615",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0616",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Blame↔Safe",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0617",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0618",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Concept↔Launch",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0619",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Impact↔Income",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0620",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "User↔Business",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0621",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0622",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Auton↔Belong",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0623",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Explore↔Secure",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0624",
+    "target_type": "domain",
+    "target_id": "domain_toys_play_education",
+    "construct_id": "Equity↔Focus",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0625",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Auto↔Structure",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0626",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0627",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0628",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Single↔Novelty",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0629",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0630",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Blame↔Safe",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0631",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0632",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Concept↔Launch",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0633",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Impact↔Income",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0634",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "User↔Business",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0635",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0636",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Auton↔Belong",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0637",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Explore↔Secure",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0638",
+    "target_type": "domain",
+    "target_id": "domain_luxury_craft_artisanal",
+    "construct_id": "Equity↔Focus",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0639",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Auto↔Structure",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0640",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0641",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0642",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Single↔Novelty",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0643",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0644",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Blame↔Safe",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0645",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0646",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Concept↔Launch",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0647",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Impact↔Income",
+    "required_level": -60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0648",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "User↔Business",
+    "required_level": -55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0649",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0650",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Auton↔Belong",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0651",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Explore↔Secure",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0652",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Equity↔Focus",
+    "required_level": -55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0653",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Auto↔Structure",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0654",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0655",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0656",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Single↔Novelty",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0657",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0658",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Blame↔Safe",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0659",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0660",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Concept↔Launch",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0661",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Impact↔Income",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0662",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "User↔Business",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0663",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Craft↔Velocity",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0664",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Auton↔Belong",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0665",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Explore↔Secure",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0666",
+    "target_type": "domain",
+    "target_id": "domain_software_digital_products",
+    "construct_id": "Equity↔Focus",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0667",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Auto↔Structure",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0668",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0669",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0670",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Single↔Novelty",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0671",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0672",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Blame↔Safe",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0673",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0674",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Concept↔Launch",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0675",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Impact↔Income",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0676",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "User↔Business",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0677",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Craft↔Velocity",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0678",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Auton↔Belong",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0679",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Explore↔Secure",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0680",
+    "target_type": "domain",
+    "target_id": "domain_saas_enterprise_tools",
+    "construct_id": "Equity↔Focus",
+    "required_level": 25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0681",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Auto↔Structure",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0682",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0683",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0684",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Single↔Novelty",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0685",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0686",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Blame↔Safe",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0687",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0688",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Concept↔Launch",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0689",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Impact↔Income",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0690",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "User↔Business",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0691",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Craft↔Velocity",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0692",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Auton↔Belong",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0693",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Explore↔Secure",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0694",
+    "target_type": "domain",
+    "target_id": "domain_fintech_digital_banking",
+    "construct_id": "Equity↔Focus",
+    "required_level": 30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0695",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Auto↔Structure",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0696",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0697",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0698",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Single↔Novelty",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0699",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0700",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Blame↔Safe",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0701",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0702",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Concept↔Launch",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0703",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Impact↔Income",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0704",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "User↔Business",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0705",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0706",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Auton↔Belong",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0707",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Explore↔Secure",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0708",
+    "target_type": "domain",
+    "target_id": "domain_healthcare_tech_digital_health",
+    "construct_id": "Equity↔Focus",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0709",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Auto↔Structure",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0710",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0711",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0712",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Single↔Novelty",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0713",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0714",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Blame↔Safe",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0715",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0716",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Concept↔Launch",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0717",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Impact↔Income",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0718",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "User↔Business",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0719",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0720",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Auton↔Belong",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0721",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Explore↔Secure",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0722",
+    "target_type": "domain",
+    "target_id": "domain_edtech_gamified_platforms",
+    "construct_id": "Equity↔Focus",
+    "required_level": -35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0723",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Auto↔Structure",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0724",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0725",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0726",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Single↔Novelty",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0727",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0728",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Blame↔Safe",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0729",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0730",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Concept↔Launch",
+    "required_level": 82,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0731",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Impact↔Income",
+    "required_level": 40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0732",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "User↔Business",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0733",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Craft↔Velocity",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0734",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Auton↔Belong",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0735",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Explore↔Secure",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0736",
+    "target_type": "domain",
+    "target_id": "domain_e_commerce_logistics_marketplaces",
+    "construct_id": "Equity↔Focus",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0737",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Auto↔Structure",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0738",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0739",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0740",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Single↔Novelty",
+    "required_level": 80,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0741",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0742",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Blame↔Safe",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0743",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0744",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Concept↔Launch",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0745",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Impact↔Income",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0746",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "User↔Business",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0747",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Craft↔Velocity",
+    "required_level": 20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0748",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Auton↔Belong",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0749",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Explore↔Secure",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0750",
+    "target_type": "domain",
+    "target_id": "domain_entertainment_immersive_media",
+    "construct_id": "Equity↔Focus",
+    "required_level": 15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0751",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Auto↔Structure",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0752",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0753",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0754",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Single↔Novelty",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0755",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0756",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Blame↔Safe",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0757",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0758",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Concept↔Launch",
+    "required_level": 45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0759",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Impact↔Income",
+    "required_level": -70,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0760",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "User↔Business",
+    "required_level": -65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0761",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0762",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Auton↔Belong",
+    "required_level": -10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0763",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Explore↔Secure",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0764",
+    "target_type": "domain",
+    "target_id": "domain_social_impact_development",
+    "construct_id": "Equity↔Focus",
+    "required_level": -65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0765",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Auto↔Structure",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0766",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0767",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 68,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0768",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Single↔Novelty",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0769",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0770",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Blame↔Safe",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0771",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0772",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Concept↔Launch",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0773",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Impact↔Income",
+    "required_level": -55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0774",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "User↔Business",
+    "required_level": -45,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0775",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0776",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Auton↔Belong",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0777",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Explore↔Secure",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0778",
+    "target_type": "domain",
+    "target_id": "domain_environment_cleantech",
+    "construct_id": "Equity↔Focus",
+    "required_level": -40,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0779",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Auto↔Structure",
+    "required_level": 52,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0780",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0781",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0782",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Single↔Novelty",
+    "required_level": 75,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0783",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0784",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Blame↔Safe",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0785",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 62,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0786",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Concept↔Launch",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0787",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Impact↔Income",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0788",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "User↔Business",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0789",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Craft↔Velocity",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0790",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Auton↔Belong",
+    "required_level": 5,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0791",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Explore↔Secure",
+    "required_level": 10,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0792",
+    "target_type": "domain",
+    "target_id": "domain_games_play_education",
+    "construct_id": "Equity↔Focus",
+    "required_level": -20,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0793",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Auto↔Structure",
+    "required_level": 50,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0794",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Insul↔Feedback",
+    "required_level": 52,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0795",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Routine↔Challenge",
+    "required_level": 65,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0796",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Single↔Novelty",
+    "required_level": 60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0797",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Boot↔Resourced",
+    "required_level": 35,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0798",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Blame↔Safe",
+    "required_level": 58,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0799",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Silo↔CrossD",
+    "required_level": 72,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0800",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Concept↔Launch",
+    "required_level": 48,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0801",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Impact↔Income",
+    "required_level": -60,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0802",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "User↔Business",
+    "required_level": -55,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0803",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Craft↔Velocity",
+    "required_level": -25,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0804",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Auton↔Belong",
+    "required_level": -15,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0805",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Explore↔Secure",
+    "required_level": -30,
+    "is_critical": false
+  },
+  {
+    "id": "rp_0806",
+    "target_type": "domain",
+    "target_id": "domain_rural_agri_innovation",
+    "construct_id": "Equity↔Focus",
+    "required_level": -55,
+    "is_critical": false
+  }
+]

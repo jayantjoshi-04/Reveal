@@ -1,0 +1,281 @@
+[
+  {
+    "id": "PV-014",
+    "type": "project",
+    "title": "Shadow-to-System",
+    "closes_gap_type": "capability:systems_synthesis",
+    "target_constructs": [
+      "Systems",
+      "Sustain/Sys"
+    ],
+    "selection_predicate": "(cap(Empathy)>=high OR cap(Systems)>=high) AND gap(Sustain/Sys)>0 AND NOT portfolio_has(service_artifact)",
+    "relevance_basis": "weight of Systems/Sustain in top_direction",
+    "gap_metric": "gap(Sustain/Sys) magnitude",
+    "closeability": "high",
+    "evidence": "service blueprint + before/after journey",
+    "effort": "3–4 wks solo",
+    "render_template": "You notice how services fail better than most — but your portfolio doesn’t show you fixing one. Redesign a service you’ve used badly, end to end."
+  },
+  {
+    "id": "PV-001",
+    "type": "project",
+    "title": "Field-to-Form",
+    "closes_gap_type": "portfolio:researched_product",
+    "target_constructs": [
+      "Research",
+      "Making"
+    ],
+    "selection_predicate": "cap(Empathy)>=high AND capab(Research)>=evidenced AND readiness(portfolio)<strong AND NOT portfolio_has(researched_product)",
+    "relevance_basis": "research→making translation for top_direction",
+    "gap_metric": "readiness(portfolio) distance to strong",
+    "closeability": "high",
+    "evidence": "a made artifact traceable to field insight",
+    "effort": "4–6 wks",
+    "render_template": "Your research is strong, but the line from insight to made object isn’t visible yet. Take one field finding all the way to a built thing."
+  },
+  {
+    "id": "PV-002",
+    "type": "project",
+    "title": "One Object, Ten Ways",
+    "closes_gap_type": "capability:making",
+    "target_constructs": [
+      "Making",
+      "Kinesthetic"
+    ],
+    "selection_predicate": "gap(Making)>0 AND disp(Hands↔Visual) toward Visual",
+    "relevance_basis": "Making weight in top_direction",
+    "gap_metric": "gap(Making) magnitude",
+    "closeability": "medium",
+    "evidence": "ten physical iterations of one object",
+    "effort": "2–3 wks",
+    "render_template": "You work things out on screen more than in the hand. Make one object ten different ways — no screens."
+  },
+  {
+    "id": "PV-003",
+    "type": "project",
+    "title": "The Systems Teardown",
+    "closes_gap_type": "capacity:systems",
+    "target_constructs": [
+      "Systems"
+    ],
+    "selection_predicate": "cap(Systems)>=mid AND gap(Sustain/Sys)>0 AND direction_rewards(Systems)",
+    "relevance_basis": "Systems weight in top_direction",
+    "gap_metric": "gap(Sustain/Sys)",
+    "closeability": "medium",
+    "evidence": "a system map + a leverage-point redesign",
+    "effort": "2–3 wks",
+    "render_template": "Pull a complex system apart, map it, and find the one move that changes the most."
+  },
+  {
+    "id": "PV-004",
+    "type": "project",
+    "title": "Materials Deep-Dive",
+    "closes_gap_type": "capability:materials",
+    "target_constructs": [
+      "Materials"
+    ],
+    "selection_predicate": "gap(Materials)>0 AND direction_rewards(Materials)",
+    "relevance_basis": "Materials as a domain-critical skill",
+    "gap_metric": "gap(Materials)",
+    "closeability": "high",
+    "evidence": "a materials study foregrounded in one piece",
+    "effort": "2 wks",
+    "render_template": "Your directions reward material knowledge your work doesn’t show yet. Build one piece where the material is the point."
+  },
+  {
+    "id": "PV-006",
+    "type": "project",
+    "title": "Reframe & Reissue",
+    "closes_gap_type": "capacity:narrative",
+    "target_constructs": [
+      "Narrative"
+    ],
+    "selection_predicate": "cap(Narrative)<mid AND readiness(portfolio)=developing",
+    "relevance_basis": "Narrative lifts every portfolio piece",
+    "gap_metric": "cap(Narrative) distance to mid",
+    "closeability": "high",
+    "evidence": "one existing piece, re-told",
+    "effort": "1 wk",
+    "render_template": "Your work is better than the way it’s told. Take your strongest piece and re-tell it so the thinking shows."
+  },
+  {
+    "id": "EV-001",
+    "type": "experience",
+    "title": "Studio placement in your domain",
+    "closes_gap_type": "exposure:real_context",
+    "target_constructs": [
+      "Exp/Exposure"
+    ],
+    "selection_predicate": "readiness(experience_exposure)=emerging AND top_direction.domain",
+    "relevance_basis": "real context in the top domain",
+    "gap_metric": "readiness(experience_exposure) distance",
+    "closeability": "medium",
+    "evidence": "real project shipped in a real studio",
+    "effort": "internship / placement",
+    "render_template": "You haven’t worked much in a real {domain} room yet. A placement there is the fastest way to test the fit."
+  },
+  {
+    "id": "EV-002",
+    "type": "experience",
+    "title": "Cross-disciplinary collaboration",
+    "closes_gap_type": "capability:collab",
+    "target_constructs": [
+      "Collab",
+      "Silo↔CrossD"
+    ],
+    "selection_predicate": "capab(Collab)<evidenced OR env_history(single_room_type)",
+    "relevance_basis": "Collab + cross-disc exposure",
+    "gap_metric": "Collab evidence gap",
+    "closeability": "medium",
+    "evidence": "a piece built with people outside design",
+    "effort": "a term / a project",
+    "render_template": "Your work so far sits inside your own discipline. Build one thing with people who aren’t designers."
+  },
+  {
+    "id": "EV-003",
+    "type": "experience",
+    "title": "Ship-It Sprint",
+    "closes_gap_type": "exposure:launch",
+    "target_constructs": [
+      "Concept↔Launch"
+    ],
+    "selection_predicate": "env_history(all_concept) AND direction_rewards(Concept↔Launch)",
+    "relevance_basis": "launch exposure for launch-paced domains",
+    "gap_metric": "never-launched flag",
+    "closeability": "high",
+    "evidence": "something actually shipped, on a clock",
+    "effort": "a hackathon / sprint",
+    "render_template": "You’ve lived in ideas but rarely shipped. Take one thing all the way out the door, on a deadline."
+  },
+  {
+    "id": "EV-004",
+    "type": "experience",
+    "title": "Fieldwork immersion",
+    "closes_gap_type": "exposure:real_users",
+    "target_constructs": [
+      "Empathy",
+      "Exp/Exposure"
+    ],
+    "selection_predicate": "cap(Empathy) latent (do>say) AND readiness(experience_exposure)=emerging",
+    "relevance_basis": "turns latent empathy into evidence",
+    "gap_metric": "say/do gap on Empathy + exposure tier",
+    "closeability": "high",
+    "evidence": "sustained real-user contact, documented",
+    "effort": "2–4 wks immersive",
+    "render_template": "Reading people is a bigger part of you than you claim. Spend real time with the people you design for and let it show."
+  },
+  {
+    "id": "EV-005",
+    "type": "experience",
+    "title": "The uncomfortable room",
+    "closes_gap_type": "exposure:environment_breadth",
+    "target_constructs": [
+      "Blame↔Safe",
+      "Insul↔Feedback"
+    ],
+    "selection_predicate": "env_history(single_room_type)",
+    "relevance_basis": "widens the rooms you can work in",
+    "gap_metric": "environment coverage narrowness",
+    "closeability": "medium",
+    "evidence": "a project done in a room-type you avoid",
+    "effort": "one project",
+    "render_template": "You’ve mostly worked in rooms that suit you. Try one that doesn’t — feedback-heavy, or higher-stakes — and see what holds."
+  },
+  {
+    "id": "CV-001",
+    "type": "capability_build",
+    "title": "Sketching reps",
+    "closes_gap_type": "capability:sketch_viz",
+    "target_constructs": [
+      "Sketch/Viz"
+    ],
+    "selection_predicate": "gap(Sketch/Viz)>0",
+    "relevance_basis": "visualization underpins most directions",
+    "gap_metric": "gap(Sketch/Viz)",
+    "closeability": "high",
+    "evidence": "a daily-sketch body of work",
+    "effort": "deliberate practice, weeks",
+    "render_template": "Visualization is a rep game. A short daily sketching habit closes this faster than any course."
+  },
+  {
+    "id": "CV-002",
+    "type": "capability_build",
+    "title": "Digital / interaction foundations",
+    "closes_gap_type": "capability:digital",
+    "target_constructs": [
+      "Digital/Intx"
+    ],
+    "selection_predicate": "gap(Digital/Intx)>0 AND (top_direction.track=digital OR direction_rewards(Digital/Intx))",
+    "relevance_basis": "core to digital directions",
+    "gap_metric": "gap(Digital/Intx)",
+    "closeability": "high",
+    "evidence": "one interactive artifact",
+    "effort": "a focused course",
+    "render_template": "Your directions lean digital but the toolset isn’t there yet. Build one real interactive thing to close it."
+  },
+  {
+    "id": "CV-003",
+    "type": "capability_build",
+    "title": "Research methods intensive",
+    "closes_gap_type": "capability:research",
+    "target_constructs": [
+      "Research"
+    ],
+    "selection_predicate": "gap(Research)>0 AND cap(Empathy)>=mid",
+    "relevance_basis": "you have the instinct, not the method",
+    "gap_metric": "gap(Research)",
+    "closeability": "high",
+    "evidence": "one rigorously-run study",
+    "effort": "a methods course",
+    "render_template": "You read people well but the method is loose. A structured research intensive turns instinct into rigour."
+  },
+  {
+    "id": "CV-004",
+    "type": "capability_build",
+    "title": "Sustainability & systems literacy",
+    "closes_gap_type": "capability:sustain_sys",
+    "target_constructs": [
+      "Sustain/Sys"
+    ],
+    "selection_predicate": "gap(Sustain/Sys)>0 AND direction_rewards(Sustain/Sys)",
+    "relevance_basis": "domain-critical for several directions",
+    "gap_metric": "gap(Sustain/Sys)",
+    "closeability": "medium",
+    "evidence": "a lifecycle / systems analysis",
+    "effort": "a course + one applied piece",
+    "render_template": "Your directions reward systems and sustainability thinking. Build the literacy, then apply it once."
+  },
+  {
+    "id": "CV-005",
+    "type": "capability_build",
+    "title": "Making & prototyping bootcamp",
+    "closes_gap_type": "capability:making",
+    "target_constructs": [
+      "Making",
+      "Kinesthetic"
+    ],
+    "selection_predicate": "gap(Making)>0 AND disp(Hands↔Visual) toward Hands",
+    "relevance_basis": "Making weight in top_direction",
+    "gap_metric": "gap(Making)",
+    "closeability": "high",
+    "evidence": "a fabricated prototype set",
+    "effort": "an intensive bootcamp",
+    "render_template": "You think with your hands — the skills just aren’t built yet. An intensive closes this fast for you."
+  },
+  {
+    "id": "CV-006",
+    "type": "capability_build",
+    "title": "Materials & manufacturing (DFM)",
+    "closes_gap_type": "capability:materials_dfm",
+    "target_constructs": [
+      "Materials"
+    ],
+    "selection_predicate": "gap(Materials)>0 AND direction_rewards(Materials)",
+    "relevance_basis": "a domain-critical skill in your top domain",
+    "gap_metric": "gap(Materials)",
+    "closeability": "medium",
+    "evidence": "a design-for-manufacture study",
+    "effort": "a course",
+    "render_template": "Manufacturing knowledge is critical in your top domain and thin in your work. Close it with a focused DFM course."
+  }
+]

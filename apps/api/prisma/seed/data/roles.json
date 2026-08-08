@@ -1,0 +1,156 @@
+[
+  {
+    "id": "role_industrial_product_designer",
+    "track": "physical",
+    "name": "Industrial / Product Designer",
+    "primary_intent": "Creation · Aesthetic mastery",
+    "note": "Form-giving of tangible objects; spatial + aesthetic core."
+  },
+  {
+    "id": "role_design_researcher_physical",
+    "track": "physical",
+    "name": "Design Researcher (Physical)",
+    "primary_intent": "Understanding · Connection",
+    "note": "Contextual/ethnographic inquiry for physical products. Cross-track bridge."
+  },
+  {
+    "id": "role_circular_design_specialist",
+    "track": "physical",
+    "name": "Circular Design Specialist",
+    "primary_intent": "Impact · Understanding",
+    "note": "Lifecycle, materials circularity; systems + sustainability."
+  },
+  {
+    "id": "role_cmf_designer",
+    "track": "physical",
+    "name": "CMF Designer",
+    "primary_intent": "Aesthetic mastery · Creation",
+    "note": "Colour, material, finish; deep sensory-aesthetic specialism."
+  },
+  {
+    "id": "role_product_design_engineer_pde",
+    "track": "physical",
+    "name": "Product Design Engineer (PDE)",
+    "primary_intent": "Mastery · Creation",
+    "note": "Engineering–design bridge; CAD + manufacturability."
+  },
+  {
+    "id": "role_packaging_sustainable_packaging",
+    "track": "physical",
+    "name": "Packaging / Sustainable Packaging",
+    "primary_intent": "Creation · Impact",
+    "note": "Structural + graphic packaging under sustainability pressure."
+  },
+  {
+    "id": "role_hardware_ergonomist_human_factors",
+    "track": "physical",
+    "name": "Hardware Ergonomist / Human Factors",
+    "primary_intent": "Understanding · Impact",
+    "note": "Human factors, safety, fit — rigorous, empathic-analytical."
+  },
+  {
+    "id": "role_parametric_design_specialist",
+    "track": "physical",
+    "name": "Parametric Design Specialist",
+    "primary_intent": "Mastery · Creation",
+    "note": "Computational/generative form; systems + spatial + digital craft."
+  },
+  {
+    "id": "role_design_strategist_physical",
+    "track": "physical",
+    "name": "Design Strategist (Physical)",
+    "primary_intent": "Impact · Understanding · Control",
+    "note": "Portfolio/market direction for physical products. Cross-track bridge."
+  },
+  {
+    "id": "role_design_entrepreneur_physical",
+    "track": "physical",
+    "name": "Design Entrepreneur (Physical)",
+    "primary_intent": "Creation · Control · Impact",
+    "note": "Venture-building around physical products. Cross-track bridge."
+  },
+  {
+    "id": "role_product_designer_digital",
+    "track": "digital",
+    "name": "Product Designer (Digital)",
+    "primary_intent": "Creation · Impact",
+    "note": "End-to-end digital product design."
+  },
+  {
+    "id": "role_design_researcher_digital",
+    "track": "digital",
+    "name": "Design Researcher (Digital)",
+    "primary_intent": "Understanding · Connection",
+    "note": "Discovery & usability for digital products. Cross-track bridge."
+  },
+  {
+    "id": "role_interaction_designer",
+    "track": "digital",
+    "name": "Interaction Designer",
+    "primary_intent": "Creation · Mastery",
+    "note": "Flows, behaviour, micro-interactions."
+  },
+  {
+    "id": "role_design_engineer_ux_engineer",
+    "track": "digital",
+    "name": "Design Engineer (UX Engineer)",
+    "primary_intent": "Mastery · Creation",
+    "note": "Design–code bridge; front-end craft."
+  },
+  {
+    "id": "role_ai_experience_designer",
+    "track": "digital",
+    "name": "AI Experience Designer",
+    "primary_intent": "Understanding · Creation",
+    "note": "Emerging; probabilistic, systems-heavy interfaces."
+  },
+  {
+    "id": "role_spatial_ui_ux_xr_interaction",
+    "track": "digital",
+    "name": "Spatial UI/UX · XR Interaction",
+    "primary_intent": "Creation · Mastery",
+    "note": "Emerging; spatial capacity returns to the digital track."
+  },
+  {
+    "id": "role_design_systems_specialist",
+    "track": "digital",
+    "name": "Design Systems Specialist",
+    "primary_intent": "Mastery · Control",
+    "note": "Systematic, rigorous, componentised."
+  },
+  {
+    "id": "role_conversation_designer_vui",
+    "track": "digital",
+    "name": "Conversation Designer / VUI",
+    "primary_intent": "Connection · Creation",
+    "note": "Language-first, narrative-heavy."
+  },
+  {
+    "id": "role_product_growth_designer",
+    "track": "digital",
+    "name": "Product Growth Designer",
+    "primary_intent": "Impact · Mastery",
+    "note": "Data- and experiment-driven."
+  },
+  {
+    "id": "role_ux_researcher",
+    "track": "digital",
+    "name": "UX Researcher",
+    "primary_intent": "Understanding · Connection",
+    "note": "Evidence, usability, behavioural insight. Cross-track bridge."
+  },
+  {
+    "id": "role_design_strategist_digital",
+    "track": "digital",
+    "name": "Design Strategist (Digital)",
+    "primary_intent": "Impact · Control · Understanding",
+    "note": "Product/portfolio direction. Cross-track bridge."
+  },
+  {
+    "id": "role_design_entrepreneur_digital",
+    "track": "digital",
+    "name": "Design Entrepreneur (Digital)",
+    "primary_intent": "Creation · Control · Impact",
+    "note": "Venture-building around digital products. Cross-track bridge."
+  }
+]

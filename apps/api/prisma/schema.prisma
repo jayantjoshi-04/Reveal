@@ -1,0 +1,459 @@
+// REVEAL v2.0.0 — the 31-entity, six-layer data model (Schema v2).
+//
+// Faithful to the developer handover, with two deliberate omissions the
+// product owner asked for: the commerce/pricing cluster (product, price_rule,
+// order, order_line) is not modelled, and direction gating is by instance tier
+// rather than a purchased entitlement.
+//
+// These tables are prefixed `v2_` so they coexist on the same database as the
+// v1 raw-SQL tables (student, staff, …). The v2 engine is the ONLY writer of
+// the derived (L4) and payload (L5) layers — the determinism firewall.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ───────────────────────────── L1 · Identity & session ─────────────────────
+
+model Student {
+  id            String           @id @default(uuid())
+  name          String
+  email         String           @unique
+  enrolledField String?          @map("enrolled_field")
+  track         String? // physical | digital
+  consentState  String           @default("pending") @map("consent_state")
+  consentAt     DateTime?        @map("consent_at")
+  lifecycle     String?          @default("prospect") // prospect | first_time | returning (cache)
+  createdAt     DateTime         @default(now()) @map("created_at")
+  instances     ReportInstance[]
+
+  @@map("v2_student")
+}
+
+model ReportInstance {
+  id                  String            @id @default(uuid())
+  studentId           String            @map("student_id")
+  student             Student           @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  createdAt           DateTime          @default(now()) @map("created_at")
+  generatedAt         DateTime?         @map("generated_at")
+  rulesetVersionId    String            @map("ruleset_version_id")
+  ruleset             RulesetVersion    @relation(fields: [rulesetVersionId], references: [id])
+  status              String            @default("in_progress") // in_progress | generated | archived
+  phase               Int               @default(1)
+  tier                String            @default("free") // free | paid
+  instanceType        String            @default("baseline") @map("instance_type") // baseline | re_run
+  priorInstanceId     String?           @map("prior_instance_id")
+  priorInstance       ReportInstance?   @relation("Rerun", fields: [priorInstanceId], references: [id])
+  reruns              ReportInstance[]  @relation("Rerun")
+  label               String?
+  sessions            Session[]
+  responses           ActivityResponse[]
+  portfolioArtifacts  PortfolioArtifact[]
+  experienceEntries   ExperienceEntry[]
+  factualInventories  FactualInventory[]
+  atoms               Atom[]
+  constructScores     ConstructScore[]
+  moleculesFired      MoleculeFired[]
+  directions          Direction[]
+  readiness           Readiness[]
+  growthSelections    GrowthSelection[]
+  findings            Finding[]
+  reportSlots         ReportSlot[]
+  payload             ReportPayload?
+  comparisonsAsNew    InstanceComparison[] @relation("CompNew")
+  comparisonsAsBase   InstanceComparison[] @relation("CompBase")
+
+  @@index([studentId])
+  @@map("v2_report_instance")
+}
+
+model Session {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  startedAt        DateTime       @default(now()) @map("started_at")
+  endedAt          DateTime?      @map("ended_at")
+  resumeState      Json           @default("{}") @map("resume_state")
+  device           String?
+
+  @@map("v2_session")
+}
+
+// ───────────────────────────── L2 · Master data (seed) ─────────────────────
+
+model Construct {
+  id              String  @id // e.g. "Conviction", "Deep↔Broad", "V_craft"
+  family          String // capacity | capability | disposition | environment | value | intent | readiness
+  name            String
+  type            String // amount | gap | bipolar | valenced_driver | tradeoff_axis
+  scale           String
+  edgeLow         String? @map("edge_low")
+  edgeHigh        String? @map("edge_high")
+  driverTier      Int?    @map("driver_tier")
+  hardnessToClose Float?  @map("hardness_to_close")
+  active          Boolean @default(true)
+
+  @@map("v2_construct")
+}
+
+model IntentDriver {
+  id             String @id
+  name           String
+  tier           Int
+  defaultValence String @map("default_valence")
+
+  @@map("v2_intent_driver")
+}
+
+model RulesetVersion {
+  id                  String           @id
+  version             String           @unique
+  notes               String?
+  isActive            Boolean          @default(false) @map("is_active")
+  scoringConstants    Json             @map("scoring_constants")
+  proximityWeights    Json             @map("proximity_weights")
+  readinessThresholds Json             @map("readiness_thresholds")
+  curationWeights     Json             @map("curation_weights")
+  evidenceThreshold   Int              @map("evidence_threshold")
+  changeThresholds    Json             @map("change_thresholds")
+  createdAt           DateTime         @default(now()) @map("created_at")
+  instances           ReportInstance[]
+
+  @@map("v2_ruleset_version")
+}
+
+model Role {
+  id            String  @id
+  track         String
+  name          String
+  primaryIntent String? @map("primary_intent")
+  note          String?
+
+  @@map("v2_role")
+}
+
+model Domain {
+  id             String @id
+  track          String
+  name           String
+  emphasis       String?
+  primaryIntent  String? @map("primary_intent")
+  note           String?
+  criticalSkills Json    @default("[]") @map("critical_skills")
+
+  @@map("v2_domain")
+}
+
+// Polymorphic (target_type + target_id → role | domain). Kept as a scalar
+// lookup rather than an enforced FK, since a row points at only one of the
+// two parent tables. The engine joins it in application code.
+model RequiredProfile {
+  id                String  @id
+  targetType        String  @map("target_type") // role | domain
+  targetId          String  @map("target_id")
+  constructId       String  @map("construct_id")
+  requiredLevel     Float   @map("required_level")
+  isCritical        Boolean @default(false) @map("is_critical")
+  valuesAxisProfile Json?   @map("values_axis_profile")
+
+  @@index([targetType, targetId])
+  @@map("v2_required_profile")
+}
+
+model Activity {
+  id                 String           @id
+  code               String           @unique
+  label              String
+  channel            String
+  format             String
+  phase              Int
+  parallelFormGroup  String?          @map("parallel_form_group")
+  captureSchemaNote  String?          @map("capture_schema_note")
+  ordering           Int
+  options            ActivityOption[]
+  derivationRules    DerivationRule[]
+
+  @@map("v2_activity")
+}
+
+model ActivityOption {
+  id                String   @id
+  activityId        String   @map("activity_id")
+  activity          Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  rungOrStep        String   @map("rung_or_step")
+  label             String
+  mapsToConstructId String?  @map("maps_to_construct_id")
+  channel           String?
+  edge              String?
+  driver            String?
+  valence           String?
+  axis              String?
+  magnitude         String? // "1" (scored), "count" (ladder rung-1 tick), or null
+  isEscape          Boolean  @default(false) @map("is_escape")
+
+  @@index([activityId])
+  @@map("v2_activity_option")
+}
+
+model DerivationRule {
+  id                String   @id
+  activityId        String   @map("activity_id")
+  activity          Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  source            String
+  observable        String
+  mapsToConstructId String?  @map("maps_to_construct_id")
+  channel           String?
+  edgeOrSignal      String?  @map("edge_or_signal")
+  note              String?
+
+  @@index([activityId])
+  @@map("v2_derivation_rule")
+}
+
+model MoleculeRule {
+  id             String  @id
+  type           String // gate | substrate | temper | tension | channel | convergence
+  name           String
+  legs           String
+  mechanism      String
+  triggerExpr    String  @map("trigger_expr")
+  siblingOrNull  String? @map("sibling_or_null")
+  confidenceRule String  @map("confidence_rule")
+  renderTemplate String  @map("render_template")
+  reportSlot     String  @map("report_slot")
+  priority       Int?
+
+  @@map("v2_molecule_rule")
+}
+
+model GrowthVehicle {
+  id               String @id
+  type             String // project | experience | capability_build
+  title            String
+  closesGapType    String @map("closes_gap_type")
+  targetConstructs Json   @map("target_constructs")
+  selectionPredicate String @map("selection_predicate")
+  relevanceBasis   String? @map("relevance_basis")
+  gapMetric        String? @map("gap_metric")
+  closeability     String?
+  evidence         String?
+  effort           String?
+  renderTemplate   String @map("render_template")
+
+  @@map("v2_growth_vehicle")
+}
+
+// ───────────────────────────── L3 · Raw capture (write-once) ────────────────
+
+model ActivityResponse {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  activityId       String         @map("activity_id")
+  channel          String // say | do
+  rawPayload       Json           @map("raw_payload")
+  freeText         String?        @map("free_text") // mentor-only, NEVER scored
+  createdAt        DateTime       @default(now()) @map("created_at")
+
+  @@index([reportInstanceId])
+  @@map("v2_activity_response")
+}
+
+model PortfolioArtifact {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  source           String
+  tags             Json           @default("[]")
+  evidenceMap      Json           @default("{}") @map("evidence_map")
+
+  @@map("v2_portfolio_artifact")
+}
+
+model ExperienceEntry {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  descriptor       String
+  reps             Int
+  contextVariety   Int            @map("context_variety")
+  realVsSimulated  String         @map("real_vs_simulated") // real | simulated
+
+  @@map("v2_experience_entry")
+}
+
+model FactualInventory {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  facts            Json           @default("{}")
+
+  @@map("v2_factual_inventory")
+}
+
+// ───────────────────────────── L4 · Derived (engine-only) ───────────────────
+
+model Atom {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  constructId      String         @map("construct_id")
+  channel          String // say | do
+  value            Float
+  position         Float? // signed, for bipolar/axis
+  resolvedness     String? // for tiebreak-derived atoms
+  sourceActivityId String         @map("source_activity_id")
+  rulesetVersionId String         @map("ruleset_version_id")
+
+  @@index([reportInstanceId])
+  @@map("v2_atom")
+}
+
+model ConstructScore {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  constructId      String         @map("construct_id")
+  sayValue         Float?         @map("say_value")
+  doValue          Float?         @map("do_value")
+  blendedValue     Float          @map("blended_value")
+  positionEdge     String?        @map("position_edge")
+  resolvedness     String?
+  confidenceTier   String         @map("confidence_tier")
+  evidenceCount    Int            @map("evidence_count")
+  gateFlag         Boolean        @default(false) @map("gate_flag")
+  sayDoGapClass    String?        @map("say_do_gap_class")
+  rulesetVersionId String         @map("ruleset_version_id")
+
+  @@index([reportInstanceId])
+  @@map("v2_construct_score")
+}
+
+model MoleculeFired {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  moleculeRuleId   String         @map("molecule_rule_id")
+  fired            Boolean
+  curatedIn        Boolean        @default(false) @map("curated_in")
+  confidenceTier   String         @map("confidence_tier")
+  reportSlot       String         @map("report_slot")
+  renderedText     String         @map("rendered_text")
+  directionId      String?        @map("direction_id")
+  rulesetVersionId String         @map("ruleset_version_id")
+
+  @@index([reportInstanceId])
+  @@map("v2_molecule_fired")
+}
+
+model Direction {
+  id                 String         @id @default(uuid())
+  reportInstanceId   String         @map("report_instance_id")
+  instance           ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  roleId             String         @map("role_id")
+  domainId           String         @map("domain_id")
+  roleFit            Float          @map("role_fit")
+  domainFit          Float          @map("domain_fit")
+  proximityScore     Float          @map("proximity_score")
+  rank               Int
+  aptitudeLevel      String         @map("aptitude_level")
+  interestLevel      String         @map("interest_level")
+  quadrant           String
+  valuesConflictFlag Boolean        @default(false) @map("values_conflict_flag")
+  isChosen           Boolean        @default(false) @map("is_chosen")
+  unlocked           Boolean        @default(false)
+  rulesetVersionId   String         @map("ruleset_version_id")
+
+  @@index([reportInstanceId])
+  @@map("v2_direction")
+}
+
+model Readiness {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  dimension        String // capacity | capability | portfolio | experience_exposure | professional
+  score            Float
+  tier             String // emerging | developing | strong
+  rulesetVersionId String         @map("ruleset_version_id")
+
+  @@index([reportInstanceId])
+  @@map("v2_readiness")
+}
+
+model GrowthSelection {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  growthVehicleId  String         @map("growth_vehicle_id")
+  gapTag           String         @map("gap_tag")
+  directionId      String?        @map("direction_id")
+  rank             Int
+  renderedText     String         @map("rendered_text")
+  rulesetVersionId String         @map("ruleset_version_id")
+
+  @@index([reportInstanceId])
+  @@map("v2_growth_selection")
+}
+
+model Finding {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  kind             String // coherence | surprise | outlier | gate_observation
+  text             String
+  confidenceTier   String         @map("confidence_tier")
+  meta             Json?          @default("{}")
+  rulesetVersionId String         @map("ruleset_version_id")
+
+  @@index([reportInstanceId])
+  @@map("v2_finding")
+}
+
+model InstanceComparison {
+  id                    String         @id @default(uuid())
+  reportInstanceId      String         @map("report_instance_id")
+  newInstance           ReportInstance @relation("CompNew", fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  baselineInstanceId    String         @map("baseline_instance_id")
+  baselineInstance      ReportInstance @relation("CompBase", fields: [baselineInstanceId], references: [id])
+  rescoredUnderRuleset  String         @map("rescored_under_ruleset_id")
+  perConstructDelta     Json           @map("per_construct_delta")
+  moleculesGained       Json           @map("molecules_gained")
+  moleculesLost         Json           @map("molecules_lost")
+  directionRankChanges  Json           @map("direction_rank_changes")
+  readinessMovement     Json           @map("readiness_movement")
+  nullResultFlag        Boolean        @default(false) @map("null_result_flag")
+  createdAt             DateTime       @default(now()) @map("created_at")
+  rulesetVersionId      String         @map("ruleset_version_id")
+
+  @@map("v2_instance_comparison")
+}
+
+// ───────────────────────────── L5 · Report payload (compiled) ───────────────
+
+model ReportSlot {
+  id               String         @id @default(uuid())
+  reportInstanceId String         @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  slotKey          String         @map("slot_key")
+  contentRefs      Json           @map("content_refs")
+  ordering         Int
+
+  @@index([reportInstanceId])
+  @@map("v2_report_slot")
+}
+
+model ReportPayload {
+  reportInstanceId String         @id @map("report_instance_id")
+  instance         ReportInstance @relation(fields: [reportInstanceId], references: [id], onDelete: Cascade)
+  payload          Json
+  compiledAt       DateTime       @default(now()) @map("compiled_at")
+  rulesetVersionId String         @map("ruleset_version_id")
+
+  @@map("v2_report_payload")
+}

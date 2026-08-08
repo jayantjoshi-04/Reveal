@@ -1,0 +1,1042 @@
+[
+  {
+    "id": "drv_0001",
+    "activity_id": "A2",
+    "source": "behavioural",
+    "observable": "Consistency of picks against the latent quality gradient (do they reliably choose the more resolved piece?)",
+    "maps_to_construct_id": "Aesthetic",
+    "channel": "do",
+    "edge_or_signal": "discrimination score",
+    "note": "High, stable consistency = a strong, trustworthy eye."
+  },
+  {
+    "id": "drv_0002",
+    "activity_id": "A2",
+    "source": "behavioural",
+    "observable": "Style-spread of the chosen pieces — one coherent lane vs across many styles",
+    "maps_to_construct_id": "Deep↔Broad",
+    "channel": "do",
+    "edge_or_signal": "Deep (narrow lane) / Broad (eclectic)",
+    "note": "A consistent lane reads Deep; range reads Broad taste."
+  },
+  {
+    "id": "drv_0003",
+    "activity_id": "A2",
+    "source": "behavioural",
+    "observable": "Median decision time per pair",
+    "maps_to_construct_id": "Deep↔Broad",
+    "channel": "do",
+    "edge_or_signal": "secondary signal",
+    "note": "Long dwell on few → reinforces Deep."
+  },
+  {
+    "id": "drv_0004",
+    "activity_id": "A3",
+    "source": "behavioural",
+    "observable": "Taps on people / faces / needs / interactions",
+    "maps_to_construct_id": "Empathy",
+    "channel": "do",
+    "edge_or_signal": "proportion of taps",
+    "note": null
+  },
+  {
+    "id": "drv_0005",
+    "activity_id": "A3",
+    "source": "behavioural",
+    "observable": "Taps on form / colour / composition",
+    "maps_to_construct_id": "Aesthetic",
+    "channel": "do",
+    "edge_or_signal": "proportion of taps",
+    "note": null
+  },
+  {
+    "id": "drv_0006",
+    "activity_id": "A3",
+    "source": "behavioural",
+    "observable": "Taps on flows / mechanisms / how-it-works",
+    "maps_to_construct_id": "Systems",
+    "channel": "do",
+    "edge_or_signal": "proportion of taps",
+    "note": null
+  },
+  {
+    "id": "drv_0007",
+    "activity_id": "A3",
+    "source": "behavioural",
+    "observable": "Taps on nature / materials / living things",
+    "maps_to_construct_id": "Naturalistic",
+    "channel": "do",
+    "edge_or_signal": "proportion of taps",
+    "note": null
+  },
+  {
+    "id": "drv_0008",
+    "activity_id": "A3",
+    "source": "behavioural",
+    "observable": "The dominant noticing lens across all taps",
+    "maps_to_construct_id": "Inclination",
+    "channel": "do",
+    "edge_or_signal": "dominant lens",
+    "note": "Which lens leads = the orientation signal."
+  },
+  {
+    "id": "drv_0009",
+    "activity_id": "A4",
+    "source": "behavioural",
+    "observable": "Ordering logic — dependency/causal vs chronological vs thematic",
+    "maps_to_construct_id": "Analytical",
+    "channel": "do",
+    "edge_or_signal": "logic type",
+    "note": "Dependency ordering reads high Analytical."
+  },
+  {
+    "id": "drv_0010",
+    "activity_id": "A4",
+    "source": "behavioural",
+    "observable": "Cross-links / grouping across the wall (sees the whole system)",
+    "maps_to_construct_id": "Systems",
+    "channel": "do",
+    "edge_or_signal": "grouping",
+    "note": null
+  },
+  {
+    "id": "drv_0011",
+    "activity_id": "A4",
+    "source": "behavioural",
+    "observable": "Plan-first vs drag-and-adjust interaction pattern",
+    "maps_to_construct_id": "Reflect↔Action",
+    "channel": "do",
+    "edge_or_signal": "Reflect (pre-plan) / Action (iterate)",
+    "note": null
+  },
+  {
+    "id": "drv_0012",
+    "activity_id": "A5",
+    "source": "behavioural",
+    "observable": "Time-to-re-engage after seeing the crit — immediate dive vs hesitation",
+    "maps_to_construct_id": "Bounce↔Needs",
+    "channel": "do",
+    "edge_or_signal": "Bounces-back (fast) / Needs-time (lag)",
+    "note": "The behavioural recovery signal."
+  },
+  {
+    "id": "drv_0013",
+    "activity_id": "A7",
+    "source": "behavioural",
+    "observable": "What they refuse to drop as constraints tighten",
+    "maps_to_construct_id": "Conviction",
+    "channel": "do",
+    "edge_or_signal": "protected priority",
+    "note": null
+  },
+  {
+    "id": "drv_0014",
+    "activity_id": "A7",
+    "source": "behavioural",
+    "observable": "Push the original approach vs adapt, each squeeze",
+    "maps_to_construct_id": "Persist↔Pivot",
+    "channel": "do",
+    "edge_or_signal": "Persist / Pivot",
+    "note": null
+  },
+  {
+    "id": "drv_0015",
+    "activity_id": "A7",
+    "source": "behavioural",
+    "observable": "Recovery speed between squeezes",
+    "maps_to_construct_id": "Bounce↔Needs",
+    "channel": "do",
+    "edge_or_signal": "Bounces-back / Needs-time",
+    "note": null
+  },
+  {
+    "id": "drv_0016",
+    "activity_id": "A7",
+    "source": "behavioural",
+    "observable": "Engagement rises vs stalls under pressure",
+    "maps_to_construct_id": "Routine↔Challenge",
+    "channel": "do",
+    "edge_or_signal": "Challenge / Routine",
+    "note": "Thrives on the squeeze → Challenge."
+  },
+  {
+    "id": "drv_0017",
+    "activity_id": "A7",
+    "source": "behavioural",
+    "observable": "Coping with fewer resources — make-do vs blocked",
+    "maps_to_construct_id": "Boot↔Resourced",
+    "channel": "do",
+    "edge_or_signal": "Bootstrapped / Resourced",
+    "note": null
+  },
+  {
+    "id": "drv_0018",
+    "activity_id": "A7",
+    "source": "behavioural",
+    "observable": "Risk posture under pressure",
+    "maps_to_construct_id": "Blame↔Safe · Explore↔Secure",
+    "channel": "do",
+    "edge_or_signal": "valence readout",
+    "note": "The gate signal: Security-avoid vs Creation-approach flip."
+  },
+  {
+    "id": "drv_0019",
+    "activity_id": "A7",
+    "source": "behavioural",
+    "observable": "Protect quality vs protect delivery under squeeze",
+    "maps_to_construct_id": "Craft↔Velocity",
+    "channel": "do",
+    "edge_or_signal": "Craft / Velocity",
+    "note": null
+  },
+  {
+    "id": "drv_0020",
+    "activity_id": "A7",
+    "source": "behavioural",
+    "observable": "Chase a new angle vs retreat to safe under squeeze",
+    "maps_to_construct_id": "Explore↔Secure",
+    "channel": "do",
+    "edge_or_signal": "Explore / Secure",
+    "note": null
+  },
+  {
+    "id": "drv_0021",
+    "activity_id": "A7",
+    "source": "behavioural",
+    "observable": "Inferred motive from what’s protected",
+    "maps_to_construct_id": "Intent",
+    "channel": "do",
+    "edge_or_signal": "driver (behavioural)",
+    "note": "A do-channel intent read — no ladder."
+  },
+  {
+    "id": "drv_0022",
+    "activity_id": "A8",
+    "source": "behavioural",
+    "observable": "Engagement with tactile / physical assembly",
+    "maps_to_construct_id": "Kinesthetic",
+    "channel": "do",
+    "edge_or_signal": "engagement",
+    "note": "One of only two Kinesthetic DO sources — priority for gap-fill (Div 0)."
+  },
+  {
+    "id": "drv_0023",
+    "activity_id": "A8",
+    "source": "behavioural",
+    "observable": "Resolution / quality of the made output",
+    "maps_to_construct_id": "Making",
+    "channel": "do",
+    "edge_or_signal": "output quality",
+    "note": "Capability read."
+  },
+  {
+    "id": "drv_0024",
+    "activity_id": "A8",
+    "source": "behavioural",
+    "observable": "Make-to-think (build first) vs plan-visually-first",
+    "maps_to_construct_id": "Hands↔Visual",
+    "channel": "do",
+    "edge_or_signal": "Hands / Visual",
+    "note": null
+  },
+  {
+    "id": "drv_0025",
+    "activity_id": "A9",
+    "source": "behavioural",
+    "observable": "Spatial solve — can they resolve the arrangement in space",
+    "maps_to_construct_id": "Spatial",
+    "channel": "do",
+    "edge_or_signal": "spatial reasoning",
+    "note": null
+  },
+  {
+    "id": "drv_0026",
+    "activity_id": "A9",
+    "source": "behavioural",
+    "observable": "Logical optimisation of the layout",
+    "maps_to_construct_id": "Analytical",
+    "channel": "do",
+    "edge_or_signal": "optimisation",
+    "note": null
+  },
+  {
+    "id": "drv_0027",
+    "activity_id": "A9",
+    "source": "behavioural",
+    "observable": "Aesthetic quality of the arrangement",
+    "maps_to_construct_id": "Aesthetic",
+    "channel": "do",
+    "edge_or_signal": "composition",
+    "note": null
+  },
+  {
+    "id": "drv_0028",
+    "activity_id": "B1",
+    "source": "behavioural",
+    "observable": "Selection firmness — which pieces they stand behind, how decisively they curate",
+    "maps_to_construct_id": "Conviction",
+    "channel": "do",
+    "edge_or_signal": "strength of point-of-view",
+    "note": null
+  },
+  {
+    "id": "drv_0029",
+    "activity_id": "B1",
+    "source": "behavioural",
+    "observable": "Framing & sequencing — how the story of the work is told",
+    "maps_to_construct_id": "Narrative",
+    "channel": "do",
+    "edge_or_signal": "story coherence",
+    "note": null
+  },
+  {
+    "id": "drv_0030",
+    "activity_id": "B1",
+    "source": "behavioural",
+    "observable": "Which kind of work is foregrounded (do-good vs commercial)",
+    "maps_to_construct_id": "Impact↔Income",
+    "channel": "do",
+    "edge_or_signal": "Impact / Income",
+    "note": null
+  },
+  {
+    "id": "drv_0031",
+    "activity_id": "B1",
+    "source": "behavioural",
+    "observable": "Evidence-tag each included piece against the capability rubric — Sketching/Viz",
+    "maps_to_construct_id": "Sketch/Viz",
+    "channel": "do",
+    "edge_or_signal": "evidence strength",
+    "note": null
+  },
+  {
+    "id": "drv_0032",
+    "activity_id": "B1",
+    "source": "behavioural",
+    "observable": "… Digital / interaction",
+    "maps_to_construct_id": "Digital/Intx",
+    "channel": "do",
+    "edge_or_signal": "evidence strength",
+    "note": null
+  },
+  {
+    "id": "drv_0033",
+    "activity_id": "B1",
+    "source": "behavioural",
+    "observable": "… Making",
+    "maps_to_construct_id": "Making",
+    "channel": "do",
+    "edge_or_signal": "evidence strength",
+    "note": null
+  },
+  {
+    "id": "drv_0034",
+    "activity_id": "B1",
+    "source": "behavioural",
+    "observable": "… Materials",
+    "maps_to_construct_id": "Materials",
+    "channel": "do",
+    "edge_or_signal": "evidence strength",
+    "note": null
+  },
+  {
+    "id": "drv_0035",
+    "activity_id": "B1",
+    "source": "behavioural",
+    "observable": "… Research",
+    "maps_to_construct_id": "Research",
+    "channel": "do",
+    "edge_or_signal": "evidence strength",
+    "note": null
+  },
+  {
+    "id": "drv_0036",
+    "activity_id": "B1",
+    "source": "behavioural",
+    "observable": "… Sustainability / systems",
+    "maps_to_construct_id": "Sustain/Sys",
+    "channel": "do",
+    "edge_or_signal": "evidence strength",
+    "note": null
+  },
+  {
+    "id": "drv_0037",
+    "activity_id": "B1",
+    "source": "behavioural",
+    "observable": "… Collaboration",
+    "maps_to_construct_id": "Collab",
+    "channel": "do",
+    "edge_or_signal": "evidence strength",
+    "note": "Read from real work, not self-report — feeds Substrate molecules + Portfolio readiness."
+  },
+  {
+    "id": "drv_0038",
+    "activity_id": "B2",
+    "source": "behavioural",
+    "observable": "Framing around users / people",
+    "maps_to_construct_id": "Empathy",
+    "channel": "do",
+    "edge_or_signal": "people-centred framing",
+    "note": null
+  },
+  {
+    "id": "drv_0039",
+    "activity_id": "B2",
+    "source": "behavioural",
+    "observable": "Reasoning structure / logic of the retelling",
+    "maps_to_construct_id": "Analytical",
+    "channel": "do",
+    "edge_or_signal": "reasoning structure",
+    "note": null
+  },
+  {
+    "id": "drv_0040",
+    "activity_id": "B2",
+    "source": "behavioural",
+    "observable": "Quality of the story told",
+    "maps_to_construct_id": "Narrative",
+    "channel": "do",
+    "edge_or_signal": "story quality",
+    "note": null
+  },
+  {
+    "id": "drv_0041",
+    "activity_id": "B2",
+    "source": "behavioural",
+    "observable": "Visual / presentation quality of the reframe",
+    "maps_to_construct_id": "Aesthetic",
+    "channel": "do",
+    "edge_or_signal": "presentation quality",
+    "note": null
+  },
+  {
+    "id": "drv_0042",
+    "activity_id": "B2",
+    "source": "behavioural",
+    "observable": "Connections & system shown across the project",
+    "maps_to_construct_id": "Systems",
+    "channel": "do",
+    "edge_or_signal": "system view",
+    "note": null
+  },
+  {
+    "id": "drv_0043",
+    "activity_id": "B3",
+    "source": "behavioural",
+    "observable": "How they recovered from the failure",
+    "maps_to_construct_id": "Bounce↔Needs",
+    "channel": "do",
+    "edge_or_signal": "Bounces-back / Needs-time",
+    "note": null
+  },
+  {
+    "id": "drv_0044",
+    "activity_id": "B3",
+    "source": "behavioural",
+    "observable": "Pause-and-diagnose vs move-on",
+    "maps_to_construct_id": "Reflect↔Action",
+    "channel": "do",
+    "edge_or_signal": "Reflect / Action",
+    "note": null
+  },
+  {
+    "id": "drv_0045",
+    "activity_id": "B3",
+    "source": "behavioural",
+    "observable": "Room-type tag: freedom vs structure",
+    "maps_to_construct_id": "Auto↔Structure",
+    "channel": "do",
+    "edge_or_signal": "Autonomy / Structure",
+    "note": "REAL room → gives Environment its DO channel (F4 is the imagined-room SAY)."
+  },
+  {
+    "id": "drv_0046",
+    "activity_id": "B3",
+    "source": "behavioural",
+    "observable": "Room-type tag: quiet vs feedback-rich",
+    "maps_to_construct_id": "Insul↔Feedback",
+    "channel": "do",
+    "edge_or_signal": "Insulated / Feedback",
+    "note": null
+  },
+  {
+    "id": "drv_0047",
+    "activity_id": "B3",
+    "source": "behavioural",
+    "observable": "Room-type tag: single-focus vs novelty",
+    "maps_to_construct_id": "Single↔Novelty",
+    "channel": "do",
+    "edge_or_signal": "Single-focus / Novelty",
+    "note": null
+  },
+  {
+    "id": "drv_0048",
+    "activity_id": "B3",
+    "source": "behavioural",
+    "observable": "Room-type tag: safe-to-fail vs high-stakes",
+    "maps_to_construct_id": "Blame↔Safe",
+    "channel": "do",
+    "edge_or_signal": "Safe / Blame",
+    "note": "The gate condition for the causal-spread loop."
+  },
+  {
+    "id": "drv_0049",
+    "activity_id": "B3",
+    "source": "behavioural",
+    "observable": "Room-type tag: siloed vs cross-disciplinary",
+    "maps_to_construct_id": "Silo↔CrossD",
+    "channel": "do",
+    "edge_or_signal": "Silo / Cross-disciplinary",
+    "note": null
+  },
+  {
+    "id": "drv_0050",
+    "activity_id": "B3",
+    "source": "behavioural",
+    "observable": "Room-type tag: early-concept vs launch",
+    "maps_to_construct_id": "Concept↔Launch",
+    "channel": "do",
+    "edge_or_signal": "Concept / Launch",
+    "note": null
+  },
+  {
+    "id": "drv_0051",
+    "activity_id": "B3",
+    "source": "behavioural",
+    "observable": "Values tension surfaced in the project — do-good vs paid",
+    "maps_to_construct_id": "Impact↔Income",
+    "channel": "do",
+    "edge_or_signal": "Impact / Income",
+    "note": null
+  },
+  {
+    "id": "drv_0052",
+    "activity_id": "B3",
+    "source": "behavioural",
+    "observable": "… user vs business",
+    "maps_to_construct_id": "User↔Business",
+    "channel": "do",
+    "edge_or_signal": "User / Business",
+    "note": null
+  },
+  {
+    "id": "drv_0053",
+    "activity_id": "B3",
+    "source": "behavioural",
+    "observable": "… reach-many vs deep-for-few",
+    "maps_to_construct_id": "Equity↔Focus",
+    "channel": "do",
+    "edge_or_signal": "Equity / Focus",
+    "note": null
+  },
+  {
+    "id": "drv_0054",
+    "activity_id": "B4",
+    "source": "behavioural",
+    "observable": "Handoff documentation quality",
+    "maps_to_construct_id": "Narrative",
+    "channel": "do",
+    "edge_or_signal": "documentation clarity",
+    "note": null
+  },
+  {
+    "id": "drv_0055",
+    "activity_id": "B4",
+    "source": "behavioural",
+    "observable": "Whole-system capture for the next person",
+    "maps_to_construct_id": "Systems",
+    "channel": "do",
+    "edge_or_signal": "system completeness",
+    "note": null
+  },
+  {
+    "id": "drv_0056",
+    "activity_id": "B4",
+    "source": "behavioural",
+    "observable": "Collaboration orientation — designed for others vs built solo-in-head",
+    "maps_to_construct_id": "With↔Alone",
+    "channel": "do",
+    "edge_or_signal": "With-others / Alone",
+    "note": null
+  },
+  {
+    "id": "drv_0057",
+    "activity_id": "B4",
+    "source": "behavioural",
+    "observable": "Inferred motive from how they hand off",
+    "maps_to_construct_id": "Intent",
+    "channel": "do",
+    "edge_or_signal": "driver (behavioural)",
+    "note": "Do-channel intent read — no ladder, like A7."
+  },
+  {
+    "id": "drv_0058",
+    "activity_id": "C1",
+    "source": "behavioural",
+    "observable": "Taste read from the coherence & quality of what they’re drawn to",
+    "maps_to_construct_id": "Aesthetic",
+    "channel": "do",
+    "edge_or_signal": "eye / discrimination",
+    "note": "Read from external picks — what pulls them, not what they made."
+  },
+  {
+    "id": "drv_0059",
+    "activity_id": "C2",
+    "source": "behavioural",
+    "observable": "Which kind of path pulls (maker / screen / research / leading)",
+    "maps_to_construct_id": "Inclination",
+    "channel": "do",
+    "edge_or_signal": "dominant path",
+    "note": "Track-diagnostic — read without asking the student to name a track."
+  },
+  {
+    "id": "drv_0060",
+    "activity_id": "C2",
+    "source": "behavioural",
+    "observable": "Do the chosen paths lean do-good or commercial",
+    "maps_to_construct_id": "Impact↔Income",
+    "channel": "do",
+    "edge_or_signal": "Impact / Income",
+    "note": null
+  },
+  {
+    "id": "drv_0061",
+    "activity_id": "C2",
+    "source": "behavioural",
+    "observable": "Independent/solo paths vs institution/team paths",
+    "maps_to_construct_id": "Auton↔Belong",
+    "channel": "do",
+    "edge_or_signal": "Autonomy / Belonging",
+    "note": null
+  },
+  {
+    "id": "drv_0062",
+    "activity_id": "C3",
+    "source": "behavioural",
+    "observable": "What they’d steal aesthetically",
+    "maps_to_construct_id": "Aesthetic",
+    "channel": "do",
+    "edge_or_signal": "borrowed taste",
+    "note": null
+  },
+  {
+    "id": "drv_0063",
+    "activity_id": "C3",
+    "source": "behavioural",
+    "observable": "Open to influence/borrowing vs skeptical, own-way",
+    "maps_to_construct_id": "Question↔Receptive",
+    "channel": "do",
+    "edge_or_signal": "Receptive / Questioning",
+    "note": null
+  },
+  {
+    "id": "drv_0064",
+    "activity_id": "C3",
+    "source": "behavioural",
+    "observable": "Steal-to-transform vs steal-to-refine",
+    "maps_to_construct_id": "Reinvent↔Redefine",
+    "channel": "do",
+    "edge_or_signal": "Reinvent / Redefine",
+    "note": null
+  },
+  {
+    "id": "drv_0065",
+    "activity_id": "O1",
+    "source": "behavioural",
+    "observable": "Which brief-type pulls them",
+    "maps_to_construct_id": "Inclination",
+    "channel": "do",
+    "edge_or_signal": "dominant brief type",
+    "note": "Track-diagnostic — a spontaneous lean, no track question."
+  },
+  {
+    "id": "drv_0066",
+    "activity_id": "O2",
+    "source": "behavioural",
+    "observable": "Dwell concentrated on people / needs / interactions",
+    "maps_to_construct_id": "Empathy",
+    "channel": "do",
+    "edge_or_signal": "dwell proportion",
+    "note": "Implicit, hard-to-fake — a 2nd independent source for the noticing lens (A3 was active tapping)."
+  },
+  {
+    "id": "drv_0067",
+    "activity_id": "O2",
+    "source": "behavioural",
+    "observable": "Dwell on form / colour / composition",
+    "maps_to_construct_id": "Aesthetic",
+    "channel": "do",
+    "edge_or_signal": "dwell proportion",
+    "note": null
+  },
+  {
+    "id": "drv_0068",
+    "activity_id": "O2",
+    "source": "behavioural",
+    "observable": "Dwell on flows / mechanisms",
+    "maps_to_construct_id": "Systems",
+    "channel": "do",
+    "edge_or_signal": "dwell proportion",
+    "note": null
+  },
+  {
+    "id": "drv_0069",
+    "activity_id": "O2",
+    "source": "behavioural",
+    "observable": "Dwell on nature / materials / living things",
+    "maps_to_construct_id": "Naturalistic",
+    "channel": "do",
+    "edge_or_signal": "dwell proportion",
+    "note": null
+  },
+  {
+    "id": "drv_0070",
+    "activity_id": "O2",
+    "source": "behavioural",
+    "observable": "Dominant dwell lens",
+    "maps_to_construct_id": "Inclination",
+    "channel": "do",
+    "edge_or_signal": "dominant lens",
+    "note": null
+  },
+  {
+    "id": "drv_0071",
+    "activity_id": "O3",
+    "source": "behavioural",
+    "observable": "Decisive fork vs hedge / keep both alive",
+    "maps_to_construct_id": "Bold↔Careful",
+    "channel": "do",
+    "edge_or_signal": "Bold / Careful",
+    "note": null
+  },
+  {
+    "id": "drv_0072",
+    "activity_id": "O3",
+    "source": "behavioural",
+    "observable": "Fork toward the reinvented option vs the refined one",
+    "maps_to_construct_id": "Reinvent↔Redefine",
+    "channel": "do",
+    "edge_or_signal": "Reinvent / Redefine",
+    "note": null
+  },
+  {
+    "id": "drv_0073",
+    "activity_id": "O4",
+    "source": "behavioural",
+    "observable": "How they structure & tell the explanation",
+    "maps_to_construct_id": "Narrative",
+    "channel": "do",
+    "edge_or_signal": "teaching clarity",
+    "note": null
+  },
+  {
+    "id": "drv_0074",
+    "activity_id": "O5",
+    "source": "behavioural",
+    "observable": "Bold teardown vs careful salvage",
+    "maps_to_construct_id": "Bold↔Careful",
+    "channel": "do",
+    "edge_or_signal": "Bold / Careful",
+    "note": null
+  },
+  {
+    "id": "drv_0075",
+    "activity_id": "O5",
+    "source": "behavioural",
+    "observable": "Persist with the existing vs pivot to new",
+    "maps_to_construct_id": "Persist↔Pivot",
+    "channel": "do",
+    "edge_or_signal": "Persist / Pivot",
+    "note": null
+  },
+  {
+    "id": "drv_0076",
+    "activity_id": "O5",
+    "source": "behavioural",
+    "observable": "Rebuild (reinvent) vs rescue (redefine)",
+    "maps_to_construct_id": "Reinvent↔Redefine",
+    "channel": "do",
+    "edge_or_signal": "Reinvent / Redefine",
+    "note": null
+  },
+  {
+    "id": "drv_0077",
+    "activity_id": "GF1",
+    "source": "behavioural",
+    "observable": "How they engage the material — hands-first exploration vs cautious handling",
+    "maps_to_construct_id": "Kinesthetic",
+    "channel": "do",
+    "edge_or_signal": "engagement",
+    "note": "2nd Kinesthetic DO source (A8 was the 1st) → lifts it from ◐ capped to ● Evidenced-capable."
+  },
+  {
+    "id": "drv_0078",
+    "activity_id": "GF2",
+    "source": "behavioural",
+    "observable": "Sits with the openness and explores vs immediately seeks / imposes structure",
+    "maps_to_construct_id": "Ambig↔Logical",
+    "channel": "do",
+    "edge_or_signal": "Ambiguity-comfortable / Logical-structure",
+    "note": "3rd source → ● Evidenced-capable."
+  },
+  {
+    "id": "drv_0079",
+    "activity_id": "GF2",
+    "source": "behavioural",
+    "observable": "Dives in and tries things vs stops to study / plan first",
+    "maps_to_construct_id": "Experiment↔Study",
+    "channel": "do",
+    "edge_or_signal": "Experiment / Study",
+    "note": "3rd source → ● Evidenced-capable."
+  },
+  {
+    "id": "drv_0080",
+    "activity_id": "U1",
+    "source": "extraction",
+    "observable": "Each claimed skill matched to a capability — Sketching/Viz",
+    "maps_to_construct_id": "Sketch/Viz",
+    "channel": "say",
+    "edge_or_signal": "claim → say atom; strength = listed vs emphasised",
+    "note": null
+  },
+  {
+    "id": "drv_0081",
+    "activity_id": "U1",
+    "source": "extraction",
+    "observable": "… Digital / interaction",
+    "maps_to_construct_id": "Digital/Intx",
+    "channel": "say",
+    "edge_or_signal": null,
+    "note": null
+  },
+  {
+    "id": "drv_0082",
+    "activity_id": "U1",
+    "source": "extraction",
+    "observable": "… Making",
+    "maps_to_construct_id": "Making",
+    "channel": "say",
+    "edge_or_signal": null,
+    "note": null
+  },
+  {
+    "id": "drv_0083",
+    "activity_id": "U1",
+    "source": "extraction",
+    "observable": "… Materials",
+    "maps_to_construct_id": "Materials",
+    "channel": "say",
+    "edge_or_signal": null,
+    "note": null
+  },
+  {
+    "id": "drv_0084",
+    "activity_id": "U1",
+    "source": "extraction",
+    "observable": "… Research",
+    "maps_to_construct_id": "Research",
+    "channel": "say",
+    "edge_or_signal": null,
+    "note": null
+  },
+  {
+    "id": "drv_0085",
+    "activity_id": "U1",
+    "source": "extraction",
+    "observable": "… Sustainability / systems",
+    "maps_to_construct_id": "Sustain/Sys",
+    "channel": "say",
+    "edge_or_signal": null,
+    "note": null
+  },
+  {
+    "id": "drv_0086",
+    "activity_id": "U1",
+    "source": "extraction",
+    "observable": "… Collaboration",
+    "maps_to_construct_id": "Collab",
+    "channel": "say",
+    "edge_or_signal": "claim → say atom",
+    "note": "SAY side of Capabilities → pairs with Portfolio/B1 DO."
+  },
+  {
+    "id": "drv_0087",
+    "activity_id": "U1",
+    "source": "extraction",
+    "observable": "Tools, certifications, roles, deadlines-met signals",
+    "maps_to_construct_id": "Professional (readiness)",
+    "channel": "fact",
+    "edge_or_signal": "→ factual_inventory",
+    "note": "Professional readiness (Stage 5)."
+  },
+  {
+    "id": "drv_0088",
+    "activity_id": "U2",
+    "source": "extraction",
+    "observable": "Each context tagged for room character across the 8 environment axes",
+    "maps_to_construct_id": "Auto↔Structure … Concept↔Launch",
+    "channel": "say",
+    "edge_or_signal": "each entry → say atoms on the 8 env axes",
+    "note": "SAY side of Environment (with B3 real-room DO, F4 imagined SAY)."
+  },
+  {
+    "id": "drv_0089",
+    "activity_id": "U2",
+    "source": "extraction",
+    "observable": "Count & variety of real contexts",
+    "maps_to_construct_id": "Exp/Exposure",
+    "channel": "do",
+    "edge_or_signal": "reps × context-variety × real-vs-simulated  (real 1.0 / sim 0.5)",
+    "note": "→ experience_entry; primary Exp/Exposure source (Stage 5)."
+  },
+  {
+    "id": "drv_0090",
+    "activity_id": "U2",
+    "source": "extraction",
+    "observable": "Roles, tenure, collaboration history",
+    "maps_to_construct_id": "Professional (readiness)",
+    "channel": "fact",
+    "edge_or_signal": "→ factual_inventory",
+    "note": "Professional readiness."
+  },
+  {
+    "id": "drv_0091",
+    "activity_id": "U3",
+    "source": "extraction",
+    "observable": "Story / framing across the work",
+    "maps_to_construct_id": "Narrative",
+    "channel": "do",
+    "edge_or_signal": "capacity visible in the work",
+    "note": null
+  },
+  {
+    "id": "drv_0092",
+    "activity_id": "U3",
+    "source": "extraction",
+    "observable": "Visual quality across pieces",
+    "maps_to_construct_id": "Aesthetic",
+    "channel": "do",
+    "edge_or_signal": null,
+    "note": null
+  },
+  {
+    "id": "drv_0093",
+    "activity_id": "U3",
+    "source": "extraction",
+    "observable": "3D / spatial work present",
+    "maps_to_construct_id": "Spatial",
+    "channel": "do",
+    "edge_or_signal": null,
+    "note": null
+  },
+  {
+    "id": "drv_0094",
+    "activity_id": "U3",
+    "source": "extraction",
+    "observable": "Evidence-tag every piece against the 7 capabilities",
+    "maps_to_construct_id": "Sketch/Viz … Collab",
+    "channel": "do",
+    "edge_or_signal": "magnitude = evidence strength × independent pieces",
+    "note": "The MASTER rubric; B1 is the curated/narrated subset of this."
+  },
+  {
+    "id": "drv_0095",
+    "activity_id": "U3",
+    "source": "extraction",
+    "observable": "Breadth & depth of real projects",
+    "maps_to_construct_id": "Exp/Exposure",
+    "channel": "do",
+    "edge_or_signal": null,
+    "note": "→ portfolio_artifact; Portfolio readiness (Stage 5)."
+  },
+  {
+    "id": "drv_0096",
+    "activity_id": "A1",
+    "source": "behavioural",
+    "observable": "Allocation shape across the six categories",
+    "maps_to_construct_id": "Analytical",
+    "channel": "do",
+    "edge_or_signal": "logic/spread",
+    "note": "A1 Budget Canvas (template)"
+  },
+  {
+    "id": "drv_0097",
+    "activity_id": "A1",
+    "source": "behavioural",
+    "observable": "What they protect when the budget is cut mid-task",
+    "maps_to_construct_id": "Conviction",
+    "channel": "do",
+    "edge_or_signal": "protected priority",
+    "note": "A1 Budget Canvas (template)"
+  },
+  {
+    "id": "drv_0098",
+    "activity_id": "A1",
+    "source": "behavioural",
+    "observable": "Bold early commit vs hedging the allocation",
+    "maps_to_construct_id": "Bold↔Careful",
+    "channel": "do",
+    "edge_or_signal": "Bold/Careful",
+    "note": "A1 Budget Canvas (template)"
+  },
+  {
+    "id": "drv_0099",
+    "activity_id": "A1",
+    "source": "behavioural",
+    "observable": "Gather-first vs act-first interaction",
+    "maps_to_construct_id": "Reflect↔Action",
+    "channel": "do",
+    "edge_or_signal": "Reflect/Action",
+    "note": "A1 Budget Canvas (template)"
+  },
+  {
+    "id": "drv_0100",
+    "activity_id": "A1",
+    "source": "behavioural",
+    "observable": "Depth on few categories vs spread across many",
+    "maps_to_construct_id": "Deep↔Broad",
+    "channel": "do",
+    "edge_or_signal": "Deep/Broad",
+    "note": "A1 Budget Canvas (template)"
+  },
+  {
+    "id": "drv_0101",
+    "activity_id": "A1",
+    "source": "behavioural",
+    "observable": "Which kind of work is funded (do-good vs commercial)",
+    "maps_to_construct_id": "Impact↔Income",
+    "channel": "do",
+    "edge_or_signal": "Impact/Income",
+    "note": "A1 Budget Canvas (template)"
+  },
+  {
+    "id": "drv_0102",
+    "activity_id": "A1",
+    "source": "behavioural",
+    "observable": "Protect quality vs protect delivery under the cut",
+    "maps_to_construct_id": "Craft↔Velocity",
+    "channel": "do",
+    "edge_or_signal": "Craft/Velocity",
+    "note": "A1 Budget Canvas (template)"
+  },
+  {
+    "id": "drv_0103",
+    "activity_id": "A1",
+    "source": "behavioural",
+    "observable": "Wanted clear structure vs freedom in the brief",
+    "maps_to_construct_id": "Auto↔Structure",
+    "channel": "say",
+    "edge_or_signal": "Structure/Autonomy",
+    "note": "A1 room-pick"
+  },
+  {
+    "id": "drv_0104",
+    "activity_id": "A1",
+    "source": "behavioural",
+    "observable": "Wanted more resources vs make-do",
+    "maps_to_construct_id": "Boot↔Resourced",
+    "channel": "say",
+    "edge_or_signal": "Resourced/Bootstrapped",
+    "note": "A1 room-pick"
+  }
+]

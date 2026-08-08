@@ -1,0 +1,82 @@
+[
+  {
+    "id": "rsv_2_0_0",
+    "version": "2.0.0",
+    "is_active": true,
+    "scoring_constants": {
+      "say_do_blend": {
+        "do": 0.65,
+        "say": 0.35,
+        "note": "single channel passes through"
+      },
+      "confidence_tree": "n<2→Undetermined · DO-only→Behavioural-not-neural(n≥2) · n≥3 both agree→Evidenced · n≥3 single OR n=2 agree→Well-motivated · n=2 else→Plausible · contradicting&n<3→Undetermined",
+      "say_do_gap_cutoff": 15,
+      "bipolar_contradiction": "opposite sign AND both |mag|>30",
+      "surprise": "(do−say)≥30 AND do≥60, curated to one",
+      "coherence_bands": {
+        "coherent": "<15",
+        "mixed": "15-30",
+        "divergent": ">30"
+      },
+      "growth_ranking": "relevance×gap_size×closeability",
+      "growth_caps": {
+        "free": 2,
+        "paid": 5
+      }
+    },
+    "proximity_weights": {
+      "family_weights": {
+        "capacity": 0.3,
+        "value": 0.2,
+        "disposition": 0.18,
+        "intent": 0.12,
+        "capability": 0.1,
+        "environment": 0.1
+      },
+      "metric": "weighted asymmetric Manhattan closeness",
+      "penalty": {
+        "amount_types": "max(0,required−student)",
+        "match_types": "|student−required|"
+      },
+      "role_domain_split": {
+        "role": 0.65,
+        "domain": 0.35
+      },
+      "aptitude_high": "role_fit≥0.60",
+      "interest_high": "top third",
+      "values_conflict": "any axis both |value|≥40 and opposite sign"
+    },
+    "readiness_thresholds": {
+      "capacity": "confidence-weighted mean",
+      "capability": "% critical skills evidenced",
+      "portfolio": "evidence rubric normalized",
+      "professional": "readiness-closure rubric",
+      "experience_exposure": "Σ(min(reps,5)×variety×realism); realism real 1.0/sim 0.5",
+      "tier_bands": {
+        "emerging": "<40",
+        "developing": "40-70",
+        "strong": ">70"
+      }
+    },
+    "curation_weights": {
+      "confidence": {
+        "determined": 1.0,
+        "tentative": 0.6,
+        "undetermined": 0.3
+      },
+      "top_n_per_slot": {
+        "headline": 1,
+        "why_aligns": 3,
+        "whats_hard": 2,
+        "how_you_work": 1
+      }
+    },
+    "evidence_threshold": 3,
+    "change_thresholds": {
+      "construct": "|delta|≥15 OR edge/resolvedness flip",
+      "molecule": "gained/lost binary",
+      "direction": "rank move≥2",
+      "null_result_flag": "true when nothing crosses"
+    }
+  }
+]
