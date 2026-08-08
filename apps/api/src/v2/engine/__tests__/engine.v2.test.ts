@@ -12,7 +12,7 @@ import { selectGrowth } from '../growth.js';
 import { compareInstances, runEngine } from '../index.js';
 import { assemblePayload } from '../assembly.js';
 import { loadMasterFromSeed } from '../../master.js';
-import { jaanhviCapture } from './jaanhvi.v2.fixture.js';
+import { jaanhviCapture } from '../../samples.js';
 import type { MasterData, RawCapture } from '../types.js';
 
 const master = loadMasterFromSeed();

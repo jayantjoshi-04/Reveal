@@ -7,7 +7,7 @@
  * (say 13 / do 72 → blended ≈ 51); Research is trained; Deep, Careful, and a
  * feedback-rich room define how she works.
  */
-import type { RawCapture, Signal } from '../types.js';
+import type { RawCapture, Signal } from './engine/types.js';
 
 const sig = (constructId: string, channel: 'say' | 'do', value: number, extra: Partial<Signal> = {}): Signal => ({
   constructId,
