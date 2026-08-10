@@ -78,6 +78,8 @@ export const api = {
     request<{ sealed: boolean; instanceComplete: boolean }>(`/instances/${id}/sessions/${no}/seal`, { method: 'POST' }),
   content: <T = unknown>(kind: 'a-items' | 'b-tasks' | 'artifacts' | 'scenes') => request<T>(`/content/${kind}`),
   report: (id: string) => request<ReportView>(`/report/${id}`),
+  // The same survey, read by the REVEAL 2.0.0 deterministic engine.
+  reportV2: (id: string) => request<import('@reveal/shared/v2').ReportPayloadV2>(`/report/${id}/v2`),
 
   // ── admin ──
   adminOverview: () => request<AdminOverview>('/admin/overview'),

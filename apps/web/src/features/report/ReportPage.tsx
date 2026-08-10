@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import type { Findings, ReportSlots, TraitScore } from '@reveal/shared';
 import { api, ApiError } from '../../lib/api.js';
 import { TopBar } from '../../components/TopBar.js';
+import { useVersion } from '../../store/version.js';
+import { V2ReportView } from '../v2/V2ReportView.js';
 import { Gauge, Bar, Bullet, MarketAxis, ProjectScatter, DispositionSlider, capColor } from './charts.js';
 
 function label(code: string): string {
@@ -12,24 +14,46 @@ function label(code: string): string {
 
 export function ReportPage(): JSX.Element {
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading, error } = useQuery({ queryKey: ['report', id], queryFn: () => api.report(id!), enabled: !!id });
+  const version = useVersion((s) => s.version);
+  const setVersion = useVersion((s) => s.set);
 
-  if (isLoading) return <Frame><p className="p-12 text-sm text-slate-500 dark:text-slate-400">Loading your Design Signature…</p></Frame>;
-  if (error)
+  const v1 = useQuery({ queryKey: ['report', id], queryFn: () => api.report(id!), enabled: !!id && version === 'v1' });
+  const v2 = useQuery({ queryKey: ['report-v2', id], queryFn: () => api.reportV2(id!), enabled: !!id && version === 'v2' });
+
+  const switcher = (
+    <ReportVersionSwitch version={version} onChange={setVersion} />
+  );
+
+  if (version === 'v2') {
+    if (v2.isLoading) return <Frame head={switcher}><p className="p-12 text-sm text-slate-500 dark:text-slate-400">Running the deterministic engine…</p></Frame>;
+    if (v2.error)
+      return (
+        <Frame head={switcher}>
+          <div className="p-12 text-sm text-slate-500 dark:text-slate-400">
+            {v2.error instanceof ApiError && v2.error.status === 403 ? 'This report is still in review.' : 'Could not compute the V2 reading.'}
+          </div>
+        </Frame>
+      );
+    if (!v2.data) return <Frame head={switcher}><p className="p-12 text-slate-500 dark:text-slate-400">—</p></Frame>;
+    return <Frame head={switcher}><V2ReportView payload={v2.data} /></Frame>;
+  }
+
+  if (v1.isLoading) return <Frame head={switcher}><p className="p-12 text-sm text-slate-500 dark:text-slate-400">Loading your Design Signature…</p></Frame>;
+  if (v1.error)
     return (
-      <Frame>
+      <Frame head={switcher}>
         <div className="p-12 text-sm text-slate-500 dark:text-slate-400">
-          {error instanceof ApiError && error.status === 403
+          {v1.error instanceof ApiError && v1.error.status === 403
             ? 'This report is still in review. You’ll get a note when it’s ready.'
             : 'Could not load the report.'}
         </div>
       </Frame>
     );
-  if (!data) return <Frame><p className="p-12 text-slate-500 dark:text-slate-400">—</p></Frame>;
+  if (!v1.data) return <Frame head={switcher}><p className="p-12 text-slate-500 dark:text-slate-400">—</p></Frame>;
 
-  const { slots, findings, trait_scores } = data;
+  const { slots, findings, trait_scores } = v1.data;
   return (
-    <Frame>
+    <Frame head={switcher}>
       <Hero slots={slots} findings={findings} />
       <SectionToday slots={slots} findings={findings} />
       <Surprise slots={slots} findings={findings} />
@@ -40,11 +64,35 @@ export function ReportPage(): JSX.Element {
   );
 }
 
-function Frame({ children }: { children: React.ReactNode }): JSX.Element {
+/** The report-time reading switch: the same survey, two engines. */
+function ReportVersionSwitch({ version, onChange }: { version: 'v1' | 'v2'; onChange: (v: 'v1' | 'v2') => void }): JSX.Element {
+  return (
+    <div className="mb-4 flex items-center justify-between">
+      <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">Reading</span>
+      <div className="inline-flex items-center rounded-full border border-slate-200 bg-white/70 p-0.5 text-[12px] font-medium shadow-sm dark:border-white/10 dark:bg-white/5">
+        {(['v1', 'v2'] as const).map((v) => (
+          <button
+            key={v}
+            onClick={() => onChange(v)}
+            aria-pressed={version === v}
+            className={`rounded-full px-3 py-1 transition-colors ${
+              version === v ? 'bg-accent text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
+            }`}
+          >
+            {v === 'v1' ? 'V1 · Design Signature' : 'V2 · 2.0 engine'}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Frame({ children, head }: { children: React.ReactNode; head?: React.ReactNode }): JSX.Element {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-noir">
       <TopBar doc="Design Signature" />
       <div className="mx-auto max-w-5xl px-4 py-8 sm:py-12">
+        {head}
         <div className="rounded-[28px] bg-gradient-to-br from-accent/25 via-violet-400/15 to-transparent p-px shadow-lift">
           <div className="overflow-hidden rounded-[27px] border border-slate-200/60 bg-white dark:border-white/10 dark:bg-noir-card">{children}</div>
         </div>

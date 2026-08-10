@@ -12,7 +12,6 @@ import { meRoutes } from './routes/student/me.routes.js';
 import { reportRoutes } from './routes/report/report.routes.js';
 import { contentRoutes } from './routes/content/content.routes.js';
 import { adminRoutes } from './routes/admin/admin.routes.js';
-import { v2Routes } from './v2/routes.js';
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({ logger: { level: env().NODE_ENV === 'production' ? 'info' : 'debug' } });
@@ -65,7 +64,6 @@ export async function buildApp(): Promise<FastifyInstance> {
       await api.register(reportRoutes);
       await api.register(contentRoutes);
       await api.register(adminRoutes);
-      await api.register(v2Routes);
     },
     { prefix: '/api' },
   );

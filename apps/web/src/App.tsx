@@ -15,9 +15,6 @@ import { QuestionManager } from './features/admin/QuestionManager.js';
 import { ReportManager } from './features/admin/ReportManager.js';
 import { StudentDirectory } from './features/admin/StudentDirectory.js';
 import { AdminSettings } from './features/admin/AdminSettings.js';
-import { V2Home } from './features/v2/V2Home.js';
-import { V2Capture } from './features/v2/V2Capture.js';
-import { V2Report } from './features/v2/V2Report.js';
 
 function Protected({ allow, children }: { allow: Role[]; children: JSX.Element }): JSX.Element {
   const role = useAuth((s) => s.role);
@@ -33,11 +30,6 @@ export default function App(): JSX.Element {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/admin/signin" element={<AdminSignIn />} />
-
-      {/* REVEAL 2.0.0 — the deterministic-engine experience (parallel to v1) */}
-      <Route path="/v2" element={<V2Home />} />
-      <Route path="/v2/capture" element={<V2Capture />} />
-      <Route path="/v2/report/:id" element={<V2Report />} />
 
       <Route path="/onboarding" element={<Protected allow={['student']}><Onboarding /></Protected>} />
       <Route path="/survey" element={<Protected allow={['student']}><CaptureFlow /></Protected>} />

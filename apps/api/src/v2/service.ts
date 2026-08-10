@@ -11,6 +11,8 @@ import { loadMasterFromDb } from './master.js';
 import { runEngine } from './engine/index.js';
 import { assemblePayload } from './engine/assembly.js';
 import type { RawCapture, RawPayload } from './engine/types.js';
+import { getDerived } from '../repositories/derived.repo.js';
+import { v1ToRawCapture } from './fromV1.js';
 
 const ACTIVE_RULESET = '2.0.0';
 
@@ -157,6 +159,34 @@ export async function generateReport(instanceId: string): Promise<ReportPayloadV
   });
 
   return payload;
+}
+
+/**
+ * Report-time V1 → V2: read a completed v1 survey's derived layer, translate it
+ * to v2 raw capture, and run the deterministic engine. No persistence — this is
+ * a second *reading* of the same answers, computed on view.
+ */
+export async function reportFromV1(
+  v1InstanceId: string,
+  studentName: string,
+  enrolledField: string | null,
+  tier: 'free' | 'paid' = 'free',
+): Promise<ReportPayloadV2> {
+  const derived = await getDerived(v1InstanceId);
+  if (!derived) throw Object.assign(new Error('no v1 reading to translate'), { statusCode: 404 });
+  const master = await loadMasterFromDb(prisma());
+  const raw = v1ToRawCapture(derived.findings, derived.trait_scores, enrolledField);
+  const result = runEngine({ master, tier, rulesetVersion: ACTIVE_RULESET }, raw);
+  return assemblePayload(result, master, raw, {
+    reportInstanceId: v1InstanceId,
+    studentName,
+    enrolledField,
+    tier,
+    instanceType: 'baseline',
+    rulesetVersion: ACTIVE_RULESET,
+    asOfDate: new Date().toISOString().slice(0, 10),
+    priorInstanceId: null,
+  });
 }
 
 /** The active ruleset row id, seeding it lazily if absent. */

@@ -1,12 +1,9 @@
 /**
- * V2 report — renders the REVEAL 2.0.0 payload (the 10 Layer-5 regions).
- * Presentation only: every sentence was authored upstream by the engine.
+ * V2 report view — renders the REVEAL 2.0.0 payload (the 10 Layer-5 regions).
+ * Presentational: every sentence was authored upstream by the engine. Rendered
+ * inside the shared report frame, chosen by the report-page V1/V2 switch.
  */
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import type { ReportPayloadV2 } from '@reveal/shared/v2';
-import { v2 } from '../../lib/v2.js';
-import { FloatingVersionToggle } from '../../components/VersionToggle.js';
 
 const DOT: Record<string, string> = { evidenced: '●', well_motivated: '◐', behavioural_not_neural: '◐', plausible: '○', undetermined: '·' };
 
@@ -23,7 +20,7 @@ function Ring({ value, surprise }: { value: number; surprise?: boolean }): JSX.E
 }
 
 function Pin({ value }: { value: number }): JSX.Element {
-  const pct = (value + 100) / 2; // −100..100 → 0..100
+  const pct = (value + 100) / 2;
   return (
     <div className="relative h-1.5 w-full rounded-full bg-slate-200 dark:bg-white/10">
       <div className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent shadow" style={{ left: `${pct}%` }} />
@@ -44,39 +41,18 @@ function Card({ children, className = '' }: { children: React.ReactNode; classNa
   return <div className={`rounded-2xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/[0.04] ${className}`}>{children}</div>;
 }
 
-export function V2Report(): JSX.Element {
-  const { id } = useParams<{ id: string }>();
-  const nav = useNavigate();
-  const [payload, setPayload] = useState<ReportPayloadV2 | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!id) return;
-    v2.report(id).then(setPayload).catch((e) => setError(String(e.message ?? e)));
-  }, [id]);
-
-  if (error) return <Shell><p className="text-rose-500">Couldn’t load the report: {error}</p></Shell>;
-  if (!payload) return <Shell><p className="text-slate-400">Compiling…</p></Shell>;
-
-  const p = payload;
+export function V2ReportView({ payload: p }: { payload: ReportPayloadV2 }): JSX.Element {
   const shown = p.section_heading.directions;
 
   return (
-    <Shell>
+    <div className="px-6 py-8 sm:px-10">
       {/* meta */}
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <div>
-          <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">REVEAL · 2.0.0 · deterministic</div>
-          <h1 className="mt-1 font-serif text-3xl text-slate-900 dark:text-white">{p.meta.student_name}</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            {p.meta.enrolled_field ? `${p.meta.enrolled_field} · ` : ''}
-            {p.meta.tier} tier · {p.hero.timestamp_copy}
-          </p>
-        </div>
-        <button onClick={() => id && v2.generate(id).then(setPayload)} className="rounded-lg border border-slate-200 px-3 py-1.5 text-[13px] text-slate-500 hover:text-slate-800 dark:border-white/10 dark:hover:text-white">
-          Re-run engine
-        </button>
-      </div>
+      <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">REVEAL · 2.0.0 · deterministic engine</div>
+      <h1 className="mt-1 font-serif text-3xl text-slate-900 dark:text-white">{p.meta.student_name}</h1>
+      <p className="text-sm text-slate-500 dark:text-slate-400">
+        {p.meta.enrolled_field ? `${p.meta.enrolled_field} · ` : ''}
+        {p.meta.tier} tier · {p.hero.timestamp_copy}
+      </p>
 
       {/* how to read */}
       <Card className="mt-6">
@@ -321,19 +297,6 @@ export function V2Report(): JSX.Element {
           </div>
         </Section>
       ) : null}
-
-      <div className="mt-12 flex gap-3">
-        <button onClick={() => nav('/v2')} className="text-[13px] text-slate-400 hover:text-slate-700 dark:hover:text-white">← Back to V2 home</button>
-      </div>
-    </Shell>
-  );
-}
-
-function Shell({ children }: { children: React.ReactNode }): JSX.Element {
-  return (
-    <div className="min-h-screen bg-[#f3f2fb] text-slate-900 dark:bg-noir dark:text-white">
-      <div className="mx-auto max-w-3xl px-6 py-10">{children}</div>
-      <FloatingVersionToggle />
     </div>
   );
 }

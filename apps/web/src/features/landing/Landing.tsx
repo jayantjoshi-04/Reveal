@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Logo } from '../../components/Logo.js';
 import { Grain } from '../../components/Grain.js';
 import { useTheme } from '../../store/theme.js';
-import { VersionToggle } from '../../components/VersionToggle.js';
 import { ClarityHero } from './ClarityStage.js';
 
 /** Public marketing landing — cinematic, minimalist, theme-aware.
@@ -98,7 +97,6 @@ function Nav({ onPricing, onHelp, onSignIn }: { onPricing: () => void; onHelp: (
           <NavItem onClick={onHelp}>Help &amp; Support</NavItem>
         </nav>
         <div className="flex items-center gap-2">
-          <VersionToggle className="hidden sm:inline-flex" />
           <ThemeToggle />
           <button
             onClick={onSignIn}
