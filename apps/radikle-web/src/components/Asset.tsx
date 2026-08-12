@@ -16,7 +16,7 @@ type AssetProps = {
   placeholder?: Placeholder;
 };
 
-const DEFAULT_IMG = 'absolute inset-0 max-w-none object-cover pointer-events-none size-full';
+const DEFAULT_IMG = 'absolute inset-0 max-w-none object-contain pointer-events-none size-full';
 
 /**
  * Renders an illustration, falling back to a dimension-preserving placeholder

@@ -28,9 +28,9 @@ export function Footer({ variant = 'sky' }: { variant?: 'sky' | 'violet' | 'oliv
       {/* colour band (bleeds past the canvas edges, clipped by the frame) */}
       <div className={`absolute left-[-76px] top-0 h-[484px] w-[1522px] ${band}`} />
 
-      {/* hand-drawn divider line (real asset drops in here) */}
+      {/* hand-drawn divider line */}
       <div className="absolute left-[-34px] top-[360px] h-[17px] w-[1554px]">
-        <Asset src={A.lines} alt="lines" placeholder="line" />
+        <Asset src={A.lines3} alt="lines" placeholder="line" />
       </div>
 
       {/* heading */}

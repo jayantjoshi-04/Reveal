@@ -8,10 +8,10 @@ import { A } from '../lib/assets';
 
 /**
  * Home ("Website process" frame, node 1:2) — reproduced at the exact 1440x12090
- * Figma coordinates. Colours, type and positions are lifted verbatim from the
- * design; hand-drawn illustrations render from /public/assets (placeholders
- * until the exported files are added). Shared Navbar/Footer replace the
- * design's inline nav + footer layers.
+ * Figma coordinates. Illustrations are the exported PNGs, each placed at its
+ * layer's outer bounding box (rotation/clipping is already baked into the
+ * export), so no CSS transforms are re-applied. Shared Navbar/Footer replace
+ * the design's inline nav + footer layers.
  */
 export default function Home() {
   return (
@@ -25,33 +25,15 @@ export default function Home() {
       {/* ── HERO ────────────────────────────────────────────────────────── */}
       {/* small sprout strokes near the logo */}
       <div className="absolute left-[calc(41.67%_+_22px)] top-[294px] h-[164px] w-[40px]">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <Asset
-            src={A.layer14}
-            alt=""
-            placeholder="blank"
-            imgClassName="absolute h-[100.01%] left-[-32.95%] top-[-0.01%] w-[495.18%] max-w-none"
-          />
-        </div>
+        <Asset src={A.layer14} alt="sprout" placeholder="blank" />
       </div>
-      <div className="absolute left-[calc(50%_+_57px)] top-[327px] flex h-[98px] w-[24px] items-center justify-center">
-        <div className="flex-none -scale-y-100 rotate-180">
-          <div className="relative h-[98px] w-[24px]">
-            <div className="pointer-events-none absolute inset-0 overflow-hidden">
-              <Asset
-                src={A.layer14}
-                alt=""
-                placeholder="blank"
-                imgClassName="absolute h-[100.01%] left-[-32.95%] top-[-0.01%] w-[495.18%] max-w-none"
-              />
-            </div>
-          </div>
-        </div>
+      <div className="absolute left-[calc(50%_+_57px)] top-[327px] h-[98px] w-[24px]">
+        <Asset src={A.layer14b} alt="sprout" placeholder="blank" />
       </div>
 
       {/* hero soil line */}
       <div className="absolute left-0 top-[651px] h-[84px] w-[1440px]">
-        <Asset src={A.lines} alt="lines" placeholder="line" />
+        <Asset src={A.lines} alt="ground line" placeholder="line" />
       </div>
 
       {/* animated hero seed */}
@@ -70,27 +52,15 @@ export default function Home() {
       {/* ── SECTION: seeds are not the same (cream) ─────────────────────── */}
       <div className="absolute left-[-8px] top-[1114px] h-[862px] w-[1456px] bg-cream" />
 
-      {/* seed illustrations */}
-      <div className="absolute left-[calc(8.33%_+_69px)] top-[1353.54px] flex h-[298.491px] w-[256.835px] items-center justify-center">
-        <div className="flex-none rotate-[-22.51deg]">
-          <div className="relative h-[251px] w-[174px]">
-            <Asset src={A.seedCluster} alt="seed" />
-          </div>
-        </div>
+      {/* seed illustrations (placed at their outer boxes) */}
+      <div className="absolute left-[calc(8.33%_+_69px)] top-[1353.54px] h-[298.491px] w-[256.835px]">
+        <Asset src={A.seedCluster2} alt="seed" />
       </div>
-      <div className="absolute left-[calc(25%_+_15.9px)] top-[1276px] flex h-[396.947px] w-[286.272px] items-center justify-center">
-        <div className="flex-none rotate-[-15.02deg]">
-          <div className="relative h-[357.172px] w-[200.541px]">
-            <Asset src={A.seed2} alt="seed" />
-          </div>
-        </div>
+      <div className="absolute left-[calc(25%_+_15.9px)] top-[1276px] h-[396.947px] w-[286.272px]">
+        <Asset src={A.seed2} alt="seed" />
       </div>
-      <div className="absolute left-[calc(16.67%_+_31px)] top-[1607.54px] flex h-[215.416px] w-[158.483px] items-center justify-center">
-        <div className="flex-none rotate-[107.83deg]">
-          <div className="relative h-[104.499px] w-[192.671px]">
-            <Asset src={A.seed4} alt="seed" />
-          </div>
-        </div>
+      <div className="absolute left-[calc(16.67%_+_31px)] top-[1607.54px] h-[215.416px] w-[158.483px]">
+        <Asset src={A.seed4} alt="seed" />
       </div>
 
       <Reveal className="absolute left-[58.33%] top-[1417px] w-[332px] font-display text-[32px] font-semibold leading-[1.5] tracking-tight2 text-teal">
@@ -105,21 +75,15 @@ export default function Home() {
 
       {/* ── SECTION: same garden (olive) ────────────────────────────────── */}
       <div className="absolute left-[calc(8.33%_+_57px)] top-[2021px] h-[426px] w-[485px]">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <Asset
-            src={A.sun}
-            alt="sun"
-            imgClassName="absolute h-full left-[-0.05%] top-0 w-[170.18%] max-w-none animate-[sway_9s_ease-in-out_infinite]"
-          />
+        <div className="h-full w-full animate-float [animation-delay:-2s]">
+          <Asset src={A.sun} alt="sun" />
         </div>
       </div>
 
       {/* water can */}
-      <div className="absolute left-[calc(33.33%_+_35px)] top-[2240px] flex h-[684.779px] w-[876.656px] items-center justify-center">
-        <div className="flex-none rotate-[-13deg]">
-          <div className="relative h-[523px] w-[779px] animate-sway">
-            <Asset src={A.waterCan} alt="water can" />
-          </div>
+      <div className="absolute left-[calc(33.33%_+_35px)] top-[2240px] h-[684.779px] w-[876.656px]">
+        <div className="h-full w-full animate-float">
+          <Asset src={A.waterCan} alt="water can" />
         </div>
       </div>
 
@@ -134,28 +98,9 @@ export default function Home() {
         <p className="mb-0 leading-[1.5]">The few seeds that happen to suit that one garden flourish.</p>
       </Reveal>
 
-      {/* ground + nursery plant + sprout */}
-      <div className="absolute left-[-24px] top-[3208px] h-[691px] w-[1464px]">
-        <Asset src={A.ground} alt="ground" />
-      </div>
-      <div className="absolute left-[calc(41.67%_+_20px)] top-[2797px] h-[567px] w-[227px]">
-        <Asset src={A.plant01} alt="plant" />
-      </div>
-      <div className="absolute left-[calc(16.67%_-_17px)] top-[3650px] flex h-[89.553px] w-[76.902px] items-center justify-center">
-        <div className="flex-none rotate-[-29.74deg]">
-          <div className="relative h-[78px] w-[44px]">
-            <Asset src={A.seed2} alt="seed" />
-          </div>
-        </div>
-      </div>
-      <div className="absolute left-[calc(66.67%_+_73px)] top-[3517px] h-[356px] w-[340px]">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <Asset
-            src={A.sprout}
-            alt="sprout"
-            imgClassName="absolute h-full left-0 top-0 w-[359.36%] max-w-none"
-          />
-        </div>
+      {/* combined soil scene (ground + nursery plant + sprout + seed) */}
+      <div className="absolute left-0 top-[2797px] h-[1102px] w-[1440px]">
+        <Asset src={A.group2} alt="the nursery soil" />
       </div>
 
       <Reveal className="absolute left-[calc(8.33%_+_2px)] top-[3264px] w-[327px] font-display text-[32px] font-semibold leading-[1.5] tracking-tight2 text-teal">
@@ -215,12 +160,8 @@ export default function Home() {
       </Reveal>
 
       {/* the radicle illustration */}
-      <div className="absolute left-[calc(16.67%_+_49px)] top-[5478px] flex h-[885.536px] w-[453.864px] items-center justify-center">
-        <div className="flex-none rotate-[0.81deg]">
-          <div className="relative h-[879.409px] w-[441.531px]">
-            <Asset src={A.radikle} alt="radicle" />
-          </div>
-        </div>
+      <div className="absolute left-[calc(16.67%_+_49px)] top-[5478px] h-[885.536px] w-[453.864px]">
+        <Asset src={A.radikle} alt="radicle" />
       </div>
 
       <Reveal className="absolute left-[calc(58.33%_-_8px)] top-[5787px] w-[320px] font-display text-[48px] font-semibold leading-[0] tracking-tightest text-teal">
@@ -271,14 +212,8 @@ export default function Home() {
       </p>
 
       {/* ── SECTION: enrich the nursery (roots) ─────────────────────────── */}
-      <div className="absolute left-[-222px] top-[8466px] h-[847px] w-[1708px]">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <Asset
-            src={A.roots}
-            alt="roots"
-            imgClassName="absolute h-[123.85%] left-[-0.01%] top-[-23.85%] w-[113.15%] max-w-none"
-          />
-        </div>
+      <div className="absolute left-0 top-[8466px] h-[847px] w-[1440px]">
+        <Asset src={A.roots} alt="roots" />
       </div>
       <Reveal className="absolute left-[calc(50%_-_10px)] top-[8236px] w-[769px] whitespace-pre-wrap font-display text-[32px] font-semibold leading-[1.5] tracking-tight2 text-teal">
         Second, once the radicle begins to emerge, we enrich the nursery environment with the right nutrients soil,
@@ -300,16 +235,10 @@ export default function Home() {
         <Asset src={A.plant01} alt="plant" />
       </div>
       <div className="absolute left-[62px] top-[9754px] h-[711px] w-[377px]">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <Asset
-            src={A.sprout}
-            alt="sprout"
-            imgClassName="absolute h-full left-[-85.65%] top-0 w-[647.42%] max-w-none"
-          />
-        </div>
+        <Asset src={A.sprout} alt="sprout" />
       </div>
       <div className="absolute left-[calc(25%_+_15px)] top-[10151px] h-[67px] w-[1160px]">
-        <Asset src={A.lines} alt="lines" placeholder="line" />
+        <Asset src={A.linesB} alt="ground line" placeholder="line" />
       </div>
 
       <Reveal className="absolute left-[calc(33.33%_+_216px)] top-[9699px] w-[444px] -translate-x-1/2 text-center font-display text-[32px] font-semibold leading-[0] tracking-tight2 text-teal">

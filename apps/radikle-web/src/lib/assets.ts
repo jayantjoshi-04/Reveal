@@ -14,8 +14,13 @@ const base = '/assets';
 
 export const A = {
   waterCan: `${base}/water-can.png`, // "water can_01 1"
-  lines: `${base}/lines.png`, // "lines 1/2/3" (hand-drawn ground strokes)
-  seedCluster: `${base}/seed-cluster.png`, // "Layer 2 1/2" (hero seed cluster)
+  lines: `${base}/lines.png`, // "lines 1" (hero ground stroke, 1440x84)
+  linesB: `${base}/lines-2.png`, // "lines 2" (1065x67)
+  lines3: `${base}/lines-3.png`, // "lines 3" (footer stroke, 1440x17)
+  seedCluster: `${base}/seed-cluster.png`, // "Layer 2 1" (hero seed cluster)
+  seedCluster2: `${base}/seed-cluster-2.png`, // "Layer 2 2" (section seed cluster)
+  layer14b: `${base}/layer-14-3.png`, // "Layer 14 3" (mirrored sprout stroke)
+  group2: `${base}/group-2.png`, // "Group 2" (combined soil scene: ground+plant+sprout)
   seed2: `${base}/seed-2.png`, // "seed 2 1/2"
   seed4: `${base}/seed-4.png`, // "seed 4 2"
   sun: `${base}/sun.png`, // "sun 1"
