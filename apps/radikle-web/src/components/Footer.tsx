@@ -20,8 +20,9 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
  * footer without re-declaring coordinates. `variant` picks the band colour —
  * sky-blue (most pages) or purple (Reveal), matching the Figma.
  */
-export function Footer({ variant = 'sky' }: { variant?: 'sky' | 'violet' }) {
-  const band = variant === 'violet' ? 'bg-violet/60' : 'bg-sky/60';
+export function Footer({ variant = 'sky' }: { variant?: 'sky' | 'violet' | 'olive' }) {
+  const band =
+    variant === 'violet' ? 'bg-violet/60' : variant === 'olive' ? 'bg-olive' : 'bg-sky/60';
   return (
     <footer className="absolute bottom-0 left-0 h-[484px] w-[1440px] font-sans text-[16px] tracking-tight0">
       {/* colour band (bleeds past the canvas edges, clipped by the frame) */}

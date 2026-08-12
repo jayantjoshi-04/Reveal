@@ -54,6 +54,17 @@ export const A = {
   surprise: `${base}/surprise.png`, // "surprise 1"
   confirmed: `${base}/confirmed.png`, // "confirmed 1"
   plant3: `${base}/plant-3.png`, // "plant 3"
+
+  // ── What we do page ─────────────────────────────────────────────────
+  rectangle103: `${base}/rectangle-103.png`, // "Rectangle 103"
+  layer20: `${base}/layer-20.png`, // "Layer 20 1"
+  layer21: `${base}/layer-21.png`, // "Layer 21 1/2"
+  layer22b: `${base}/layer-22b.png`, // "Layer 22 2/3"
+  layer23: `${base}/layer-23.png`, // "Layer 23 1..4"
+  layer27: `${base}/layer-27.png`, // "Layer 27 1"
+  layer28: `${base}/layer-28.png`, // "Layer 28 1"
+  layer31: `${base}/layer-31.png`, // "Layer 31 1"
+  portrait: `${base}/portrait.png`, // "portrait 1"
 } as const;
 
 export type AssetKey = keyof typeof A;
