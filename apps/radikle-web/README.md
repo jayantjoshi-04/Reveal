@@ -50,12 +50,16 @@ To add them:
 
 ## Pages
 
-| Route | Status |
-| --- | --- |
-| `/` | Home ("Website process") — **complete** |
-| `/about` | branded placeholder (full build next) |
-| `/stories` | branded placeholder (full build next) |
-| `/what-we-do` | branded placeholder (full build next) |
-| `/reveal` | branded placeholder (full build next) |
-| `/disha` | coming soon |
-| `/discover` | coming soon |
+| Route | Figma frame | Status |
+| --- | --- | --- |
+| `/` | Website process | **complete** |
+| `/about` | About us | **complete** |
+| `/stories` | Our Stories | **complete** |
+| `/what-we-do` | What we do | **complete** |
+| `/reveal` | Reveal | **complete** |
+| `/disha` | Disha coming soon | coming soon |
+| `/discover` | Discover coming soon | coming soon |
+
+All seven designed frames are reproduced at their exact 1440px coordinates.
+Illustrations render from `public/assets/` once the exports are added (see
+above); until then each shows a dimension-preserving placeholder.
