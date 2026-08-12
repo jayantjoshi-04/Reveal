@@ -15,8 +15,11 @@ export default {
         teal: '#0b4e4f', // primary headings
         deep: '#11254d', // secondary deep-blue headings
         olive: '#bfcc48', // olive-green section band
-        cream: '#f6f4e5', // warm cream section band
+        cream: '#f6f4e5', // warm cream section band (Home)
+        peach: '#fff4e4', // warm peach section band (About)
         sky: '#b2dbf7', // sky-blue hero / footer band (used at 60% opacity)
+        mist: '#d1e9fa', // lighter blue rounded section (Reveal)
+        violet: '#a085e4', // purple footer band (Reveal, used at 60% opacity)
         azure: '#3da1e5', // blue accent
       },
       fontFamily: {

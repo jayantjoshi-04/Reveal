@@ -17,13 +17,15 @@ function FooterLink({ href, children }: { href: string; children: ReactNode }) {
 /**
  * Shared "reach us!" footer band, anchored to the bottom of the page canvas.
  * Reused across every page, so pages of different heights all get the same
- * footer without re-declaring coordinates.
+ * footer without re-declaring coordinates. `variant` picks the band colour —
+ * sky-blue (most pages) or purple (Reveal), matching the Figma.
  */
-export function Footer() {
+export function Footer({ variant = 'sky' }: { variant?: 'sky' | 'violet' }) {
+  const band = variant === 'violet' ? 'bg-violet/60' : 'bg-sky/60';
   return (
     <footer className="absolute bottom-0 left-0 h-[484px] w-[1440px] font-sans text-[16px] tracking-tight0">
-      {/* sky-blue band (bleeds past the canvas edges, clipped by the frame) */}
-      <div className="absolute left-[-76px] top-0 h-[484px] w-[1522px] bg-sky/60" />
+      {/* colour band (bleeds past the canvas edges, clipped by the frame) */}
+      <div className={`absolute left-[-76px] top-0 h-[484px] w-[1522px] ${band}`} />
 
       {/* hand-drawn divider line (real asset drops in here) */}
       <div className="absolute left-[-34px] top-[360px] h-[17px] w-[1554px]">
