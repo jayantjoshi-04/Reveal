@@ -4,14 +4,11 @@ import cors from '@fastify/cors';
 import jwt from '@fastify/jwt';
 import { ZodError } from 'zod';
 import { env } from './config/env.js';
-import { HttpError } from './services/session.service.js';
+import { HttpError } from './services/errors.js';
 import { authRoutes } from './routes/auth/auth.routes.js';
-import { captureRoutes } from './routes/student/capture.routes.js';
-import { uploadRoutes } from './routes/student/uploads.routes.js';
 import { meRoutes } from './routes/student/me.routes.js';
-import { reportRoutes } from './routes/report/report.routes.js';
-import { contentRoutes } from './routes/content/content.routes.js';
 import { adminRoutes } from './routes/admin/admin.routes.js';
+import { surveyRoutes } from './v2/survey.routes.js';
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({ logger: { level: env().NODE_ENV === 'production' ? 'info' : 'debug' } });
@@ -58,12 +55,9 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(
     async (api) => {
       await api.register(authRoutes);
-      await api.register(captureRoutes);
-      await api.register(uploadRoutes);
       await api.register(meRoutes);
-      await api.register(reportRoutes);
-      await api.register(contentRoutes);
       await api.register(adminRoutes);
+      await api.register(surveyRoutes);
     },
     { prefix: '/api' },
   );

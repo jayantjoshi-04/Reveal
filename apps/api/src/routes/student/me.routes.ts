@@ -2,28 +2,15 @@
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { requireStudent } from '../../middleware/auth.js';
-import { getStudentDashboard, listStudentReports, updateStudentProfile } from '../../repositories/instance.repo.js';
-import { getReportPayload } from '../../repositories/derived.repo.js';
+import { getStudentDashboard, updateStudentProfile } from '../../repositories/instance.repo.js';
 
 export async function meRoutes(app: FastifyInstance): Promise<void> {
   app.addHook('preHandler', requireStudent);
 
+  // Profile only — the V2 instrument's run state comes from /survey/status.
   app.get('/me/dashboard', async (req) => {
-    const { profile, instance } = await getStudentDashboard(req.user!.sub);
-    const reportReady = instance?.status === 'released' && !!(await getReportPayload(instance.instance_id));
-    return {
-      profile,
-      instance: instance
-        ? { instance_id: instance.instance_id, status: instance.status, started_at: instance.started_at, completed_at: instance.completed_at, generated_at: instance.generated_at }
-        : null,
-      report_ready: reportReady,
-    };
-  });
-
-  // Full run history — powers the Reports history view in the dashboard.
-  app.get('/me/reports', async (req) => {
-    const reports = await listStudentReports(req.user!.sub);
-    return { reports };
+    const { profile } = await getStudentDashboard(req.user!.sub);
+    return { profile };
   });
 
   // Edit the profile fields the student controls.

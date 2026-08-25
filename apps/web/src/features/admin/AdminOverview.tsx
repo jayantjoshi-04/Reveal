@@ -8,16 +8,13 @@ export function AdminOverview(): JSX.Element {
 
   const tiles = [
     { label: 'Students', value: data?.students, accent: true },
-    { label: 'Awaiting review', value: data?.to_review, accent: true },
-    { label: 'Released', value: data?.released },
-    { label: 'A · questions', value: data?.a_items },
-    { label: 'B · tasks', value: data?.b_tasks },
-    { label: 'Artifacts', value: data?.artifacts },
+    { label: 'Instances', value: data?.instances },
+    { label: 'Reports generated', value: data?.reports_generated, accent: true },
   ];
 
   return (
     <div className="animate-fade-in">
-      <AdminPageHeader title="Overview" sub="Instrument version 1.0 · live" />
+      <AdminPageHeader title="Overview" sub={`REVEAL engine ${data?.ruleset ?? '2.0.0'} · deterministic`} />
       <div className="grid gap-4 sm:grid-cols-3">
         {tiles.map((t) => (
           <Card key={t.label} className="p-5">
@@ -33,10 +30,9 @@ export function AdminOverview(): JSX.Element {
       <Card className="mt-6 p-6">
         <div className="font-mono text-[10px] uppercase tracking-widest text-slate-400">The admin console</div>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-          This portal is the GUI over the database. Use <b className="text-slate-700 dark:text-slate-200">Questionnaire</b> to add, edit, or
-          remove questions and their tags; <b className="text-slate-700 dark:text-slate-200">Reports</b> to approve or reject student
-          submissions (approval triggers the single report-generation pass); and{' '}
-          <b className="text-slate-700 dark:text-slate-200">Students</b> to manage accounts and statuses.
+          The REVEAL 2.0 engine is deterministic and generates each reading automatically when a student completes the
+          studio session — no manual approval step. Use <b className="text-slate-700 dark:text-slate-200">Reports</b> to view
+          generated readings, and <b className="text-slate-700 dark:text-slate-200">Students</b> to manage accounts.
         </p>
       </Card>
     </div>

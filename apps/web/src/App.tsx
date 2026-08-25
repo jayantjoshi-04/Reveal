@@ -6,12 +6,11 @@ import { SignUp } from './features/auth/SignUp.js';
 import { SignIn } from './features/auth/SignIn.js';
 import { AdminSignIn } from './features/auth/AdminSignIn.js';
 import { Onboarding } from './features/onboarding/Onboarding.js';
-import { CaptureFlow } from './features/capture/CaptureFlow.js';
+import { CaptureV2 } from './features/survey/CaptureV2.js';
 import { StudentDashboard } from './features/dashboard/StudentDashboard.js';
 import { ReportPage } from './features/report/ReportPage.js';
 import { AdminLayout } from './features/admin/AdminLayout.js';
 import { AdminOverview } from './features/admin/AdminOverview.js';
-import { QuestionManager } from './features/admin/QuestionManager.js';
 import { ReportManager } from './features/admin/ReportManager.js';
 import { StudentDirectory } from './features/admin/StudentDirectory.js';
 import { AdminSettings } from './features/admin/AdminSettings.js';
@@ -32,13 +31,12 @@ export default function App(): JSX.Element {
       <Route path="/admin/signin" element={<AdminSignIn />} />
 
       <Route path="/onboarding" element={<Protected allow={['student']}><Onboarding /></Protected>} />
-      <Route path="/survey" element={<Protected allow={['student']}><CaptureFlow /></Protected>} />
+      <Route path="/survey" element={<Protected allow={['student']}><CaptureV2 /></Protected>} />
       <Route path="/dashboard" element={<Protected allow={['student']}><StudentDashboard /></Protected>} />
       <Route path="/report/:id" element={<Protected allow={['student', 'admin']}><ReportPage /></Protected>} />
 
       <Route path="/admin" element={<Protected allow={['admin']}><AdminLayout /></Protected>}>
         <Route index element={<AdminOverview />} />
-        <Route path="questions" element={<QuestionManager />} />
         <Route path="reports" element={<ReportManager />} />
         <Route path="students" element={<StudentDirectory />} />
         <Route path="settings" element={<AdminSettings />} />

@@ -1,37 +1,20 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api, type Dashboard, type ReportHistoryRow } from '../../lib/api.js';
+import { api, type Dashboard, type V2Status } from '../../lib/api.js';
 import { useAuth } from '../../store/auth.js';
 import { Button, Card, Skeleton, Badge, Field, Input } from '../../components/ui.js';
 import { LogoLink } from '../../components/Logo.js';
 
 type View = 'home' | 'reports' | 'profile' | 'billing' | 'settings';
 
-const STEPS = [
-  { key: 'submitted', label: 'Submitted', note: 'Your responses are in.' },
-  { key: 'review', label: 'Under review', note: 'An admin is checking the high-stakes findings.' },
-  { key: 'approved', label: 'Approved', note: 'Your report has been generated.' },
-  { key: 'ready', label: 'Report ready', note: 'Your Design Signature is unlocked.' },
-];
-function stageOf(status: string | undefined): number {
-  switch (status) {
-    case 'capture_complete': return 1;
-    case 'generated': case 'reviewed': return 2;
-    case 'released': return 3;
-    default: return 0;
-  }
-}
-
 export function StudentDashboard(): JSX.Element {
   const { role, name, signOut } = useAuth();
   const nav = useNavigate();
   const [view, setView] = useState<View>('home');
-  const { data, isLoading } = useQuery({
-    queryKey: ['me-dashboard'],
-    queryFn: () => api.meDashboard(),
-    refetchInterval: 8000, // poll so the report unlocks automatically on approval
-  });
+  const { data, isLoading } = useQuery({ queryKey: ['me-dashboard'], queryFn: () => api.meDashboard() });
+  const { data: statusData } = useQuery({ queryKey: ['survey-status'], queryFn: () => api.surveyStatus(), refetchInterval: 6000 });
+  const inst = statusData?.instance ?? null;
 
   if (role !== 'student') return <Navigate to="/" replace />;
 
@@ -42,9 +25,9 @@ export function StudentDashboard(): JSX.Element {
         {isLoading || !data ? (
           <DashboardSkeleton />
         ) : view === 'home' ? (
-          <Home data={data} nav={nav} setView={setView} />
+          <Home profile={data.profile} inst={inst} nav={nav} setView={setView} />
         ) : view === 'reports' ? (
-          <Reports nav={nav} />
+          <Reports inst={inst} nav={nav} />
         ) : view === 'profile' ? (
           <Profile data={data} />
         ) : view === 'billing' ? (
@@ -57,7 +40,6 @@ export function StudentDashboard(): JSX.Element {
   );
 }
 
-// ── Nav with Profile dropdown + Reports ──────────────────────────────────────
 function DashboardNav({ name, view, setView, onSignOut }: { name: string | null; view: View; setView: (v: View) => void; onSignOut: () => void }): JSX.Element {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -75,10 +57,7 @@ function DashboardNav({ name, view, setView, onSignOut }: { name: string | null;
           <NavTab active={view === 'home'} onClick={() => setView('home')}>Home</NavTab>
           <NavTab active={view === 'reports'} onClick={() => setView('reports')}>Reports</NavTab>
           <div className="relative ml-1" ref={ref}>
-            <button
-              onClick={() => setOpen((o) => !o)}
-              className="press flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-noir-card py-1 pl-1 pr-3 text-[13px] font-medium text-slate-700 dark:text-slate-200 transition-colors hover:border-slate-300"
-            >
+            <button onClick={() => setOpen((o) => !o)} className="press flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-noir-card py-1 pl-1 pr-3 text-[13px] font-medium text-slate-700 dark:text-slate-200 transition-colors hover:border-slate-300">
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent text-[11px] font-semibold text-white">{initials}</span>
               <span className="hidden sm:inline">{name ?? 'You'}</span>
               <span className="text-slate-400">▾</span>
@@ -99,9 +78,7 @@ function DashboardNav({ name, view, setView, onSignOut }: { name: string | null;
   );
 }
 function NavTab({ active, onClick, children }: { active: boolean; onClick: () => void; children: ReactNode }): JSX.Element {
-  return (
-    <button onClick={onClick} className={`rounded-xl px-3 py-1.5 text-[13px] font-medium transition-colors ${active ? 'bg-slate-900 text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-slate-800'}`}>{children}</button>
-  );
+  return <button onClick={onClick} className={`rounded-xl px-3 py-1.5 text-[13px] font-medium transition-colors ${active ? 'bg-slate-900 text-white' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 hover:text-slate-800'}`}>{children}</button>;
 }
 function MenuItem({ onClick, icon, title, sub, danger }: { onClick: () => void; icon: string; title: string; sub: string; danger?: boolean }): JSX.Element {
   return (
@@ -116,73 +93,61 @@ function MenuItem({ onClick, icon, title, sub, danger }: { onClick: () => void; 
 }
 
 // ── Home ─────────────────────────────────────────────────────────────────────
-function Home({ data, nav, setView }: { data: Dashboard; nav: (p: string) => void; setView: (v: View) => void }): JSX.Element {
-  const status = data.instance?.status;
-  const stage = stageOf(status);
-  const firstName = data.profile.name?.split(' ')[0] ?? 'there';
+function Home({ profile, inst, nav, setView }: { profile: Dashboard['profile']; inst: V2Status | null; nav: (p: string) => void; setView: (v: View) => void }): JSX.Element {
+  const firstName = profile.name?.split(' ')[0] ?? 'there';
+  const started = !!inst && inst.answered > 0;
 
-  if (data.report_ready && data.instance) {
+  if (inst?.reportReady) {
     return (
       <div className="animate-slide-up space-y-5">
         <Card className="overflow-hidden">
           <div className="relative overflow-hidden bg-gradient-to-br from-accent to-accent-dark p-8 text-white">
             <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
-            <div className="relative mb-2 font-mono text-[11px] uppercase tracking-[0.25em] text-white/70">Ready</div>
-            <h1 className="relative font-serif text-3xl">Your Design Signature is ready.</h1>
-            <p className="relative mt-2 max-w-md text-sm text-white/80">Two designers inside it — the one your evidence shows, and the one you’re becoming, including one thing you didn’t expect.</p>
-            <Button variant="ghost" className="relative mt-6 border-white/30 bg-white/10 text-white hover:bg-white/20" onClick={() => nav(`/report/${data.instance!.instance_id}`)}>Open my report →</Button>
+            <div className="relative mb-2 font-mono text-[11px] uppercase tracking-[0.25em] text-white/70">Ready · REVEAL 2.0</div>
+            <h1 className="relative font-serif text-3xl">Your reading is ready.</h1>
+            <p className="relative mt-2 max-w-md text-sm text-white/80">The deterministic engine read your studio session — capacities, directions, and one thing you may not have expected.</p>
+            <Button variant="ghost" className="relative mt-6 border-white/30 bg-white/10 text-white hover:bg-white/20" onClick={() => nav(`/report/${inst.id}`)}>Open my report →</Button>
           </div>
         </Card>
-        <Timeline stage={4} />
       </div>
     );
   }
 
   return (
     <div className="animate-slide-up space-y-6">
-      {/* welcome hero + CTA */}
       <div className="relative overflow-hidden rounded-3xl bg-slate-900 p-8 text-white shadow-card sm:p-10">
         <div className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 animate-blob rounded-full bg-accent/25 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-20 left-10 h-44 w-44 animate-blob rounded-full bg-violet-500/20 blur-3xl [animation-delay:5s]" />
         <div className="relative">
           <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-indigo-300">Welcome back, {firstName}</div>
-          <h1 className="mt-3 max-w-lg font-serif text-3xl leading-tight sm:text-4xl">
-            {data.instance && status === 'in_progress' ? 'Pick up where you left off.' : status && status !== 'in_progress' ? 'Your report is on its way.' : 'Ready to see your Design Signature?'}
-          </h1>
+          <h1 className="mt-3 max-w-lg font-serif text-3xl leading-tight sm:text-4xl">{started ? 'Pick up where you left off.' : 'Ready to see how you design?'}</h1>
           <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-300">
-            {data.instance && status === 'in_progress'
-              ? 'Your run is saved to the exact step you stopped on — nothing to redo.'
-              : status && status !== 'in_progress'
-                ? 'Track its progress below. This page updates the moment it’s approved.'
-                : 'Three short sittings read how you design and return a high-fidelity report you can revisit and re-run.'}
+            {started
+              ? `You’re ${inst!.answered} of ${inst!.total} activities in — saved to the exact step you stopped on.`
+              : 'A studio session reads how you actually work and returns a deterministic reading you can revisit and re-run.'}
           </p>
-          {(!status || status === 'in_progress') ? (
-            <button onClick={() => nav('/onboarding')} className="press mt-6 rounded-2xl bg-accent px-6 py-3 text-[15px] font-semibold text-white shadow-lift transition-colors hover:bg-accent-dark">
-              {data.instance && status === 'in_progress' ? 'Resume survey →' : 'Take the survey →'}
-            </button>
-          ) : (
-            <button onClick={() => setView('reports')} className="press mt-6 rounded-2xl bg-white/10 px-6 py-3 text-[15px] font-semibold text-white ring-1 ring-white/20 transition-colors hover:bg-white/20">
-              View my reports →
-            </button>
-          )}
+          <button onClick={() => nav(started ? '/survey' : '/onboarding')} className="press mt-6 rounded-2xl bg-accent px-6 py-3 text-[15px] font-semibold text-white shadow-lift transition-colors hover:bg-accent-dark">
+            {started ? 'Resume the studio session →' : 'Start the studio session →'}
+          </button>
         </div>
       </div>
 
-      {status && status !== 'in_progress' ? (
-        <>
-          <div className="grid grid-cols-3 gap-4">
-            <Stat label="Status" value={data.report_ready ? 'Ready' : 'Under review'} />
-            <Stat label="Reports generated" value={stage >= 2 ? '1' : '0'} />
-            <Stat label="Submitted" value={data.instance?.completed_at ? new Date(data.instance.completed_at).toLocaleDateString() : '—'} />
+      {started ? (
+        <Card className="p-6">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-slate-400">Progress</span>
+            <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400">{inst!.answered} / {inst!.total}</span>
           </div>
-          <Timeline stage={stage} />
-        </>
+          <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
+            <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${Math.round((inst!.answered / inst!.total) * 100)}%` }} />
+          </div>
+        </Card>
       ) : (
         <div className="grid gap-4 sm:grid-cols-3">
           {[
             { i: '🧭', t: 'Two channels', d: 'What you say vs. what you do.' },
-            { i: '⏱', t: '~45 minutes', d: 'Across three sittings you control.' },
-            { i: '✦', t: 'Re-runnable', d: 'A snapshot you revisit over time.' },
+            { i: '⏱', t: '~30 minutes', d: 'Five short blocks you control.' },
+            { i: '✦', t: 'Deterministic', d: 'Same answers, same reading — no AI.' },
           ].map((c) => (
             <Card key={c.t} className="p-5">
               <div className="mb-2 text-xl">{c.i}</div>
@@ -192,77 +157,42 @@ function Home({ data, nav, setView }: { data: Dashboard; nav: (p: string) => voi
           ))}
         </div>
       )}
+      <button onClick={() => setView('reports')} className="text-[13px] font-medium text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">View my reports →</button>
     </div>
   );
 }
 
-// ── Reports history ──────────────────────────────────────────────────────────
-function Reports({ nav }: { nav: (p: string) => void }): JSX.Element {
-  const { data, isLoading } = useQuery({ queryKey: ['me-reports'], queryFn: () => api.meReports() });
-  const [q, setQ] = useState('');
-
-  const rows = (data?.reports ?? []).filter((r) => {
-    if (!q.trim()) return true;
-    const hay = `${statusLabel(r.status)} ${r.schema_version} ${new Date(r.started_at).toLocaleDateString()}`.toLowerCase();
-    return hay.includes(q.toLowerCase());
-  });
-
+// ── Reports ──────────────────────────────────────────────────────────────────
+function Reports({ inst, nav }: { inst: V2Status | null; nav: (p: string) => void }): JSX.Element {
   return (
     <div className="animate-slide-up space-y-5">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="font-serif text-3xl text-slate-900 dark:text-white">Reports</h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Every run you’ve taken. Open a released report, or track one in review.</p>
-        </div>
-        <div className="w-full sm:w-64">
-          <Input placeholder="Search by status or date…" value={q} onChange={(e) => setQ(e.target.value)} />
-        </div>
+      <div>
+        <h1 className="font-serif text-3xl text-slate-900 dark:text-white">Reports</h1>
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Your studio session and its reading.</p>
       </div>
-
-      {isLoading ? (
-        <div className="space-y-3">{[0, 1, 2].map((i) => <Skeleton key={i} className="h-20 rounded-2xl" />)}</div>
-      ) : rows.length === 0 ? (
+      {!inst ? (
         <Card className="p-10 text-center">
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-xl">🗂</div>
-          <div className="font-serif text-xl text-slate-900 dark:text-white">{data?.reports.length ? 'No matches' : 'No reports yet'}</div>
-          <p className="mx-auto mt-1 max-w-sm text-sm text-slate-500 dark:text-slate-400">{data?.reports.length ? 'Try a different search.' : 'Take the survey and your Design Signature will appear here.'}</p>
-          {!data?.reports.length ? <Button className="mx-auto mt-5" onClick={() => nav('/onboarding')}>Take the survey →</Button> : null}
+          <div className="font-serif text-xl text-slate-900 dark:text-white">No reports yet</div>
+          <p className="mx-auto mt-1 max-w-sm text-sm text-slate-500 dark:text-slate-400">Take the studio session and your reading will appear here.</p>
+          <Button className="mx-auto mt-5" onClick={() => nav('/onboarding')}>Start the session →</Button>
         </Card>
       ) : (
-        <div className="space-y-3">
-          {rows.map((r, i) => <ReportRow key={r.instance_id} row={r} index={rows.length - i} onOpen={() => nav(`/report/${r.instance_id}`)} />)}
-        </div>
+        <Card className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-soft to-violet-100 font-serif text-lg text-accent-dark">✦</div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[15px] font-semibold text-slate-900 dark:text-white">Your Reading</span>
+                <Badge tone={inst.reportReady ? 'green' : 'slate'}>{inst.reportReady ? 'Ready' : 'In progress'}</Badge>
+              </div>
+              <div className="mt-1 font-mono text-[11px] text-slate-400">{inst.answered} / {inst.total} activities{inst.generatedAt ? ` · generated ${new Date(inst.generatedAt).toLocaleDateString()}` : ''}</div>
+            </div>
+          </div>
+          {inst.reportReady ? <Button onClick={() => nav(`/report/${inst.id}`)}>Open →</Button> : <Button variant="ghost" onClick={() => nav('/survey')}>Resume →</Button>}
+        </Card>
       )}
     </div>
-  );
-}
-
-function ReportRow({ row, index, onOpen }: { row: ReportHistoryRow; index: number; onOpen: () => void }): JSX.Element {
-  const tone = row.report_ready ? 'green' : row.status === 'in_progress' ? 'slate' : 'amber';
-  return (
-    <Card className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex items-center gap-4">
-        <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent-soft to-violet-100 font-serif text-lg text-accent-dark">✦</div>
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-[15px] font-semibold text-slate-900 dark:text-white">Design Signature #{index}</span>
-            <Badge tone={tone}>{statusLabel(row.status)}</Badge>
-          </div>
-          <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5 font-mono text-[11px] text-slate-400">
-            <span>Started {new Date(row.started_at).toLocaleDateString()}</span>
-            {row.generated_at ? <span>Generated {new Date(row.generated_at).toLocaleDateString()}</span> : null}
-            <span>v{row.schema_version}</span>
-          </div>
-        </div>
-      </div>
-      <div className="flex-shrink-0">
-        {row.report_ready ? (
-          <Button variant="primary" onClick={onOpen}>Open →</Button>
-        ) : (
-          <Button variant="ghost" disabled>{row.status === 'in_progress' ? 'In progress' : 'In review'}</Button>
-        )}
-      </div>
-    </Card>
   );
 }
 
@@ -270,16 +200,11 @@ function ReportRow({ row, index, onOpen }: { row: ReportHistoryRow; index: numbe
 function Profile({ data }: { data: Dashboard }): JSX.Element {
   const qc = useQueryClient();
   const { name, signIn } = useAuth();
-  const [form, setForm] = useState({
-    name: data.profile.name ?? '',
-    institution: data.profile.institution ?? '',
-    domain_of_interest: data.profile.domain_of_interest ?? '',
-  });
+  const [form, setForm] = useState({ name: data.profile.name ?? '', institution: data.profile.institution ?? '', domain_of_interest: data.profile.domain_of_interest ?? '' });
   const [saved, setSaved] = useState(false);
   const mut = useMutation({
     mutationFn: () => api.updateProfile(form),
     onSuccess: () => {
-      // keep the nav initials/name in sync
       const t = localStorage.getItem('reveal_token');
       if (t) signIn('student', form.name, t);
       qc.invalidateQueries({ queryKey: ['me-dashboard'] });
@@ -287,7 +212,6 @@ function Profile({ data }: { data: Dashboard }): JSX.Element {
       setTimeout(() => setSaved(false), 2500);
     },
   });
-
   return (
     <div className="animate-slide-up max-w-xl space-y-5">
       <div>
@@ -310,12 +234,8 @@ function Profile({ data }: { data: Dashboard }): JSX.Element {
   );
 }
 
-// ── Billing (polished placeholder) ───────────────────────────────────────────
+// ── Billing (placeholder) ────────────────────────────────────────────────────
 function Billing(): JSX.Element {
-  const invoices = [
-    { id: 'INV-0007', date: 'Jul 2026', amount: '₹0.00', label: 'Pilot access' },
-    { id: 'INV-0006', date: 'Apr 2026', amount: '₹0.00', label: 'Pilot access' },
-  ];
   return (
     <div className="animate-slide-up max-w-2xl space-y-5">
       <div>
@@ -334,23 +254,6 @@ function Billing(): JSX.Element {
         <div className="flex items-center justify-between p-5">
           <div className="text-sm text-slate-500 dark:text-slate-400">Payments aren’t enabled yet — this is a preview of billing.</div>
           <Button variant="ghost" disabled>Manage plan</Button>
-        </div>
-      </Card>
-      <Card className="p-5">
-        <div className="mb-3 font-mono text-[10px] uppercase tracking-widest text-slate-400">Invoice history</div>
-        <div className="divide-y divide-slate-100">
-          {invoices.map((iv) => (
-            <div key={iv.id} className="flex items-center justify-between py-3">
-              <div>
-                <div className="text-sm font-medium text-slate-800 dark:text-slate-100">{iv.id} · {iv.label}</div>
-                <div className="font-mono text-[11px] text-slate-400">{iv.date}</div>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">{iv.amount}</span>
-                <button className="text-[13px] font-medium text-accent hover:text-accent-dark" disabled>Receipt</button>
-              </div>
-            </div>
-          ))}
         </div>
       </Card>
     </div>
@@ -377,13 +280,6 @@ function Settings({ data, onSignOut }: { data: Dashboard; onSignOut: () => void 
         </div>
         <Button variant="ghost" onClick={onSignOut}>Sign out</Button>
       </Card>
-      <Card className="flex items-center justify-between border-rose-100 p-5">
-        <div>
-          <div className="text-[15px] font-semibold text-rose-600">Delete account</div>
-          <div className="text-[13px] text-slate-500 dark:text-slate-400">Permanently remove your data. Contact support to proceed.</div>
-        </div>
-        <Button variant="danger" disabled>Delete</Button>
-      </Card>
     </div>
   );
 }
@@ -398,58 +294,11 @@ function Row({ k, v, action }: { k: string; v: string; action?: ReactNode }): JS
     </div>
   );
 }
-
-// ── shared bits ──────────────────────────────────────────────────────────────
-function Timeline({ stage }: { stage: number }): JSX.Element {
-  return (
-    <Card className="p-6">
-      <div className="mb-4 font-mono text-[10px] uppercase tracking-widest text-slate-400">Processing timeline</div>
-      <ol className="relative space-y-5 pl-2">
-        {STEPS.map((s, i) => {
-          const done = i < stage;
-          const active = i === stage;
-          return (
-            <li key={s.key} className="flex gap-4">
-              <div className="flex flex-col items-center">
-                <span className={`flex h-7 w-7 items-center justify-center rounded-full text-xs transition-colors ${done ? 'bg-emerald-500 text-white' : active ? 'bg-accent text-white' : 'bg-slate-200 text-slate-400'}`}>
-                  {done ? '✓' : i + 1}
-                </span>
-                {i < STEPS.length - 1 ? <span className={`mt-1 h-8 w-0.5 ${done ? 'bg-emerald-400' : 'bg-slate-200'}`} /> : null}
-              </div>
-              <div className="pb-1">
-                <div className={`text-sm font-semibold ${active ? 'text-accent' : done ? 'text-slate-900 dark:text-white' : 'text-slate-400'}`}>{s.label}{active ? ' · in progress' : ''}</div>
-                <div className="text-[13px] text-slate-500 dark:text-slate-400">{s.note}</div>
-              </div>
-            </li>
-          );
-        })}
-      </ol>
-    </Card>
-  );
-}
-function Stat({ label, value }: { label: string; value: string }): JSX.Element {
-  return (
-    <Card className="p-4">
-      <div className="font-mono text-[10px] uppercase tracking-widest text-slate-400">{label}</div>
-      <div className="mt-1 text-lg font-semibold text-slate-900 dark:text-white">{value}</div>
-    </Card>
-  );
-}
 function DashboardSkeleton(): JSX.Element {
   return (
     <div className="space-y-5">
       <Skeleton className="h-48 rounded-3xl" />
       <div className="grid grid-cols-3 gap-4">{[0, 1, 2].map((i) => <Skeleton key={i} className="h-20" />)}</div>
-      <Skeleton className="h-64" />
     </div>
   );
-}
-function statusLabel(status: string): string {
-  switch (status) {
-    case 'in_progress': return 'In progress';
-    case 'capture_complete': return 'Under review';
-    case 'generated': case 'reviewed': return 'Approved';
-    case 'released': return 'Ready';
-    default: return status;
-  }
 }

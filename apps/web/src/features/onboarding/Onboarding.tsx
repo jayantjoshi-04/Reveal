@@ -2,26 +2,19 @@ import { useState, type ReactNode } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui.js';
 import { LogoLink } from '../../components/Logo.js';
-import { api } from '../../lib/api.js';
 import { useAuth } from '../../store/auth.js';
 
 /** The survey intro — "Before you begin". Sets expectations, then starts (or resumes) the run. */
 export function Onboarding(): JSX.Element {
-  const { role, name, setInstance } = useAuth();
+  const { role, name } = useAuth();
   const nav = useNavigate();
   const [busy, setBusy] = useState(false);
 
   if (role !== 'student') return <Navigate to="/" replace />;
 
-  async function begin(): Promise<void> {
+  function begin(): void {
     setBusy(true);
-    try {
-      const state = await api.startInstance();
-      setInstance(state.instance_id);
-      nav('/survey');
-    } finally {
-      setBusy(false);
-    }
+    nav('/survey'); // the survey starts (or resumes) the instance itself
   }
 
   return (
@@ -130,7 +123,7 @@ export function Onboarding(): JSX.Element {
           <Button className="mx-auto mt-7 px-8 py-3.5 text-[15px]" loading={busy} onClick={begin}>
             I’m ready · Begin →
           </Button>
-          <div className="mt-4 font-mono text-[11px] tracking-wide text-slate-400">Session 1 of 3 · about 15 minutes · you can stop between sessions</div>
+          <div className="mt-4 font-mono text-[11px] tracking-wide text-slate-400">Five short blocks · about 30 minutes · you can stop between blocks</div>
         </section>
       </div>
     </div>

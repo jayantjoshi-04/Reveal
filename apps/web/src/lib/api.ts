@@ -1,5 +1,5 @@
 /** Typed fetch client. Attaches the JWT and unwraps errors. */
-import type { InstanceState } from '@reveal/shared';
+import type { ReportPayloadV2 } from '@reveal/shared/v2';
 
 const BASE = (import.meta.env.VITE_API_URL as string | undefined) ?? 'http://localhost:4000';
 
@@ -25,7 +25,6 @@ async function request<T>(path: string, opts: RequestInit = {}): Promise<T> {
       },
     });
   } catch {
-    // fetch rejects on network failure / CORS / server down — before any HTTP status
     throw new ApiError(0, `Can't reach the server at ${BASE}. Is the API running?`);
   }
   if (!res.ok) {
@@ -65,35 +64,24 @@ export const api = {
   signin: (identifier: string, password: string) => request<{ token: string; student: { student_id: string; name: string; email: string } }>('/auth/signin', { method: 'POST', body: JSON.stringify({ identifier, password }) }),
   adminSignin: (username: string, password: string) => request<{ token: string; admin: { staff_id: string; name: string; email: string } }>('/auth/admin/signin', { method: 'POST', body: JSON.stringify({ username, password }) }),
 
-  // ── student ──
+  // ── student profile ──
   meDashboard: () => request<Dashboard>('/me/dashboard'),
-  meReports: () => request<{ reports: ReportHistoryRow[] }>('/me/reports'),
   updateProfile: (patch: { name?: string; institution?: string; domain_of_interest?: string }) =>
     request('/me/profile', { method: 'PATCH', body: JSON.stringify(patch) }),
-  startInstance: () => request<InstanceState>('/instances', { method: 'POST' }),
-  getState: (id: string) => request<InstanceState>(`/instances/${id}/state`),
-  submitModule: (id: string, code: string, payload: unknown, responseMs?: number) =>
-    request<{ cursor: string | null }>(`/instances/${id}/modules/${code}`, { method: 'POST', body: JSON.stringify({ payload, response_ms: responseMs }) }),
-  sealSession: (id: string, no: number) =>
-    request<{ sealed: boolean; instanceComplete: boolean }>(`/instances/${id}/sessions/${no}/seal`, { method: 'POST' }),
-  content: <T = unknown>(kind: 'a-items' | 'b-tasks' | 'artifacts' | 'scenes') => request<T>(`/content/${kind}`),
-  report: (id: string) => request<ReportView>(`/report/${id}`),
-  // The same survey, read by the REVEAL 2.0.0 deterministic engine.
-  reportV2: (id: string) => request<import('@reveal/shared/v2').ReportPayloadV2>(`/report/${id}/v2`),
+
+  // ── V2 survey (the native REVEAL 2.0.0 instrument) ──
+  surveyStart: () => request<{ instanceId: string }>('/survey/start', { method: 'POST' }),
+  surveyStatus: () => request<{ instance: V2Status | null }>('/survey/status'),
+  surveyState: (id: string) => request<SurveyState>(`/survey/${id}`),
+  surveySubmit: (id: string, activityId: string, rawPayload: unknown, channel?: 'say' | 'do') =>
+    request<{ ok: boolean; next: string | null }>(`/survey/${id}/activity/${activityId}`, { method: 'POST', body: JSON.stringify({ rawPayload, channel }) }),
+  surveyComplete: (id: string) => request<{ ok: boolean; instanceId: string }>(`/survey/${id}/complete`, { method: 'POST' }),
+  surveyReport: (id: string) => request<ReportPayloadV2>(`/survey/${id}/report`),
 
   // ── admin ──
   adminOverview: () => request<AdminOverview>('/admin/overview'),
-  adminQuestions: () => request<AItem[]>('/admin/questions'),
-  createQuestion: (b: { module_code: string; prompt: string; seq: number; is_non_design?: boolean }) => post('/admin/questions', b),
-  updateQuestion: (itemId: string, b: { prompt?: string; seq?: number; is_non_design?: boolean }) => request(`/admin/questions/${itemId}`, { method: 'PATCH', body: JSON.stringify(b) }),
-  deleteQuestion: (itemId: string) => request(`/admin/questions/${itemId}`, { method: 'DELETE' }),
-  addOption: (itemId: string, label: string, tag: string) => post(`/admin/questions/${itemId}/options`, { label, tag }),
-  updateOption: (optionId: string, b: { label?: string; tag?: string }) => request(`/admin/options/${optionId}`, { method: 'PATCH', body: JSON.stringify(b) }),
-  deleteOption: (optionId: string) => request(`/admin/options/${optionId}`, { method: 'DELETE' }),
-  adminReports: () => request<AdminReport[]>('/admin/reports'),
-  adminReport: (id: string) => request<ReviewDetail>(`/admin/reports/${id}`),
-  approveReport: (id: string) => post(`/admin/reports/${id}/approve`) as Promise<{ generated: boolean; model: string }>,
-  rejectReport: (id: string, reason?: string) => post(`/admin/reports/${id}/reject`, { reason }),
+  adminReports: () => request<AdminReportRow[]>('/admin/reports'),
+  adminReport: (id: string) => request<{ instance_id: string; payload: ReportPayloadV2 | null }>(`/admin/reports/${id}`),
   adminStudents: () => request<StudentRow[]>('/admin/students'),
   adminCreateStudent: (b: { name: string; email: string; username: string; password: string; domain_of_interest?: string }) =>
     request<{ student: { student_id: string; name: string; email: string } }>('/admin/students', { method: 'POST', body: JSON.stringify(b) }),
@@ -101,43 +89,30 @@ export const api = {
   adminChangePassword: (current_password: string, new_password: string) => post('/admin/change-password', { current_password, new_password }),
 };
 
+// ── types ──
 export interface SignupBody {
   name: string; email: string; username: string; password: string;
   gender?: string; dob?: string; institution?: string; domain_of_interest?: string; cohort?: string;
 }
 export interface Dashboard {
   profile: { name: string; email: string; username: string | null; domain_of_interest: string | null; institution: string | null };
-  instance: { instance_id: string; status: string; started_at: string; completed_at: string | null; generated_at: string | null } | null;
-  report_ready: boolean;
 }
-export interface ReportHistoryRow {
-  instance_id: string;
-  schema_version: string;
-  status: string;
-  started_at: string;
-  completed_at: string | null;
-  generated_at: string | null;
-  report_ready: boolean;
+export interface V2Status {
+  id: string; status: string; generatedAt: string | null; answered: number; total: number; reportReady: boolean;
 }
-export interface AdminOverview { version_id: string; a_items: number; b_tasks: number; artifacts: number; students: number; to_review: number; released: number; }
-export interface AItem { item_id: string; module_code: string; seq: number; prompt: string; is_non_design: boolean; options: { option_id: string; label: string; tag: string }[]; }
-export interface AdminReport { instance_id: string; student_id: string; student_name: string; cohort: string | null; status: string; completed_at: string | null; decision: string | null; surprise_count: number; coherence_flag: boolean; }
+export interface SurveyOption {
+  id: string; step: string; label: string; constructId: string | null; edge: string | null; driver: string | null; axis: string | null; isEscape: boolean;
+}
+export interface SurveyActivity {
+  id: string; code: string; label: string; channel: string; format: string; note: string | null; archetype: string; options: SurveyOption[];
+}
+export interface SurveyState {
+  instanceId: string; status: string;
+  blocks: { block: number; title: string; activities: string[] }[];
+  activities: SurveyActivity[];
+  answered: Record<string, unknown>;
+  cursor: string | null;
+}
+export interface AdminOverview { ruleset: string; students: number; instances: number; reports_generated: number; }
+export interface AdminReportRow { instance_id: string; student_name: string; status: string; tier: string; generated_at: string | null; }
 export interface StudentRow { student_id: string; name: string; email: string; username: string | null; cohort: string | null; institution: string | null; domain_of_interest: string | null; account_status: string; email_verified: boolean; created_at: string; latest_status: string | null; }
-
-export interface ReviewDetail {
-  instance_id: string;
-  status: string;
-  findings: import('@reveal/shared').Findings | null;
-  high_stakes: import('@reveal/shared').HighStakesSummary | null;
-  facilitator_note: string | null;
-  decision: string;
-  slots: import('@reveal/shared').ReportSlots | null;
-}
-
-export interface ReportView {
-  instance_id: string;
-  generated_at: string;
-  slots: import('@reveal/shared').ReportSlots;
-  findings: import('@reveal/shared').Findings;
-  trait_scores: import('@reveal/shared').TraitScore[];
-}

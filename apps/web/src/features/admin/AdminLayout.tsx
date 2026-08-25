@@ -4,7 +4,6 @@ import { LogoLink } from '../../components/Logo.js';
 
 const NAV = [
   { to: '/admin', label: 'Overview', icon: '▦', end: true },
-  { to: '/admin/questions', label: 'Questionnaire', icon: '❔' },
   { to: '/admin/reports', label: 'Reports', icon: '▤' },
   { to: '/admin/students', label: 'Students', icon: '☺' },
   { to: '/admin/settings', label: 'Settings', icon: '⚙' },
