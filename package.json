@@ -17,7 +17,8 @@
     "dev": "pnpm shared:build && pnpm --parallel --filter @reveal/api --filter @reveal/web dev",
     "db:migrate": "pnpm --filter @reveal/api db:migrate",
     "db:seed": "pnpm --filter @reveal/api db:seed",
-    "v2:setup": "pnpm shared:build && pnpm --filter @reveal/api v2:generate && pnpm --filter @reveal/api v2:push && pnpm --filter @reveal/api v2:seed"
+    "v2:setup": "pnpm shared:build && pnpm --filter @reveal/api v2:generate && pnpm --filter @reveal/api v2:push && pnpm --filter @reveal/api v2:seed",
+    "db:deploy": "pnpm shared:build && pnpm --filter @reveal/api db:deploy"
   },
   "devDependencies": {
     "typescript": "^5.6.3"

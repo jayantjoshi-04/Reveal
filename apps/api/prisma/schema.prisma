@@ -5,17 +5,21 @@
 // order, order_line) is not modelled, and direction gating is by instance tier
 // rather than a purchased entitlement.
 //
-// These tables are prefixed `v2_` so they coexist on the same database as the
-// v1 raw-SQL tables (student, staff, …). The v2 engine is the ONLY writer of
-// the derived (L4) and payload (L5) layers — the determinism firewall.
+// These tables live in a dedicated `reveal_v2` Postgres schema so `prisma db
+// push` manages only them and never touches the V1 raw-SQL auth tables
+// (public.student, public.staff, …) the app shell still uses for login. The v2
+// engine is the ONLY writer of the derived (L4) and payload (L5) layers — the
+// determinism firewall.
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schemas  = ["reveal_v2"]
 }
 
 // ───────────────────────────── L1 · Identity & session ─────────────────────
@@ -33,6 +37,7 @@ model Student {
   instances     ReportInstance[]
 
   @@map("v2_student")
+  @@schema("reveal_v2")
 }
 
 model ReportInstance {
@@ -70,6 +75,7 @@ model ReportInstance {
 
   @@index([studentId])
   @@map("v2_report_instance")
+  @@schema("reveal_v2")
 }
 
 model Session {
@@ -82,6 +88,7 @@ model Session {
   device           String?
 
   @@map("v2_session")
+  @@schema("reveal_v2")
 }
 
 // ───────────────────────────── L2 · Master data (seed) ─────────────────────
@@ -99,6 +106,7 @@ model Construct {
   active          Boolean @default(true)
 
   @@map("v2_construct")
+  @@schema("reveal_v2")
 }
 
 model IntentDriver {
@@ -108,6 +116,7 @@ model IntentDriver {
   defaultValence String @map("default_valence")
 
   @@map("v2_intent_driver")
+  @@schema("reveal_v2")
 }
 
 model RulesetVersion {
@@ -125,6 +134,7 @@ model RulesetVersion {
   instances           ReportInstance[]
 
   @@map("v2_ruleset_version")
+  @@schema("reveal_v2")
 }
 
 model Role {
@@ -135,6 +145,7 @@ model Role {
   note          String?
 
   @@map("v2_role")
+  @@schema("reveal_v2")
 }
 
 model Domain {
@@ -147,6 +158,7 @@ model Domain {
   criticalSkills Json    @default("[]") @map("critical_skills")
 
   @@map("v2_domain")
+  @@schema("reveal_v2")
 }
 
 // Polymorphic (target_type + target_id → role | domain). Kept as a scalar
@@ -163,6 +175,7 @@ model RequiredProfile {
 
   @@index([targetType, targetId])
   @@map("v2_required_profile")
+  @@schema("reveal_v2")
 }
 
 model Activity {
@@ -179,6 +192,7 @@ model Activity {
   derivationRules    DerivationRule[]
 
   @@map("v2_activity")
+  @@schema("reveal_v2")
 }
 
 model ActivityOption {
@@ -198,6 +212,7 @@ model ActivityOption {
 
   @@index([activityId])
   @@map("v2_activity_option")
+  @@schema("reveal_v2")
 }
 
 model DerivationRule {
@@ -213,6 +228,7 @@ model DerivationRule {
 
   @@index([activityId])
   @@map("v2_derivation_rule")
+  @@schema("reveal_v2")
 }
 
 model MoleculeRule {
@@ -229,6 +245,7 @@ model MoleculeRule {
   priority       Int?
 
   @@map("v2_molecule_rule")
+  @@schema("reveal_v2")
 }
 
 model GrowthVehicle {
@@ -246,6 +263,7 @@ model GrowthVehicle {
   renderTemplate   String @map("render_template")
 
   @@map("v2_growth_vehicle")
+  @@schema("reveal_v2")
 }
 
 // ───────────────────────────── L3 · Raw capture (write-once) ────────────────
@@ -262,6 +280,7 @@ model ActivityResponse {
 
   @@index([reportInstanceId])
   @@map("v2_activity_response")
+  @@schema("reveal_v2")
 }
 
 model PortfolioArtifact {
@@ -273,6 +292,7 @@ model PortfolioArtifact {
   evidenceMap      Json           @default("{}") @map("evidence_map")
 
   @@map("v2_portfolio_artifact")
+  @@schema("reveal_v2")
 }
 
 model ExperienceEntry {
@@ -285,6 +305,7 @@ model ExperienceEntry {
   realVsSimulated  String         @map("real_vs_simulated") // real | simulated
 
   @@map("v2_experience_entry")
+  @@schema("reveal_v2")
 }
 
 model FactualInventory {
@@ -294,6 +315,7 @@ model FactualInventory {
   facts            Json           @default("{}")
 
   @@map("v2_factual_inventory")
+  @@schema("reveal_v2")
 }
 
 // ───────────────────────────── L4 · Derived (engine-only) ───────────────────
@@ -312,6 +334,7 @@ model Atom {
 
   @@index([reportInstanceId])
   @@map("v2_atom")
+  @@schema("reveal_v2")
 }
 
 model ConstructScore {
@@ -332,6 +355,7 @@ model ConstructScore {
 
   @@index([reportInstanceId])
   @@map("v2_construct_score")
+  @@schema("reveal_v2")
 }
 
 model MoleculeFired {
@@ -349,6 +373,7 @@ model MoleculeFired {
 
   @@index([reportInstanceId])
   @@map("v2_molecule_fired")
+  @@schema("reveal_v2")
 }
 
 model Direction {
@@ -371,6 +396,7 @@ model Direction {
 
   @@index([reportInstanceId])
   @@map("v2_direction")
+  @@schema("reveal_v2")
 }
 
 model Readiness {
@@ -384,6 +410,7 @@ model Readiness {
 
   @@index([reportInstanceId])
   @@map("v2_readiness")
+  @@schema("reveal_v2")
 }
 
 model GrowthSelection {
@@ -399,6 +426,7 @@ model GrowthSelection {
 
   @@index([reportInstanceId])
   @@map("v2_growth_selection")
+  @@schema("reveal_v2")
 }
 
 model Finding {
@@ -413,6 +441,7 @@ model Finding {
 
   @@index([reportInstanceId])
   @@map("v2_finding")
+  @@schema("reveal_v2")
 }
 
 model InstanceComparison {
@@ -432,6 +461,7 @@ model InstanceComparison {
   rulesetVersionId      String         @map("ruleset_version_id")
 
   @@map("v2_instance_comparison")
+  @@schema("reveal_v2")
 }
 
 // ───────────────────────────── L5 · Report payload (compiled) ───────────────
@@ -446,6 +476,7 @@ model ReportSlot {
 
   @@index([reportInstanceId])
   @@map("v2_report_slot")
+  @@schema("reveal_v2")
 }
 
 model ReportPayload {
@@ -456,4 +487,5 @@ model ReportPayload {
   rulesetVersionId String         @map("ruleset_version_id")
 
   @@map("v2_report_payload")
+  @@schema("reveal_v2")
 }
