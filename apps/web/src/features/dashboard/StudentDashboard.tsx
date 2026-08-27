@@ -106,7 +106,12 @@ function Home({ profile, inst, nav, setView }: { profile: Dashboard['profile']; 
             <div className="relative mb-2 font-mono text-[11px] uppercase tracking-[0.25em] text-white/70">Ready · REVEAL 2.0</div>
             <h1 className="relative font-serif text-3xl">Your reading is ready.</h1>
             <p className="relative mt-2 max-w-md text-sm text-white/80">The deterministic engine read your studio session — capacities, directions, and one thing you may not have expected.</p>
-            <Button variant="ghost" className="relative mt-6 border-white/30 bg-white/10 text-white hover:bg-white/20" onClick={() => nav(`/report/${inst.id}`)}>Open my report →</Button>
+            <div className="relative mt-6 flex flex-wrap gap-3">
+              <Button variant="ghost" className="border-white/30 bg-white/10 text-white hover:bg-white/20" onClick={() => nav(`/report/${inst.id}`)}>Open my report →</Button>
+              {inst.canRerun ? (
+                <Button variant="ghost" className="border-white/20 text-white/80 hover:bg-white/10" onClick={async () => { await api.surveyRerun(); nav('/survey'); }}>Re-run it →</Button>
+              ) : null}
+            </div>
           </div>
         </Card>
       </div>

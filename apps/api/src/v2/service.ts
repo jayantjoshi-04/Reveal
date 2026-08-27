@@ -8,9 +8,9 @@
 import type { ReportPayloadV2 } from '@reveal/shared/v2';
 import { prisma } from './prisma.js';
 import { loadMasterFromDb } from './master.js';
-import { runEngine } from './engine/index.js';
+import { runEngine, compareInstances } from './engine/index.js';
 import { assemblePayload } from './engine/assembly.js';
-import type { RawCapture, RawPayload } from './engine/types.js';
+import type { EngineResult, RawCapture, RawPayload } from './engine/types.js';
 
 const ACTIVE_RULESET = '2.0.0';
 
@@ -157,6 +157,74 @@ export async function generateReport(instanceId: string): Promise<ReportPayloadV
   });
 
   return payload;
+}
+
+/** Re-score an instance's raw capture under the CURRENT ruleset (no persistence). */
+export async function computeEngineResult(instanceId: string): Promise<EngineResult> {
+  const db = prisma();
+  const instance = await db.reportInstance.findUnique({ where: { id: instanceId }, include: { student: true } });
+  if (!instance) throw Object.assign(new Error('instance not found'), { statusCode: 404 });
+  const master = await loadMasterFromDb(db);
+  const raw = await loadRawCapture(instanceId, instance.student.enrolledField);
+  return runEngine({ master, tier: instance.tier as 'free' | 'paid', rulesetVersion: ACTIVE_RULESET }, raw);
+}
+
+export interface ComparisonSummary {
+  baselineInstanceId: string;
+  nullResultFlag: boolean;
+  movedConstructs: { construct: string; delta: number; direction: 'up' | 'down' }[];
+  moleculesGained: string[];
+  moleculesLost: string[];
+  directionRankChanges: Record<string, number>;
+  readinessMovement: Record<string, number>;
+}
+
+/**
+ * Stage 9 · Instance comparison. Re-score BOTH the re-run and its baseline under
+ * the current ruleset, diff them, persist the comparison, and return a summary.
+ * Returns null for a baseline (nothing to compare against).
+ */
+export async function computeAndStoreComparison(rerunId: string): Promise<ComparisonSummary | null> {
+  const db = prisma();
+  const instance = await db.reportInstance.findUnique({ where: { id: rerunId } });
+  if (!instance || instance.instanceType !== 're_run' || !instance.priorInstanceId) return null;
+
+  const [current, baseline] = await Promise.all([
+    computeEngineResult(rerunId),
+    computeEngineResult(instance.priorInstanceId),
+  ]);
+  const cmp = compareInstances(current, baseline);
+
+  const movedConstructs = Object.entries(cmp.perConstructDelta)
+    .filter(([, d]) => d.crossedThreshold && d.direction !== 'flat')
+    .map(([construct, d]) => ({ construct, delta: d.delta, direction: d.direction as 'up' | 'down' }))
+    .sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
+
+  await db.instanceComparison.deleteMany({ where: { reportInstanceId: rerunId } });
+  await db.instanceComparison.create({
+    data: {
+      reportInstanceId: rerunId,
+      baselineInstanceId: instance.priorInstanceId,
+      rescoredUnderRuleset: instance.rulesetVersionId,
+      perConstructDelta: cmp.perConstructDelta as object,
+      moleculesGained: cmp.moleculesGained as object,
+      moleculesLost: cmp.moleculesLost as object,
+      directionRankChanges: cmp.directionRankChanges as object,
+      readinessMovement: cmp.readinessMovement as object,
+      nullResultFlag: cmp.nullResultFlag,
+      rulesetVersionId: instance.rulesetVersionId,
+    },
+  });
+
+  return {
+    baselineInstanceId: instance.priorInstanceId,
+    nullResultFlag: cmp.nullResultFlag,
+    movedConstructs,
+    moleculesGained: cmp.moleculesGained,
+    moleculesLost: cmp.moleculesLost,
+    directionRankChanges: cmp.directionRankChanges,
+    readinessMovement: cmp.readinessMovement,
+  };
 }
 
 /** The active ruleset row id, seeding it lazily if absent. */

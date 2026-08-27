@@ -71,7 +71,9 @@ export const api = {
 
   // ── V2 survey (the native REVEAL 2.0.0 instrument) ──
   surveyStart: () => request<{ instanceId: string }>('/survey/start', { method: 'POST' }),
+  surveyRerun: () => request<{ instanceId: string }>('/survey/rerun', { method: 'POST' }),
   surveyStatus: () => request<{ instance: V2Status | null }>('/survey/status'),
+  surveyComparison: (id: string) => request<{ comparison: Comparison | null }>(`/survey/${id}/comparison`),
   surveyState: (id: string) => request<SurveyState>(`/survey/${id}`),
   surveySubmit: (id: string, activityId: string, rawPayload: unknown, channel?: 'say' | 'do') =>
     request<{ ok: boolean; next: string | null }>(`/survey/${id}/activity/${activityId}`, { method: 'POST', body: JSON.stringify({ rawPayload, channel }) }),
@@ -98,7 +100,15 @@ export interface Dashboard {
   profile: { name: string; email: string; username: string | null; domain_of_interest: string | null; institution: string | null };
 }
 export interface V2Status {
-  id: string; status: string; generatedAt: string | null; answered: number; total: number; reportReady: boolean;
+  id: string; status: string; instanceType: string; generatedAt: string | null; answered: number; total: number; reportReady: boolean; canRerun: boolean;
+}
+export interface Comparison {
+  baselineInstanceId: string;
+  nullResultFlag: boolean;
+  movedConstructs: { construct: string; delta: number; direction: string }[];
+  moleculesGained: string[];
+  moleculesLost: string[];
+  readinessMovement: Record<string, number>;
 }
 export interface SurveyOption {
   id: string; step: string; label: string; constructId: string | null; edge: string | null; driver: string | null; axis: string | null; isEscape: boolean;

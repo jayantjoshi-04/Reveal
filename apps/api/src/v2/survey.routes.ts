@@ -10,7 +10,7 @@ import { z } from 'zod';
 import { requireRole } from '../middleware/auth.js';
 import { db } from '../config/db.js';
 import { prisma } from './prisma.js';
-import { generateReport, activeRulesetId } from './service.js';
+import { generateReport, activeRulesetId, computeAndStoreComparison } from './service.js';
 
 // Which reusable screen archetype renders each activity.
 export const ARCHETYPE: Record<string, string> = {
@@ -59,14 +59,36 @@ export async function surveyRoutes(app: FastifyInstance): Promise<void> {
   // Start (or resume) the student's baseline instance.
   app.post('/survey/start', { preHandler: requireRole('student') }, async (req) => {
     const student = await v2StudentForRequest(req.user!.sub);
+    // Resume any in-progress instance (baseline or re-run); else start a baseline.
     let inst = await prisma().reportInstance.findFirst({
-      where: { studentId: student.id, status: 'in_progress', instanceType: 'baseline' },
+      where: { studentId: student.id, status: 'in_progress' },
       orderBy: { createdAt: 'desc' },
     });
     if (!inst) {
       const rulesetVersionId = await activeRulesetId();
       inst = await prisma().reportInstance.create({
         data: { studentId: student.id, rulesetVersionId, tier: 'free', status: 'in_progress', instanceType: 'baseline' },
+      });
+    }
+    return { instanceId: inst.id };
+  });
+
+  // Start (or resume) a re-run, chained to the student's latest generated reading.
+  app.post('/survey/rerun', { preHandler: requireRole('student') }, async (req) => {
+    const student = await v2StudentForRequest(req.user!.sub);
+    let inst = await prisma().reportInstance.findFirst({
+      where: { studentId: student.id, status: 'in_progress', instanceType: 're_run' },
+      orderBy: { createdAt: 'desc' },
+    });
+    if (!inst) {
+      const baseline = await prisma().reportInstance.findFirst({
+        where: { studentId: student.id, status: 'generated' },
+        orderBy: { createdAt: 'desc' },
+      });
+      if (!baseline) throw Object.assign(new Error('no generated reading to re-run from'), { statusCode: 400 });
+      const rulesetVersionId = await activeRulesetId();
+      inst = await prisma().reportInstance.create({
+        data: { studentId: student.id, rulesetVersionId, tier: 'free', status: 'in_progress', instanceType: 're_run', priorInstanceId: baseline.id },
       });
     }
     return { instanceId: inst.id };
@@ -79,14 +101,17 @@ export async function surveyRoutes(app: FastifyInstance): Promise<void> {
     if (!inst) return { instance: null };
     const answered = await prisma().activityResponse.findMany({ where: { reportInstanceId: inst.id }, select: { activityId: true } });
     const done = new Set(answered.map((a) => a.activityId));
+    const hasGenerated = await prisma().reportInstance.count({ where: { studentId: student.id, status: 'generated' } });
     return {
       instance: {
         id: inst.id,
         status: inst.status,
+        instanceType: inst.instanceType,
         generatedAt: inst.generatedAt,
         answered: [...done].length,
         total: ORDER.length,
         reportReady: inst.status === 'generated' || inst.status === 'archived',
+        canRerun: hasGenerated > 0 && inst.status !== 'in_progress',
       },
     };
   });
@@ -143,13 +168,41 @@ export async function surveyRoutes(app: FastifyInstance): Promise<void> {
     return { ok: true, next };
   });
 
-  // Complete → run the engine, store the payload, mark generated.
+  // Complete → run the engine, store the payload, mark generated. On a re-run,
+  // also compute + store the comparison against the re-scored baseline.
   app.post('/survey/:id/complete', { preHandler: requireRole('student') }, async (req) => {
     const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
     const student = await v2StudentForRequest(req.user!.sub);
     await ownInstance(id, student.id);
     await generateReport(id); // sets status generated + generatedAt, writes report_payload
+    await computeAndStoreComparison(id); // no-op for a baseline
     return { ok: true, instanceId: id };
+  });
+
+  // The re-run diff against the last reading (null for a baseline).
+  app.get('/survey/:id/comparison', { preHandler: requireRole('student', 'admin') }, async (req) => {
+    const { id } = z.object({ id: z.string().uuid() }).parse(req.params);
+    if (req.user!.role === 'student') {
+      const student = await v2StudentForRequest(req.user!.sub);
+      await ownInstance(id, student.id);
+    }
+    const row = await prisma().instanceComparison.findFirst({ where: { reportInstanceId: id }, orderBy: { createdAt: 'desc' } });
+    if (!row) return { comparison: null };
+    const delta = row.perConstructDelta as Record<string, { delta: number; direction: string; crossedThreshold: boolean }>;
+    const moved = Object.entries(delta)
+      .filter(([, d]) => d.crossedThreshold && d.direction !== 'flat')
+      .map(([construct, d]) => ({ construct, delta: d.delta, direction: d.direction }))
+      .sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
+    return {
+      comparison: {
+        baselineInstanceId: row.baselineInstanceId,
+        nullResultFlag: row.nullResultFlag,
+        movedConstructs: moved,
+        moleculesGained: row.moleculesGained as string[],
+        moleculesLost: row.moleculesLost as string[],
+        readinessMovement: row.readinessMovement as Record<string, number>,
+      },
+    };
   });
 
   // Read the compiled report payload (student owner or admin).
