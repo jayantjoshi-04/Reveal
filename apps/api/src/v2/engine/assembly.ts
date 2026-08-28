@@ -67,9 +67,15 @@ export function assemblePayload(
   }));
 
   // ── directions to show ──
-  const enrolled = meta.enrolledField?.toLowerCase() ?? '';
-  const enrolledMatch = enrolled
-    ? directions.find((d) => enrolled.split(/[\s/]+/).some((t) => t.length > 3 && d.roleName.toLowerCase().includes(t)))
+  // Match the enrolled field to a role by its *distinctive* words — "design",
+  // "designer" etc. are generic and would match almost any role, defeating the
+  // "shown honestly wherever it ranks" intent.
+  const GENERIC = new Set(['design', 'designer', 'designers', 'studio', 'the', 'and', 'for']);
+  const enrolledTokens = (meta.enrolledField?.toLowerCase() ?? '')
+    .split(/[\s/]+/)
+    .filter((t) => t.length > 3 && !GENERIC.has(t));
+  const enrolledMatch = enrolledTokens.length
+    ? directions.find((d) => enrolledTokens.some((t) => d.roleName.toLowerCase().includes(t)))
     : undefined;
   const shownIds = new Set<string>();
   const shown = [];

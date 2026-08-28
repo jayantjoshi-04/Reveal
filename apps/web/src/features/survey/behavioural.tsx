@@ -12,25 +12,43 @@ const clamp = (n: number) => Math.max(0, Math.min(100, n));
 
 // ── A3 / O2 · Tap-scene — where your eye goes ──────────────────────────────
 const CAT_CONSTRUCT: Record<string, string> = { PEOPLE: 'Empathy', FORM: 'Aesthetic', SYSTEM: 'Systems', DETAIL: 'Naturalistic', TEXT: 'Analytical' };
+const LENS_LABEL: Record<string, string> = { PEOPLE: 'People — who’s there, what they need', FORM: 'Form — colour, shape, composition', SYSTEM: 'Systems — how it flows and works', DETAIL: 'Details — the small telling things', TEXT: 'Words — signs, labels, meaning' };
 export function TapScene({ activity, busy, onSubmit }: ArchetypeProps): JSX.Element {
+  const isA3 = activity.code !== 'O2'; // A3 is do+say; O2 is the passive dwell replay (do only)
   const scene = B4_SCENES[activity.code === 'O2' ? 2 : 0]!;
   const [picked, setPicked] = useState<Set<number>>(new Set());
+  const [phase, setPhase] = useState<'tap' | 'claim'>('tap');
   const items = scene.items;
-  const submit = (): void => {
+
+  const submit = (claimCat?: string): void => {
     const counts: Record<string, number> = {};
     let total = 0;
     picked.forEach((i) => { const c = items[i]!.category; counts[c] = (counts[c] ?? 0) + 1; total++; });
-    const signals: Signal[] = Object.entries(CAT_CONSTRUCT)
-      .map(([cat, cid]) => sig(cid, 'do', total ? clamp(((counts[cat] ?? 0) / total) * 200) : 0));
+    // DO: where your eye actually went (tap proportions).
+    const signals: Signal[] = Object.entries(CAT_CONSTRUCT).map(([cat, cid]) => sig(cid, 'do', total ? clamp(((counts[cat] ?? 0) / total) * 200) : 0));
+    // SAY: which lens you *think* you lead with — the gap vs. DO is the surprise.
+    if (claimCat) for (const [cat, cid] of Object.entries(CAT_CONSTRUCT)) signals.push(sig(cid, 'say', cat === claimCat ? 80 : 20));
     onSubmit({ signals });
   };
+
+  if (isA3 && phase === 'claim') {
+    return (
+      <div>
+        <Prompt eyebrow="A3" title="Before we move on — which do you think you notice most?" sub="Your honest self-read. It’s fine if it differs from where your eye just went — that gap is often the interesting part." />
+        <div className="space-y-2">
+          {Object.entries(LENS_LABEL).map(([cat, label]) => <Chip key={cat} on={false} onClick={() => submit(cat)}>{label}</Chip>)}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Prompt eyebrow={activity.code} title="What do you notice first?" sub={`A ${scene.title.toLowerCase()}. Tap the things that catch your eye — there’s no right answer.`} />
       <div className="grid gap-2 sm:grid-cols-2">
         {items.map((it, i) => <Chip key={i} on={picked.has(i)} onClick={() => setPicked((p) => { const n = new Set(p); n.has(i) ? n.delete(i) : n.add(i); return n; })}>{it.label}</Chip>)}
       </div>
-      <NextButton busy={busy} disabled={picked.size === 0} onClick={submit} label="Save & continue" />
+      <NextButton busy={busy} disabled={picked.size === 0} onClick={() => (isA3 ? setPhase('claim') : submit())} label={isA3 ? 'Next' : 'Save & continue'} />
     </div>
   );
 }
