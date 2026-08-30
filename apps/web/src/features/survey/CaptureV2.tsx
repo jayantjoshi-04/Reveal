@@ -11,11 +11,14 @@ import { LogoLink } from '../../components/Logo.js';
 import { SurveyFrame, type RawPayload } from './shell.js';
 import { ReactionActivity } from './ReactionActivity.js';
 import { TapScene, Allocation, Duel, Arrange, PickMenu, Fork, ColdOpen, Compose, Upload } from './behavioural.js';
+import { ProjectWall, CurateShow, Reframe, Autopsy, MoodBoard, Paths, StealWall, QuickMake, Teach, Rescue } from './differentiated.js';
 
 const REGISTRY: Record<string, (p: import('./shell.js').ArchetypeProps) => JSX.Element> = {
   reaction: ReactionActivity, picks: ReactionActivity,
   tapscene: TapScene, allocation: Allocation, duel: Duel, arrange: Arrange,
   pickmenu: PickMenu, fork: Fork, coldopen: ColdOpen, compose: Compose, upload: Upload,
+  projectwall: ProjectWall, curateshow: CurateShow, reframe: Reframe, autopsy: Autopsy,
+  moodboard: MoodBoard, paths: Paths, stealwall: StealWall, quickmake: QuickMake, teach: Teach, rescue: Rescue,
 };
 
 export function CaptureV2(): JSX.Element {

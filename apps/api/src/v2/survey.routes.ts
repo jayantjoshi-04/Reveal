@@ -15,11 +15,11 @@ import { generateReport, activeRulesetId, computeAndStoreComparison } from './se
 // Which reusable screen archetype renders each activity.
 export const ARCHETYPE: Record<string, string> = {
   F1: 'reaction', F2: 'reaction', F3: 'reaction', F4: 'picks',
-  A1: 'allocation', A2: 'duel', A3: 'tapscene', A4: 'reaction', A5: 'reaction',
-  A6: 'reaction', A7: 'allocation', A8: 'reaction', A9: 'arrange',
-  B1: 'reaction', B2: 'reaction', B3: 'reaction', B4: 'compose',
-  C1: 'reaction', C2: 'reaction', C3: 'reaction',
-  O1: 'pickmenu', O2: 'tapscene', O3: 'fork', O4: 'reaction', O5: 'reaction',
+  A1: 'allocation', A2: 'duel', A3: 'tapscene', A4: 'projectwall', A5: 'reaction',
+  A6: 'reaction', A7: 'allocation', A8: 'quickmake', A9: 'arrange',
+  B1: 'curateshow', B2: 'reframe', B3: 'autopsy', B4: 'compose',
+  C1: 'moodboard', C2: 'paths', C3: 'stealwall',
+  O1: 'pickmenu', O2: 'tapscene', O3: 'fork', O4: 'teach', O5: 'rescue',
   U1: 'upload', U2: 'upload', U3: 'upload',
   GF1: 'arrange', GF2: 'coldopen',
 };
