@@ -260,7 +260,7 @@ function Footer({ onSignIn, onAdmin, onStart }: { onSignIn: () => void; onAdmin:
           </div>
         </div>
         <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-slate-200 pt-6 text-[12px] text-slate-500 dark:border-white/10 sm:flex-row">
-          <div>© {new Date().getFullYear()} REVEAL · Radikle. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} REVEAL · Radikle · <span className="font-mono opacity-70">build {__APP_COMMIT__}</span></div>
           <div className="flex items-center gap-5">
             <a className="transition-colors hover:text-slate-900 dark:hover:text-slate-300" href="#">Terms &amp; Conditions</a>
             <a className="transition-colors hover:text-slate-900 dark:hover:text-slate-300" href="#">Privacy</a>

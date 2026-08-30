@@ -49,7 +49,15 @@ export async function buildApp(): Promise<FastifyInstance> {
     return reply.code(500).send({ error: 'internal_error' });
   });
 
-  app.get('/health', async () => ({ status: 'ok', service: 'reveal-api' }));
+  // Health + live-version probe. `commit` reports exactly which git commit this
+  // instance is running (Render injects RENDER_GIT_COMMIT on every deploy), so
+  // "is the latest version live?" is answerable by curling /health.
+  app.get('/health', async () => ({
+    status: 'ok',
+    service: 'reveal-api',
+    commit: process.env.RENDER_GIT_COMMIT?.slice(0, 7) ?? 'dev',
+    ruleset: '2.0.0',
+  }));
 
   // Route trees under /api
   await app.register(
