@@ -26,8 +26,8 @@ DATABASE_URL="postgres://…neon…?sslmode=require" pnpm db:deploy
 
 ## 2 · API — Render
 
-The repo ships a **`render.yaml` blueprint**. In Render → **New → Blueprint**, point it
-at this repo. It configures:
+The repo ships a **`infra/render.yaml` blueprint** (this is the file Render reads). In
+Render → **New → Blueprint**, point it at this repo. It configures:
 
 - **Build:** install → build `@reveal/shared` → `prisma generate` → compile the API.
 - **Pre-deploy:** `pnpm --filter @reveal/api db:deploy` (migrate + push v2 schema + seed).
@@ -47,7 +47,11 @@ Set these env vars (Render → Environment):
 `NODE_ENV=production` is set by the blueprint. Render injects `PORT` automatically.
 
 > No blueprint? Create a **Web Service** manually with the same build / pre-deploy /
-> start commands from `render.yaml`.
+> start commands from `infra/render.yaml`.
+>
+> **Database note:** the blueprint expects an **external** `DATABASE_URL` (Neon, §1) —
+> it does **not** create a Render Postgres, because Render's free Postgres expires
+> after 30 days. Set `DATABASE_URL` to your Neon string in Render → Environment.
 
 ---
 

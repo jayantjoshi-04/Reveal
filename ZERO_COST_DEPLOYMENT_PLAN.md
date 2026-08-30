@@ -7,6 +7,12 @@ top to bottom.*
 > **Companion doc:** [`ARCHITECTURE.md`](./ARCHITECTURE.md) explains how the app
 > is built. This doc explains how to ship it.
 
+> ⚠️ **Updated:** the blueprint no longer bundles a Render Postgres. Render's free
+> Postgres **expires after 30 days**, so `infra/render.yaml` now uses an **external
+> Neon** database (`DATABASE_URL` is a manual secret). Treat "Route A / All-Render
+> Postgres" below as historical — follow **[`DEPLOY.md`](./DEPLOY.md)** (Neon route)
+> for the current, supported steps.
+
 ---
 
 ## 1. The goal

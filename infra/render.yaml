@@ -1,7 +1,14 @@
-# REVEAL API + database — Render Blueprint (Infrastructure as Code).
+# REVEAL API — Render Blueprint (Infrastructure as Code).
 # This repo's Render Blueprint is configured to read this file at infra/render.yaml.
 # In the dashboard: Blueprints → Reveal → Manual sync (it reads this file).
-# It stands up the API service AND a free Postgres, and wires them together.
+#
+# The database is an EXTERNAL managed Postgres (Neon free tier) — NOT a Render
+# database — because Render's free Postgres expires after 30 days. Set its
+# connection string as DATABASE_URL below (Render → Environment → add secret).
+#
+# On every deploy: install deps → build @reveal/shared → build the API
+# (prisma generate + tsc); then (preDeploy) run the auth migrations, push the
+# v2 Prisma schema, and seed the master data against DATABASE_URL; then start.
 services:
   - type: web
     name: reveal-api
@@ -9,6 +16,9 @@ services:
     plan: free
     # corepack enable guarantees the pinned pnpm is on PATH on Render's builder.
     buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @reveal/shared build && pnpm --filter @reveal/api build
+    # Idempotent: creates the schema + seeds master data on first deploy, and is
+    # safe to re-run on every deploy. Watch the log for "✅ v2 seed complete".
+    preDeployCommand: pnpm --filter @reveal/api db:deploy
     startCommand: pnpm --filter @reveal/api start
     healthCheckPath: /health
     envVars:
@@ -16,11 +26,10 @@ services:
         value: "20"
       - key: NODE_ENV
         value: production
-      # Auto-wired from the free Postgres defined below (internal connection).
+      # Your Neon connection string — MUST include ?sslmode=require.
+      # e.g. postgresql://USER:PASSWORD@ep-xxx.region.aws.neon.tech/neondb?sslmode=require
       - key: DATABASE_URL
-        fromDatabase:
-          name: reveal-db
-          property: connectionString
+        sync: false
       # Render generates a strong random secret — you don't invent one.
       - key: JWT_SECRET
         generateValue: true
@@ -57,8 +66,3 @@ services:
         sync: false
       - key: SMTP_PASS
         sync: false
-
-databases:
-  - name: reveal-db
-    plan: free
-    databaseName: reveal
