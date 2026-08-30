@@ -28,6 +28,24 @@ function nn(v: unknown): string | null {
 }
 
 async function main(): Promise<void> {
+  // On the free plan we seed inside the start command, so this runs on every
+  // cold start. Clearing + reseeding master data every boot is wasteful and —
+  // once real report instances exist — trips the ruleset_version Restrict FK.
+  // So if master data is already present and complete, skip entirely. The schema
+  // itself is still ensured every boot by the migrate + `prisma db push` that run
+  // before this. Set FORCE_RESEED=1 to rebuild master data on purpose (e.g. after
+  // editing the seed JSONs). Bracket the check on the first *and* last table so a
+  // half-finished prior seed still re-runs.
+  const [constructN, vehicleN] = await Promise.all([
+    prisma.construct.count(),
+    prisma.growthVehicle.count(),
+  ]);
+  if (constructN > 0 && vehicleN > 0 && process.env.FORCE_RESEED !== '1') {
+    console.log(`· master data already present (${constructN} constructs, ${vehicleN} growth vehicles) — skipping seed. Set FORCE_RESEED=1 to rebuild.`);
+    console.log('\n✅ v2 seed complete (already current)');
+    return;
+  }
+
   console.log('· clearing v2 master-data tables');
   // Order: children before parents (though seed rows have no cross-FK deletes,
   // clearing in reverse load order keeps it safe).
