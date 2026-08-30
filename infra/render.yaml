@@ -16,10 +16,13 @@ services:
     plan: free
     # corepack enable guarantees the pinned pnpm is on PATH on Render's builder.
     buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @reveal/shared build && pnpm --filter @reveal/api build
-    # Idempotent: creates the schema + seeds master data on first deploy, and is
-    # safe to re-run on every deploy. Watch the log for "✅ v2 seed complete".
-    preDeployCommand: pnpm --filter @reveal/api db:deploy
-    startCommand: pnpm --filter @reveal/api start
+    # Free-tier note: Render runs preDeployCommand only on PAID instances, so on
+    # the free plan we seed inside the start command — db:deploy runs first
+    # (idempotent: auth migrations + v2 schema push + master-data seed), THEN the
+    # server starts. The server only begins serving after the seed finishes.
+    # Watch the log for "✅ v2 seed complete". On a paid plan, move db:deploy to a
+    # preDeployCommand instead for faster cold starts.
+    startCommand: pnpm --filter @reveal/api db:deploy && pnpm --filter @reveal/api start
     healthCheckPath: /health
     envVars:
       - key: NODE_VERSION
